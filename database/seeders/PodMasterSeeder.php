@@ -1,0 +1,287 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\PodMaster;
+
+class PodMasterSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+
+           $data=[['data_frame'=>'AB_T1',
+                'description'=>'Ambient Temperature Sensor – 1',
+                'unit'=>'°C',
+                'range'=>'000 to 100',
+                'threshold'=>'>37',
+                'min'=>'0',
+                'max'=>'37',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'AB_H1',
+                'description'=>'Ambient Humidity Sensor – 1',
+                'unit'=>'%RH',
+                'range'=>'000 to 100',
+                'threshold'=>'Not needed',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'POD_T1',
+                'description'=>'POD/BB Temperature Sensor – 1',
+                'unit'=>'°C',
+                'range'=>'000 to 100',
+                'threshold'=>'If POD-T1> AB-T1( + 4 degrees)',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'10'],
+
+                ['data_frame'=>'POD_H1',
+                'description'=>'POD/BB Humidity Sensor – 1',
+                'unit'=>'%RH',
+                'range'=>'000 to 100',
+                'threshold'=>'not required',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'TDS_V1',
+                'description'=>'Total Dissolved Salt Sensor Value',
+                'unit'=>'mg/L (milli gram/Litre)',
+                'range'=>'000000 to 65535',
+                'threshold'=>'If POD-T1> AB-T1( + 4 degrees)',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'PH_V1',
+                'description'=>'pH Sensor Value',
+                'unit'=>'-N-A-',
+                'range'=>'00 to 20',
+                'threshold'=>'Threshold to be manually provided- Range option',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'NUT_T1',
+                'description'=>'Nutrient Solution Temperature Sensor Value – 1',
+                'unit'=>'°C',
+                'range'=>'000 to 100',
+                'threshold'=>'If POD-T1> AB-T1( + 4 degrees)',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'NP_I1',
+                'description'=>'Current (consumed) – Nutrient Pump (1 or 2)',
+                'unit'=>'mA (milli Ampere)',
+                'range'=>'0000 to 9999',
+                'threshold'=>'on for > 5mins and  off for>30 mins',
+                'min'=>'5000',
+                'max'=>'1800',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'SV_I1',
+                'description'=>'Current (consumed) – Solenoid Valve (1 or 2)',
+                'unit'=>'mA (milli Ampere)',
+                'range'=>'0000 to 9999',
+                'threshold'=>'on for > 10 mins and off for >18 hrs',
+                'min'=>'500',
+                'max'=>'200',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'BAT_V1',
+                'description'=>'Battery Power Left',
+                'unit'=>'%',
+                'range'=>'000 to 100',
+                'threshold'=>'20% and below',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'FLO_V1',
+                'description'=>'Flow Meter value ( pulse per minute)',
+                'unit'=>'ppm',
+                'range'=>'000 to 9999',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'FLO_V2',
+                'description'=>'Flow Meter value ( pulse per minute)',
+                'unit'=>'ppm',
+                'range'=>'000 to 9999',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'STS_PSU',
+                'description'=>'Running on Battery power or AC Mains',
+                'unit'=>'-N-A-',
+                'range'=>'BAT or AC',
+                'threshold'=>'Not Required',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'STS_NP1',
+                'description'=>'Nutrient Pump Health Status – 1',
+                'unit'=>'-N-A-',
+                'range'=>'OK or FLT or STB',
+                'threshold'=>'on for > 10mins and off for>30 mins',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'STS_NP2',
+                'description'=>'Nutrient Pump Health Status – 2',
+                'unit'=>'-N-A-',
+                'range'=>'OK or FLT or STB',
+                'threshold'=>'on for > 10mins and off for>30 mins ( When status is OK)',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'STS_SV1',
+                'description'=>'Fresh Water Solenoid Valve Health Status – 1',
+                'unit'=>'-N-A-',
+                'range'=>'OK or FLT or STB',
+                'threshold'=>'on for > 5mins and off for>30 mins',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'STS_SV2',
+                'description'=>'Fresh Water Solenoid Valve Health Status – 2',
+                'unit'=>'-N-A-',
+                'range'=>'OK or FLT or STB',
+                'threshold'=>'on for > 5mins and off for>30 mins',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'WL1H',
+                'description'=>'Source Tank Water Level Sensor-1 - High Level Status',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'WL1L',
+                'description'=>'Source Tank Water Level Sensor-1 – Low Level Status',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'WL2H',
+                'description'=>'Reservoir Tank Water Level Sensor-2 - High Level Status',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'WL2L',
+                'description'=>'Reservoir Tank Water Level Sensor-2 – Low Level Status',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'WL3H',
+                'description'=>'BackUP Tank Water Level Sensor-3 - High Level Status',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'WL3L',
+                'description'=>'BackUP Tank Water Level Sensor-3 – Low Level Status',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'RL1',
+                'description'=>'Relay 1 Status – Controls Nutrient Pump – 1',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'1-on for > 10mins and  off for>30 mins ',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'RL2',
+                'description'=>'Relay 2 Status – Controls Nutrient Pump – 2',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'1-on for > 10mins and  off for>30 mins ',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'RL3',
+                'description'=>'Relay 3 Status – Controls Fresh Water  Valve – 1',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'1- on for > 10 mins and off for >18 hrs ',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'RL4',
+                'description'=>'Relay 4 Status – Stand By',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'1- on for > 10 mins and off for >18 hrs',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'RL5',
+                'description'=>'Relay 5 Status – Controls RO Plant AC VOltage Supply ',
+                'unit'=>'-N-A-',
+                'range'=>'ON or OFF',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0'],
+
+                ['data_frame'=>'PMODE',
+                'description'=>'Pod Mode ',
+                'unit'=>'-N-A-',
+                'range'=>'YES or NO',
+                'threshold'=>'',
+                'min'=>'0',
+                'max'=>'0',
+                'x_value'=>'0']];
+
+
+
+        
+        foreach ($data as $key => $value) {
+             $admin = podMaster::create($value);
+        }
+
+    }
+}
