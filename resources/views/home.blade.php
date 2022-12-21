@@ -445,7 +445,11 @@
                     echo "['".$d->day."', ".$d->count."],";
                 }
                 @endphp
+
+
         ]);
+
+        
  
         var options = { 
           title: 'tickets traffic',

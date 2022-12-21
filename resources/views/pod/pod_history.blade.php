@@ -7,6 +7,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
 
 <body>
@@ -48,7 +50,11 @@
                     <input type="text" name="datetimes" id="datetimes" value="{{$datepicker}}" placeholder="Select Date Range" readonly/>
                     <input type="hidden" name="pod_id" value="{{$id}}">
                     <button class=" btn-primary" type="submit" name="action" value="filter">Filter</button>
-                    <button class=" btn-primary" type="submit" name="action" value="export" onclick="return confirm('POD Historical Data will be exported in CSV format')">Export</button>
+                    <button class=" btn-primary" type="submit" name="action" value="export" onclick="Swal.fire(
+  'Websolutionstuff!',
+  'Button Clicked',
+  'success'
+)">Export</button>
                         
                     </div>
 

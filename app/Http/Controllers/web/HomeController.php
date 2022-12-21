@@ -60,12 +60,12 @@ class HomeController extends Controller
         ->orderBy('createdAt')
         ->get();
 
-       /* $tickets_closed_chart = Ticket::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAY(updated_at) as day"),\DB::raw('max(updated_at) as updatedAt'))
+        $tickets_closed_chart = Ticket::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAY(updated_at) as day"),\DB::raw('max(updated_at) as updatedAt'))
         ->whereYear('created_at', date('Y'))
         ->groupBy('day')
         ->orderBy('updatedAt')
         ->get();
-*/
+
 
        $tickets=Ticket::where('status','!=','0')
                         ->where('created_at','LIKE','%'.$date.'%')->paginate(10);
@@ -74,7 +74,8 @@ class HomeController extends Controller
 
        // print_r($data);die();
 
-         return view('home',compact('tickets', 'pods_count' ,'hub_count','alert_count','chart','ticketschart','tickets_count'));
+         return view('home',compact('tickets', 'pods_count' ,'hub_count','alert_count','chart','ticketschart','tickets_closed_chart','tickets_count'));
+         
        }
 
     public function show()
