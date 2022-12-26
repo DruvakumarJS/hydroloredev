@@ -169,8 +169,8 @@
       </div>
 
       <div style="margin:20px;float:right;">
-        <button class=" btn-primary rounded-pill " type="submit" name="action" value=" save"> Save Changes </button>
-        <button class=" rounded-pill " type="submit" name="action" value=" cancel">Cancel </button>
+        <button class="btn  btn-primary rounded-pill " type="submit" name="action" value=" save"> Save Changes </button>
+        <button class=" btn rounded-pill " type="submit" name="action" value=" cancel">Cancel </button>
       </div>
 
       </form>

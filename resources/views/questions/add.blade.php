@@ -1,10 +1,10 @@
 
 @extends('layouts.app')
 @section('content')
-<body >
+<body>
 <div class="container-body ">
        <div class="row justify-content-center">
-               
+
 
                     <div class="row">
                         <div class="col-md-6">
@@ -27,7 +27,6 @@
                                 @enderror
                                 <div>
                                     <button class=" btn-primary rounded-pill " type="submit" name="action" value=" Update">Add</button>
-                                    
                                 </div>
 
                         </form>

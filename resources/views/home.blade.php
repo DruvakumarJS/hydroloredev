@@ -9,8 +9,10 @@
                 <label class="date"> {{date('d M ,Y')}} </label>
 
                 <form method="get" action="{{route('hub_serach')}}" style="float:right; ">
-                    <input style="border-radius: 7px;" type="text" placeholder="  search Hub ID" name="search">
-                    <button class="btn-primary">serach</button>
+                    <div class="d-flex">
+                        <input class="form-control" type="text" placeholder="Search Hub ID" name="search">
+                        <button class="btn btn-primary">Search</button>
+                    </div>
                     @if(Session::has('message'))
                         <div id="mydiv" class="alert-box success" style="color:red">
                             {{ Session::get('message') }}
