@@ -397,7 +397,8 @@
                 var options = {
                     title: 'Registered Users',
                     curveType: 'function',
-                    legend: {position: 'bottom'}
+                    legend: {position: 'bottom'},
+                    titleTextStyle: {fontSize:'18'}
                 };
 
                 var chart = new google.visualization.LineChart(document.getElementById('users_chart'));
@@ -426,9 +427,10 @@
 
 
                 var options = {
-                    title: 'tickets traffic',
+                    title: 'Tickets Traffic',
                     curveType: 'function',
-                    legend: {position: 'bottom'}
+                    legend: {position: 'bottom'},
+                    titleTextStyle: {fontSize:'18'}
 
                 };
 
