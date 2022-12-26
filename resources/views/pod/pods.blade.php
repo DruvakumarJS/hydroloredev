@@ -12,7 +12,11 @@
                 <div class="dropdown">
                     <input class="form-control" type="search" name="search" id="search" placeholder="search">
                 </div>
+            </form>
+        </div>
 
+            <div class="container-body">
+                <div class="row">
                 <div class="card table-responsive">
                     <table class="table">
                         <tr>
@@ -108,6 +112,11 @@
                     @endif
 
                 </div>
+
+            </div>
+
         </div>
+    </div>
+    </body>
 
 @endsection
