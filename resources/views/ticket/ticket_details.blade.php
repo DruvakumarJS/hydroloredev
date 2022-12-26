@@ -33,7 +33,7 @@
 
 
 
-      <div class="form-body">
+      <div class="form-body card-new">
 
 
          <div class="row mb-2">
@@ -96,7 +96,7 @@
         @endif
 
 
-        <div class="row mb-2">
+        <div class="row  mb-2">
 
           <div class="card col-md-3">
             <label class="lable-head" for="subject" class="label-title">User Name</label>
@@ -126,7 +126,7 @@
 
 
           @if(Auth::user()->role_id == '1')
-            <p class="header-lab">Modify Ticket Status </p>
+            <p class="header-lab">Modify Ticket Status</p>
 
                 <form method="post" action="{{route('update_status')}}">
                       @csrf
@@ -146,7 +146,7 @@
 
                         <div>
 
-                          <div>
+                          <div class="mt-3">
                             <button class="btn btn-primary rounded-pill" type="submit" name="action" value=" Update">Update</button>
                             <button class="btn rounded-pill " type="submit" name="action" value=" cancel">Cancel</button>
                           </div>
