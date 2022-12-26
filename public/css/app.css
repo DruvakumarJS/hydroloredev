@@ -10498,7 +10498,6 @@ body {
 .imagesize {
   width: 20px;
   height: 20px;
-  background-color: white;
 }
 
 .dropdown {
@@ -10532,13 +10531,15 @@ body {
 }
 
 .sidebar a.active {
-  background-color: white;
+  background-color: #24c48e;
   border: none;
 }
 
 .sidebar a:hover:not(.active) {
   border-color: white;
   color: white;
+  background: #505565;
+  transition: 0.5s ease all;
 }
 
 div.content {
