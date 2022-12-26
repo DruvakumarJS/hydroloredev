@@ -15,13 +15,14 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-   
+
     <!-- Styles -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/mycustomestyle.css') }}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    
+
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
 
@@ -29,15 +30,15 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    
+
 
 </head>
 <body class="body">
     <div id="app">
 
 <header>
- <!-- Side Bar starts -->  
- @if(Auth::user()->role_id == '1')     
+ <!-- Side Bar starts -->
+ @if(Auth::user()->role_id == '1')
         <nav>
  <div class="sidebar navbar-collapse">
     <!-- list-group-item list-group-item-action py-2 ripple -->
@@ -68,7 +69,7 @@
         <a
            href="{{route('show_users')}}"
            class="list-group-item  py-2 ripple {{ request()->routeIs('show_users')||request()->routeIs('edituser') ||request()->routeIs('view_pod')||
-           request()->routeIs('show_add_user_form') ||request()->routeIs('view_user_details')? 'active' : '' 
+           request()->routeIs('show_add_user_form') ||request()->routeIs('view_user_details')? 'active' : ''
             }} "
 
            >
@@ -86,11 +87,11 @@
            >
           <img class="imagesize" src="{{asset('images/tickets.png')}}" >
         </a>
-       
+
         <a
            href="{{route('show_settings')}}"
            class="list-group-item  py-2 ripple {{ request()->routeIs('show_settings')
-           ||request()->routeIs('admins') 
+           ||request()->routeIs('admins')
            ||request()->routeIs('add_admin')
            ||request()->routeIs('locations')
            ||request()->routeIs('location')
@@ -105,7 +106,7 @@
            >
            <img class="imagesize" src="{{asset('images/setting.png')}}" >
         </a>
-       
+
         <a
            href="{{ route('logout') }}"
            class="list-group-item  py-2 ripple "
@@ -114,19 +115,19 @@
            <img class="imagesize" src="{{asset('images/shutdown.jpeg')}}" >
         </a>
 
-</div> 
+</div>
 
 </nav>
 <!-- Side  Bar ends -->
-@endif 
- @if(Auth::user()->role_id == '3') 
+@endif
+ @if(Auth::user()->role_id == '3')
 
  <nav>
      <div class="sidebar navbar-collapse">
 
         <a
            href="{{route('customer-dashboard')}}"
-           class="list-group-item  py-2 ripple {{ request()->routeIs('customer-dashboard') 
+           class="list-group-item  py-2 ripple {{ request()->routeIs('customer-dashboard')
            ? 'active' : '' }}"
 
            >
@@ -136,7 +137,7 @@
          <a
            href="{{ route('reset_password') }}"
            class="list-group-item  py-2 ripple "
-          
+
            >
            <img class="imagesize" src="{{asset('images/reset.png')}}" >
         </a>
@@ -148,11 +149,11 @@
            >
            <img class="imagesize" src="{{asset('images/shutdown.jpeg')}}" >
         </a>
-         
+
      </div>
  </nav>
 
- @endif 
+ @endif
 
 
 
@@ -181,7 +182,7 @@
 
                     <ul class="navbar-nav ms-auto">
 
-                       
+
                          <img class="rounded-circle" src="{{asset('images/person.png')}}" style="width:20px;height: 20px; margin: auto; " >
                             <li class="nav-item dropdown fa-fa-user">
 
@@ -204,19 +205,19 @@
                                 </div>
 
                             </li>
-                      
+
                     </ul>
                 </div>
   </nav>
- 
-<!-- Top Bar ends -->  
 
-</header>    
+<!-- Top Bar ends -->
+
+</header>
 
 
 
   <main class="py-4">
-            <div style="padding-left: 50px;">
+            <div class="main-container">
                 @yield('content')
             </div>
 
