@@ -6,7 +6,7 @@
 
 <body >
 
-  
+
   <div class="container-body">
 
     @if(session()->has('message'))
@@ -15,9 +15,9 @@
     </div>
     @endif
 
-    
 
-   
+
+
       <div>
 
       <!--   <form method="get" action="{{route('show_users')}}">
@@ -31,7 +31,7 @@
 
       </div>
 
-   
+
 
       <div class="form-body">
 
@@ -39,18 +39,18 @@
          <div class="row mb-2">
 
            <div class="card col-md-3">
-            <label class="lable-head" for="hub_id" class="label-title">Hub ID</label>
-            
-            <h4 class="header-lab">{{$tickets->hub_id}}</h4>
-            
-          </div> 
+            <label class="label-head" for="hub_id" class="label-title">Hub ID</label>
 
-          @if(($tickets->pod_id)!=0) 
-            
+            <h4 class="header-lab">{{$tickets->hub_id}}</h4>
+
+          </div>
+
+          @if(($tickets->pod_id)!=0)
+
           <div class="card col-md-3">
-            <label class="lable-head" for="subject" class="label-title">pod_id</label>
+            <label class="label-head" for="subject" class="label-title">pod_id</label>
              <h4 class="header-lab">{{$tickets->pod_id}}</h4>
-             
+
           </div>
 
           @endif
@@ -58,91 +58,81 @@
 
         </div>
 
-        
+
         <div class="row mb-8">
-            
+
           <div class="card col-md-6">
-            <label class="lable-head" for="subject" class="label-title">Subject</label>
-             @php    
-          
+            <label class="label-head" for="subject" class="label-title">Subject</label>
+             @php
+
              $issue=$tickets->subject;
              $array=explode('$', $issue);
 
           @endphp
-           @foreach($array as $key => $val) 
+           @foreach($array as $key => $val)
             <h4 class="header-lab">{{$val}}</h4>
-            @endforeach 
+            @endforeach
           </div>
 
-        
+
         </div>
 
          @if(($tickets->current_value)!="")
          <div class="row mb-2">
 
-            
+
           <!-- <div class="card col-md-3">
             <label class="lable-head" for="subject" class="label-title">threshold_value</label>
             <h4 class="header-lab">[min - max - x] {{$tickets->threshold_value}}</h4>
           </div class="header-lab">
  -->
           <div class="card col-md-3">
-            <label class="lable-head" for="hub_id" class="label-title">current_value</label>
+            <label class="label-head" for="hub_id" class="label-title">current_value</label>
             <h4 class="header-lab">{{$tickets->current_value}}</h4>
-            
-          </div>  
+
+          </div>
 
         </div>
         @endif
 
 
         <div class="row mb-2">
-            
+
           <div class="card col-md-3">
             <label class="lable-head" for="subject" class="label-title">User Name</label>
             <h4 class="header-lab">{{$tickets->user->firstname}}</h4>
           </div>
 
           <div class="card col-md-3">
-            <label class="lable-head"for="hub_id" class="label-title">Phone number</label>
+            <label class="label-head"for="hub_id" class="label-title">Phone number</label>
             <h4 class="header-lab">{{$tickets->user->mobile}}</h4>
-            
-          </div>  
+
+          </div>
 
         </div>
 
 
 
         <div class="row mb-2">
-            
           <div class="card col-md-6">
             <label class="lable-head" for="location" class="label-title">Location</label>
             <h4 class="header-lab">{{$tickets->user->location}}</h4>
-          </div class="header-lab">
-
-          
+          </div>
 
         </div>
 
 
 
-       
 
-
-
-       <h4></h4>
-
-
-      
 
           @if(Auth::user()->role_id == '1')
             <p class="header-lab">Modify Ticket Status </p>
 
                 <form method="post" action="{{route('update_status')}}">
                       @csrf
-                            
+
                           <input class="header-lab" type="radio" id="open" name="status" {{ $tickets->status == "1"  ? 'checked' : '' }} value="1">
-                          <label for="open"  >Open</label><br>
+                          <label for="open" >Open</label><br>
 
                           <input type="radio" id="pending" name="status"  {{ $tickets->status == "2"  ? 'checked' : '' }}  value="2">
                           <label for="pending">Pending</label><br>
@@ -152,31 +142,30 @@
 
                         <input type="hidden" name="id" value="{{$id}}">
 
-                        
+
 
                         <div>
-                          
-                          <div style="margin-top: 30px;"> 
-                            <button class=" btn-primary rounded-pill" type="submit" name="action" value=" Update">Update </button> 
-                            <button class=" rounded-pill " type="submit" name="action" value=" cancel">Cancel </button> 
-                            
+
+                          <div>
+                            <button class="btn btn-primary rounded-pill" type="submit" name="action" value=" Update">Update</button>
+                            <button class="btn rounded-pill " type="submit" name="action" value=" cancel">Cancel</button>
                           </div>
 
 
 
                         </div>
 
-                </form> 
+                </form>
               @endif
 
       </div>
-         
-      
-   
 
-   
-  </div> 
-  
+
+
+
+
+  </div>
+
 </body>
 
 

@@ -58,7 +58,7 @@
         <div>
 
           <div>
-             <button class=" btn-primary " type="submit" name="action" value="save">Save </button>
+             <button class="btn btn-primary " type="submit" name="action" value="save">Save</button>
 
           </div>
 
