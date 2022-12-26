@@ -62,7 +62,7 @@
            || request()->routeIs('search_alert')? 'active' : '' }}"
 
            >
-          <img class="imagesize" src="{{asset('images/widge.png')}}" >
+          <img class="imagesize" src="{{asset('images/menu.svg')}}" >
         </a>
 
         @if(Auth::user()->role_id == '1')
@@ -73,7 +73,7 @@
             }} "
 
            >
-           <img class="imagesize" src="{{asset('images/person.png')}}" >
+           <img class="imagesize" src="{{asset('images/users.svg')}}" >
         </a>
         @endif
 
@@ -85,7 +85,7 @@
            || request()->routeIs('raise_tickets')? 'active' : '' }}"
 
            >
-          <img class="imagesize" src="{{asset('images/tickets.png')}}" >
+          <img class="imagesize" src="{{asset('images/ticket.svg')}}" >
         </a>
 
         <a
@@ -104,7 +104,7 @@
            ? 'active' : '' }}"
 
            >
-           <img class="imagesize" src="{{asset('images/setting.png')}}" >
+           <img class="imagesize" src="{{asset('images/settings.svg')}}" >
         </a>
 
         <a
@@ -112,7 +112,7 @@
            class="list-group-item  py-2 ripple "
            onclick="return confirm('Are you sure to logout ?')"
            >
-           <img class="imagesize" src="{{asset('images/shutdown.jpeg')}}" >
+           <img class="imagesize" src="{{asset('images/power.svg')}}" >
         </a>
 
 </div>

@@ -41,17 +41,15 @@
            class="list-group-item list-group-item-action py-2 ripple"
            aria-current="true"
            >
-           
+
           <h2 class="card-text-color" style="height: 130px;">H</h2>
         </a>
 
-     
-        <a
-           href="{{route('home')}}"
+
+        <a href="{{route('home')}}"
            class="list-group-item list-group-item-action py-2 ripple"
-           aria-current="true"
-           >
-          <img class="imagesize" src="{{asset('images/widge.png')}}" >
+           aria-current="true">
+          <img class="imagesize" src="{{asset('images/menu.svg')}}" >
         </a>
 
 
@@ -87,7 +85,7 @@
            >
            <img class="imagesize" src="{{asset('images/shutdown.jpeg')}}" >
         </a>
-        
+
       </div>
     </div>
   </nav>
@@ -105,7 +103,7 @@
 
        <!--  <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
           <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}"   href="{{route('home')}}">Dashboard</a>
-    
+
         </li>
 
 
@@ -130,7 +128,7 @@
       </ul>
 
 
-     
+
     </div>
   </div>
 
@@ -141,9 +139,9 @@
 
                     </ul>
 
-                   
+
                     <ul class="navbar-nav ms-auto">
-                        
+
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
@@ -180,7 +178,7 @@
                     </ul>
                 </div>
 </nav>
-  
+
   <!-- Navbar -->
 </header>
 <!--Main Navigation-->
@@ -190,7 +188,7 @@
             <div style="padding-top: 50px;">
                 @yield('content')
             </div>
-            
+
         </main>
 <!--Main layout-->
 </body>

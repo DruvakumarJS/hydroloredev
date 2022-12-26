@@ -6,17 +6,10 @@
 
   <div class="container-body">
 
-      <div >
-
-        
+      <div>
           <a style="float:right;margin-right: 30px" class="btn btn-primary" href="{{route('admins')}}">View Admins</a>
-
-      
-
          <h2 class="head-h1">Add Admin</h2>
          <label class="date">{{date('d M ,Y')}} </label>
-
-
       </div>
 
     <form method="post" action="{{route('create_new_admin')}}">
@@ -34,7 +27,7 @@
              @enderror
           </div>
 
-       			
+
         </div>
 
 
@@ -55,18 +48,18 @@
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
           </div>
-          
-
-        </div>	
 
 
-        
+        </div>
+
+
+
 
         <div>
 
           <div>
              <button class=" btn-primary " type="submit" name="action" value="save">Save </button>
-            
+
           </div>
 
 
@@ -79,11 +72,11 @@
     </form>
 
 
-  
+
 
   </div>
 
-  
+
 
 
 </body>
