@@ -72,16 +72,20 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card">
-                        <div id="users_chart"></div>
+                @if(sizeOf($ticketschart) > 0)
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div id="users_chart"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div id="tickets_chart"></div>
+                @endif
+                @if(sizeOf($ticketschart) > 0)
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div id="tickets_chart"></div>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
 
 
@@ -201,110 +205,6 @@
 
                 @endif
 
-
-
-
-
-                <!-- @if(!empty($tickets) && $tickets->count())
-
-                    <div>
-
-                         <label class="header-lab">Tickets</label>
-                         <label style="float: right;margin-top: 10px;margin-right: 10px;">Today</label>
-                         <div>
-
-                       <div class="card table-responsive" >
-                         <table class="table" >
-
-                           <tr style="background-color:grey;color: white;" >
-                            <th>Sl.No</th>
-                            <th>Ticket ID</th>
-                            <th>Subject</th>
-                            <th>Customer Name</th>
-                            <th>Mobile</th>
-                            <th>Status</th>
-                            <th>Updated</th>
-                            <th></th>
-                           </tr>
-
-
-@foreach ($tickets as $key => $value)
-
-                        @php
-                            $statusvalue=$value->status;
-
-                              if($statusvalue=='2'){$data='pending';$colourcode='#e6b00e';}
-                              else if($statusvalue=='1'){$data='open';$colourcode='#e86413';}
-                              else if($statusvalue=='0'){$data='closed';$colourcode='#0ee6c9';}
-                              else {$data='undefined';$colourcode='#FF0000';}
-
-                              $issue=$value->subject;
-                              $array=explode('$', $issue);
-
-                        @endphp
-
-                            <tr>
-                            <td>{{$key + $tickets->firstItem()}}</td>
-          <td>{{$value->sr_no}}</td>
-
-           <td>
-            <table>
-            @foreach($array as $key => $val)
-                            @if($val!="")
-                                <tr><td>{{$val}}</td></tr>
-                            @endif
-                        @endforeach
-                        </table>
-                      </td>
-                       <td>{{$value->user->firstname}}</td>
-          <td>{{$value->user->mobile}}</td>
-          <td> <label class="curved-text" style="background-color: {{$colourcode}}">{{$data}}</label></td>
-
-          <td>{{$value->updated_at}}</td>
-          <td><a  href="{{route('search_ticket',$value->sr_no)}}">View</a></td>
-        </tr>
-
-
-                    @endforeach
-
-                    </table>
-
-
-                     <label>Showing {{ $tickets->firstItem() }} to {{ $tickets->lastItem() }} of  {{$tickets->total()}} results</label>
-
-          {!! $tickets->links() !!}
-
-
-                    </div>
-
-                    </div>
-               </div>
-
-
-
-                @endif -->
-
-            </div>
-
-
-            <!--  <div style="padding:30px;">
-
- <form action="{{ route('send.notification') }}" method="POST">
-                        @csrf
-            <div class="form-group">
-                <label>Message Title</label>
-                <input type="text" class="form-control" name="title">
-            </div>
-            <div class="form-group">
-                <label>Message Body</label>
-                <textarea class="form-control" name="body"></textarea>
-            </div>
-            <button type="submit" class="btn btn-success btn-block">Send Notification</button>
-        </form>
-
-</div>
--->
-
         </div>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -379,6 +279,7 @@
         </script>
 
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        @if(sizeOf($chart) > 0)
         <script type="text/javascript">
             google.charts.load('current', {'packages': ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
@@ -408,7 +309,10 @@
                 chart.draw(data, options);
             }
         </script>
-
+        @endif
+      
+        @if(sizeOf($ticketschart) > 0)
+              
         <script type="text/javascript">
             google.charts.load('current', {'packages': ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
@@ -419,9 +323,11 @@
                     ['Month Name', 'tickets'],
 
                     @php
-                        foreach($ticketschart as $d) {
-                            echo "['".$d->day."', ".$d->count."],";
-                        }
+                      
+                            foreach($ticketschart as $d) {
+                                echo "['".$d->day."', ".$d->count."],";
+                            }
+                        
                     @endphp
 
 
@@ -441,7 +347,8 @@
                 chart.draw(data, options);
             }
         </script>
-
+        @endif
+       
         <script type="text/javascript">
             setTimeout(function () {
                 $("#mydiv").fadeOut().empty();

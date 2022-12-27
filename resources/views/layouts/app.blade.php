@@ -28,8 +28,9 @@
 
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
 
 
 </head>
@@ -73,7 +74,9 @@
             }} "
 
            >
-           <img class="imagesize" src="{{asset('images/users.svg')}}" >
+           <img class="imagesize" data-bs-toggle="tooltip" data-bs-placement="right"
+           data-bs-title="Users"
+           src="{{asset('images/users.svg')}}" >
         </a>
         @endif
 
@@ -214,14 +217,11 @@
 
 </header>
 
-
-
   <main class="py-4">
             <div class="main-container">
                 @yield('content')
             </div>
-
-        </main>
+  </main>
 
 </body>
 </html>
