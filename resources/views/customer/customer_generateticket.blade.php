@@ -15,19 +15,10 @@ else {
 
 @endphp
 
-
-
-<body>
-
   <div class="container-body">
-
       <div>
-
-      
          <h2 class="head-h1">Add Tickets</h2>
          <label class="date">{{date('d M ,Y')}} </label>
-
-
       </div>
 
     <form method="post" action="{{route('save_ticket')}}">
@@ -36,11 +27,11 @@ else {
       <div class="form-body">
 
         <div class="row card">
-        	
+
           <div>
 <!--  value="{{!isset($email)? old('email') : $email}}" -->
-        	<label  class="radio_btn_padding">User's Email ID :</label>
-        	<input  type="text" name="email" id="email" placeholder="Enter Email ID " required="required" value="{{$email!=''? $email :old('email') }}">
+        	<label>User's Email ID :</label>
+        	<input class="form-control" type="text" name="email" id="email" placeholder="Enter Email ID " required="required" value="{{$email!=''? $email :old('email') }}">
   	         @error('email')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -49,29 +40,26 @@ else {
                    {{ session()->get('message') }}
                 </div>
              @endif
-          </div> 
+          </div>
 
-       <div class="checkbox radio_btn_padding">
-  	    
+       <div class="checkbox">
   		 <label class="header-lab">Select the Issue</label>
-
-  	 
-  </div>
+        </div>
 
 
    @foreach($questions as $key=>$value)
-  <div class="checkboxes radio_btn_padding">
-  
+  <div class="checkboxes popcheck">
+
       <input type="hidden" value="0" name="issue[{{$value->question}}]">
       <input type="checkbox" value="1" name="issue[{{$value->question}}]" @if($value->published) checked @endif>{{$value->question}}
-     
+
   </div>
 
   @endforeach
 
-          <div>
-             <button class=" btn-primary rounded-pill " type="submit" name="action" value=" Update">Generate</button>
-             <button class=" rounded-pill " type="submit" name="action" value=" cancel">Cancel </button>
+          <div class="mt-4">
+             <button class="btn btn-primary rounded-pill " type="submit" name="action" value=" Update">Generate</button>
+             <button class="btn rounded-pill " type="submit" name="action" value=" cancel">Cancel </button>
           </div>
 
 
@@ -83,7 +71,7 @@ else {
 
     </form>
 
-  
+
 
   </div>
 
