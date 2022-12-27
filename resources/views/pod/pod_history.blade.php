@@ -83,10 +83,10 @@
    </div>
 
     <div class="card table-responsive" >
-     <table class="table" >
+     <table class="table">
         <tr >
              <th>Sl.No</th>
-             <th nowrap="nowrap" style="width: 200px">Time</th>
+             <th  width="100" style="width: 80%">Time</th>
              <th nowrap="nowrap">AB-T1</th>
              <th nowrap="nowrap">AB-H1</th>
              <th nowrap="nowrap">POD-T1</th>
@@ -135,7 +135,7 @@
 
           <tr>
           <td>{{$key + $pods->firstItem()}}</td>
-          <td>{{$value->created_at}}</td>
+          <td  width="100" style="width: 80%">{{$value->created_at}}</td>
           <td>{{$value->AB_T1}}</td>
             <td>{{$value->AB_H1}}</td>
             <td>{{$value->POD_T1}}</td>

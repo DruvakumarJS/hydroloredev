@@ -10278,6 +10278,7 @@ textarea.form-control-lg {
 
 .body {
   background-color: #F3F4F8;
+  font-family: "Nunito", sans-serif;
 }
 
 .container-body {
@@ -10462,7 +10463,20 @@ textarea.form-control-lg {
 .floatingbutton {
   position: fixed;
   bottom: 20px;
-  right: 10px;
+  right: 0px;
+  left: 0px;
+  margin: auto;
+  background: #4fad51;
+  width: 171px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: #fff;
+  border-radius: 20px;
+  padding: 8px 20px;
+}
+.floatingbutton label {
+  margin-bottom: 0px;
 }
 
 body {
@@ -10661,4 +10675,21 @@ div.content {
   padding-top: 20px !important;
   padding-bottom: 20px !important;
   border: 0px;
+}
+
+.cardnew {
+  background: #ffffff;
+  border-radius: 20px;
+  color: #000000;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 16px;
+}
+
+.mobileMenu {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.mobileMenu .mobMenu {
+  width: 32px;
 }
