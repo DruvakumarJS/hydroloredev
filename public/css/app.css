@@ -10693,3 +10693,27 @@ div.content {
 .mobileMenu .mobMenu {
   width: 32px;
 }
+
+.mobileCanvas a {
+  color: #000000;
+}
+.mobileCanvas .offcanvas-body {
+  margin-top: 40px;
+  text-align: center;
+}
+.mobileCanvas ul {
+  list-style: none;
+  padding-left: 0px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.mobileCanvas ul li {
+  padding-bottom: 16px;
+}
+
+.popcheck {
+  margin-bottom: 8px;
+}
+.popcheck input {
+  margin: 0 5px 0 0px;
+}

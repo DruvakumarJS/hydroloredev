@@ -414,4 +414,32 @@ div.content {
 }
 
 
+.mobileCanvas{
+    a{
+        color: #000000;
+    }
+    .offcanvas-body{
+        margin-top: 40px;
+        text-align: center;
+    }
+    ul{
+        list-style: none;
+        padding-left: 0px;
+        font-size: 18px;
+        font-weight: 600;
+        li{
+            padding-bottom: 16px;
+
+        }
+    }
+}
+
+.popcheck{
+    margin-bottom: 8px;
+    input{
+        margin: 0 5px 0 0px
+    }
+}
+
+
 
