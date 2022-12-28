@@ -37,8 +37,8 @@
 
                 </div>
                 <div class="col">
-                    <div class="card card-section">
-                        <a href="">
+                    <div class="card card-section text-center ">
+                        <a href="resetpassword">
                             <img src="{{ asset('images/person.png') }}" alt="questions" width="50"/>
                             <h3>Reset Password </h3>
                         </a> 
