@@ -98,7 +98,7 @@
                         <div>
                             <div class="card table-responsive">
                                 <table class="table">
-                                    <tr style="background-color:black;color: white;">
+                                    <tr>
                                         <th>Sl.No</th>
                                         <th>Ticket ID</th>
                                         <th>Issue</th>
