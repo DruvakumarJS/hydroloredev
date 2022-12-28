@@ -40,7 +40,7 @@
                     <div class="card card-section text-center ">
                         <a href="resetpassword">
                             <img src="{{ asset('images/person.png') }}" alt="questions" width="50"/>
-                            <h3>Reset Password </h3>
+                            <h3>Reset Password </h3> 
                         </a> 
                     </div>
 
