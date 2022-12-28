@@ -22,7 +22,7 @@
                 </div>
                 <div class="col">
                     <div class="d-flex align-items-center justify-content-center">
-                        <input class="form-control w-auto" type="search" name="search" id="search" placeholder="search users">
+                        <input class="form-control w-auto mr-2" type="search" name="search" id="search" placeholder="Search Users">
                         <a class="btn btn-primary" href="{{route('show_add_user_form')}}">Add User</a>
                     </div>
                 </div>

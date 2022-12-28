@@ -9,7 +9,7 @@
                 <label class="date"> {{date('d M ,Y')}} </label>
 
                 <form method="get" action="{{route('hub_serach')}}" style="float:right; ">
-                    <div class="d-input-group">
+                    <div class="input-group">
 
                         <input class="form-control" type="text" placeholder="Search Hub ID" name="search">
                         <button class="btn btn-primary">Search</button>
