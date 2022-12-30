@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
     <body>
     <div class="container-body">
         <div class="row justify-content-center">
@@ -73,21 +74,25 @@
                 </div>
             </div>
             <div class="row">
-                @if(sizeOf($ticketschart) > 0)
+               
                     <div class="col-md-6">
                         <div class="card">
-                            <div id="users_chart"></div>
+                            <canvas id="users_chart"></canvas>
                         </div>
                     </div>
-                @endif
-                @if(sizeOf($ticketschart) > 0)
+               
+                
+                
                     <div class="col-md-6">
                         <div class="card">
-                            <div id="tickets_chart"></div>
+                            <canvas id="tickets_chart" ></canvas>
                         </div>
                     </div>
-                @endif
+               
+                  
             </div>
+
+           
 
 
                 @if(!empty($tickets) && $tickets->count())
@@ -210,6 +215,8 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
         <script>
             var firebaseConfig = {
                 apiKey: "AIzaSyBQnwQHe97LTq0PyA-6EkEJxfhY8itQxug",
@@ -279,76 +286,76 @@
             });
         </script>
 
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        @if(sizeOf($chart) > 0)
         <script type="text/javascript">
-            google.charts.load('current', {'packages': ['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
 
-            function drawChart() {
-
-
-                var data = google.visualization.arrayToDataTable([
-                    ['Month Name', 'Register Users Count'],
-
-                    @php
-                        foreach($chart as $d) {
-                            echo "['".$d->day."', ".$d->count."],";
-                        }
-                    @endphp
-                ]);
-
-                var options = {
-                    title: 'Registered Users',
-                    curveType: 'function',
-                    legend: {position: 'bottom'},
-                    titleTextStyle: {fontSize:'18'}
-                };
-
-                var chart = new google.visualization.LineChart(document.getElementById('users_chart'));
-
-                chart.draw(data, options);
-            }
+           var x_users_Values = <?php echo $users_xValue; ?>;
+           var y_users_Values = <?php echo $users_yValue; ?>;
+           
+            new Chart("users_chart", {
+              type: "line",
+              data: {
+                labels: x_users_Values,
+                datasets: [{
+                  label: 'Users',
+                  fill: false,
+                  lineTension: 0,
+                  backgroundColor: "rgba(11 , 156 , 49 ,1)",
+                  borderColor: "rgba(11 , 156 , 49 ,0.4)",
+                  data: y_users_Values
+                }]
+              },
+              options: {
+                legend: {display: true},
+                scales: {
+                  yAxes: [{ticks: {min: 0, max:10}}],
+                }
+              }
+            });
         </script>
-        @endif
-      
-        @if(sizeOf($ticketschart) > 0)
-              
-        <script type="text/javascript">
-            google.charts.load('current', {'packages': ['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
+        
 
-            function drawChart() {
+        <script>
 
-                var data = google.visualization.arrayToDataTable([
-                    ['Month Name', 'tickets'],
-
-                    @php
-                      
-                            foreach($ticketschart as $d) {
-                                echo "['".$d->day."', ".$d->count."],";
-                            }
-                        
-                    @endphp
-
-
-                ]);
-
-
-                var options = {
-                    title: 'Tickets Traffic',
-                    curveType: 'function',
-                    legend: {position: 'bottom'},
-                    titleTextStyle: {fontSize:'18'}
-
-                };
-
-                var chart = new google.visualization.LineChart(document.getElementById('tickets_chart'));
-
-                chart.draw(data, options);
-            }
+           var xValues = <?php echo $tickets_xValue; ?>;
+           var yValues = <?php echo $tickets_yValue; ?>;
+           var tickets_closed_yValue= <?php echo $tickets_closed_yValue; ?>;
+            // var yValues = [0,0,0,0,0,1,0,9,23,9,24,16,30,22,22,32,29,28,22,30,30,2,0,0,0,0,0,1,0,0];
+           
+           
+            new Chart("tickets_chart", {
+              type: "bar",
+              data: {
+                labels: xValues,
+                datasets: [
+                {
+                  label: 'Tickets raised',  
+                  fill: false,
+                  lineTension: 0,
+                  backgroundColor: "rgba(0,0,255,1.0)",
+                  borderColor: "rgba(0,0,255,0.1)",
+                  data: yValues
+                },
+                /*{
+                  label: 'Tickets closed',  
+                  fill: false,
+                  lineTension: 0,
+                  backgroundColor: "rgba(11 , 156 , 49 ,1)",
+                  borderColor: "rgba(11 , 156 , 49 ,1)",
+                  data: tickets_closed_yValue
+                }*/
+                ]
+              },
+              options: {
+                legend: {display: true},
+                scales: {
+                  yAxes: [{ticks: {min: 0, max:50}}],
+                }
+              }
+            });
         </script>
-        @endif
+
+
+        
        
         <script type="text/javascript">
             setTimeout(function () {

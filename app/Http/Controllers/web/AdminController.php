@@ -132,31 +132,58 @@ public function logout()
 
  public function resetPassword(){
 
-    $email=auth()->user()->email;
-
-    return view('admin/reset_admin_password',compact('email'));
+   
+    return view('admin/reset_admin_password');
  }  
 
  public function update(Request $request){
 
+  
+    $email=auth()->user()->email;
+    $password=$request->current_password;
+    $password_new=$request->password_confirmation;
 
-    $email=$request->email;
-    $password=$request->password;
-    $password_confirmation=$request->password_confirmation;
 
-    if($password!=$password_confirmation){
 
-         return redirect()->route('resetpassword')
-                        ->with('message', 'password and confirm password do not match')
+        $login_credentials=[
+            'email'=>$email,
+            'password'=>$password,
+        ];
+
+        if(auth()->attempt($login_credentials))
+        {
+           
+        }
+        else{
+           
+          return redirect()->route('resetpassword')
+                        ->with('message', 'wrong current password')
                         ->withInput();
-    }
-    else{
-         $admin=User::where('email',$email)
-                      ->update(['password'=>Hash::make($password)]);
 
-                     return redirect()->route('show_settings');
+        }
+    
+        // print_r(Hash::make($password));die();
+        
 
-    }
+    
+           if($password==$password_new){
+               
+
+                 return redirect()->route('resetpassword')
+                                ->with('message', 'Currernt password and new password are same')
+                                ->withInput();
+            }
+            else{
+                 
+                 $admin=User::where('email',$email)
+                              ->update(['password'=>Hash::make($password_new)]);
+
+                            // return redirect()->route('show_settings');
+                              return redirect()->route('resetpassword')
+                                ->with('success', 'password changed successfully')
+                                ->withInput();
+
+            }
 
    
  }  

@@ -151,7 +151,7 @@ Route::middleware('auth:web')->group(function () {
             Route::post('save_admin',[AdminController::class, 'store'])->name('create_new_admin');
             Route::get('delete/{id}',[AdminController::class, 'destroy'])->name('delete_admin');
             Route::get('resetpassword',[AdminController::class, 'resetPassword'])->name('resetpassword');
-            Route::post('update_password',[AdminController::class, 'update'])->name('update_password');
+            Route::post('update_admin_password',[AdminController::class, 'update'])->name('update_admin_password');
            
         });
         Route::middleware(['auth','isCustomer'])->group(function () {
