@@ -124,9 +124,20 @@ class HomeController extends Controller
         //end    
         
     
-
+    $date = date('Y-m-d');
        $tickets=Ticket::where('status','!=','0')
                         ->where('created_at','LIKE','%'.$date.'%')->paginate(10);
+
+
+       // $tickets=Ticket::where('status','!=','0')
+       //                  ->where('created_at', 'like', $date.'%')
+       //                  ->latest()->paginate(10);
+
+                        // $tickets=Ticket::where('status','!=','0')
+                        // ->where('created_at','LIKE',"'".$date."%'")->paginate(10);
+
+
+
 
 
 

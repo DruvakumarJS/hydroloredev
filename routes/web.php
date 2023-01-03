@@ -116,8 +116,9 @@ Route::middleware('auth:web')->group(function () {
             Route::get('pods',[PODController::class,'index'])->name('pods');
             Route::get('POD_History/{id}',[PODController::class,'show'])->name('pod_history');
             Route::get('searchpod', [PODController::class,'searchpod']);
-            Route::get('export',[PODController::class,'export'])->name('exportdata');
-
+            Route::post('filter', [PODController::class,'filter'])->name('filter_history');
+            Route::post('export',[PODController::class,'export'])->name('exportdata');
+            // Route::post('exportdata', 'PODController@export');
 
 
 

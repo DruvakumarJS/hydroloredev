@@ -35,10 +35,8 @@ class DataController extends Controller
      */
     public function store(Request $request)
     {
-
-      //  echo 'SHISOH';exit;
-      /// Storage::put('hub_data.txt', $request);
-
+      
+      // print_r($request->input());die();
        $Inputdata=$request->input();
 
 

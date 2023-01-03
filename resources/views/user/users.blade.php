@@ -92,7 +92,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn " data-bs-dismiss="modal">No</button>
-                         <a href="{{route('deleteuser',$value->id)}}"> <input class="btn btn-primary" type="button"  value="Yes" style="padding-left:20px;padding-right:20px"> </a>
+                         <a href="{{route('deleteuser',$value->id)}}"> <input class="btn btn-primary" type="button"  data-bs-dismiss="modal"  value="Yes" style="padding-left:20px;padding-right:20px"> </a>
                       </div>
                     </div>
                   </div>

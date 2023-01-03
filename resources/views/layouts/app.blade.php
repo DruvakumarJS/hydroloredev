@@ -60,6 +60,7 @@
            || request()->routeIs('pod_history')
            || request()->routeIs('exportdata')
            || request()->routeIs('hub_serach')
+           || request()->routeIs('filter_history')
            || request()->routeIs('search_alert')? 'active' : '' }}"
 
            >
@@ -112,7 +113,7 @@
 
         <a
            class="list-group-item  py-2 ripple "
-           id="MybtnModal"
+           id="MylogoutbtnModal"
            
            >
            <img class="imagesize" src="{{asset('images/power.svg')}}" >
@@ -228,7 +229,7 @@
 
 <!-- Modal -->
 
-                <div class="modal" id="modal" >
+                <div class="modal" id="modal_logout" >
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header" style="background-color:white;">
@@ -253,8 +254,8 @@
 
 <script>
 $(document).ready(function(){
-  $('#MybtnModal').click(function(){
-    $('#modal').modal('show')
+  $('#MylogoutbtnModal').click(function(){
+    $('#modal_logout').modal('show')
   });
 });
 

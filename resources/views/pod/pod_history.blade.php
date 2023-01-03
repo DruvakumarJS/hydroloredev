@@ -39,33 +39,78 @@
 
             <div style="left: right;margin-right: 10px;">
                  <h3 class="card head-h1" style="float: left;margin-right: 10px; background: blue;  color: white;">POD ID : {{$id}}</h3>
+
+                  <button style="float:right; margin-top:20px" class="open-AddBookDialog btn-primary" id="btn_export1" value="export">Export</button>
+
                  
-                 <form method="get" action="{{route('exportdata')}}" >
+                 <form method="POST" action="{{route('filter_history')}}" >
                      @csrf
 
-                    <div style="float:right;margin-right: 30px ; margin-top:20px">
+                    <div style="float:right;margin-right: 10px ; margin-top:20px">
 
                     <a class="fa fa-refresh" href="{{route('pod_history',$id)}}">  </a>
 
                     <input type="text" name="datetimes" id="datetimes" value="{{$datepicker}}" placeholder="Select Date Range" readonly/>
                     <input type="hidden" name="pod_id" value="{{$id}}">
                     <button class=" btn-primary" type="submit" name="action" value="filter">Filter</button>
-                    <button class=" btn-primary" type="submit" name="action" value="export" onclick="Swal.fire(
-  'Websolutionstuff!',
-  'Button Clicked',
-  'success'
-)">Export</button>
-                        
-                    </div>
 
                  
-                 </form>
+                    </div>
+                </form>
+                 
+                     <!-- Modal -->
 
+                <div class="modal" id="modal_export1" >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header" style="background-color:white;">
+                         <img class="imagesize" src="{{asset('images/logo1.png')}}" >
+                        <h5 class="modal-title" >Hydrolore</h5>
+
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>The requested data will be Exported to CSV format, would you like to continue ?</p>
+
+                       
+
+                      </div>
+                      <div class="modal-footer">
+
+                        <form method="post" action="{{route('exportdata')}}">
+                            @csrf
+                        <div class="modal-body">
+                        
+                       
+                        <input type="hidden" name="pod_id" value="{{$id}}">
+                        <input type="hidden"  name="dateselected" id="dateselected">
+            
+                        <button type="button" class="btn " data-bs-dismiss="modal">No</button>
+                      
+
+                         <button class="btn btn-primary" data-bs-dismiss="modal" type="submit" id="btn_export_data" >Export</button>
+
+                         </div>
+
+                         </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+<!--  end Modal -->
+
+
+                 
+                
             
                  
 
            
             </div>
+
+           
 
         
               
@@ -209,7 +254,53 @@ $(function() {
       $(this).val('');
   });
 });
+
 </script>
+
+<script>
+/*$(document).ready(function(){
+  $('#btn_export1').click(function(){
+    $('#modal_export1').modal('show')
+   
+  });
+});*/
+
+$(document).on("click", ".open-AddBookDialog", function () {
+
+    var myBookId=$('#datetimes').val();
+     
+
+     $(".modal-body #dateselected").val(myBookId);
+     $('#modal_export1').modal('show')
+     
+});
+
+</script>
+
+<!-- <script>
+    $(function(){
+       $('#btn_export_data').click(function() {
+
+        var pod_id = "<?php echo"$id"?>";
+        var daterange=$('#datetimes').val();
+
+        window.open(url, '_blank');
+
+
+
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                url: '{{route('exportdata')}}',
+                type: 'GET',
+                data: { 'id': pod_id, 'daterange':daterange },
+                success: function(response)
+                {
+                     
+                }
+            });
+       });
+    });    
+</script> -->
 
 
 @endsection

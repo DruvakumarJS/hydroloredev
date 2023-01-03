@@ -30,9 +30,8 @@ class PODController extends Controller
 
         $output="";
    
-      $searchdata=Pod::where('hub_id','LIKE','%'.$request->search.'%')
-                             ->orWhere('pod_id','LIKE','%'.$request->search.'%')
-                             ->orWhere('hub_id','LIKE','%'.$request->search.'%')
+      $searchdata=Pod::where('pod_id','LIKE','%'.$request->search.'%')
+                             
                              ->get();
 
       foreach ($searchdata as $key => $searchdata) 
@@ -289,49 +288,70 @@ class PODController extends Controller
 
     public function export(Request $request)
     {
+       
+      // print_r($request->input());die();
+       $startdate="";
+       $enddate=""; 
+       
 
+       $id=$request->pod_id;
+       $datetimes=$request->dateselected;
 
+       if(!empty($datetimes))
+          {
+
+            $range=preg_split("/[to:]/", $datetimes);
+
+        
+            $startdate=$range[0];
+            $enddate=$range[2];
+            
+          }
+         
+
+       $file_name = 'pod'.$id.'_'.date('Y_m_d_H_i_s').'.csv';
+       return Excel::download(new ExportPodHistory($id , $startdate , $enddate), $file_name);
+
+      
+     
+    
+    }
+
+    public function filter(Request $request){
+
+      
        $startdate="";
        $enddate=""; 
        $id=$request->pod_id;
 
        if(!empty($request->datetimes))
-      {
+        {
 
         $range=preg_split("/[to:]/", $request->datetimes);
 
         $startdate=$range[0];
         $enddate=$range[2];
-        
-      }
 
-      // print_r($request->input());die();
+         
+        }
 
-       if($request->action=='export')
-       {
-
-       $file_name = 'pod'.$id.'_'.date('Y_m_d_H_i_s').'.csv';
-       return Excel::download(new ExportPodHistory($id , $startdate , $enddate), $file_name);
-
-      }
-      else if($startdate=="")
-      {
+        else if($startdate=="")
+        {
         
          return redirect()->route('pod_history',$id);      
 
-      }
-      else
-      {
-         $pods=MasterSyncData::where('pod_id',$id)
-         ->where('created_at','>=',$startdate.' 00:00:01')
-         ->where('created_at','<=',$enddate.' 23:59:59')
-         ->latest()->paginate(5);
-        
-         return view('pod/pod_history',compact('pods', 'id' , 'startdate','enddate'));
+        }
+          
 
-      }
-      
-     
+             $pods=MasterSyncData::where('pod_id',$id)
+             ->where('created_at','>=',$startdate.' 00:00:01')
+             ->where('created_at','<=',$enddate.' 23:59:59')
+             ->latest()->paginate(50);
+            
+             return view('pod/pod_history',compact('pods', 'id' , 'startdate','enddate'));
+
+          
+
 
     }
 }
