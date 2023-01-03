@@ -10617,15 +10617,10 @@ div.content {
   font-size: 15px;
 }
 
-.active, .collapsible:hover {
-  background-color: grey;
-}
-
 .collapsecontent {
   padding: 20px;
   display: none;
   overflow: hidden;
-  background-color: whitesmoke;
   margin-bottom: 20px;
 }
 
@@ -10716,4 +10711,9 @@ div.content {
 }
 .popcheck input {
   margin: 0 5px 0 0px;
+}
+
+.tab-button {
+  background: #ffffff;
+  margin-bottom: 10px;
 }
