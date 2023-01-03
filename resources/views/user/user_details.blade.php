@@ -164,34 +164,7 @@
 
 
                         </tr>
-                         <!-- @foreach($podMaster as $pod => $value)
-
-                        <tr>
-                          <td>{{$value->data_frame}}</td>
-                          <td>{{$value->description}}</td>
-                           <td>
-                              <label>max temparature</label><input type="text"  id="range" value="{{$value->range}} "></td>
-
-                           <td>
-                              <label>max temparature</label><input type="text" name="{{$value->data_frame}}" id="threshold" value="{{$value->threshold}}"></td>
-
-                          <td ><input type="Number" name="min_{{$pod}}" id="min_{{$pod}}" value="{{($value->min)=='0'?'':$value->min}}"  style="width: 70px"; onchange="addValue(this.value, '{{$pod}}', 'min')"></td>
-
-                           <td>
-                              <label>max temparature</label><input type="Number" name="max_{{$pod}}" id="max_{{$pod}}" value="{{($value->max)=='0'?'':$value->max}}" style="width: 70px"; onchange="addValue(this.value, '{{$pod}}', 'max')"></td>
-
-                           <td>
-                              <label>max temparature</label><input type="Number" name="x_value_{{$pod}}" id="x_value_{{$pod}}" value="{{($value->x_value)=='0'?'':$value->x_value}}" style="width: 70px"; onchange="addValue(this.value, '{{$pod}}', 'x_value')"> </td>
-
-                            <td>
-                           <input type="hidden" name="{{$value->data_frame}}" value="{{$value->min}} - {{$value->max}} - {{$value->x_value}}" id="hide_{{$pod}}"/>
-                          </td>
-
-
-                        </tr>
-
-
-                          @endforeach   -->
+                       
 
                            <tr>
                              <td>CUR</td>
@@ -476,6 +449,7 @@
                             <tr>
                              <td>RL1</td>
                              <td>Relay 1 Status – Controls Nutrient Pump – 1</td>
+                             <td>
                               <label>Max minute for ON</label><input type="text" value="10" name="min_time_RL1" placeholder="Max minute for ON "></td>
                               <td>
                               <label>Max minute for OFF</label><input type="text"  value="30" name="max_time_RL1" placeholder="max minutes for OFF"></td>

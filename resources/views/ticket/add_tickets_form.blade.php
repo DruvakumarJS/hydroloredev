@@ -65,7 +65,9 @@ else {
 
           <div class="mt-3">
              <button class="btn btn-primary" type="submit" name="action" value=" Update">Generate</button>
-             <button class="btn rounded-pill " type="submit" name="action" value=" cancel">Cancel </button>
+             <a href="{{route('home')}}">
+             <button class="btn rounded-pill " type="button" name="action" value=" cancel">Cancel </button>
+             </a>
           </div>
 
 

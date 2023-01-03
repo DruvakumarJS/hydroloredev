@@ -205,27 +205,56 @@ class CustomerController extends Controller
        }
 
        public function reset_password(){
+
         return view('customer/resetpassword');
        }
 
        public function update_password(Request $request)
        {
 
-            $email=$request->email;
-            $password=$request->password;
-            $password_confirmation=$request->password_confirmation;
+            $email=auth()->user()->email;
+            $password=$request->current_password;
+            $password_new=$request->password_confirmation;
 
-            if($password!=$password_confirmation){
+
+
+        $login_credentials=[
+            'email'=>$email,
+            'password'=>$password,
+        ];
+
+        if(auth()->attempt($login_credentials))
+        {
+           
+        }
+        else{
+           
+          return redirect()->route('reset_password')
+                        ->with('message', 'wrong current password')
+                        ->withInput();
+
+        }
+    
+        // print_r(Hash::make($password));die();
+        
+
+    
+           if($password==$password_new){
+               
 
                  return redirect()->route('reset_password')
-                                ->with('message', 'password and confirm password do not match')
+                                ->with('message', 'Currernt password and new password are same')
                                 ->withInput();
             }
             else{
+                 
                  $admin=User::where('email',$email)
-                              ->update(['password'=>Hash::make($password)]);
+                              ->update(['password'=>Hash::make($password_new)]);
 
-                             return redirect()->route('customer-dashboard');
+                            // return redirect()->route('show_settings');
+                              return redirect()->route('reset_password')
+                                ->with('success', 'password changed successfully')
+                                ->withInput();
 
             }
 

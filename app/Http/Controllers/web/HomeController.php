@@ -30,9 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         $date=date('Y-m-d');
-        
-        //echo url('/'); die();
-        
+       
         
         $hubs=Hub::all();
         $hub_count=$hubs->count();
@@ -42,30 +40,90 @@ class HomeController extends Controller
 
         $ticket=Ticket::all();
         $tickets_count=$ticket->count();
-
        
         $alerts=Alert::all();
         $alert_count=$alerts->count();
 
 
-        $chart = Userdetail::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAY(created_at) as day"),\DB::raw('max(created_at) as createdAt'))
-        ->whereYear('created_at', date('Y'))
-        ->groupBy('day')
-        ->orderBy('createdAt')
-        ->get();
+        $montharray=array();
 
-        $ticketschart = Ticket::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAY(created_at) as day"),\DB::raw('max(created_at) as createdAt'))
-        ->whereYear('created_at', date('Y'))
-        ->groupBy('day')
-        ->orderBy('createdAt')
-        ->get();
+        $month = date("t", strtotime('2021-10-18'));
+        $alldatethismonth = range(1, $month);
 
-        $tickets_closed_chart = Ticket::select(\DB::raw("COUNT(*) as count"), \DB::raw("DAY(updated_at) as day"),\DB::raw('max(updated_at) as updatedAt'))
-        ->whereYear('created_at', date('Y'))
-        ->groupBy('day')
-        ->orderBy('updatedAt')
-        ->get();
+        //users
 
+        foreach($alldatethismonth as $date){
+           
+           if(strlen($date)==1){
+             $today=date("Y-m-").'0'.$date;
+           }
+           else
+           {
+            $today=date("Y-m-").$date;
+           }
+           
+            $user_count=Userdetail::where('created_at','LIKE','%'.$today.'%')->get();
+
+            $results['y'][]=$user_count->count();
+            $results['x'][]=$date;
+           
+        }
+
+            $users_xValue = json_encode($results['x'], true);
+            $users_yValue = json_encode($results['y'], true);
+      
+        //end
+
+
+        //tickets
+        foreach($alldatethismonth as $date){
+           
+           if(strlen($date)==1){
+             $today=date("Y-m-").'0'.$date;
+           }
+           else
+           {
+            $today=date("Y-m-").$date;
+           }
+           
+            $tckets_count=Ticket::where('created_at','LIKE','%'.$today.'%')->get();
+
+            $result['y'][]=$tckets_count->count();
+            $result['x'][]=$date;
+           
+        }
+
+            $tickets_xValue = json_encode($result['x'], true);
+            $tickets_yValue = json_encode($result['y'], true);
+
+        //end  
+        
+
+         //tickets closed
+        foreach($alldatethismonth as $date){
+           
+           if(strlen($date)==1){
+             $today=date("Y-m-").'0'.$date;
+           }
+           else
+           {
+            $today=date("Y-m-").$date;
+           }
+           
+            $tckets_closed_count=Ticket::where('updated_at','LIKE','%'.$today.'%')
+            ->where('status',0)->get();
+
+            $result_closed['y'][]=$tckets_closed_count->count();
+            $result_closed['x'][]=$date;
+           
+        }
+
+            $tickets_closed_xValue = json_encode($result_closed['x'], true);
+            $tickets_closed_yValue = json_encode($result_closed['y'], true);
+
+        //end    
+        
+    
 
        $tickets=Ticket::where('status','!=','0')
                         ->where('created_at','LIKE','%'.$date.'%')->paginate(10);
@@ -74,7 +132,7 @@ class HomeController extends Controller
 
        // print_r($data);die();
 
-         return view('home',compact('tickets', 'pods_count' ,'hub_count','alert_count','chart','ticketschart','tickets_closed_chart','tickets_count'));
+         return view('home',compact('tickets', 'pods_count' ,'hub_count','alert_count','tickets_count', 'users_xValue', 'users_yValue','tickets_xValue', 'tickets_yValue' , 'tickets_closed_yValue'));
          
        }
 

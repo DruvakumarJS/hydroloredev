@@ -197,10 +197,46 @@ foreach ($userdetail as $key => $value) {
           <td>{{$pod->location}}</td>
           <td>{{$pod->status}}</td>
          <td>
-            <a href="{{route('deletepod',$pod->id)}}" class="btn btn-danger rounded-pill" onclick="return confirm('Are you sure to delete ?')"> Delete</a> </td>
+            
+            <a id="MybtnModal_{{$key}}"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+          </td>
         </tr>
 
+        <!-- Modal -->
+
+                <div class="modal" id="modal_{{$key}}" >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header" style="background-color:white;">
+                         <img class="imagesize" src="{{asset('images/logo1.png')}}" >
+                        <h5 class="modal-title" >Hydrolore</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Are you sure to delete the POD {{$pod->pod_id}} ?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn " data-bs-dismiss="modal">No</button>
+                         <a href="{{route('deletepod',$pod->id)}}"> <input class="btn btn-primary" type="button"  value="Yes" style="padding-left:20px;padding-right:20px"> </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+<!--  end Modal -->
+
+ <script>
+$(document).ready(function(){
+  $('#MybtnModal_{{$key}}').click(function(){
+    $('#modal_{{$key}}').modal('show')
+  });
+});  
+</script>
+
+
         <?php } }?>
+
+
   
 
 
