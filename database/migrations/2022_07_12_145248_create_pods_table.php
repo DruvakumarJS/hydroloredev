@@ -20,8 +20,8 @@ class CreatePodsTable extends Migration
             $table->string('hub_id');
             $table->string('status')->nullable();
             $table->string('location');
-            $table->string('dimention');
-            $table->string('polyhouses');
+            $table->string('dimention')->nullable();
+            $table->string('polyhouses')->nullable();
             $table->string('Date')->nullable();
             $table->string('Time')->nullable();
             $table->string('AB_T1')->nullable();

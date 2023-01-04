@@ -2,7 +2,6 @@
  
 @section('content')
 
-<body>
 <div class="container-body">
     <div class="row justify-content-center">
  

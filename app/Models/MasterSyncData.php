@@ -43,7 +43,8 @@ class MasterSyncData extends Model
         'RL4',
         'RL5',
         'PMODE',
-        'api_type'
+        'api_type',
+        'critical_data'
         ];
 
 

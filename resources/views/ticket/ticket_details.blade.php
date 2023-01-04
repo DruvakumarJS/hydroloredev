@@ -2,12 +2,7 @@
 
 @section('content')
 
-
-
-<body >
-
-
-  <div class="container-body">
+ <div class="container-body">
 
     @if(session()->has('message'))
     <div class="alert alert-danger">
@@ -15,15 +10,7 @@
     </div>
     @endif
 
-
-
-
       <div>
-
-      <!--   <form method="get" action="{{route('show_users')}}">
-          @csrf
-         <input  class="btn-primary button-right rounded-pill" type="submit" name="users" value=" view users " >
-       </form> -->
 
          <h2 class="head-h1">Ticket ID : {{$id}}</h2>
          <label class="date">{{date('d M ,Y')}} </label>
@@ -80,12 +67,6 @@
          @if(($tickets->current_value)!="")
          <div class="row mb-2">
 
-
-          <!-- <div class="card col-md-3">
-            <label class="lable-head" for="subject" class="label-title">threshold_value</label>
-            <h4 class="header-lab">[min - max - x] {{$tickets->threshold_value}}</h4>
-          </div class="header-lab">
- -->
           <div class="card col-md-3">
             <label class="label-head" for="hub_id" class="label-title">current_value</label>
             <h4 class="header-lab">{{$tickets->current_value}}</h4>
@@ -165,8 +146,6 @@
 
 
   </div>
-
-</body>
 
 
 @endsection

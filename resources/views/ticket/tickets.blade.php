@@ -2,7 +2,6 @@
 
 @section('content')
 
-<body>
 
 <div class="container-body">
 
@@ -35,8 +34,7 @@
           <th>User Name</th>
           <th>Location</th>
           <th>Mobile </th>
-           <!-- <th>Threshold Value</th> -->
-
+          
           <th>Status</th>
           <th>Updated</th>
           <th></th>
@@ -139,10 +137,6 @@
 
     </div>
 </div>
-
-<!-- kgkgkggk -->
-
-
 
 <div class="modal fade" id="myModal">
   <div class="modal-dialog">

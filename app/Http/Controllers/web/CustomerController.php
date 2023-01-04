@@ -191,7 +191,7 @@ class CustomerController extends Controller
 
          Mail::to($user->email)->send(new GenerateTicket($user, $sr_no,$problems));
 
-        return redirect()->route('my_tickets');
+        return redirect()->route('raise_ticket')->with('success', 'Your ticket has been generated Successfully , ');
        
 
        }

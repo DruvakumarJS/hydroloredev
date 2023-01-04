@@ -2,7 +2,7 @@
 
 @section('content')
 
-<body >
+
 
   <div class="container-body">
 
@@ -79,7 +79,7 @@
 
 
 
-</body>
+
 
 
 

@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <body>
+ >
     <div class="container-body">
         <div class="row justify-content-center">
             <form method="post" action="{{route('show_users')}}">
@@ -117,6 +117,5 @@
 
         </div>
     </div>
-    </body>
-
+   
 @endsection

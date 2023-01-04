@@ -11,8 +11,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
-<body>
-
     <div class="container" style="margin-top:50px;">
 
         <div style="text-align: center;">
@@ -100,6 +98,5 @@
         new Notification(noteTitle, noteOptions);
     });
     </script>
-</body>
 
 </html>

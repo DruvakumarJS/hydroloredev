@@ -108,7 +108,7 @@
 
                                       <div class="col-md-3">
                                         <label for="dimention" class="label-title">Dimention</label>
-                                        <input type="text" id="dimention" name="dimention" class="form-input"  required="required" value="{{ old('dimention') }}" />
+                                        <input type="text" id="dimention" name="dimention" class="form-input"   value="{{ old('dimention') }}" />
                                           @error('dimention')
                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                          @enderror
@@ -116,7 +116,7 @@
 
                                       <div class="col-md-3">
                                         <label for="polyhouses" class="label-title">Polyhouses</label>
-                                        <input type="text" id="polyhouses" name="polyhouses" class="form-input"  required="required" value="{{ old('polyhouses') }}" />
+                                        <input type="text" id="polyhouses" name="polyhouses" class="form-input"   value="{{ old('polyhouses') }}" />
                                          @error('polyhouses')
                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                          @enderror
@@ -159,8 +159,8 @@
                             <tr>
                               <th>Data Frame</th>
                               <th>Device</th>
-
                               <th>Default Trigger Conditions </th>
+                              <th></th>
 
 
                         </tr>
@@ -169,10 +169,12 @@
                            <tr>
                              <td>CUR</td>
                              <td>Cloud Update Rate</td>
+
                              <td>
                               <label>Time interval (minutes)</label>
                               <input type="text" name="CUR" value="120" placeholder="Time interval">
                             </td>
+                            <td></td>
 
                            </tr>
                            <tr>
@@ -182,7 +184,9 @@
 
                              <td>
                               <label>max temparature</label>
+                              <br>
                               <input value="37" type="text" name="AB_T1" placeholder="max temparature"></td>
+                              <td></td>
                            </tr>
 
 
@@ -192,7 +196,10 @@
 
                               <td>
                               <label>x value</label>
-                              <input type="text" name="AB_H1" placeholder="x value" disabled></td>
+                              <br>
+                              <input type="text" name="AB_H1" placeholder="x value" disabled>
+                              </td>
+                              <td></td>
                            </tr>
 
                             <tr>
@@ -200,7 +207,10 @@
                              <td>POD/BB Temperature Sensor – 1</td>
 
                               <td>
-                              <label>x value</label><input value="10" type="text" name="POD_T1" placeholder="x vlaue"></td>
+                              <label>x value</label>
+                              <br>
+                              <input value="10" type="text" name="POD_T1" placeholder="x vlaue"></td>
+                              <td></td>
                            </tr>
 
 
@@ -209,7 +219,10 @@
                              <td>POD/BB Humidity Sensor – 1</td>
 
                               <td>
-                              <label>max value</label><input type="text" name="POD_H1" placeholder="threshold max value" disabled></td>
+                              <label>max value</label>
+                              <br>
+                              <input type="text" name="POD_H1" placeholder="threshold max value" disabled></td>
+                              <td></td>
                            </tr>
 
                             <tr>
@@ -217,7 +230,10 @@
                              <td>Total Dissolved Salt Sensor Value</td>
 
                               <td>
-                              <label>max value</label><input type="text" name="TDS_V1" placeholder="threshold max value" ></td>
+                              <label>max value</label>
+                              <br>
+                              <input type="text" name="TDS_V1" placeholder="threshold max value" ></td>
+                              <td></td>
                            </tr>
 
 
@@ -226,7 +242,10 @@
                              <td>pH Sensor Value</td>
 
                               <td>
-                              <label>max value</label><input type="text" name="PH_V1" placeholder="threshold max value"></td>
+                              <label>max value</label>
+                              <br>
+                              <input type="text" name="PH_V1" placeholder="threshold max value"></td>
+                              <td></td>
                            </tr>
 
                             <tr>
@@ -234,7 +253,10 @@
                              <td>Nutrient Solution Temperature Sensor Value – 1</td>
 
                               <td>
-                              <label>x value</label><input value="10" type="text" name="NUT_T1" placeholder="x value"></td>
+                              <label>x value</label>
+                              <br>
+                              <input value="10" type="text" name="NUT_T1" placeholder="x value"></td>
+                              <td></td>
                            </tr>
 
 
@@ -243,9 +265,13 @@
                              <td>Current (consumed) – Nutrient Pump 1</td>
 
                               <td>
-                              <label>minimum mA </label><input value="800" type="text" name="min_NP_I1" placeholder="minimum mA "></td>
+                              <label>minimum mA </label>
+                              <br>
+                              <input value="800" type="text" name="min_NP_I1" placeholder="minimum mA "></td>
                               <td>
-                              <label>maximum mA </label><input value="5000" type="text" name="max_NP_I1" placeholder="maximum mA "></td>
+                              <label>maximum mA </label>
+                              <br>
+                              <input value="5000" type="text" name="max_NP_I1" placeholder="maximum mA "></td>
                            </tr>
 
                             <tr>
@@ -253,9 +279,14 @@
                              <td>Current (consumed) – Nutrient Pump 2</td>
 
                               <td>
-                              <label>minimum mA </label><input value="800" type="text" name="min_NP_I2" placeholder="minimum mA "></td>
+                              <label>minimum mA </label>
+                              <br>
+                              <input value="800" type="text" name="min_NP_I2" placeholder="minimum mA "></td>
                               <td>
-                              <label>maximum mA </label><input value="5000" type="text" name="max_NP_I2" placeholder="maximum mA "></td>
+                              <label>maximum mA </label>
+                              <br>
+                              <input value="5000" type="text" name="max_NP_I2" placeholder="maximum mA "></td>
+
                            </tr>
 
                             <tr>
@@ -263,26 +294,24 @@
                              <td>Current (consumed) – Solenoid Valve 1</td>
 
                               <td>
-                              <label>minimum mA </label><input value="200" type="text" name="min_SV_I1" placeholder="minimum mA "></td>
+                              <label>minimum mA </label>
+                              <br>
+                              <input value="200" type="text" name="min_SV_I1" placeholder="minimum mA "></td>
                               <td>
-                              <label>maximum mA </label><input  value="800" type="text" name="max_SV_I1" placeholder="maximum mA "></td>
+                              <label>maximum mA </label>
+                              <br>
+                              <input  value="800" type="text" name="max_SV_I1" placeholder="maximum mA "></td>
                            </tr>
-
-
-                            <!-- <tr>
-                             <td>BAT_V1</td>
-                             <td>Battery Power in milli volts</td>
-                             <td></td>
-                              <td>
-                              <label>max temparature</label><input type="" name="" placeholder="max temparature"></td>
-                           </tr> -->
 
                             <tr>
                              <td>FLO_UT</td>
                              <td>Flow Meter value (ppm) at the inlet of SourceTank</td>
 
                               <td>
-                              <label>max temparature</label><input type="text" name="FLO_UT" placeholder="max temparature"></td>
+                              <label>max temparature</label>
+                              <br>
+                              <input type="text" name="FLO_UT" placeholder="max temparature"></td>
+                              <td></td>
                            </tr>
 
 
@@ -291,158 +320,89 @@
                              <td>Flow Meter value (ppm) at the inlet of Reservoir Tank</td>
 
                               <td>
-                              <label>max temparature</label><input type="text" name="FLO_BT" placeholder="max temparture"></td>
+                              <label>max temparature</label>
+                              <br>
+                              <input type="text" name="FLO_BT" placeholder="max temparture"></td>
+                              <td></td>
                            </tr>
-
-                           <!--  <tr>
-                             <td>STS_PSU</td>
-                             <td>Running on Battery power or AC Mains</td>
-                             <td></td>
-                              <td>
-                              <label>max temparature</label><input type="" name="" placeholder="max temparature"></td>
-                           </tr> -->
-
 
                             <tr>
                              <td>STS_NP1</td>
-                             <td>"Nutrient Pump Health Status – 1
-"</td>
+                             <td>"Nutrient Pump Health Status – 1"</td>
 
-                            <!--  <td><div>
-                                 <input type="radio" name="STS_NP1" value="OK"> OK
-                                  <input type="radio" name="STS_NP1" value="FLT" checked> FLT
-                                   <input type="radio" name="STS_NP1" value="STB"> STB
-                               </div>
-                             </td> -->
                               <td>
-                              <label>max time in minutes</label><input value="60" type="text" name="max_time_STS_NP1" placeholder="max time in minutes"></td>
+                              <label>max time in minutes</label>
+                              <br><input value="60" type="text" name="max_time_STS_NP1" placeholder="max time in minutes"></td>
+
+                              <td></td>
                            </tr>
 
                             <tr>
                              <td>STS_NP2</td>
                              <td>Nutrient Pump Health Status – 2</td>
-
-                            <!--  <td>
-                               <div>
-                                 <input type="radio" name="STS_NP2" value="OK"> OK
-                                  <input type="radio" name="STS_NP2" value="FLT" checked> FLT
-                                   <input type="radio" name="STS_NP2" value="STB"> STB
-                               </div>
-                             </td> -->
                                <td>
-                              <label>max time in minutes</label><input value="60" type="text" name="max_time_STS_NP2" placeholder="max time in minutes"></td>
+                              <label>max time in minutes</label>
+                              <br>
+                              <input value="60" type="text" name="max_time_STS_NP2" placeholder="max time in minutes"></td>
+                              <td></td>
                            </tr>
 
 
                             <tr>
                              <td>STS_SV1</td>
                              <td>Fresh Water Solenoid Valve Health Status – 1</td>
-
-                            <!--  <td>
-                              <div>
-                                <input type="radio" name="STS_SV1" value="OK"> OK
-                                  <input type="radio" name="STS_SV1" value="FLT" checked> FLT
-                                   <input type="radio" name="STS_SV1" value="STB"> STB
-                               </div>
-                             </td> -->
                               <td>
-                              <label>max time in minutes</label><input value="60" type="text" name="max_time_STS_SV1" placeholder="max time in minutes"></td>
+                              <label>max time in minutes</label>
+                              <br>
+                              <input value="60" type="text" name="max_time_STS_SV1" placeholder="max time in minutes"></td>
+                              <td></td>
                            </tr>
 
                             <tr>
                              <td>STS_SV2</td>
                              <td>Fresh Water Solenoid Valve Health Status – 2</td>
-
-                            <!--  <td>
-                               <div>
-                                 <input type="radio" name="STS_SV2" value="OK"> OK
-                                  <input type="radio" name="STS_SV2" value="FLT" checked> FLT
-                                   <input type="radio" name="STS_SV2" value="STB"> STB
-                               </div>
-                             </td> -->
                               <td>
-                              <label>max time in minutes</label><input value="60" type="text" name="max_time_STS_SV2" placeholder="max time in minutes"></td>
+                              <label>max time in minutes</label>
+                              <br>
+                              <input value="60" type="text" name="max_time_STS_SV2" placeholder="max time in minutes"></td>
+                              <td></td>
                            </tr>
 
-
-                            <tr>
-                             <td>WL1H</td>
-                             <td>Source Tank Water Level Sensor-1 - High Level Status</td>
-
-                           <!--   <td>
-                               <div>
-                                 <input type="radio" name="WL1H" value="ON"> ON
-                                  <input type="radio" name="WL1H" value="OFF" checked> OFF
-
-                               </div>
-                             </td> -->
-                              </tr>
 
                             <tr>
                              <td>WL1L</td>
                              <td>Source Tank Water Level Sensor-1 – Low Level Status</td>
-
-                            <!--  <td>
-                               <div>
-                                  <input type="radio" name="WL1L" value="ON"> ON
-                                  <input type="radio" name="WL1L" value="OFF" checked> OFF
-                               </div>
-                             </td> -->
                               <td>
-                              <label>max time in minutes</label><input value="30" type="text" name="max_time_WL1L" placeholder="max time in minutes" ></td>
+                              <label>max time in minutes</label>
+                              <br>
+                              <input value="30" type="text" name="max_time_WL1L" placeholder="max time in minutes" ></td>
+                              <td></td>
                            </tr>
 
-
-                            <tr>
-                             <td>WL2H</td>
-                             <td>Reservoir Tank Water Level Sensor-2 - High Level Status</td>
-
-                           <!--   <td>
-                               <div>
-                                  <input type="radio" name="WL2H" value="ON"> ON
-                                  <input type="radio" name="WL2H" value="OFF" checked> OFF
-
-                               </div>
-                             </td> -->
-                           </tr>
 
                             <tr>
                              <td>WL2L</td>
                              <td>Reservoir Tank Water Level Sensor-2 – Low Level Status</td>
-
-                            <!--  <td>
-                               <div>
-                                  <input type="radio" name="WL2L" value="ON"> ON
-                                  <input type="radio" name="WL2L" value="OFF" checked> OFF
-
-                               </div>
-                             </td> -->
                               <td>
-                              <label>max time in minutes</label><input type="text" value="30" name="max_time_WL2L" placeholder="max time in minutes"></td>
+                              <label>max time in minutes</label>
+                              <br>
+                              <input type="text" value="30" name="max_time_WL2L" placeholder="max time in minutes"></td>
+                              <td></td>
                            </tr>
 
 
-                            <tr>
-                             <td>WL3H</td>
-                             <td>BackUP Tank Water Level Sensor-3 - High Level Status</td>
-
-                             <!-- <td>
-                               <div>
-                                  <input type="radio" name="WL3H" value="ON"> ON
-                                  <input type="radio" name="WL3H" value="OFF" checked> OFF
-                               </div>
-                             </td> -->
-                           </tr>
-
+                        
                             <tr>
                              <td>WL3L</td>
                              <td>BackUP Tank Water Level Sensor-3 – Low Level Status</td>
 
                              <td>
-
-                                 <label>max time in minutes</label><input value="30" type="text" name="max_time_WL3L" placeholder="max time in minutes" >
+                                 <label>max time in minutes</label>
+                                 <br>
+                                 <input value="30" type="text" name="max_time_WL3L" placeholder="max time in minutes" >
 
                              </td>
+                             <td></td>
                            </tr>
 
 
@@ -450,25 +410,26 @@
                              <td>RL1</td>
                              <td>Relay 1 Status – Controls Nutrient Pump – 1</td>
                              <td>
-                              <label>Max minute for ON</label><input type="text" value="10" name="min_time_RL1" placeholder="Max minute for ON "></td>
+                              <label>Max minute for ON</label>
+                              <br>
+                              <input type="text" value="10" name="min_time_RL1" placeholder="Max minute for ON "></td>
                               <td>
-                              <label>Max minute for OFF</label><input type="text"  value="30" name="max_time_RL1" placeholder="max minutes for OFF"></td>
+                              <label>Max minute for OFF</label>
+                              <br>
+                              <input type="text"  value="30" name="max_time_RL1" placeholder="max minutes for OFF"></td>
                            </tr>
 
                             <tr>
                              <td>RL2</td>
                              <td>Relay 2 Status – Controls Nutrient Pump – 2</td>
-                            <!--
-                             <td>
-                               <div>
-                                  <input type="radio" name="RL2" value="ON"> ON
-                                  <input type="radio" name="RL2" value="OFF" checked> OFF
-                               </div>
-                             </td> -->
                               <td>
-                              <label>Max minute for ON</label><input type="text" value="10" name="min_time_RL2" placeholder="Max minute for ON "></td>
+                              <label>Max minute for ON</label>
+                              <br>
+                              <input type="text" value="10" name="min_time_RL2" placeholder="Max minute for ON "></td>
                               <td>
-                              <label>Max minute for OFF</label><input type="text" value="30" name="max_time_RL2" placeholder="max minutes for OFF"></td>
+                              <label>Max minute for OFF</label>
+                              <br>
+                              <input type="text" value="30" name="max_time_RL2" placeholder="max minutes for OFF"></td>
                            </tr>
 
 
@@ -476,16 +437,24 @@
                              <td>RL3</td>
                              <td>Relay 3 Status – Controls Fresh Water  Valve – 1</td>
                               <td>
-                              <label>Max minute for ON</label><input value="10" type="text" name="min_time_RL3" placeholder="Max minute for ON "></td>
+                              <label>Max minute for ON</label>
+                              <br>
+                              <input value="10" type="text" name="min_time_RL3" placeholder="Max minute for ON "></td>
                               <td>
-                              <label>Max minute for OFF</label><input value="18" type="text" name="max_time_RL3" placeholder="max minutes for OFF"></td>
+                              <label>Max minute for OFF</label>
+                              <br>
+                              <input value="18" type="text" name="max_time_RL3" placeholder="max minutes for OFF"></td>
                            </tr>
 
                             <tr>
                              <td>RL4</td>
                              <td>"Relay 4 Status – Controls Fresh Water  Valve – 2 TO BE USED AS SPARE"</td>
-                              <td><label>Max minute for ON</label><input type="text" name="min_time_RL4" placeholder="Max minute for ON "></td>
-                              <td><label>Max minute for OFF</label><input type="text" name="max_time_RL4" placeholder="max minutes for OFF"></td>
+                              <td><label>Max minute for ON</label>
+                                <br>
+                                <input type="text" name="min_time_RL4" placeholder="Max minute for ON "></td>
+                              <td><label>Max minute for OFF</label>
+                                <br>
+                                <input type="text" name="max_time_RL4" placeholder="max minutes for OFF"></td>
                            </tr>
 
 
@@ -493,9 +462,13 @@
                              <td>RL8</td>
                              <td>Relay 8 Status – Controls RO Plant AC VOltage Supply </td>
                               <td>
-                              <label>max temparature</label><input type="text" name="min_time_RL8" placeholder="Max minute for ON "></td>
+                              <label>max temparature</label>
+                              <br>
+                              <input type="text" name="min_time_RL8" placeholder="Max minute for ON "></td>
                               <td>
-                              <label>max temparature</label><input type="text" name="max_time_RL8" placeholder="max minutes for OFF"></td>
+                              <label>max temparature</label>
+                              <br>
+                              <input type="text" name="max_time_RL8" placeholder="max minutes for OFF"></td>
                            </tr>
 
                            <tr>
@@ -503,7 +476,10 @@
                              <td>Pod Mode </td>
 
                               <td>
-                              <label>max temparature</label><input type="" name="PMODE" placeholder="max temparature"></td>
+                              <label>max temparature</label>
+                              <br>
+                              <input type="" name="PMODE" placeholder="max temparature"></td>
+                              <td></td>
                            </tr>
 
 

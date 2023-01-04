@@ -29,7 +29,7 @@
                         </div>
                     </div>
                 @endforeach
-                <a href="{{route('my_tickets')}}">
+                <a href="{{route('raise_ticket')}}">
                     <div class="floatingbutton" id="mybutton">
                         <img src="{{asset('images/chat.png')}}">
                         <label>Chat Support</label>
@@ -40,73 +40,6 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
-        <script>
-            var firebaseConfig = {
-                apiKey: "AIzaSyBQnwQHe97LTq0PyA-6EkEJxfhY8itQxug",
-                authDomain: "hydrolore.firebaseapp.com",
-                projectId: "hydrolore",
-                storageBucket: "hydrolore.appspot.com",
-                messagingSenderId: "245060607925",
-                appId: "1:245060607925:web:0c42822440b8e83121c3fc",
-                measurementId: "G-HHQYLZSJNB"
-            };
-
-            firebase.initializeApp(firebaseConfig);
-            const messaging = firebase.messaging();
-
-            $(window).ready(function () {
-                initFirebaseMessagingRegistration();
-            });
-
-
-            function initFirebaseMessagingRegistration() {
-
-
-                messaging
-                    .requestPermission()
-                    .then(function () {
-                        return messaging.getToken()
-                    })
-                    .then(function (token) {
-                        console.log(token);
-
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                            }
-                        });
-
-
-                        $.ajax({
-
-                            url: '{{ route("save-token") }}',
-                            type: 'POST',
-                            data: {
-                                token: token
-                            },
-                            dataType: 'JSON',
-
-                            success: function (response) {
-                                //alert('Token saved successfully.');
-                            },
-                            error: function (err) {
-                                console.log('User Chat Token Error' + err);
-                            },
-                        });
-
-                    }).catch(function (err) {
-                    console.log('User Chat Token Error' + err);
-                });
-            }
-
-            messaging.onMessage(function (payload) {
-                const noteTitle = payload.notification.title;
-                const noteOptions = {
-                    body: payload.notification.body,
-                    icon: payload.notification.icon,
-                };
-                new Notification(noteTitle, noteOptions);
-            });
-        </script>
+       
 
 @endsection

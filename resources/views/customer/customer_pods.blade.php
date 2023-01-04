@@ -2,7 +2,6 @@
 
 @section('content')
 
-<body>
 
 <div class="container-body">
 
@@ -24,10 +23,7 @@
   </button>
   
 </div>
- 
-           
-
-              
+             
     </div>  
 
     <div class="card table-responsive" >
@@ -63,11 +59,7 @@
          <td>{{$value->polyhouses}}</td>
          <td>{{$value->created_at}}</td>
          <td>{{$value->updated_at}}</td>
-        <!--  <td><a href="{{route('pod_history',$value->pod_id)}}">History</a>
-         </td> -->
-        
-
-        
+       
         </tr>
 
 
@@ -96,8 +88,5 @@
 
     </div>  
 </div>  
-
-
-
 
 @endsection

@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <body>
     <div class="container-body">
         <div class="row justify-content-center">
             <div>
@@ -321,7 +320,6 @@
            var xValues = <?php echo $tickets_xValue; ?>;
            var yValues = <?php echo $tickets_yValue; ?>;
            var tickets_closed_yValue= <?php echo $tickets_closed_yValue; ?>;
-            // var yValues = [0,0,0,0,0,1,0,9,23,9,24,16,30,22,22,32,29,28,22,30,30,2,0,0,0,0,0,1,0,0];
            
            
             new Chart("tickets_chart", {
@@ -337,14 +335,7 @@
                   borderColor: "rgba(0,0,255,0.1)",
                   data: yValues
                 },
-                /*{
-                  label: 'Tickets closed',  
-                  fill: false,
-                  lineTension: 0,
-                  backgroundColor: "rgba(11 , 156 , 49 ,1)",
-                  borderColor: "rgba(11 , 156 , 49 ,1)",
-                  data: tickets_closed_yValue
-                }*/
+                
                 ]
               },
               options: {
@@ -365,6 +356,6 @@
             }, 3000);
         </script>
 
-    </body>
+   
 
 @endsection

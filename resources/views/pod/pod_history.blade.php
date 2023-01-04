@@ -10,10 +10,6 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
-
-<body>
-
-
 <div class="container-body">
 
     <div class="row justify-content-center">
@@ -258,12 +254,6 @@ $(function() {
 </script>
 
 <script>
-/*$(document).ready(function(){
-  $('#btn_export1').click(function(){
-    $('#modal_export1').modal('show')
-   
-  });
-});*/
 
 $(document).on("click", ".open-AddBookDialog", function () {
 
@@ -276,31 +266,5 @@ $(document).on("click", ".open-AddBookDialog", function () {
 });
 
 </script>
-
-<!-- <script>
-    $(function(){
-       $('#btn_export_data').click(function() {
-
-        var pod_id = "<?php echo"$id"?>";
-        var daterange=$('#datetimes').val();
-
-        window.open(url, '_blank');
-
-
-
-            $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                url: '{{route('exportdata')}}',
-                type: 'GET',
-                data: { 'id': pod_id, 'daterange':daterange },
-                success: function(response)
-                {
-                     
-                }
-            });
-       });
-    });    
-</script> -->
-
 
 @endsection

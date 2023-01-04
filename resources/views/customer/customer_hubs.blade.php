@@ -2,7 +2,7 @@
 
 @section('content')
 
-<body>
+
 <div class="container-body">
     <div class="row justify-content-center">
 
@@ -52,16 +52,7 @@
       </div>
 
    <div style="padding: 40px;">
-    <!-- <div >
-      <div class="row">
-        <div class="col-sm-2">
-             <h6 >Hub Dashboard</h6>
-        </div>
-        <div class="col-sm-2">
-             <h6>Hub Dashboard</h6>
-        </div>
-       </div>
-    </div> -->
+   
 
       @foreach ($hubs_details as $key => $value) 
      
@@ -110,9 +101,7 @@
                           <td>{{$value->range}}</td>
                           
                           <td><input class="btn-success rounded-pill" type="button"  id="range" value="Update"></td>
-                          
-                        <!--   <td><input type="text" name="{{$value->data_frame}}" id="threshold" value="{{$value->threshold}}"></td>
-                        -->
+                        
                         </tr> 
                        
                           @endforeach   
@@ -130,27 +119,16 @@
 
         @endforeach    
 
-         
           
         </div>
           </div>
      
-
-
       @endforeach  
-
-
-
-
 
  </div>    
      
 </div> 
  
-
-
-  
-
    </div>  
 
 <script>
@@ -169,10 +147,5 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 </script>
-</body>  
-
-
-
-
-
+ 
 @endsection

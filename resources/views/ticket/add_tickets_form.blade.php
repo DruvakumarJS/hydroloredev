@@ -16,9 +16,6 @@ else {
 @endphp
 
 
-
-<body>
-
   <div class="container-body">
       <div>
          <h2 class="head-h1">Add Tickets</h2>
@@ -99,24 +96,10 @@ function showPosition(position) {
                 var lng = position.coords.longitude;
  x.innerHTML = lat +"," + lng;
 
-/*
- var latlng = new google.maps.LatLng(lat, lng);
 
- alert(latlng);
-            var geocoder = geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[1]) {
-                        alert("Location: " + results[1].formatted_address);
-                    }
-                }
-            });*/
 }
 </script>
 
-
-
-</body>
 
 
 @endsection

@@ -9,8 +9,6 @@ foreach ($userdetail as $key => $value) {
 
  ?>
 
-<body >
-
   
   <div class="container-body">
 
@@ -23,11 +21,7 @@ foreach ($userdetail as $key => $value) {
    
       <div>
 
-      <!--   <form method="get" action="{{route('show_users')}}">
-          @csrf
-         <input  class="btn-primary button-right rounded-pill" type="submit" name="users" value=" view users " >
-       </form> -->
-
+    
          <h2 class="head-h1">Edit User {{$value->firstname}}</h2>
          <label class="date">{{date('d M ,Y')}} </label>
 
@@ -116,33 +110,6 @@ foreach ($userdetail as $key => $value) {
 
         <input type="hidden" name="hub_id" id="hub_id" value="{{ $value->hub_id }}">
 
-<!-- PODs -->
-       <!--  <div class="row mb-2">
-            
-          <div class="col-md-3">
-            <label for="pod_id" class="label-title">New PODs</label>
-            <input type="text" id="pod_id" name="pod_id" class="form-input"  value="{{ old('pod_id') }}"placeholder="POD ID"  />
-             @error('pod_id')
-               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-             @enderror
-          </div>
-
-          <div class="col-md-3">
-            <label for="pod_name" class="label-title"></label>
-            <input type="text" id="pod_name" name="pod_name" class="form-input"   placeholder="POD Name" />
-             @error('pod_name')
-               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-             @enderror
-          </div>  
-
-        </div> -->
-       
-
-   <!--  <span class="textbox"> 
-        http://
-        <input type="text" name="url" autofocus />
-    </span> -->
-      
         <div>
           
           <div > 
@@ -150,8 +117,6 @@ foreach ($userdetail as $key => $value) {
              <button class=" rounded-pill " type="submit" name="action" value=" cancel">Cancel </button> 
             
           </div>
-
-
 
         </div>
 
@@ -249,7 +214,7 @@ $(document).ready(function(){
    ?>
   </div> 
   
-</body>
+
 
 <?php
 

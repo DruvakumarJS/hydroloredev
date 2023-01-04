@@ -49,6 +49,7 @@ class CreateMasterSyncDataTable extends Migration
             $table->string('RL5')->nullable();
             $table->string('PMODE')->nullable();
             $table->string('api_type')->nullable();
+            $table->json('critical_data')->nullable();
             
             $table->timestamps();
         });

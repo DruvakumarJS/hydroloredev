@@ -40,7 +40,6 @@
   background-color: rgba(0,0,0,0.8);
 }
 </style>
-<body>
 <div class="container-body">
     <div class="row justify-content-center">
  
@@ -181,11 +180,6 @@ function showDivs(n) {
   x[slideIndex-1].style.display = "block";  
 }
 </script>
-
- 
-      
-   </body> 
-
   
 
 

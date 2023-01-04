@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 @section('content')
-<body >
+
 <div class="container-body ">
        <div class="row">
                
@@ -24,7 +24,7 @@
                                 <textarea name="question" id="question" cols="70" rows="5">
                                     {{$question->question}}
                                 </textarea>
-                                <!-- <input  type="textarea" name="question" id="question" placeholder="Enter Question " required="required" value=""> -->
+                               
                                 @error('question')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
@@ -37,6 +37,6 @@
                 </div>
         <div>
 </div>
-</body>
+
 
 @endsection

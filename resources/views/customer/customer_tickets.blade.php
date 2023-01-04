@@ -85,9 +85,7 @@
                             <td class="openModal"><label id="modal" data-id="{{$value->sr_no}}" class="curved-text">Action</label>
                             </td>
                         @endif
-                        <!--  <td><a  href="{{route('view_ticket',$value->sr_no)}}">View</a></td> -->
-
-
+                       
                     </tr>
 
                 @endforeach

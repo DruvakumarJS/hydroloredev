@@ -30,7 +30,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
 
 
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 
@@ -49,8 +48,23 @@
                                        href="{{route('customer-dashboard')}}">Dashboard</a></li>
             <li role="presentation"><a role="menuitem" tabindex="-1" href="{{route('reset_password')}}">Reset
                     Password</a></li>
+           
             <li role="presentation"><a role="menuitem" tabindex="-1"
-                                       href="{{route('logout')}}">Logout</a></li>
+                                       href="https://hydrolore.in/#ourstory">Our Story</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1"
+                                       href="https://hydrolore.in/#whyhydrolore">Why Hydrophonics</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1"
+                                       href="https://hydrolore.in/#ourservice}">Our Services</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1"
+                                       href="https://hydrolore.in/#ourprocess">Our process</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1"
+                                       href="https://hydrolore.in/#gallery">Gallery</a></li>  
+
+            <li role="presentation"><a role="menuitem" tabindex="-1"
+                                      id="CustlogoutbtnModal">Logout</a></li>   
+
+
+                                                                                                                                                                                                  
 
         </ul>
     </div>
@@ -79,5 +93,41 @@
         @yield('content')
     </main>
 </div>
+
+ <!-- Modal -->
+
+                <div class="modal" id="customer_modal_logout" >
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header" style="background-color:white;">
+                         <img class="imagesize" src="{{asset('images/logo1.png')}}" >
+                        <h5 class="modal-title" >Hydrolore</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <p>Are you sure to exit ?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn " data-bs-dismiss="modal">No</button>
+                         <a href="{{ route('logout') }}"> <input class="btn btn-primary" type="button"  value="Yes" style="padding-left:20px;padding-right:20px"> </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+<!--  end Modal --> 
+
 </body>
 </html>
+
+
+
+<script>
+$(document).ready(function(){
+  $('#CustlogoutbtnModal').click(function(){
+    $('#customer_modal_logout').modal('show')
+  });
+});
+
+  
+</script>

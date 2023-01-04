@@ -29,7 +29,7 @@ else {
         <div class="row card">
 
           <div>
-<!--  value="{{!isset($email)? old('email') : $email}}" -->
+
         	<label>User's Email ID :</label>
         	<input class="form-control" type="text" name="email" id="email" placeholder="Enter Email ID " required="required" value="{{$email!=''? $email :old('email') }}">
   	         @error('email')
@@ -38,6 +38,12 @@ else {
               @if(session()->has('message'))
                 <div class="alert alert-danger">
                    {{ session()->get('message') }}
+                </div>
+             @endif
+
+              @if(session()->has('success'))
+                <div class="alert alert-success">
+                   {{ session()->get('success') }}
                 </div>
              @endif
           </div>
@@ -91,24 +97,12 @@ function showPosition(position) {
                 var lng = position.coords.longitude;
  x.innerHTML = lat +"," + lng;
 
-/*
- var latlng = new google.maps.LatLng(lat, lng);
 
- alert(latlng);
-            var geocoder = geocoder = new google.maps.Geocoder();
-            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    if (results[1]) {
-                        alert("Location: " + results[1].formatted_address);
-                    }
-                }
-            });*/
 }
 </script>
 
 
 
-</body>
 
 
 @endsection

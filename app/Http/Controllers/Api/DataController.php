@@ -79,6 +79,13 @@ class DataController extends Controller
         if(isset($Inputdata['PMODE'])){$syncdata->PMODE=$Inputdata['PMODE'];}
         if(isset($Inputdata['api_type'])){$syncdata->api_type=$Inputdata['api_type'];}
 
+        
+         $instant=json_encode($Inputdata['critical'],true);
+        //print_r($instant);die();
+
+        if(isset($Inputdata['critical'])){$syncdata->critical_data=$instant;}
+
+
       //   if(!isset($Inputdata['api_type']))
       //   {
       //        $add->api_type='Normal';  
@@ -87,6 +94,8 @@ class DataController extends Controller
       //       $syncdata->api_type=$Inputdata['api_type'];
             
       //   }
+
+
 
      
       if($syncdata->save()){
@@ -97,6 +106,7 @@ class DataController extends Controller
             unset($syncdata['updated_at']);
             unset($syncdata['api_type']);
             unset($syncdata['id']);
+            unset($syncdata['critical_data']);
 
         
          $update=Pod::where('pod_id', $Inputdata['PODUID'])->update($syncdata->toArray());
