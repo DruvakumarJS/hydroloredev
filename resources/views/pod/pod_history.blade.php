@@ -9,6 +9,31 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+ <style>
+    table th {
+      background-color:gray;
+      color:#000;
+
+    }
+    table td {
+      text-align:center;
+      color:#000;
+    }
+    table{
+        background: white;
+    }
+    .tHead{
+        position: -webkit-sticky; 
+        position: sticky; 
+        top: 0;
+    }
+    .tHead th{
+        background-color:white;
+    }
+    tr:hover {background-color: lightblue;}
+
+</style>
+
 
 <div class="container-body">
 
@@ -102,8 +127,7 @@
                 
             
                  
-
-           
+   
             </div>
 
            
@@ -112,14 +136,11 @@
               
     </div>  
 
-   <div>
 
-       
-   </div>
-
-    <div class="card table-responsive" >
-     <table class="table" >
-        <tr >
+<div class="card">
+   
+<table class="table">
+<tr class="tHead" >
              <th>Sl.No</th>
              <th nowrap="nowrap">Time</th>
              <th nowrap="nowrap">AB-T1</th>
@@ -152,11 +173,10 @@
              <th nowrap="nowrap">RL5</th>
              <th nowrap="nowrap">PMODE</th>
              <th nowrap="nowrap">API_type</th>
-         </tr>
+</tr>
 
-   
 
-         @if(!empty($pods) && $pods->count())
+ @if(!empty($pods) && $pods->count())
        
 
          @foreach ($pods as $key => $value) 
@@ -168,39 +188,39 @@
                      
           
 
-          <tr>
+           <tr>
           <td>{{$key + $pods->firstItem()}}</td>
-          <td>{{$value->created_at}}</td>
-          <td>{{$value->AB_T1}}</td>   
-            <td>{{$value->AB_H1}}</td>   
-            <td>{{$value->POD_T1}}</td>   
-            <td>{{$value->POD_H1}}</td>   
-            <td>{{$value->TDS_V1}}</td>   
-            <td>{{$value->PH_V1}}</td>   
-            <td>{{$value->NUT_T1}}</td>   
-            <td>{{$value->NP_I1}}</td>   
-            <td>{{$value->SV_I1}}</td>   
-            <td>{{$value->BAT_V1}}</td>   
-            <td>{{$value->FLO_V1}}</td>   
-            <td>{{$value->FLO_V2}}</td>   
-            <td>{{$value->STS_PSU}}</td>   
-            <td>{{$value->STS_NP1}}</td>   
-            <td>{{$value->STS_NP2}}</td>   
-            <td>{{$value->STS_SV1}}</td>   
-            <td>{{$value->STS_SV2}}</td>   
-            <td>{{$value->WL1H}}</td>   
-            <td>{{$value->WL1L}}</td>   
-            <td>{{$value->WL2H}}</td>   
-            <td>{{$value->WL2L}}</td>   
-            <td>{{$value->WL3H}}</td>   
-            <td>{{$value->WL3L}}</td>   
-            <td>{{$value->RL1}}</td>   
-            <td>{{$value->RL2}}</td>   
-            <td>{{$value->RL3}}</td>   
-            <td>{{$value->RL4}}</td>   
-            <td>{{$value->RL5}}</td>   
-            <td>{{$value->PMODE}}</td> 
-            <td>{{$value->api_type}}</td>   
+          <td >{{$value->created_at}}</td>
+          <td>{{$value->AB_T1}} <span> &#176;C</span> </td>   
+            <td nowrap="nowrap">{{$value->AB_H1}}<span> %RH</span> </td>   
+            <td nowrap="nowrap">{{$value->POD_T1}}<span> &#176;C</span> </td>   
+            <td nowrap="nowrap">{{$value->POD_H1}}<span> %RH</span> </td>   
+            <td nowrap="nowrap">{{$value->TDS_V1}}<span> mg/L</span> </td>   
+            <td nowrap="nowrap">{{$value->PH_V1}} </td>   
+            <td nowrap="nowrap">{{$value->NUT_T1}}<span> &#176;C</span> </td>   
+            <td nowrap="nowrap">{{$value->NP_I1}}<span> mA</span> </td>   
+            <td nowrap="nowrap">{{$value->SV_I1}}<span> mA</span> </td>   
+            <td nowrap="nowrap">{{$value->BAT_V1}} <span> %</span></td>   
+            <td nowrap="nowrap">{{$value->FLO_V1}}</td>   
+            <td nowrap="nowrap">{{$value->FLO_V2}} </td>   
+            <td nowrap="nowrap">{{$value->STS_PSU}}</td>   
+            <td nowrap="nowrap">{{$value->STS_NP1}}</td>   
+            <td nowrap="nowrap">{{$value->STS_NP2}}</td>   
+            <td nowrap="nowrap">{{$value->STS_SV1}}</td>   
+            <td nowrap="nowrap">{{$value->STS_SV2}}</td>   
+            <td nowrap="nowrap">{{$value->WL1H}}</td>   
+            <td nowrap="nowrap">{{$value->WL1L}}</td>   
+            <td nowrap="nowrap">{{$value->WL2H}}</td>   
+            <td nowrap="nowrap">{{$value->WL2L}}</td>   
+            <td nowrap="nowrap">{{$value->WL3H}}</td>   
+            <td nowrap="nowrap">{{$value->WL3L}}</td>   
+            <td nowrap="nowrap">{{$value->RL1}}</td>   
+            <td nowrap="nowrap">{{$value->RL2}}</td>   
+            <td nowrap="nowrap">{{$value->RL3}}</td>   
+            <td nowrap="nowrap">{{$value->RL4}}</td>   
+            <td nowrap="nowrap">{{$value->RL5}}</td>   
+            <td nowrap="nowrap">{{$value->PMODE}}</td> 
+            <td nowrap="nowrap">{{$value->api_type}}</td>     
 
         
         </tr>
@@ -221,9 +241,13 @@
               <tr>
                     <td colspan="10">There are no data.</td>
                 </tr>
-    @endif      
+    @endif  
 
-    </div>  
+
+       
+   </div>
+
+     
 </div>  
 
 
@@ -259,7 +283,6 @@ $(document).on("click", ".open-AddBookDialog", function () {
 
     var myBookId=$('#datetimes').val();
      
-
      $(".modal-body #dateselected").val(myBookId);
      $('#modal_export1').modal('show')
      

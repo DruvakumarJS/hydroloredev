@@ -2,7 +2,7 @@
 
 @section('content')
 
- >
+
     <div class="container-body">
         <div class="row justify-content-center">
             <form method="post" action="{{route('show_users')}}">
