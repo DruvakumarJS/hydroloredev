@@ -30,7 +30,7 @@
     .tHead th{
         background-color:white;
     }
-    tr:hover {background-color: lightblue;}
+    tr:hover {background-color: grey;}
 
 </style>
 
@@ -140,7 +140,7 @@
 <div class="card">
    
 <table class="table">
-<tr class="tHead" >
+<tr class="tHead">
              <th>Sl.No</th>
              <th nowrap="nowrap">Time</th>
              <th nowrap="nowrap">AB-T1</th>
@@ -185,13 +185,10 @@
             $statusvalue=$value->status;
          @endphp   
  
-                     
-          
-
-           <tr>
-          <td>{{$key + $pods->firstItem()}}</td>
-          <td >{{$value->created_at}}</td>
-          <td>{{$value->AB_T1}} <span> &#176;C</span> </td>   
+        <tr>
+          <td nowrap="nowrap">{{$key + $pods->firstItem()}}</td>
+          <td nowrap="nowrap">{{$value->created_at}}</td>
+          <td nowrap="nowrap">{{$value->AB_T1}} <span> &#176;C</span> </td>   
             <td nowrap="nowrap">{{$value->AB_H1}}<span> %RH</span> </td>   
             <td nowrap="nowrap">{{$value->POD_T1}}<span> &#176;C</span> </td>   
             <td nowrap="nowrap">{{$value->POD_H1}}<span> %RH</span> </td>   

@@ -18,7 +18,7 @@
             <div class="container-body">
                 <div class="row">
                 <div class="card table-responsive">
-                    <table class="table">
+                    <table class="table" >
                         <tr>
                             <th>Sl.No</th>
                             <th>UserName</th>
@@ -32,7 +32,7 @@
                             <th></th>
                         </tr>
 
-                        <tbody class="alldata">
+                        <tbody class="alldata" id="myTable">
 
 
                         @php
@@ -65,38 +65,10 @@
                         @endforeach
 
                         </tbody>
-                        <tbody id="Content" class="searchdata"></tbody>
-
+                        
                     </table>
 
-                    <script type="text/javascript">
-
-                        $('#search').on('keyup', function () {
-
-                            $value = $(this).val();
-                            if ($value) {
-                                $('.alldata').hide();
-                                $('.searchdata').show();
-                            } else {
-                                $('.alldata').show();
-                                $('.searchdata').hide();
-                            }
-
-
-                            $.ajax({
-                                type: 'get',
-                                url: '{{URL::to('searchpod')}}',
-                                data: {'search': $value},
-
-                                success: function (data) {
-
-                                    console.log(data);
-                                    $('#Content').html(data);
-                                }
-                            });
-                        });
-                    </script>
-
+                    
 
                     @if($pods->count())
 
@@ -117,5 +89,16 @@
 
         </div>
     </div>
+
+    <script>
+$(document).ready(function(){
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
    
 @endsection

@@ -30,10 +30,10 @@ class TicketsController extends Controller
         $tickets=Ticket::when(($user->role_id == '3'), function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })
-        ->orderBy('id', 'DESC')->paginate(10);
+        ->orderByRaw('FIELD(status , "1" , "2" ,"0")')
+        ->paginate(10);
         return view('ticket/tickets',compact('tickets'));
-         
-      
+              
     }
 
     

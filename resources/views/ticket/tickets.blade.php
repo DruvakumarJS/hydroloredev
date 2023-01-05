@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
 <div class="container-body">
@@ -13,24 +15,33 @@
             <label class="date"> {{date('d M ,Y')}} </label>
 
             <div>
+
+               <a style="float:right;margin-right: 30px; "href="{{route('show_tickets')}}"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+             
               <a style="float:right;margin-right: 30px" class="btn btn-primary" href="{{route('add_tickets')}}">Generate Ticket</a>
 
-             <a style="float:right;margin-right: 30px; "href="{{route('show_tickets')}}"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+            
+             <div style="float:right; width: 300px;right;margin-right: 30px;">
 
+             <input class="form-control" type="search" name="search" id="search" placeholder="search">
+              
             </div>
 
+          
+            </div>
+           
 
     </div>
 
-    <div class="card table-responsive" >
+    <div class="card table-responsive">
      <table class="table" >
         <tr >
           <th>Sl.No</th>
           <th>Ticket ID</th>
           <th>Subject</th>
           <th>Current Value</th>
-          <th>Hub ID</th>
-
+          <th>HUB ID</th>
+          <th>POD ID</th>
           <th>User Name</th>
           <th>Location</th>
           <th>Mobile </th>
@@ -42,6 +53,8 @@
 
          </tr>
 
+          <tbody id="myTable">
+
 
 
          @foreach ($tickets as $key => $value)
@@ -49,10 +62,10 @@
             $statusvalue=$value->status;
             $t_id=$value->sr_no;
 
-            if($statusvalue=='2'){$data='pending';$colourcode='#e6b00e';}
-            else if($statusvalue=='1'){$data='open';$colourcode='#e86413';}
-            else if($statusvalue=='0'){$data='closed';$colourcode='#0ee6c9';}
-            else {$data='undefined';$colourcode='#FF0000';}
+            if($statusvalue=='2'){$data='pending';$colourcode='#e79d29';}
+            else if($statusvalue=='1'){$data='open';$colourcode='#FF0000';}
+            else if($statusvalue=='0'){$data='closed';$colourcode='#38761d';}
+            else {$data='undefined';$colourcode='#4e9a2c';}
 
 
             $issue=$value->subject;
@@ -78,6 +91,9 @@
                  $threshold_array=explode(',', $thresold);
              }
 
+             $podid=$value->pod_id;
+             if($podid=='0'){$podid="";}
+
 
           @endphp
 
@@ -85,38 +101,39 @@
           <td>{{$key + $tickets->firstItem()}}</td>
           <td> <label>{{$value->sr_no}}</label> </td>
           <td>
-            <table>
+            
             @foreach($array as $key => $val)
-            @if($val!="") <tr><td> {{$val}}</td></tr>@endif @endforeach
-          </table>
+            @if($val!="") {{$val}}<br>@endif 
+            @endforeach
+          
         </td>
          <td>
-           <table>
+           
             @foreach($threshold_array as $key => $val2)
-            @if($val2!="") <tr><td> {{$val2}}</td></tr>@endif @endforeach
-          </table>
+            @if($val2!="")  {{$val2}}<br>@endif @endforeach
+          
          </td>
         <td>{{$value->hub_id}}</td>
-
+        <td>{{$podid}}</td>
          <td>{{$value->user->firstname}}</td>
           <td>{{$value->user->location}}</td>
            <td>{{$value->user->mobile}}</td>
            <!--  <td>{{$value->threshold_value}}</td> -->
 
-          <td> <label >{{$data}}</label></td>
+          <td> <label  style="color:<?php echo $colourcode; ?>" >{{$data}}</label></td>
           <td>{{$value->updated_at}}</td>
 
            @if(Auth::user()->role_id == '1')
            <td class="openModal" ><label id="modal" data-id="{{$value->sr_no}}"  class="curved-text">Action</label></td>
            @endif
-           <td><a  href="{{route('view_ticket',$value->sr_no)}}">View</a></td>
+           <td><a  href="{{route('view_ticket',$value->sr_no)}}"  style="color:<?php echo $colourcode; ?>">View</a></td>
 
 
         </tr>
 
-
       @endforeach
 
+    </tbody>
 
      </table>
 
@@ -182,6 +199,17 @@
 
 
 
+});
+</script>
+
+<script>
+$(document).ready(function(){
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
 });
 </script>
 

@@ -22,17 +22,14 @@
                 </div>
                 <div class="col">
                     <div class="d-flex align-items-center justify-content-center">
-                        <input class="form-control w-auto mr-2" type="search" name="search" id="search" placeholder="Search Users">
+                       <!--  <input class="form-control w-auto mr-2" type="search" name="search" id="search" placeholder="Search Users"> -->
+
+                       <input  class="form-control w-auto mr-2" id="myInput" type="text" placeholder="Search..">
+
                         <a class="btn btn-primary" href="{{route('show_add_user_form')}}">Add User</a>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
 
         </form>
         </div>
@@ -50,7 +47,7 @@
           <th>Address</th>
           <th>Hub ID</th>
          </tr>
-  <tbody class="alldata">
+  <tbody class="alldata" id="myTable">
 
         @foreach ($userData as $key => $value)
 
@@ -110,45 +107,12 @@ $(document).ready(function(){
 
       @endforeach
             </tbody>
+
          <tbody id="Content" class="searchdata"> </tbody>
 
         </table>
 
-        <script type="text/javascript">
-
-         $('#search').on('keyup',function(){
-
-          $value=$(this).val();
-           if($value)
-           {
-            $('.alldata').hide();
-            $('.searchdata').show();
-           }
-           else
-           {
-            $('.alldata').show();
-            $('.searchdata').hide();
-           }
-
-
-
-          $.ajax({
-             type:'get',
-             url:'{{URL::to('search')}}',
-             data:{'search':$value},
-
-             success:function(data)
-             {
-
-              console.log(data);
-              $('#Content').html(data);
-             }
-
-          });
-
-         });
-
-        </script>
+        
 
 
     @if($userData->count())
@@ -172,6 +136,17 @@ $(document).ready(function(){
       </div>
 </div>
 
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
 
 
 
