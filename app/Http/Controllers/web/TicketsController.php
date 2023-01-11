@@ -31,7 +31,7 @@ class TicketsController extends Controller
             $query->where('user_id', $user->id);
         })
         ->orderByRaw('FIELD(status , "1" , "2" ,"0")')
-        ->paginate(10);
+        ->paginate(50);
         return view('ticket/tickets',compact('tickets'));
               
     }
@@ -322,22 +322,27 @@ class TicketsController extends Controller
     
        $subject="";
        $current_value="";
+       $input_keys="";
 
         if($critical){
                 foreach ($critical as $key => $value) {
                 
                     $subject=$subject . "" .$key ." = ".$value." , " ;
+                    $input_keys=$input_keys ."".$key." , ";
 
                 
                     if($key=="AB-T1"){
                         $subject="AB-T1 = "." ".$Inputdata['AB-T1'];
                         $subject=$subject.",".$this->validate_POD_T1($Inputdata,$threshold);
+
                    
                     }
                     
                 }
 
         }
+
+
        
         $ticket = new Ticket();
 
@@ -347,11 +352,12 @@ class TicketsController extends Controller
         $ticket->user_location = $user_location;
         $ticket->hub_id = $Inputdata['hub_id'];
         $ticket->pod_id = $Inputdata['PODUID'];
+        $ticket->inputkeys = $input_keys;
        /* $ticket->threshold_value = $input->threshold;
         $ticket->current_value = $input->current_value;*/
 
 
-         $checkalert=Ticket::where('subject',$subject)
+         $checkalert=Ticket::where('inputkeys',$input_keys)
                          ->where('pod_id',$Inputdata['PODUID'])
                           ->where('status','1')
                           ->where('created_at', 'like', $date.'%')
@@ -374,7 +380,8 @@ class TicketsController extends Controller
                                      'pod_id'=>$Inputdata['PODUID'],
                                      'threshold_value'=>"",
                                      'current_value'=>$subject,
-                                     'sr_no'=>$SR_NO]);
+                                     'sr_no'=>$SR_NO ,
+                                    'inputkeys'=>$input_keys]);
             
             if($ticket_data)
             {

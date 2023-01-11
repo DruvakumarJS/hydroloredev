@@ -47,7 +47,7 @@
           <th>Mobile </th>
           
           <th>Status</th>
-          <th>Updated</th>
+          <th>Created On</th>
           <th></th>
           <th></th>
 
@@ -121,7 +121,7 @@
            <!--  <td>{{$value->threshold_value}}</td> -->
 
           <td> <label  style="color:<?php echo $colourcode; ?>" >{{$data}}</label></td>
-          <td>{{$value->updated_at}}</td>
+          <td>{{$value->created_at}}</td>
 
            @if(Auth::user()->role_id == '1')
            <td class="openModal" ><label id="modal" data-id="{{$value->sr_no}}"  class="curved-text">Action</label></td>

@@ -308,7 +308,20 @@
               options: {
                 legend: {display: true},
                 scales: {
-                  yAxes: [{ticks: {min: 0, max:10}}],
+                  yAxes: [{
+                    ticks: {min: 0, max:10} ,
+                    scaleLabel: {
+                            display: true,
+                            labelString: '----- Number of Users -----',
+                            fontColor: '#000', }
+                        }],
+                  xAxes: [{
+                    ticks: {min: 0, max:31} ,
+                    scaleLabel: {
+                            display: true,
+                            labelString: '----- Date ----- ',
+                             fontColor: '#000', }
+                        }],
                 }
               }
             });
@@ -341,7 +354,20 @@
               options: {
                 legend: {display: true},
                 scales: {
-                  yAxes: [{ticks: {min: 0, max:50}}],
+                  yAxes: [{
+                    ticks: {min: 0, max:50} ,
+                    scaleLabel: {
+                            display: true,
+                            labelString: '----- Number of Tickets -----',
+                            fontColor: '#000',   }
+                        }],
+                  xAxes: [{
+                    ticks: {min: 0, max:31} ,
+                    scaleLabel: {
+                            display: true,
+                            labelString: '----- Date ----- ',
+                            fontColor: '#000', }
+                        }],
                 }
               }
             });

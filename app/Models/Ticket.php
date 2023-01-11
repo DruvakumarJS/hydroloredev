@@ -16,7 +16,8 @@ class Ticket extends Model
         'pod_id',
         'threshold_value',
         'current_value',
-        'sr_no'];
+        'sr_no',
+        'inputkeys'];
 
 
          public function user()

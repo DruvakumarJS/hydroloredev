@@ -75,7 +75,7 @@
                         <label>Showing {{ $pods->firstItem() }} to {{ $pods->lastItem() }} of {{$pods->total()}}
                             results</label>
 
-                        {!! $pods->links() !!}
+                        {!! $pods->appends(Request::except('page'))->links() !!}
 
                     @else
                         <tr>

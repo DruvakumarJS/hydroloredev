@@ -8,6 +8,7 @@ Use App\Models\Hub;
 Use App\Models\PodMaster;
 Use App\Models\Threshold;
 Use App\Models\Userdetail;
+use App\Models\Pod;
 
 use Illuminate\Support\Facades\Schema;
 
@@ -36,9 +37,9 @@ class HubController extends Controller
         if(sizeof($userdetails)>0)
         {
 
-            $hubdata=Threshold::where('hub_id',$request->search)->get();
+            $Pod_details=Pod::where('hub_id',$request->search)->get();
             
-            return view('hub_search' , compact('hubid','hubdata','userdetails'));
+            return view('hub_search' , compact('hubid','Pod_details','userdetails'));
        }
 
        else {

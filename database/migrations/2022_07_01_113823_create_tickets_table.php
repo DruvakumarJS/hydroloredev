@@ -17,12 +17,14 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('sr_no');
             $table->string('subject');
+            $table->string('inputkeys')->nullable();
             $table->string('status')->nullable();
             $table->string('user_id')->nullable();
             $table->string('hub_id')->nullable();
             $table->string('pod_id')->nullable();
             $table->string('threshold_value')->nullable();
             $table->string('current_value')->nullable();
+
             $table->timestamps();
         });
     }

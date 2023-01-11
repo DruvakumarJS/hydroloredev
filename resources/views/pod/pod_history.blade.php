@@ -13,7 +13,6 @@
     table th {
       background-color:gray;
       color:#000;
-
     }
     table td {
       text-align:center;
@@ -71,10 +70,20 @@
 
                     <a class="fa fa-refresh" href="{{route('pod_history',$id)}}">  </a>
 
+                  <!--    <input  type="search" name="search" id="search" placeholder="search"> -->
+
+                   <select id="api_type" name="api_type" id="api_type" >
+                      <option value="none">Select Data Type </option>
+                      <option value="normal">Normal Data</option>
+                      <option value="instant">Instant Data</option>
+                  </select>
+
+
                     <input type="text" name="datetimes" id="datetimes" value="{{$datepicker}}" placeholder="Select Date Range" readonly/>
                     <input type="hidden" name="pod_id" value="{{$id}}">
                     <button class=" btn-primary" type="submit" name="action" value="filter">Filter</button>
 
+                 
                  
                     </div>
                 </form>
@@ -91,10 +100,10 @@
                         
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
+
+
                       <div class="modal-body">
                         <p>The requested data will be Exported to CSV format, would you like to continue ?</p>
-
-                       
 
                       </div>
                       <div class="modal-footer">
@@ -106,6 +115,7 @@
                        
                         <input type="hidden" name="pod_id" value="{{$id}}">
                         <input type="hidden"  name="dateselected" id="dateselected">
+                        <input type="hidden"  name="api_type" id="api_type">
             
                         <button type="button" class="btn " data-bs-dismiss="modal">No</button>
                       
@@ -175,6 +185,8 @@
              <th nowrap="nowrap">API_type</th>
 </tr>
 
+<tbody id="myTable">
+
 
  @if(!empty($pods) && $pods->count())
        
@@ -183,11 +195,12 @@
 
          @php
             $statusvalue=$value->status;
+            $time=date('Y-m-d h:i:s A', strtotime($value->created_at))
          @endphp   
  
         <tr>
           <td nowrap="nowrap">{{$key + $pods->firstItem()}}</td>
-          <td nowrap="nowrap">{{$value->created_at}}</td>
+          <td nowrap="nowrap">{{$time}}</td>
           <td nowrap="nowrap">{{$value->AB_T1}} <span> &#176;C</span> </td>   
             <td nowrap="nowrap">{{$value->AB_H1}}<span> %RH</span> </td>   
             <td nowrap="nowrap">{{$value->POD_T1}}<span> &#176;C</span> </td>   
@@ -223,7 +236,8 @@
         </tr>
 
         @endforeach
-        
+
+        <tbody/>
 
      </table>  
     
@@ -278,13 +292,33 @@ $(function() {
 
 $(document).on("click", ".open-AddBookDialog", function () {
 
-    var myBookId=$('#datetimes').val();
+    var mydate=$('#datetimes').val();
+    var myType=$('#api_type').val();
      
-     $(".modal-body #dateselected").val(myBookId);
+     $(".modal-body #dateselected").val(mydate);
+     $(".modal-body #api_type").val(myType);
      $('#modal_export1').modal('show')
      
 });
 
 </script>
+
+<script>
+$(document).ready(function(){
+  $("#search").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+
+$(".dropdown-menu li a").click(function() {
+  $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
+  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
+});
+
+</script>
+
 
 @endsection
