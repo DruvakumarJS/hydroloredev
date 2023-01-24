@@ -25,13 +25,58 @@ class TicketsController extends Controller
      */
     public function index(Request $request)
     {
-        $date=date('Y-m-d');
-        $user = Auth::user();
-        $tickets=Ticket::when(($user->role_id == '3'), function ($query) use ($user) {
+       
+        if(!empty($request->search))
+        {
+            $status="";
+            if($request->search=='closed')
+            {
+                $status="0";
+            }
+            elseif($request->search=='pending')
+            {
+                $status="2";
+            }
+            elseif($request->search=='open')
+            {
+                $status="1";
+            }
+         
+               $tickets=Ticket::whereHas('user',function($q) use ($request){
+               //print_r($request->input());die();
+                $q->where('mobile',$request['search']);
+                $q->orWhere('firstname',$request['search']);
+                $q->orWhere('location',$request['search']);})
+                            ->orWhere('sr_no','LIKE','%'.$request->search.'%')
+                            ->orWhere('subject','LIKE','%'.$request->search.'%')
+                            ->orWhere('status',$status)
+                            ->orWhere('hub_id','LIKE','%'.$request->search.'%')
+                            ->orWhere('pod_id','LIKE','%'.$request->search.'%')
+                            ->orWhere('created_at','LIKE','%'.$request->search.'%')
+                            ->orderByRaw('FIELD(status , "1" , "2" ,"0")')
+                            ->orderBy('created_at','DESC')
+                            ->paginate(50);
+
+
+
+
+               /* $tickets=Ticket::when(($user->role_id == '3'), function ($query) use ($user) {
             $query->where('user_id', $user->id);
-        })
-        ->orderByRaw('FIELD(status , "1" , "2" ,"0")')
-        ->paginate(50);
+        })*/
+
+
+
+        }
+        else
+        {
+          
+            $tickets=Ticket::
+            orderByRaw('FIELD(status , "1" , "2" ,"0")')
+            ->orderBy('created_at','DESC')
+            ->paginate(50);
+
+        }
+       
         return view('ticket/tickets',compact('tickets'));
               
     }
@@ -93,8 +138,6 @@ class TicketsController extends Controller
             return redirect()->route('redirect_add_tickets')->with('message', 'Please select at least one issue')->withInput();
         }
 
-
-       
 
         $problems=implode('$', $ticket_data);
 
@@ -248,12 +291,12 @@ class TicketsController extends Controller
 
     }
 
-    public function search($id)
+   /* public function search($id)
     {
           $tickets=Ticket::where('sr_no',$id)->paginate(10);
 
           return view('ticket/tickets',compact('tickets'));
-    }
+    }*/
 
 
 
@@ -442,6 +485,8 @@ class TicketsController extends Controller
         
 
     }
+
+   
 
   
 }

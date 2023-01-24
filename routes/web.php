@@ -106,6 +106,7 @@ Route::middleware('auth:web')->group(function () {
             Route::post('genarate_tickets',[TicketsController::class,'store'])->name('genarate_tickets');
             Route::post('genarate_tickets',[TicketsController::class,'store'])->name('genarate_tickets');
             Route::post('modify_status',[TicketsController::class,'update'])->name('modify_status');
+            /*Route::post('search_tickets',[TicketsController::class,'search'])->name('search_tickets');*/
 
 
             //pods

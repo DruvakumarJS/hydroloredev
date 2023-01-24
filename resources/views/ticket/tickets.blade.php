@@ -21,12 +21,22 @@
               <a style="float:right;margin-right: 30px" class="btn btn-primary" href="{{route('add_tickets')}}">Generate Ticket</a>
 
             
-             <div style="float:right; width: 300px;right;margin-right: 30px;">
+            <!--  <div style="float:right; width: 300px;right;margin-right: 30px;">
 
              <input class="form-control" type="search" name="search" id="search" placeholder="search">
               
             </div>
+ -->
 
+               <form method="get" action="{{route('show_tickets')}}" style="float:right; margin-right: 30px;">
+               
+                                  <div class="input-group">
+
+                                      <input class="form-control" type="text" placeholder="Search " name="search">
+                                      <button class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                  </div>
+                                  
+                </form>
           
             </div>
            
@@ -141,7 +151,7 @@
 
           <label>Showing {{ $tickets->firstItem() }} to {{ $tickets->lastItem() }} of {{$tickets->total()}} results</label>
 
-          {!! $tickets->links() !!}
+          {!! $tickets->appends($_GET)->links() !!}
 
           @else
 
@@ -196,7 +206,6 @@
   $('.openModal').on('click',function(){
     $("#myModal").modal("show");
     $("#sr_no").val($(this).closest('tr').children()[1].textContent);
-
 
 
 });

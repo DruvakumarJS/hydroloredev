@@ -60,7 +60,7 @@ class UsersController extends Controller
     public function index()
     {
         
-        $userData=Userdetail::paginate(10);
+        $userData=Userdetail::paginate(50);
         
         return view('user/users',compact('userData'));
     }

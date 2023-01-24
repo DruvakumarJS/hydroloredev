@@ -22,7 +22,7 @@ class PODController extends Controller
     public function index()
     {
 
-        $pods=Pod::paginate(10);
+        $pods=Pod::paginate(50);
 
         return view('pod/pods',compact('pods'));
     }
