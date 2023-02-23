@@ -70,7 +70,6 @@ Route::middleware('auth:web')->group(function () {
      Route::middleware(['auth','isAdmin'])->group(function () {
             //dashboad  
            
-
            
            Route::get('/home', [HomeController::class, 'index'])->name('home');
            Route::get('hubs', [HubController::class, 'search'])->name('hub_serach');
@@ -111,7 +110,7 @@ Route::middleware('auth:web')->group(function () {
 
             //pods
             Route::post('add_pods',[PODController::class,'store'])->name('add_pods');
-            Route::get('deletepod/{id}',[PODController::class,'destroy'])->name('deletepod');
+            Route::get('deletepod/{podid}',[PODController::class,'destroy'])->name('deletepod');
             Route::get('view_pod/{id}',[PODController::class,'edit'])->name('view_pod');
             Route::post('update_pods/{id}',[PODController::class,'update'])->name('update_pods');
             Route::get('pods',[PODController::class,'index'])->name('pods');

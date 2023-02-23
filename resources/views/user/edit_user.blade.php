@@ -182,7 +182,7 @@ foreach ($userdetail as $key => $value) {
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn " data-bs-dismiss="modal">No</button>
-                         <a href="{{route('deletepod',$pod->id)}}"> <input class="btn btn-primary" type="button"  value="Yes" style="padding-left:20px;padding-right:20px"> </a>
+                         <a href="{{route('deletepod',$pod->pod_id)}}"> <input class="btn btn-primary" type="button"  value="Yes" style="padding-left:20px;padding-right:20px"> </a>
                       </div>
                     </div>
                   </div>

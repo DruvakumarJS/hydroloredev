@@ -9,6 +9,7 @@ use App\Models\PodMaster;
 use App\Models\Threshold;
 use App\Models\MasterSyncData;
 use App\Exports\ExportPodHistory;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Validator;
 use Excel;
 
@@ -82,9 +83,19 @@ class PODController extends Controller
     public function store(Request $request)
     {
        
-      // print_r($request->input());die();
+     
+       $validator = Validator::make($request->all(), [
+            'pod_id' => 'required|unique:pods',
+        ]);
 
-        if($request->action=='Add'){
+        if ($validator->fails()) {
+
+           return redirect()->back()->withMessage('The PODUID that you are trying to add is already linked to a HUB .');
+                        
+        }
+
+
+        else if($request->action=='Add'){
 
          $data = $request->all();
 
@@ -277,12 +288,19 @@ class PODController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($podid)
     {
-
-
-        $delete=Pod::where('id',$id)
+    
+        $delete=Pod::where('pod_id',$podid)
          ->delete();
+
+         $deleteThreshold = Threshold::where('pod_id',$podid)->delete();
+
+         $deleteTickets = Ticket::where('pod_id',$podid)->delete();
+
+         $deleteSyncData = MasterSyncData::where('pod_id',$podid)->delete();
+
+
           return redirect()->back();
                         
     }
