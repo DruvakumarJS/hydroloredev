@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\DataController;
+use App\Http\Controllers\Api\InstagramAPIController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +28,8 @@ Route::get('/get-questions',[ChatController::class, 'getQuestions']);
 
 Route::post('/hub-data', [DataController::class, 'store'])->name('hub-data');
 Route::get('/get-threshold-data/{podid}',[DataController::class,'getThresholdData'])->name('get-threshold-data');
+Route::get('/get-instagram-token',[InstagramAPIController::class, 'get_instatoken']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
