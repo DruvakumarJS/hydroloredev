@@ -31,7 +31,6 @@ Route::get('/get-threshold-data/{podid}',[DataController::class,'getThresholdDat
 Route::get('/get-instagram-token',[InstagramAPIController::class, 'get_instatoken']);
 
 
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
