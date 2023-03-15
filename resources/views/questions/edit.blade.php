@@ -10,7 +10,7 @@
                          <h2>Edit Question</h2>
                     </div>
                     <div class="col-md-6 text-end">
-                          <a class="btn btn-primary " href="{{route('questions')}}">View Question</a>
+                          <a class="btn btn-primary " href="{{route('questions')}}">View Questions</a>
                     </div>
                 </div>
                 <div class="card">

@@ -33,7 +33,42 @@
                                         <td>
                                             <a href="{{ route('edit_question', $question->id)}}">Edit</a>
                                         </td>
+                                        <td >
+                                            <a id="MybtnModal_{{$question->id}}"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+                                        </td>
                                     </tr>
+
+                                    <!-- Modal -->
+
+                                            <div class="modal" id="modal_{{$question->id}}" >
+                                              <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                  <div class="modal-header" style="background-color:white;">
+                                                     <img class="imagesize" src="{{asset('images/logo1.png')}}" >
+                                                    <h5 class="modal-title" >Hydrolore</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                    <p>Are you sure to delete below Question ?<br/> {{$question->question}}</p>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn " data-bs-dismiss="modal">No</button>
+                                                     <a href="{{route('deleteQuestion',$question->id)}}"> <input class="btn btn-primary" type="button"  data-bs-dismiss="modal"  value="Yes" style="padding-left:20px;padding-right:20px"> </a>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+
+                            <!--  end Modal -->
+
+                                            <script>
+                                                $(document).ready(function(){
+                                                  $('#MybtnModal_{{$question->id}}').click(function(){
+                                                    $('#modal_{{$question->id}}').modal('show')
+                                                  });
+                                                });  
+                                            </script>
+                                    
                                     @endforeach
                             </table>
                     </div>

@@ -18,14 +18,14 @@
             <div class="container-body">
                 <div class="row">
                 <div class="card table-responsive">
-                    <table class="table" >
+                    <table class="table table-hover" >
                         <tr>
                             <th>Sl.No</th>
                             <th>UserName</th>
                             <th>HUB ID</th>
                             <th>PODUID</th>
                             <th>Location</th>
-                            <th>Polyhouses</th>
+                            <th>PMODE</th>
                             <th>Created</th>
                             <th>Lastest update</th>
                             <th></th>
@@ -54,7 +54,7 @@
                                 <td>{{$value->hub_id}}</td>
                                 <td><label>{{$value->pod_id}}</label></td>
                                 <td>{{$value->location}}</td>
-                                <td>{{$value->polyhouses}}</td>
+                                <td>{{$value->PMODE}}</td>
                                 <td>{{$value->created_at}}</td>
                                 <td>{{$value->updated_at}}</td>
                                 <td><a href="{{route('pod_history',$value->pod_id)}}">History</a>

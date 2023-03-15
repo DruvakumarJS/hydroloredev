@@ -112,13 +112,13 @@
   <form method="post" action="{{route('update_status')}}">
     @csrf
 
-    <input class="header-lab" type="radio" id="open" name="status" {{ $tickets->status == "1"  ? 'checked' : '' }} value="1">
+    <input type="radio" id="open" name="status" {{ $tickets->status == "0"  ? 'disabled' : '' }} {{ $tickets->status == "1"  ? 'checked' : '' }} value="1">
     <label for="open" >Open</label><br>
 
-    <input type="radio" id="pending" name="status"  {{ $tickets->status == "2"  ? 'checked' : '' }}  value="2">
+    <input type="radio" id="pending" name="status" {{ $tickets->status == "0"  ? 'disabled' : '' }} {{ $tickets->status == "2"  ? 'checked' : '' }}  value="2">
     <label for="pending">Pending</label><br>
 
-    <input type="radio" id="close" name="status"  {{ $tickets->status == "0"  ? 'checked' : '' }}  value="0">
+    <input type="radio" id="close" name="status" {{ $tickets->status == "0"  ? 'disabled' : '' }} {{ $tickets->status == "0"  ? 'checked' : '' }}  value="0">
     <label for="close">Close</label>
 
     <input type="hidden" name="id" value="{{$id}}">
@@ -128,8 +128,8 @@
     <div>
 
       <div class="mt-3">
-        <button class="btn btn-primary rounded-pill" type="submit" name="action" value=" Update">Update</button>
-        <button class="btn rounded-pill " type="submit" name="action" value=" cancel">Cancel</button>
+        <button class="btn btn-primary rounded-pill" type="submit" name="action" value=" Update" {{ $tickets->status == "0"  ? 'disabled' : '' }}>Update</button>
+        <button class="btn rounded-pill " type="" name="action" value=" cancel">Cancel</button>
       </div>
 
 

@@ -255,8 +255,7 @@ class TicketsController extends Controller
        
        $action=$request->action;
 
-       print_r($request->input());
-     
+    
 
        if($action=='save')
        {
@@ -280,12 +279,17 @@ class TicketsController extends Controller
     public function modify(Request $request)
     {
 
-      // print_r($request->input()); die();
-         $status=$request->status;
-          $srno=$request->id;
 
-          $update=Ticket::Where('sr_no',$srno)
+      if($request->action =='Update'){
+
+         $status=$request->status;
+         $srno=$request->id;
+
+         $update=Ticket::Where('sr_no',$srno)
                         ->update(['status'=>$status]);
+
+      }
+        
 
         return redirect()->route('show_tickets');
 

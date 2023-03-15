@@ -134,6 +134,7 @@ Route::middleware('auth:web')->group(function () {
             Route::post('save_question',[QuestionsController::class, 'store'])->name('save_question');
             Route::get('edit_question/{id}',[QuestionsController::class, 'edit'])->name('edit_question');
             Route::post('update_question/{id}',[QuestionsController::class, 'update'])->name('question.update');
+            Route::get('deleteQuestion/{id}',[QuestionsController::class,'destroy'])->name('deleteQuestion');
 
             // Location
             Route::get('locations', [LocationController::class, 'index'])->name('locations');
@@ -141,6 +142,7 @@ Route::middleware('auth:web')->group(function () {
             Route::post('save-location', [LocationController::class, 'store'])->name('save-location');
             Route::get('edit-location/{id}', [LocationController::class, 'edit'])->name('edit-location');
             Route::post('update-location/{id}',[LocationController::class, 'update'])->name('location.update');
+            Route::get('deletelocation/{id}',[LocationController::class,'destroy'])->name('deletelocation');
 
 
             // others

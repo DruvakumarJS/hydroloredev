@@ -46,4 +46,9 @@ class LocationController extends Controller
         return redirect()->route('locations');
     }
 
+    public function destroy($id){
+        $delete = Locations::where('id',$id)->delete();
+         return redirect()->route('locations');
+    }
+
 }

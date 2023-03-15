@@ -10429,6 +10429,14 @@ textarea.form-control-lg {
   padding-left: 10px;
   padding-right: 10px;
 }
+.curved-text-disabled {
+  background-color: #D3D3D3;
+  border-radius: 10px;
+  color: white;
+  border-color: #00cc88;
+  padding-left: 10px;
+  padding-right: 10px;
+}
 
 .curved-label {
   border-radius: 10px;
@@ -10776,3 +10784,4 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+

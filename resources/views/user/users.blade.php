@@ -37,7 +37,7 @@
 
        <div class="card table-responsive">
 
-        <table class="table ">
+        <table class="table table-hover ">
 
          <tr>
            <th>Sl.No</th>

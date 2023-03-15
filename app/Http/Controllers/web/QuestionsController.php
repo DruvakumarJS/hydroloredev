@@ -40,5 +40,10 @@ class QuestionsController extends Controller
         $question->save();
         return redirect()->route('questions');
     }
+    public function destroy($id){
+        $Delete = Questions::where('id',$id)->delete();
+        return redirect()->route('questions');
+
+    }
 
 }

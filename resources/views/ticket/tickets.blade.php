@@ -5,6 +5,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
+
+
 <div class="container-body">
 
     <div class="row justify-content-center">
@@ -21,14 +23,7 @@
               <a style="float:right;margin-right: 30px" class="btn btn-primary" href="{{route('add_tickets')}}">Generate Ticket</a>
 
             
-            <!--  <div style="float:right; width: 300px;right;margin-right: 30px;">
-
-             <input class="form-control" type="search" name="search" id="search" placeholder="search">
-              
-            </div>
- -->
-
-               <form method="get" action="{{route('show_tickets')}}" style="float:right; margin-right: 30px;">
+            <form method="get" action="{{route('show_tickets')}}" style="float:right; margin-right: 30px;">
                
                                   <div class="input-group">
 
@@ -37,14 +32,14 @@
                                   </div>
                                   
                 </form>
-          
+
             </div>
            
 
     </div>
 
     <div class="card table-responsive">
-     <table class="table" >
+     <table class="table table-hover" >
         <tr >
           <th>Sl.No</th>
           <th>Ticket ID</th>
@@ -78,6 +73,16 @@
             else {$data='undefined';$colourcode='#4e9a2c';}
 
 
+            if (strpos($t_id, 'A') === 0) {
+                  $bg="#F5F5F5";
+                  $tittle = "Customer Issue";
+              }
+              else {
+              $bg="#ffffff";
+               $tittle = "System generated Issue";
+            }
+
+
             $issue=$value->subject;
              if(str_contains($issue , "$"))
              {
@@ -107,8 +112,8 @@
 
           @endphp
 
-          <tr>
-          <td>{{$key + $tickets->firstItem()}}</td>
+          <tr title="<?php echo $tittle ?>""> 
+          <td  style="background-color: <?php echo  $bg ?>" >{{$key + $tickets->firstItem()}}</td>
           <td> <label>{{$value->sr_no}}</label> </td>
           <td>
             
@@ -134,9 +139,20 @@
           <td>{{$value->created_at}}</td>
 
            @if(Auth::user()->role_id == '1')
-           <td class="openModal" ><label id="modal" data-id="{{$value->sr_no}}"  class="curved-text">Action</label></td>
+           
+            @if($data=='closed')
+            <td>
+              <label  class="curved-text-disabled">Action</label>
+              </td>
+            @else
+            <td class="openModal" >
+            <label id="modal" data-id="{{$value->sr_no}}" class="curved-text">Action</label>
+             </td>
+            @endif
+
+        
            @endif
-           <td><a  href="{{route('view_ticket',$value->sr_no)}}"  style="color:<?php echo $colourcode; ?>">View</a></td>
+           <td><a  href="{{route('view_ticket',$value->sr_no)}}" style="color:<?php echo $colourcode; ?>">View</a></td>
 
 
         </tr>
@@ -204,9 +220,9 @@
 <script type="text/javascript">
 
   $('.openModal').on('click',function(){
+  
     $("#myModal").modal("show");
     $("#sr_no").val($(this).closest('tr').children()[1].textContent);
-
 
 });
 </script>

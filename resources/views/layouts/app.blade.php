@@ -103,6 +103,7 @@
            ||request()->routeIs('resetpassword')
            ||request()->routeIs('questions')
            ||request()->routeIs('add_question')
+           ||request()->routeIs('edit_question')
            ||request()->routeIs('add-locations')
            ||request()->routeIs('edit-location')
            ? 'active' : '' }}"

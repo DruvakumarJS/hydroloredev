@@ -103,7 +103,7 @@
                         <label style="float: right;margin-top: 10px;margin-right: 10px;"></label>
                         <div>
                             <div class="card table-responsive">
-                                <table class="table">
+                                <table class="table table-hover">
                                     <tr>
                                         <th>Sl.No</th>
                                         <th>Ticket ID</th>
