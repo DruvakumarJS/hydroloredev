@@ -24,7 +24,7 @@ class InstagramAPIController extends Controller
      
      	if($date <= $token_expiry_date)
      	{
-            print_r("old token");
+           // print_r("old token");
 
              return response()->json([
 		            'status' => 1,
