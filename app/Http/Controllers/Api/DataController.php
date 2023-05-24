@@ -133,12 +133,12 @@ class DataController extends Controller
         
         $this->validate_AB_T1($Inputdata, $threshold , $date );
         $this->validate_POD_T1($Inputdata, $threshold , $date ); 
-        $this->validate_TDS_V1($Inputdata, $threshold , $date ); 
-        $this->validate_PH_V1($Inputdata, $threshold , $date );  
+        //$this->validate_TDS_V1($Inputdata, $threshold , $date ); 
+       // $this->validate_PH_V1($Inputdata, $threshold , $date );  
         $this->validate_NUT_T1($Inputdata, $threshold , $date );           
-        $this->validate_NP_I1($Inputdata, $threshold , $date );
+       // $this->validate_NP_I1($Inputdata, $threshold , $date );
        // $this->validate_NP_I2($Inputdata, $threshold , $date );
-        $this->validate_SV_I1($Inputdata, $threshold , $date );
+       // $this->validate_SV_I1($Inputdata, $threshold , $date );
         $this->validate_FLO_UT($Inputdata, $threshold , $date );
         $this->validate_FLO_BT($Inputdata, $threshold , $date );
         $this->validate_STS_NP1($Inputdata, $threshold , $date );
@@ -147,10 +147,10 @@ class DataController extends Controller
         $this->validate_WL1L($Inputdata, $threshold , $date);
         $this->validate_WL2L($Inputdata, $threshold , $date); 
         $this->validate_WL3L($Inputdata, $threshold , $date);
-        $this->validate_RL1($Inputdata, $threshold , $date);
-        $this->validate_RL2($Inputdata, $threshold , $date);
-        $this->validate_RL3($Inputdata, $threshold , $date);
-        $this->validate_RL4($Inputdata, $threshold , $date);
+       // $this->validate_RL1($Inputdata, $threshold , $date);
+       // $this->validate_RL2($Inputdata, $threshold , $date);
+       // $this->validate_RL3($Inputdata, $threshold , $date);
+       // $this->validate_RL4($Inputdata, $threshold , $date);
 
      
         //  }
@@ -454,7 +454,7 @@ class DataController extends Controller
                         'hub_id'=>$Inputdata['hub_id'],
                         'pod_id'=>$Inputdata['PODUID'],
                         'threshold'=>$thresholdValue,
-                        'current_value'=>$Inputdata['AB-T1']
+                        'current_value'=>$Inputdata['NUT-T1']
                                                     
                     ]);
 

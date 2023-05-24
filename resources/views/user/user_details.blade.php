@@ -476,9 +476,9 @@
                              <td>Pod Mode </td>
 
                               <td>
-                              <label>max temparature</label>
+                              <label>Mode</label>
                               <br>
-                              <input type="" name="PMODE" placeholder="max temparature"></td>
+                              <input type="text" name="PMODE" placeholder="Mode"></td>
                               <td></td>
                            </tr>
 

@@ -185,9 +185,9 @@
          <td>Total Dissolved Salt Sensor Value</td>
          
          <td>
-          <label>x value</label>
+          <label>threshold max value</label>
           <br>
-          <input type="text" value="{{$threshold->TDS_V1}}" name="TDS_V1" placeholder="x vlaue"></td>
+          <input type="text" value="{{$threshold->TDS_V1}}" name="TDS_V1" placeholder="max value"></td>
           <td></td>
         </tr>
 
@@ -197,7 +197,7 @@
          <td>pH Sensor Value</td>
          
          <td>
-          <label>x value</label> <br> <input value="{{$threshold->PH_V1}}" type="text" name="PH_V1" placeholder="x vlaue"></td>
+          <label>threshold max value</label> <br> <input value="{{$threshold->PH_V1}}" type="text" name="PH_V1" placeholder="max value"></td>
           <td></td>
         </tr>
 
@@ -575,7 +575,7 @@
                      <td>Pod Mode </td>
                      
                      <td>
-                      <label>max temparature</label> <br> <input type="" name="" placeholder="max temparature" value="{{$threshold->PMODE}}" disabled></td>
+                      <label>Mode</label> <br> <input type="" name="" placeholder="Mode" value="{{$threshold->PMODE}}" ></td>
                       <td></td>
                     </tr>
 
