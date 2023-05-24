@@ -53,7 +53,7 @@ class TicketsController extends Controller
                             ->orWhere('hub_id','LIKE','%'.$request->search.'%')
                             ->orWhere('pod_id','LIKE','%'.$request->search.'%')
                             ->orWhere('created_at','LIKE','%'.$request->search.'%')
-                            ->orderByRaw('FIELD(status , "1" , "2" ,"0")')
+                            /*->orderByRaw('FIELD(status , "1" , "2" ,"0")')*/
                             ->orderBy('created_at','DESC')
                             ->paginate(50);
 
@@ -71,8 +71,8 @@ class TicketsController extends Controller
         {
           
             $tickets=Ticket::
-            orderByRaw('FIELD(status , "1" , "2" ,"0")')
-            ->orderBy('created_at','DESC')
+           /* orderByRaw('FIELD(status , "1" , "2" ,"0")')*/
+            orderBy('created_at','DESC')
             ->paginate(50);
 
         }

@@ -127,10 +127,9 @@ class DataController extends Controller
 
              $ticket_controller->critical_alerts($Inputdata,$threshold , $date , $critical); 
         }
-        else
-        {
-          
-          
+       /* else
+        {*/
+              
         
         $this->validate_AB_T1($Inputdata, $threshold , $date );
         $this->validate_POD_T1($Inputdata, $threshold , $date ); 
@@ -154,7 +153,7 @@ class DataController extends Controller
         $this->validate_RL4($Inputdata, $threshold , $date);
 
      
-          }
+        //  }
 
 
          $threshold=Threshold::select('TDS_V1','PH_V1','NP_I1','SV_I1','RL1','RL3', 'RL4','CUR')->where('pod_id',$Inputdata['PODUID'])->first();
@@ -308,7 +307,7 @@ class DataController extends Controller
 
         if(!$checkalert)
         {
-            print_r("new"); die();
+           // print_r("new"); die();
 
                 $ticket_controller = new TicketsController; 
                
@@ -941,7 +940,7 @@ class DataController extends Controller
 
     public function validate_WL2L($Inputdata ,$threshold , $date)
       {
-
+       
         $thresholdValue=$threshold->WL2L;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
          $threshold_time= "-".trim($outputArr[1])."minutes";
@@ -1229,7 +1228,7 @@ class DataController extends Controller
 
       public function validate_RL2($Inputdata ,$threshold , $date)
       {
-
+        
         $thresholdValue=$threshold->RL2;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
         
@@ -1284,6 +1283,7 @@ class DataController extends Controller
 
              if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
             {
+                print_r('inside');
 
 
             foreach ($prev_data as $key => $value) {
@@ -1299,18 +1299,19 @@ class DataController extends Controller
             }
 
             else{
+                 print_r('No data');
                  $RL_OFF='false';
             }
 
         }
         else{
-
+ //print_r('No faulty');
+             $RL_OFF='false';
         }
 
-
+             //print_r($RL_ON);print_r('<br>');print_r($RL_OFF); die();
             if($RL_ON=='true' || $RL_OFF=='true')
             {
-
 
             $subject="Source Tank Water Level Sensor-2 – Low Level Status issue";
 
@@ -1320,8 +1321,7 @@ class DataController extends Controller
                               ->where('created_at', 'like', $date.'%')
                               ->orderBy('id', 'DESC')->first();
 
-                             
-
+                            
                     if(!$checkalert)
                     {
                        $ticket_controller = new TicketsController; 
