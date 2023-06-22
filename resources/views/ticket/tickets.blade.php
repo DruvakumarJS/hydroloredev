@@ -113,8 +113,8 @@
           @endphp
 
           <tr title="<?php echo $tittle ?>"> 
-         <!--  <td  style="background-color: <?php echo  $bg ?>" >{{$key + $tickets->firstItem()}}</td> -->
-          <td>{{$key + $tickets->firstItem()}}</td>
+          <td  style="background-color: <?php echo  $bg ?>" >{{$key + $tickets->firstItem()}}</td> 
+          
           <td> <label>{{$value->sr_no}}</label> </td>
           <td>
             
@@ -136,16 +136,16 @@
            <td>{{$value->user->mobile}}</td>
            <!--  <td>{{$value->threshold_value}}</td> -->
 
-          <!-- <td> <label  style="color:<?php echo $colourcode; ?>" >{{$data}}</label></td> -->
-          <td> <label>{{$data}}</label></td>
+         <td> <label  style="color:<?php echo $colourcode; ?>" >{{$data}}</label></td>
+         
           <td>{{$value->created_at}}</td>
 
            @if(Auth::user()->role_id == '1')
            
             @if($data=='closed')
             <td>
-               <label id="modal" data-id="{{$value->sr_no}}" class="curved-text">Action</label>
-               <!-- <label  class="curved-text-disabled">Action</label> -->
+              
+               <label  class="curved-text-disabled">Action</label>
               </td>
             @else
             <td class="openModal" >

@@ -120,7 +120,7 @@ class DataController extends Controller
         {
        
              $critical=$Inputdata['critical'];  
-           
+            
              $threshold=Threshold::where('pod_id',$Inputdata['PODUID'])->first();
 
              $ticket_controller = new TicketsController;

@@ -34,7 +34,7 @@
                                             <a href="{{ route('edit-location', $location->id)}}">Edit</a>
                                         </td>
                                          <td >
-                                            <!-- <a id="MybtnModal_{{$location->id}}"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a> -->
+                                            <a id="MybtnModal_{{$location->id}}"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
                                         </td>
                                     </tr>
 

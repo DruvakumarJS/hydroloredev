@@ -72,6 +72,19 @@
                     <!--</div>-->
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="sensor_chart"></canvas>
+                    
+                </div>
+
+                <div class="col-md-6">
+                    <canvas id="sensor_chart2"></canvas>
+                    
+                </div>
+                
+            </div>
             <div class="row">
 
             <label>Current Month </label> 
@@ -372,7 +385,162 @@
               }
             });
         </script>
+        
 
+        <!-- Tickets -->
+<script>
+
+   
+   var temparature = [];
+   Chart.defaults.global.defaultFontStyle = 'bold';
+
+   
+    new Chart("sensor_chart", {
+      type: "line",
+      title:{
+        text:"Chart Title",
+       },
+      
+      data: {
+       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
+         labels: <?php echo $sensorsArray['pods'] ;  ?>,
+
+
+        datasets: [
+        {
+          label: 'Ambian Temparature',  
+          fill: false,
+         
+          backgroundColor: "<?php echo 'red' ;  ?>",
+          borderColor: "<?php echo 'red' ;  ?>",
+          data: <?php echo $sensorsArray['ambian'] ;  ?>,
+
+        },
+        {
+          label: 'TDS value',  
+          fill: false,
+         
+          backgroundColor: "<?php echo '#D7A1f9';  ?>",
+          borderColor: "<?php echo '#D7A1f9';  ?>",
+          data: <?php echo $sensorsArray['tds'] ;  ?>,
+        },
+       {
+          label: 'PH value',  
+          fill: false,
+          
+          backgroundColor: "<?php echo '#000000';  ?>",
+          borderColor: "<?php echo '#000000';  ?>",
+          data: <?php echo $sensorsArray['ph'] ;  ?>,
+        },
+       
+        ]
+      },
+      options: {
+         tooltips: {
+                  mode: 'index'
+                },
+        legend: {display: true},
+        scales: {
+          pointLabels :{
+           fontStyle: "bold",
+            },
+          yAxes: [{
+            gridLines: {
+             drawOnChartArea: false },
+
+            ticks: {min: 0} ,
+            scaleLabel: {
+                    display: true,
+                    labelString: 'Sensors Value',
+                    fontColor: '#000',   }
+                }],
+          xAxes: [{
+            barPercentage: 1,
+             gridLines: {
+             drawOnChartArea: false },
+            ticks: {min: 0, max:31 ,autoSkip: false} ,
+            scaleLabel: {
+                    display: true,
+                    labelString: 'PODs',
+                    fontColor: '#000', }
+                }],
+        }
+      }
+    });
+</script>
+
+<script>
+
+   
+   var temparature = [];
+   Chart.defaults.global.defaultFontStyle = 'bold';
+
+   
+    new Chart("sensor_chart2", {
+      type: "line",
+      title:{
+        text:"Chart Title",
+       },
+      
+      data: {
+       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
+         labels: <?php echo $mean_values['mean_pods'] ;  ?>,
+
+
+        datasets: [
+        {
+          label: 'Mean tempatature of Day time',  
+          fill: false,
+         
+          backgroundColor: "<?php echo 'red' ;  ?>",
+          borderColor: "<?php echo 'red' ;  ?>",
+          data: <?php echo $mean_values['mean_day'] ;  ?>,
+
+        },
+        {
+          label: 'Mean tempatature of Night time',  
+          fill: false,
+         
+          backgroundColor: "<?php echo '#D7A1f9';  ?>",
+          borderColor: "<?php echo '#D7A1f9';  ?>",
+          data: <?php echo $mean_values['mean_night'] ;  ?>,
+        },
+      
+        ]
+      },
+      options: {
+         tooltips: {
+                  mode: 'index'
+                },
+        legend: {display: true},
+        scales: {
+          pointLabels :{
+           fontStyle: "bold",
+            },
+          yAxes: [{
+            gridLines: {
+             drawOnChartArea: false },
+
+            ticks: {min: 0} ,
+            scaleLabel: {
+                    display: true,
+                    labelString: 'Mean Value',
+                    fontColor: '#000',   }
+                }],
+          xAxes: [{
+            barPercentage: 1,
+             gridLines: {
+             drawOnChartArea: false },
+            
+            scaleLabel: {
+                    display: true,
+                    labelString: 'PODs',
+                    fontColor: '#000', }
+                }],
+        }
+      }
+    });
+</script>
 
         
        

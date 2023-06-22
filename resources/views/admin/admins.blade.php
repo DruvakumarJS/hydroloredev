@@ -30,7 +30,7 @@
                                       <td>{{$value->email}}</td>
                                       <td>{{$value->role_id}}</td>
                                       <td>
-                                        <!-- <a href="{{route('delete_admin',$value->id)}}" onclick="return confirm('Are you sure to delete the user {{$value->name}}?')"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i> -->
+                                        <a href="{{route('delete_admin',$value->id)}}" onclick="return confirm('Are you sure to delete the user {{$value->name}}?')"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i>
                                         </a> 
                                       </td>
                                     </tr>
