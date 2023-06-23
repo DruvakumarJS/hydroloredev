@@ -59,20 +59,46 @@
 
             <div style="left: right;margin-right: 10px;">
                  <h3 class="card head-h1" style="float: left;margin-right: 10px; background: blue;  color: white;">POD ID : {{$id}}</h3>
+                 
+                <div id="div2">
+                  <button class="open-AddBookDialog btn-primary" id="btn_export1" value="export">Export</button>
+                </div>
+              
+               <form method="POST" action="{{route('filter_history')}}" >
+                  @csrf
+                    <div id="div2" style="margin-right: 10px ;">
+                      <button class=" btn-primary" type="submit" name="action" value="filter">Filter</button>
+                    </div>
 
-                  <button style="float:right; margin-top:20px" class="open-AddBookDialog btn-primary" id="btn_export1" value="export">Export</button>
+                    <div id="div2" style="margin-right: 10px;background-color: white">
+                       <input class="form-control" type="text" name="datetimes" id="datetimes" value="{{$datepicker}}" placeholder="Select Date Range" style="background-color: white" readonly/>
+                    </div>
+
+                    <div id="div2" style="margin-right: 10px">
+                       <select class="form-control"  name="api_type" id="api_type">
+                          <option value="none" <?php echo $api_type == 'none' ? 'selected':''  ?> >Select Data Type </option>
+                          <option value="normal" <?php echo $api_type == 'normal' ? 'selected':''  ?>>Normal Data</option>
+                          <option value="instant" <?php echo $api_type == 'instant' ? 'selected':''  ?>>Instant Data</option>
+                      </select>
+                    </div>
+
+                    <input type="hidden" name="pod_id" value="{{$id}}">
+
+                    <div id="div2" style="margin-right: 10px">
+                       <a href="{{route('pod_history',$id)}}"><i class="fa fa-refresh"></i>  </a>
+                    </div>
+                 
+               </form>
 
                  
-                 <form method="POST" action="{{route('filter_history')}}" >
+                <!--  <form method="POST" action="{{route('filter_history')}}" >
                      @csrf
 
                     <div style="float:right;margin-right: 10px ; margin-top:20px">
 
                     <a class="fa fa-refresh" href="{{route('pod_history',$id)}}">  </a>
 
-                  <!--    <input  type="search" name="search" id="search" placeholder="search"> -->
-
-                   <select id="api_type" name="api_type" id="api_type" >
+                   <select class="form-input"  name="api_type" id="api_type">
                       <option value="none">Select Data Type </option>
                       <option value="normal">Normal Data</option>
                       <option value="instant">Instant Data</option>
@@ -86,8 +112,9 @@
                  
                  
                     </div>
-                </form>
-                 
+                </form> -->
+
+                
                      <!-- Modal -->
 
                 <div class="modal" id="modal_export1" >
@@ -119,7 +146,7 @@
             
                         <button type="button" class="btn " data-bs-dismiss="modal">No</button>
                       
-
+                   
                          <button class="btn btn-primary" data-bs-dismiss="modal" type="submit" id="btn_export_data" >Export</button>
 
                          </div>
@@ -153,13 +180,13 @@
 <tr class="tHead">
              <th>Sl.No</th>
              <th nowrap="nowrap">Time</th>
-             <th nowrap="nowrap">AB-T1</th>
-             <th nowrap="nowrap">AB-H1</th>
+             <th nowrap="nowrap">Ambient Temperature</th>
+             <!-- <th nowrap="nowrap">AB-H1</th>
              <th nowrap="nowrap">POD-T1</th>
-             <th nowrap="nowrap">POD-H1</th>
-             <th nowrap="nowrap">TDS-V1</th>
-             <th nowrap="nowrap">PH-V1</th>
-             <th nowrap="nowrap">NUT-T1</th>
+             <th nowrap="nowrap">POD-H1</th> -->
+             <th nowrap="nowrap">Total Dissolved Salt</th>
+             <th nowrap="nowrap">pH value</th>
+             <!-- <th nowrap="nowrap">NUT-T1</th>
              <th nowrap="nowrap">NP-I1</th>
              <th nowrap="nowrap">SV-I1</th>
              <th nowrap="nowrap">BAT-V1</th>
@@ -170,17 +197,17 @@
              <th nowrap="nowrap">STS-NP2</th>
              <th nowrap="nowrap">STS-SV1</th>
              <th nowrap="nowrap">STS-SV2</th>
-             <th nowrap="nowrap">WL1H</th>
-             <th nowrap="nowrap">WL1L</th>
-             <th nowrap="nowrap">WL2H</th>
-             <th nowrap="nowrap">WL2L</th>
-             <th nowrap="nowrap">WL3H</th>
-             <th nowrap="nowrap">WL3L</th>
+             <th nowrap="nowrap">WL1H</th>-->
+             <th nowrap="nowrap">Source Tank [WL1L]</th>
+             <!-- <th nowrap="nowrap">WL2H</th> -->
+             <th nowrap="nowrap">Source Tank [WL2L]</th>
+             <!-- <th nowrap="nowrap">WL3H</th> -->
+             <!-- <th nowrap="nowrap">WL3L</th>  -->
              <th nowrap="nowrap">RL1</th>
              <th nowrap="nowrap">RL2</th> 
              <th nowrap="nowrap">RL3</th>
              <th nowrap="nowrap">RL4</th>
-             <th nowrap="nowrap">RL5</th>
+             <!-- <th nowrap="nowrap">RL5</th> -->
              <th nowrap="nowrap">PMODE</th>
              <th nowrap="nowrap">API_type</th>
 </tr>
@@ -202,12 +229,12 @@
           <td nowrap="nowrap">{{$key + $pods->firstItem()}}</td>
           <td nowrap="nowrap">{{$time}}</td>
           <td nowrap="nowrap">{{$value->AB_T1}} <span> &#176;C</span> </td>   
-            <td nowrap="nowrap">{{$value->AB_H1}}<span> %RH</span> </td>   
+            <!-- <td nowrap="nowrap">{{$value->AB_H1}}<span> %RH</span> </td>   
             <td nowrap="nowrap">{{$value->POD_T1}}<span> &#176;C</span> </td>   
-            <td nowrap="nowrap">{{$value->POD_H1}}<span> %RH</span> </td>   
+            <td nowrap="nowrap">{{$value->POD_H1}}<span> %RH</span> </td>    -->
             <td nowrap="nowrap">{{$value->TDS_V1}}<span> mg/L</span> </td>   
             <td nowrap="nowrap">{{$value->PH_V1}} </td>   
-            <td nowrap="nowrap">{{$value->NUT_T1}}<span> &#176;C</span> </td>   
+            <!-- <td nowrap="nowrap">{{$value->NUT_T1}}<span> &#176;C</span> </td>   
             <td nowrap="nowrap">{{$value->NP_I1}}<span> mA</span> </td>   
             <td nowrap="nowrap">{{$value->SV_I1}}<span> mA</span> </td>   
             <td nowrap="nowrap">{{$value->BAT_V1}} <span> %</span></td>   
@@ -218,17 +245,17 @@
             <td nowrap="nowrap">{{$value->STS_NP2}}</td>   
             <td nowrap="nowrap">{{$value->STS_SV1}}</td>   
             <td nowrap="nowrap">{{$value->STS_SV2}}</td>   
-            <td nowrap="nowrap">{{$value->WL1H}}</td>   
+            <td nowrap="nowrap">{{$value->WL1H}}</td>  -->   
             <td nowrap="nowrap">{{$value->WL1L}}</td>   
-            <td nowrap="nowrap">{{$value->WL2H}}</td>   
+           <!--  <td nowrap="nowrap">{{$value->WL2H}}</td>    -->
             <td nowrap="nowrap">{{$value->WL2L}}</td>   
-            <td nowrap="nowrap">{{$value->WL3H}}</td>   
-            <td nowrap="nowrap">{{$value->WL3L}}</td>   
+           <!--  <td nowrap="nowrap">{{$value->WL3H}}</td>    -->
+           <!--  <td nowrap="nowrap">{{$value->WL3L}}</td>   -->
             <td nowrap="nowrap">{{$value->RL1}}</td>   
             <td nowrap="nowrap">{{$value->RL2}}</td>   
             <td nowrap="nowrap">{{$value->RL3}}</td>   
             <td nowrap="nowrap">{{$value->RL4}}</td>   
-            <td nowrap="nowrap">{{$value->RL5}}</td>   
+           <!--  <td nowrap="nowrap">{{$value->RL5}}</td>   --> 
             <td nowrap="nowrap">{{$value->PMODE}}</td> 
             <td nowrap="nowrap">{{$value->api_type}}</td>     
 

@@ -6,7 +6,7 @@
   <div class="container-body">
 
       <div>
-         <h2 class="head-h1">Users</h2>
+         <h2 class="head-h1">PODs</h2>
          <label class="date">{{date('d M ,Y')}} </label>
       </div>
 
@@ -72,7 +72,7 @@
 
                                       <div class="col-md-3">
                                         <label for="pod_id" class="label-title">PODUID</label>
-                                        <input type="text" id="pod_id" name="pod_id" class="form-input"  required="required" value="{{ old('pod_id') }}" />
+                                        <input type="text" id="pod_id" name="pod_id" class="form-control"  required="required" value="{{ old('pod_id') }}" />
                                          @error('pod_id')
                                         <script type="text/javascript">
                                               $(document).ready(function(){
@@ -87,7 +87,7 @@
                                         <label for="location" class="label-title">POD Location</label>
                                         <div>
 
-                                        <select id="location" name="location" style="width:200px;height: 30px">
+                                        <select class="form-control" id="location" name="location" >
                                           @foreach ($locations as $key => $values)
 
                                            <option value="{{$values->location}}">{{$values->location}}</option>
@@ -108,15 +108,15 @@
 
                                       <div class="col-md-3">
                                         <label for="dimention" class="label-title">Dimention</label>
-                                        <input type="text" id="dimention" name="dimention" class="form-input"   value="{{ old('dimention') }}" />
+                                        <input type="text" id="dimention" name="dimention" class="form-control"   value="{{ old('dimention') }}" />
                                           @error('dimention')
                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                          @enderror
                                       </div>
 
                                       <div class="col-md-3">
-                                        <label for="polyhouses" class="label-title">Polyhouses</label>
-                                        <input type="text" id="polyhouses" name="polyhouses" class="form-input"   value="{{ old('polyhouses') }}" />
+                                        <label for="polyhouses" class="label-title">No. of Channels</label>
+                                        <input type="text" id="polyhouses" name="polyhouses" class="form-control"   value="{{ old('polyhouses') }}" />
                                          @error('polyhouses')
                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                          @enderror
@@ -132,7 +132,7 @@
 
                                       <div class="col-md-3">
                                         <label for="hub_id" class="label-title">HUBUID</label>
-                                        <input type="text" id="hub_id" name="hub_id" class="form-input"  required="required" value="{{ $value->hub_id }}" disabled />
+                                        <input type="text" id="hub_id" name="hub_id" class="form-control"  required="required" value="{{ $value->hub_id }}" disabled />
                                          @error('hub_id')
                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                          @enderror
@@ -172,7 +172,7 @@
 
                              <td>
                               <label>Time interval (minutes)</label>
-                              <input type="text" name="CUR" value="120" placeholder="Time interval">
+                              <input class="form-control" type="text" name="CUR" value="120" placeholder="Time interval">
                             </td>
                             <td></td>
 
@@ -185,7 +185,7 @@
                              <td>
                               <label>max temparature</label>
                               <br>
-                              <input value="37" type="text" name="AB_T1" placeholder="max temparature"></td>
+                              <input class="form-control" value="37" type="text" name="AB_T1" placeholder="max temparature"></td>
                               <td></td>
                            </tr>
 
@@ -197,7 +197,7 @@
                               <td>
                               <label>x value</label>
                               <br>
-                              <input type="text" name="AB_H1" placeholder="x value" disabled>
+                              <input class="form-control" type="text" name="AB_H1" placeholder="x value" disabled>
                               </td>
                               <td></td>
                            </tr>
@@ -209,7 +209,7 @@
                               <td>
                               <label>x value</label>
                               <br>
-                              <input value="10" type="text" name="POD_T1" placeholder="x vlaue"></td>
+                              <input class="form-control" value="10" type="text" name="POD_T1" placeholder="x vlaue"></td>
                               <td></td>
                            </tr>
 
@@ -221,7 +221,7 @@
                               <td>
                               <label>max value</label>
                               <br>
-                              <input type="text" name="POD_H1" placeholder="threshold max value" disabled></td>
+                              <input class="form-control" type="text" name="POD_H1" placeholder="threshold max value" disabled></td>
                               <td></td>
                            </tr>
 
@@ -232,7 +232,7 @@
                               <td>
                               <label>max value</label>
                               <br>
-                              <input type="text" name="TDS_V1" placeholder="threshold max value" ></td>
+                              <input class="form-control" type="text" name="TDS_V1" placeholder="threshold max value" ></td>
                               <td></td>
                            </tr>
 
@@ -244,7 +244,7 @@
                               <td>
                               <label>max value</label>
                               <br>
-                              <input type="text" name="PH_V1" placeholder="threshold max value"></td>
+                              <input class="form-control" type="text" name="PH_V1" placeholder="threshold max value"></td>
                               <td></td>
                            </tr>
 
@@ -255,7 +255,7 @@
                               <td>
                               <label>x value</label>
                               <br>
-                              <input value="10" type="text" name="NUT_T1" placeholder="x value"></td>
+                              <input class="form-control" value="10" type="text" name="NUT_T1" placeholder="x value"></td>
                               <td></td>
                            </tr>
 
@@ -267,11 +267,11 @@
                               <td>
                               <label>minimum mA </label>
                               <br>
-                              <input value="800" type="text" name="min_NP_I1" placeholder="minimum mA "></td>
+                              <input class="form-control" value="800" type="text" name="min_NP_I1" placeholder="minimum mA "></td>
                               <td>
                               <label>maximum mA </label>
                               <br>
-                              <input value="5000" type="text" name="max_NP_I1" placeholder="maximum mA "></td>
+                              <input class="form-control" value="5000" type="text" name="max_NP_I1" placeholder="maximum mA "></td>
                            </tr>
 
                             <tr>
@@ -281,11 +281,11 @@
                               <td>
                               <label>minimum mA </label>
                               <br>
-                              <input value="800" type="text" name="min_NP_I2" placeholder="minimum mA "></td>
+                              <input class="form-control" value="800" type="text" name="min_NP_I2" placeholder="minimum mA "></td>
                               <td>
                               <label>maximum mA </label>
                               <br>
-                              <input value="5000" type="text" name="max_NP_I2" placeholder="maximum mA "></td>
+                              <input class="form-control" value="5000" type="text" name="max_NP_I2" placeholder="maximum mA "></td>
 
                            </tr>
 
@@ -296,11 +296,11 @@
                               <td>
                               <label>minimum mA </label>
                               <br>
-                              <input value="200" type="text" name="min_SV_I1" placeholder="minimum mA "></td>
+                              <input class="form-control" value="200" type="text" name="min_SV_I1" placeholder="minimum mA "></td>
                               <td>
                               <label>maximum mA </label>
                               <br>
-                              <input  value="800" type="text" name="max_SV_I1" placeholder="maximum mA "></td>
+                              <input  class="form-control" value="800" type="text" name="max_SV_I1" placeholder="maximum mA "></td>
                            </tr>
 
                             <tr>
@@ -310,7 +310,7 @@
                               <td>
                               <label>max temparature</label>
                               <br>
-                              <input type="text" name="FLO_UT" placeholder="max temparature"></td>
+                              <input class="form-control" type="text" name="FLO_UT" placeholder="max temparature"></td>
                               <td></td>
                            </tr>
 
@@ -322,7 +322,7 @@
                               <td>
                               <label>max temparature</label>
                               <br>
-                              <input type="text" name="FLO_BT" placeholder="max temparture"></td>
+                              <input class="form-control" type="text" name="FLO_BT" placeholder="max temparture"></td>
                               <td></td>
                            </tr>
 
@@ -332,7 +332,7 @@
 
                               <td>
                               <label>max time in minutes</label>
-                              <br><input value="60" type="text" name="max_time_STS_NP1" placeholder="max time in minutes"></td>
+                              <br><input class="form-control" value="60" type="text" name="max_time_STS_NP1" placeholder="max time in minutes"></td>
 
                               <td></td>
                            </tr>
@@ -343,7 +343,7 @@
                                <td>
                               <label>max time in minutes</label>
                               <br>
-                              <input value="60" type="text" name="max_time_STS_NP2" placeholder="max time in minutes"></td>
+                              <input class="form-control" value="60" type="text" name="max_time_STS_NP2" placeholder="max time in minutes"></td>
                               <td></td>
                            </tr>
 
@@ -354,7 +354,7 @@
                               <td>
                               <label>max time in minutes</label>
                               <br>
-                              <input value="60" type="text" name="max_time_STS_SV1" placeholder="max time in minutes"></td>
+                              <input class="form-control" value="60" type="text" name="max_time_STS_SV1" placeholder="max time in minutes"></td>
                               <td></td>
                            </tr>
 
@@ -364,7 +364,7 @@
                               <td>
                               <label>max time in minutes</label>
                               <br>
-                              <input value="60" type="text" name="max_time_STS_SV2" placeholder="max time in minutes"></td>
+                              <input class="form-control" value="60" type="text" name="max_time_STS_SV2" placeholder="max time in minutes"></td>
                               <td></td>
                            </tr>
 
@@ -375,7 +375,7 @@
                               <td>
                               <label>max time in minutes</label>
                               <br>
-                              <input value="30" type="text" name="max_time_WL1L" placeholder="max time in minutes" ></td>
+                              <input class="form-control" value="30" type="text" name="max_time_WL1L" placeholder="max time in minutes" ></td>
                               <td></td>
                            </tr>
 
@@ -386,7 +386,7 @@
                               <td>
                               <label>max time in minutes</label>
                               <br>
-                              <input type="text" value="30" name="max_time_WL2L" placeholder="max time in minutes"></td>
+                              <input class="form-control" type="text" value="30" name="max_time_WL2L" placeholder="max time in minutes"></td>
                               <td></td>
                            </tr>
 
@@ -399,7 +399,7 @@
                              <td>
                                  <label>max time in minutes</label>
                                  <br>
-                                 <input value="30" type="text" name="max_time_WL3L" placeholder="max time in minutes" >
+                                 <input class="form-control" value="30" type="text" name="max_time_WL3L" placeholder="max time in minutes" >
 
                              </td>
                              <td></td>
@@ -412,11 +412,11 @@
                              <td>
                               <label>Max minute for ON</label>
                               <br>
-                              <input type="text" value="10" name="min_time_RL1" placeholder="Max minute for ON "></td>
+                              <input class="form-control" type="text" value="10" name="min_time_RL1" placeholder="Max minute for ON "></td>
                               <td>
                               <label>Max minute for OFF</label>
                               <br>
-                              <input type="text"  value="30" name="max_time_RL1" placeholder="max minutes for OFF"></td>
+                              <input class="form-control" type="text"  value="30" name="max_time_RL1" placeholder="max minutes for OFF"></td>
                            </tr>
 
                             <tr>
@@ -425,11 +425,11 @@
                               <td>
                               <label>Max minute for ON</label>
                               <br>
-                              <input type="text" value="10" name="min_time_RL2" placeholder="Max minute for ON "></td>
+                              <input class="form-control" type="text" value="10" name="min_time_RL2" placeholder="Max minute for ON "></td>
                               <td>
                               <label>Max minute for OFF</label>
                               <br>
-                              <input type="text" value="30" name="max_time_RL2" placeholder="max minutes for OFF"></td>
+                              <input class="form-control" type="text" value="30" name="max_time_RL2" placeholder="max minutes for OFF"></td>
                            </tr>
 
 
@@ -439,11 +439,11 @@
                               <td>
                               <label>Max minute for ON</label>
                               <br>
-                              <input value="10" type="text" name="min_time_RL3" placeholder="Max minute for ON "></td>
+                              <input class="form-control" value="10" type="text" name="min_time_RL3" placeholder="Max minute for ON "></td>
                               <td>
                               <label>Max minute for OFF</label>
                               <br>
-                              <input value="18" type="text" name="max_time_RL3" placeholder="max minutes for OFF"></td>
+                              <input class="form-control" value="18" type="text" name="max_time_RL3" placeholder="max minutes for OFF"></td>
                            </tr>
 
                             <tr>
@@ -451,10 +451,10 @@
                              <td>"Relay 4 Status – Controls Fresh Water  Valve – 2 TO BE USED AS SPARE"</td>
                               <td><label>Max minute for ON</label>
                                 <br>
-                                <input type="text" name="min_time_RL4" placeholder="Max minute for ON "></td>
+                                <input class="form-control" type="text" name="min_time_RL4" placeholder="Max minute for ON "></td>
                               <td><label>Max minute for OFF</label>
                                 <br>
-                                <input type="text" name="max_time_RL4" placeholder="max minutes for OFF"></td>
+                                <input class="form-control" type="text" name="max_time_RL4" placeholder="max minutes for OFF"></td>
                            </tr>
 
 
@@ -464,11 +464,11 @@
                               <td>
                               <label>max temparature</label>
                               <br>
-                              <input type="text" name="min_time_RL8" placeholder="Max minute for ON "></td>
+                              <input class="form-control" type="text" name="min_time_RL8" placeholder="Max minute for ON "></td>
                               <td>
                               <label>max temparature</label>
                               <br>
-                              <input type="text" name="max_time_RL8" placeholder="max minutes for OFF"></td>
+                              <input class="form-control" type="text" name="max_time_RL8" placeholder="max minutes for OFF"></td>
                            </tr>
 
                            <tr>
@@ -478,7 +478,7 @@
                               <td>
                               <label>Mode</label>
                               <br>
-                              <input type="text" name="PMODE" placeholder="Mode"></td>
+                              <input class="form-control" type="text" name="PMODE" placeholder="Mode"></td>
                               <td></td>
                            </tr>
 
@@ -489,8 +489,8 @@
 
 
                     <div>
-                      <button class="btn btn-primary rounded-pill " type="submit" name="action" value=" Add">Add POD</button>
-                      <button class="btn rounded-pill " type="submit" name="action" value=" cancel">Cancel</button>
+                      <button class="btn btn-success btn-sm" type="submit" name="action" value=" Add">Add POD</button>
+                     
                     </div>
 
 
@@ -523,7 +523,8 @@
                     <th>Sl.no</th>
                     <th>POD ID</th>
                     <th>POD Location</th>
-                    <th>Number of Ployhouses</th>
+                    <th>Number of Channels</th>
+                    <th>Action</th>
                   </tr>
 
 
@@ -534,10 +535,14 @@
                     <td>{{$value->pod_id}}</td>
                     <td>{{$value->location}}</td>
                     <td>{{$value->polyhouses}}</td>
-                    <td></td>
+                    
                     <td>
                        <a href="{{route('view_pod',$value->pod_id)}}">
-                        <label class="curved-text">view</label>
+                        <button class="btn btn-sm btn-outline-success">Update</button>
+                       </a>
+
+                       <a onclick="return confirm('Are you sure to delete?')" href="{{route('deletepod',$value->pod_id)}}">
+                        <button class="btn btn-sm btn-outline-danger">Delete</button>
                        </a>
                     </td>
                   </tr>

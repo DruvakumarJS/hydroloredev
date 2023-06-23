@@ -41,14 +41,15 @@
     <div class="card table-responsive">
      <table class="table table-hover" >
         <tr >
-          <th>Sl.No</th>
+         
           <th>Ticket ID</th>
+          <th>Genereted By</th>
           <th>Subject</th>
-          <th>Current Value</th>
-          <th>HUB ID</th>
+          <!-- <th>Current Value</th> -->
+         <!--  <th>HUB ID</th> -->
           <th>POD ID</th>
-          <th>User Name</th>
-          <th>Location</th>
+          <th>Username</th>
+         <!--  <th>Location</th> -->
           <th>Mobile </th>
           
           <th>Status</th>
@@ -73,13 +74,17 @@
             else {$data='undefined';$colourcode='#4e9a2c';}
 
 
-            if (strpos($t_id, 'A') === 0) {
+              if(strpos($t_id, 'AD') === 0) {
                   $bg="#F5F5F5";
-                  $tittle = "Customer Issue";
+                  $tittle = "Admin";
+              }
+              else if(strpos($t_id, 'UR') === 0) {
+                  $bg="#F5F5F5";
+                  $tittle = "Customer";
               }
               else {
               $bg="#ffffff";
-               $tittle = "System generated Issue";
+               $tittle = "System ";
             }
 
 
@@ -113,9 +118,9 @@
           @endphp
 
           <tr title="<?php echo $tittle ?>"> 
-          <td  style="background-color: <?php echo  $bg ?>" >{{$key + $tickets->firstItem()}}</td> 
-          
-          <td> <label>{{$value->sr_no}}</label> </td>
+         
+          <td > <label>{{$value->sr_no}}</label> </td>
+          <td > <label>{{$tittle}}</label> </td>
           <td>
             
             @foreach($array as $key => $val)
@@ -123,16 +128,16 @@
             @endforeach
           
         </td>
-         <td>
+        <!--  <td>
            
             @foreach($threshold_array as $key => $val2)
             @if($val2!="")  {{$val2}}<br>@endif @endforeach
           
-         </td>
-        <td>{{$value->hub_id}}</td>
+         </td> -->
+        <!-- <td>{{$value->hub_id}}</td> -->
         <td>{{$podid}}</td>
          <td>{{$value->user->firstname}}</td>
-          <td>{{$value->user->location}}</td>
+         <!--  <td>{{$value->user->location}}</td> -->
            <td>{{$value->user->mobile}}</td>
            <!--  <td>{{$value->threshold_value}}</td> -->
 
@@ -140,24 +145,12 @@
          
           <td>{{$value->created_at}}</td>
 
-           @if(Auth::user()->role_id == '1')
-           
-            @if($data=='closed')
-            <td>
-              
-               <label  class="curved-text-disabled">Action</label>
-              </td>
-            @else
-            <td class="openModal" >
-            <label id="modal" data-id="{{$value->sr_no}}" class="curved-text">Action</label>
-             </td>
-            @endif
 
-        
-           @endif
            <td>
             <!-- <a  href="{{route('view_ticket',$value->sr_no)}}" style="color:<?php echo $colourcode; ?>">View</a> -->
-            <a  href="{{route('view_ticket',$value->sr_no)}}">View</a>
+            <a  href="{{route('view_ticket',$value->sr_no)}}"><button class="btn btn-sm btn-outline-success">Update</button></a>
+
+            <a onclick="return confirm('Are you sure to delete?')"  href="{{route('delete_ticket',$value->sr_no)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
           </td>
 
 
@@ -192,7 +185,7 @@
     <div class="modal-content">
       <div class="modal-header">
 
-        <h4 class="modal-title">Modify Status</h4>
+        <h4 class="modal-title">Update Ticket Status</h4>
       </div>
 
       <form method="post" action="{{route('modify_status')}}">
@@ -212,8 +205,8 @@
       </div>
 
       <div style="margin:20px;float:right;">
-        <button class="btn  btn-primary rounded-pill " type="submit" name="action" value=" save"> Save Changes </button>
-        <button class=" btn rounded-pill " type="submit" name="action" value=" cancel">Cancel </button>
+        <button class="btn  btn-success btn-sm " type="submit" name="action" value=" save"> Save Changes </button>
+        <button class=" btn btn-light btn-outline-primary btn-sm" type="submit" name="action" value=" cancel">Cancel </button>
       </div>
 
       </form>
@@ -229,6 +222,7 @@
   
     $("#myModal").modal("show");
     $("#sr_no").val($(this).closest('tr').children()[1].textContent);
+    
 
 });
 </script>

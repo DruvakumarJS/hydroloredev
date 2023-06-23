@@ -75,14 +75,20 @@
 
             <div class="row">
                 <div class="col-md-6">
+                  <div  class="card card-shadow">
+                    <label>Sensor's temparature Graph</label>
                     <canvas id="sensor_chart"></canvas>
-                    
+                  </div>     
                 </div>
 
                 <div class="col-md-6">
+                   <div class="card">
+                    <label>Sensor's Mean Temaparature Graph</label>
                     <canvas id="sensor_chart2"></canvas>
-                    
+                  </div>    
                 </div>
+
+               
                 
             </div>
             <div class="row">
@@ -118,7 +124,7 @@
                             <div class="card table-responsive">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th>Sl.No</th>
+                                        <th>Date</th>
                                         <th>Ticket ID</th>
                                         <th>Issue</th>
                                         <th>Current Value</th>
@@ -127,7 +133,7 @@
                                         <!--  <th>Threshold Value</th> -->
 
                                         <th>Status</th>
-                                        <th>Date</th>
+                                        
 
                                         <th></th>
                                     </tr>
@@ -172,7 +178,7 @@
                                         @endphp
 
                                         <tr>
-                                            <td>{{$key + $tickets->firstItem()}}</td>
+                                            <td>{{$value->created_at}}</td>
                                             <td>{{$value->sr_no}}</td>
                                             <td>
                                                 <table>
@@ -203,9 +209,8 @@
 
                                             <td><label class="curved-text"
                                                        style="background-color: {{$colourcode}}">{{$data}}</label></td>
-                                            <td>{{$value->updated_at}}</td>
-                                            <td><a href="{{route('view_ticket',$value->sr_no)}}">View</a></td>
-
+                                           
+                                           
                                         </tr>
 
                                     @endforeach

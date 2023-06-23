@@ -113,8 +113,8 @@ foreach ($userdetail as $key => $value) {
         <div>
           
           <div > 
-            <button class=" btn-primary rounded-pill" type="submit" name="action" value=" Update">Update </button> 
-             <button class=" rounded-pill " type="submit" name="action" value=" cancel">Cancel </button> 
+            <button class="btn btn-sm btn-danger" type="submit" name="action" value=" Update">Update </button> 
+             <button class="btn btn-sm btn-light btn-outline-primary" type="submit" name="action" value=" cancel">Cancel </button> 
             
           </div>
 

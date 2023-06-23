@@ -98,6 +98,7 @@ Route::middleware('auth:web')->group(function () {
 
             Route::get('view_ticket/{id}',[TicketsController::class,'edit'])->name('view_ticket');
             Route::post('update_status',[TicketsController::class,'modify'])->name('update_status');
+            Route::get('delete_ticket/{id}',[TicketsController::class,'destroy'])->name('delete_ticket');
 
             Route::get('ticket_generate_form',[TicketsController::class,'show'])->name('add_tickets');
             Route::get('ticket_generate_form/{email}',[TicketsController::class,'show'])->name('raise_tickets');

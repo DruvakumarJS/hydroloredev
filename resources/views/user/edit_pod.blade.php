@@ -5,7 +5,7 @@
 <div class="container-body">
 
   <div>
-   <h2 class="head-h1">Users</h2>
+   <h2 class="head-h1">Edit POD</h2>
    <label class="date">{{date('d M ,Y')}} </label>
  </div>
 
@@ -27,25 +27,23 @@
          <div class="form-body">
            <div class="row ">
              
+            <div class="col-md-4">
+              <label for="hub_id" class="label-title">HUBUID</label>
+              <input type="text" id="hub_id" name="hub_id" class="form-control" disabled required="required" value="{{$data->hub_id}}" />
+              @error('hub_id')
+              <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+              @enderror
+            </div> 
             
-            <div class="col-md-6">
+            <div class="col-md-4">
               <label for="pod_id" class="label-title">PODUID</label>
-              <input type="text" id="pod_id" name="pod_id" class="form-input" disabled required="required" value="{{ $data->pod_id }}" />
+              <input type="text" id="pod_id" name="pod_id" class="form-control" disabled required="required" value="{{ $data->pod_id }}" />
               @error('pod_id')
               <script type="text/javascript">  
                 $(document).ready(function(){ 
                   $('#Mymodal').modal('show');   
                 });   
               </script> 
-              <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-              @enderror
-            </div>
-            
-            
-            <div class="col-md-6">
-              <label for="location" class="label-title">Location</label>
-              <input type="text" id="location" name="location" class="form-input"  required="required" value="{{ $data->location }}" />
-              @error('location')
               <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
               @enderror
             </div>
@@ -56,17 +54,17 @@
         <div class="form-body">
          <div class="row ">
 
-          <div class="col-md-6">
+          <div class="col-md-4">
             <label for="dimention" class="label-title">Dimention</label>
-            <input type="text" id="dimention" name="dimention" class="form-input"  value="{{ $data->dimention }}" />
+            <input type="text" id="dimention" name="dimention" class="form-control"  value="{{ $data->dimention }}" />
             @error('dimention')
             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
           </div>
 
-          <div class="col-md-6">
-            <label for="polyhouses" class="label-title">Polyhouses</label>
-            <input type="text" id="polyhouses" name="polyhouses" class="form-input"  value="{{ $data->polyhouses }}" />
+          <div class="col-md-4">
+            <label for="polyhouses" class="label-title">No of Channels</label>
+            <input type="text" id="polyhouses" name="polyhouses" class="form-control"  value="{{ $data->polyhouses }}" />
             @error('polyhouses')
             <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
             @enderror
@@ -80,14 +78,22 @@
        <div class="row ">
 
          
-        <div class="col-md-6">
-          <label for="hub_id" class="label-title">HUBUID</label>
-          <input type="text" id="hub_id" name="hub_id" class="form-input" disabled required="required" value="{{$data->hub_id}}" />
-          @error('hub_id')
-          <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-          @enderror
-        </div>
+        <div class="col-md-4">
+              <label for="location" class="label-title">Location</label>
+              <input type="text" id="location" name="location" class="form-control"  required="required" value="{{ $data->location }}" />
+              @error('location')
+              <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+              @enderror
+            </div>
 
+      <!--   <div class="col-md-4">
+            <label for="polyhouses" class="label-title">Status</label>
+            <select class="form-control" name="status">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select> 
+          </div>
+ -->
         
         <input type="hidden" name="pod_id" id="pod_id" value="{{$data->pod_id}}"/> 
         <input type="hidden" name="hub_id" id="hub_id" value="{{$data->hub_id}}"/> 
@@ -109,8 +115,8 @@
     
     
 
-
-    <div class="card table-responsive">
+<div class="row">
+  <div class="card table-responsive ">
       <table class="table">
 
         <tr>
@@ -128,7 +134,7 @@
          <td>
           <label>Time interval (minutes)</label>
           <br>
-          <input type="text" name="CUR" value="{{$threshold->CUR}}" placeholder="Time interval">
+          <input class="form-control" style="background-color: white" type="text" name="CUR" value="{{$threshold->CUR}}" placeholder="Time interval">
         </td>
         <td></td>
         
@@ -141,7 +147,7 @@
          <td>
           <label>max temparature</label>
           <br>
-          <input value="{{$threshold->AB_T1}}" type="text" name="AB_T1" placeholder="max temparature"></td>
+          <input class="form-control" style="background-color: white"  value="{{$threshold->AB_T1}}" type="text" name="AB_T1" placeholder="max temparature"></td>
           <td></td>
         </tr>
 
@@ -153,7 +159,7 @@
          <td>
           <label>x value</label>
           <br>
-          <input value="{{$threshold->AB_H1}}" type="text" name="AB_H1" placeholder="x value" disabled></td>
+          <input class="form-control" style="background-color: white" value="{{$threshold->AB_H1}}" type="text" name="AB_H1" placeholder="x value" disabled></td>
           <td></td>
         </tr>
 
@@ -164,7 +170,7 @@
          <td>
           <label>x value</label>
           <br>
-          <input value="{{$threshold->POD_T1}}" type="text" name="POD_T1" placeholder="x vlaue"></td>
+          <input class="form-control" style="background-color: white" value="{{$threshold->POD_T1}}" type="text" name="POD_T1" placeholder="x vlaue"></td>
           <td></td>
         </tr>
 
@@ -176,7 +182,7 @@
          <td>
           <label>x value</label>
           <br>
-          <input value="{{$threshold->POD_H1}}" type="text" name="POD_H1" placeholder="x vlaue" disabled></td>
+          <input class="form-control" style="background-color: white" value="{{$threshold->POD_H1}}" type="text" name="POD_H1" placeholder="x vlaue" disabled></td>
           <td></td>
         </tr>
 
@@ -187,7 +193,7 @@
          <td>
           <label>threshold max value</label>
           <br>
-          <input type="text" value="{{$threshold->TDS_V1}}" name="TDS_V1" placeholder="max value"></td>
+          <input class="form-control" style="background-color: white" type="text" value="{{$threshold->TDS_V1}}" name="TDS_V1" placeholder="max value"></td>
           <td></td>
         </tr>
 
@@ -197,7 +203,8 @@
          <td>pH Sensor Value</td>
          
          <td>
-          <label>threshold max value</label> <br> <input value="{{$threshold->PH_V1}}" type="text" name="PH_V1" placeholder="max value"></td>
+          <label>threshold max value</label> <br> 
+          <input class="form-control" style="background-color: white" value="{{$threshold->PH_V1}}" type="text" name="PH_V1" placeholder="max value"></td>
           <td></td>
         </tr>
 
@@ -206,7 +213,8 @@
          <td>Nutrient Solution Temperature Sensor Value – 1</td>
          
          <td>
-          <label>x value</label> <br> <input value="{{$threshold->NUT_T1}}"  type="text" name="NUT_T1" placeholder="x vlaue"></td>
+          <label>x value</label> <br> 
+          <input class="form-control" style="background-color: white" value="{{$threshold->NUT_T1}}"  type="text" name="NUT_T1" placeholder="x vlaue"></td>
           <td></td>
         </tr>
 
@@ -225,9 +233,10 @@
          <td>Current (consumed) – Nutrient Pump 1</td>
          
          <td>
-          <label>minimum mA </label> <br> <input value="{{$t1}}"  type="text" name="min_NP_I1" placeholder="minimum mA "></td>
+          <label>minimum mA </label> <br> 
+          <input class="form-control" style="background-color: white" value="{{$t1}}"  type="text" name="min_NP_I1" placeholder="minimum mA "></td>
           <td>
-            <label>maximum mA </label> <br> <input value="{{$t2}}"  type="text" name="max_NP_I1" placeholder="maximum mA "></td>
+            <label>maximum mA </label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_NP_I1" placeholder="maximum mA "></td>
           </tr>
 
 
@@ -250,11 +259,11 @@
            <td>
             <label>minimum mA </label>
             <br>
-            <input value="{{$t1}}"  type="text" name="min_SV_I1" placeholder="minimum mA "></td>
+            <input class="form-control" style="background-color: white" value="{{$t1}}"  type="text" name="min_SV_I1" placeholder="minimum mA "></td>
             <td>
               <label>maximum mA </label>
               <br>
-              <input  value="{{$t2}}"  type="text" name="max_SV_I1" placeholder="maximum mA "></td>
+              <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_SV_I1" placeholder="maximum mA "></td>
             </tr>
 
             <tr>
@@ -262,7 +271,7 @@
              <td>Flow Meter value (ppm) at the inlet of SourceTank</td>
              
              <td>
-              <label>max temparature</label> <br> <input value="{{$threshold->FLO_UT}}"  type="text" name="FLO_UT" placeholder="max temparature"></td>
+              <label>max temparature</label> <br> <input class="form-control" style="background-color: white" value="{{$threshold->FLO_UT}}"  type="text" name="FLO_UT" placeholder="max temparature"></td>
               <td></td>
             </tr>
 
@@ -272,7 +281,7 @@
              <td>Flow Meter value (ppm) at the inlet of Reservoir Tank</td>
              
              <td>
-              <label>max temparature</label> <br> <input value="{{$threshold->FLO_BT}}" type="text" name="FLO_BT" placeholder="max temparature"></td>
+              <label>max temparature</label> <br> <input class="form-control" style="background-color: white" value="{{$threshold->FLO_BT}}" type="text" name="FLO_BT" placeholder="max temparature"></td>
               <td></td>
             </tr>
 
@@ -293,7 +302,7 @@
              <td>"Nutrient Pump Health Status – 1"</td>
              
              <td>
-              <label>max time in minutes</label> <br> <input value="{{$t2}}"  type="text" name="max_time_STS_NP1" placeholder="max time in minutes"></td>
+              <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_time_STS_NP1" placeholder="max time in minutes"></td>
               <td></td>
             </tr>
 
@@ -312,7 +321,7 @@
              <td>Nutrient Pump Health Status – 2</td>
              
              <td>
-              <label>max time in minutes</label> <br> <input value="{{$t2}}"  type="text" name="max_time_STS_NP2" placeholder="max time in minutes"></td>
+              <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_time_STS_NP2" placeholder="max time in minutes"></td>
               <td></td>
             </tr>
 
@@ -332,7 +341,7 @@
              <td>Fresh Water Solenoid Valve Health Status – 1</td>
              
              <td>
-              <label>max time in minutes</label> <br> <input value="{{$t2}}"  type="text" name="max_time_STS_SV1" placeholder="max time in minutes"></td>
+              <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_time_STS_SV1" placeholder="max time in minutes"></td>
               <td></td>
             </tr>
 
@@ -351,7 +360,7 @@
              <td>Fresh Water Solenoid Valve Health Status – 2</td>
              
              <td>
-              <label>max time in minutes</label> <br> <input value="{{$t2}}"  type="text" name="max_time_STS_SV2" placeholder="max time in minutes"></td>
+              <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_time_STS_SV2" placeholder="max time in minutes"></td>
               <td></td>
             </tr>
 
@@ -379,7 +388,7 @@
              <td>Source Tank Water Level Sensor-1 – Low Level Status</td>
              
              <td>
-              <label>max time in minutes</label> <br> <input value="{{$t2}}"  type="text" name="max_time_WL1L" placeholder="max time in minutes"></td>
+              <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_time_WL1L" placeholder="max time in minutes"></td>
               <td></td>
             </tr>
 
@@ -411,7 +420,7 @@
            <td>Reservoir Tank Water Level Sensor-2 – Low Level Status</td>
            
            <td>
-            <label>max time in minutes</label> <br> <input type="text" value="{{$t2}}" name="max_time_WL2L" placeholder="max time in minutes"></td>
+            <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t2}}" name="max_time_WL2L" placeholder="max time in minutes"></td>
             <td></td>
           </tr>
 
@@ -442,7 +451,7 @@
            
            <td>
              <div>
-               <label>max time in minutes</label> <br> <input type="text" value="{{$t2}}" name="max_time_WL3L" placeholder="max time in minutes">
+               <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t2}}" name="max_time_WL3L" placeholder="max time in minutes">
              </div>
            </td>
            <td></td>
@@ -466,9 +475,9 @@
            <td>RL1</td>
            <td>Relay 1 Status – Controls Nutrient Pump – 1</td>
            <td>
-            <label>Max minute for ON</label> <br> <input type="text" value="{{$t2}}"  name="min_time_RL1" placeholder="Max minute for ON "></td>
+            <label>Max minute for ON</label> <br> <input class="form-control" style="background-color: white"  type="text" value="{{$t2}}"  name="min_time_RL1" placeholder="Max minute for ON "></td>
             <td>
-              <label>Max minute for OFF</label> <br> <input type="text"  value="{{$t3}}"  name="max_time_RL1" placeholder="max minutes for OFF"></td>
+              <label>Max minute for OFF</label> <br> <input class="form-control" style="background-color: white" type="text"  value="{{$t3}}"  name="max_time_RL1" placeholder="max minutes for OFF"></td>
             </tr>
 
             
@@ -489,9 +498,9 @@
              <td>Relay 2 Status – Controls Nutrient Pump – 2</td>
              
              <td>
-              <label>Max minute for ON</label> <br> <input type="text" value="{{$t2}}"  name="min_time_RL2" placeholder="Max minute for ON "disabled></td>
+              <label>Max minute for ON</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t2}}"  name="min_time_RL2" placeholder="Max minute for ON "disabled></td>
               <td>
-                <label>Max minute for OFF</label> <br> <input type="text" value="{{$t3}}"  name="max_time_RL2" placeholder="max minutes for OFF"disabled ></td>
+                <label>Max minute for OFF</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t3}}"  name="max_time_RL2" placeholder="max minutes for OFF"disabled ></td>
               </tr>
 
               
@@ -512,9 +521,9 @@
                <td>Relay 3 Status – Controls Fresh Water  Valve – 1</td>
                
                <td>
-                <label>Max minute for ON</label> <br> <input value="{{$t2}}"  type="text" name="min_time_RL3" placeholder="Max minute for ON "></td>
+                <label>Max minute for ON</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="min_time_RL3" placeholder="Max minute for ON "></td>
                 <td>
-                  <label>Max minute for OFF</label> <br> <input value="{{$t3}}"  type="text" name="max_time_RL3" placeholder="max minutes for OFF"></td>
+                  <label>Max minute for OFF</label> <br> <input class="form-control" style="background-color: white" value="{{$t3}}"  type="text" name="max_time_RL3" placeholder="max minutes for OFF"></td>
                 </tr>
 
                 @php
@@ -537,11 +546,11 @@
                  <td>
                   <label>Max minute for ON</label>
                   <br>
-                  <input value="{{$t2}}"  type="text" name="min_time_RL4" placeholder="Max minute for ON "></td>
+                  <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="min_time_RL4" placeholder="Max minute for ON "></td>
                   <td>
                     <label>Max minute for OFF</label>
                     <br>
-                    <input value="{{$t3}}"  type="text" name="max_time_RL4" placeholder="max minutes for OFF"></td>
+                    <input class="form-control" style="background-color: white" value="{{$t3}}"  type="text" name="max_time_RL4" placeholder="max minutes for OFF"></td>
                   </tr>
 
                   @php
@@ -563,9 +572,9 @@
                    <td>Relay 8 Status – Controls RO Plant AC VOltage Supply </td>
                    
                    <td>
-                    <label>max temparature</label> <br> <input type="text" value="{{$t2}}"  name="min_time_RL8" placeholder="Max minute for ON "disabled></td>
+                    <label>max temparature</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t2}}"  name="min_time_RL8" placeholder="Max minute for ON "disabled></td>
                     <td>
-                      <label>max temparature</label> <br> <input type="text" value="{{$t3}}"  name="max_time_RL8" placeholder="max minutes for OFF" disabled></td>
+                      <label>max temparature</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t3}}"  name="max_time_RL8" placeholder="max minutes for OFF" disabled></td>
                     </tr>
 
                     
@@ -575,7 +584,7 @@
                      <td>Pod Mode </td>
                      
                      <td>
-                      <label>Mode</label> <br> <input type="" name="" placeholder="Mode" value="{{$threshold->PMODE}}" ></td>
+                      <label>Mode</label> <br> <input class="form-control" style="background-color: white" type="" name="" placeholder="Mode" value="{{$threshold->PMODE}}" ></td>
                       <td></td>
                     </tr>
 
@@ -586,8 +595,8 @@
 
                 
                 <div style="float:right;">
-                  <button class=" btn-primary rounded-pill " type="submit" name="action" value=" save">Save Changes</button>
-                  <button class=" rounded-pill " type="submit" name="action" value=" cancel">Cancel </button>
+                  <button class="btn btn-sm btn-danger" type="submit" name="action" value=" save">Save Changes</button>
+                  <button class="btn btn-sm btn-light btn-outline-primary" type="submit" name="action" value=" cancel">Cancel </button>
                 </div>
                 
                 
@@ -600,6 +609,8 @@
           </div>
         </div>   
       </div>
+</div>
+    
 
 
       

@@ -55,7 +55,7 @@ class TicketsController extends Controller
                             ->orWhere('created_at','LIKE','%'.$request->search.'%')
                             ->orderByRaw('FIELD(status , "1" , "2" ,"0")')
                             ->orderBy('created_at','DESC')
-                            ->paginate(50);
+                            ->paginate(25);
 
 
 
@@ -73,7 +73,7 @@ class TicketsController extends Controller
             $tickets=Ticket::
             orderByRaw('FIELD(status , "1" , "2" ,"0")')
             ->orderBy('created_at','DESC')
-            ->paginate(50);
+            ->paginate(25);
 
         }
        
@@ -278,8 +278,7 @@ class TicketsController extends Controller
      */
     public function modify(Request $request)
     {
-
-
+   
       if($request->action =='Update'){
 
          $status=$request->status;
@@ -293,6 +292,12 @@ class TicketsController extends Controller
 
         return redirect()->route('show_tickets');
 
+    }
+
+    public function destroy($id){
+        Ticket::Where('sr_no',$id)->delete();
+
+        return redirect()->back();
     }
 
    /* public function search($id)

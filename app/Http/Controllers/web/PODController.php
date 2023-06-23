@@ -176,10 +176,11 @@ class PODController extends Controller
     {
        $startdate="";
        $enddate=""; 
+       $api_type=""; 
 
          $pods=MasterSyncData::where('pod_id',$id)->latest()->paginate(50);
         
-         return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate'));
+         return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type'));
     }
 
     /**
@@ -307,6 +308,7 @@ class PODController extends Controller
 
     public function export(Request $request)
     {
+      //  print_r($request->Input());die();
        
       
        $startdate="";
@@ -371,7 +373,7 @@ class PODController extends Controller
             $pods=MasterSyncData::where('pod_id',$id)
                  ->where('api_type',$api_type)
                  ->latest();
-            $pods=$pods->paginate(sizeof($pods->get()));        
+            $pods=$pods->paginate(50);        
 
         }
         else
@@ -382,7 +384,7 @@ class PODController extends Controller
                  ->where('created_at','>=',$startdate.' 00:00:01')
                  ->where('created_at','<=',$enddate.' 23:59:59')
                  ->latest();
-                 $pods=$pods->paginate(sizeof($pods->get())); 
+                 $pods=$pods->paginate(50); 
             }
 
             else
@@ -392,13 +394,13 @@ class PODController extends Controller
                  ->where('created_at','<=',$enddate.' 23:59:59')
                  ->where('api_type',$api_type)
                  ->latest();
-                 $pods=$pods->paginate(sizeof($pods->get())); 
+                 $pods=$pods->paginate(50); 
             }
              
                   
         } 
 
-        return view('pod/pod_history',compact('pods', 'id' , 'startdate','enddate'));
+        return view('pod/pod_history',compact('pods', 'id' , 'startdate','enddate' , 'api_type'));
         /* return redirect()->route('pod_history/{id}')
                         ->withErrors($validator)
                         ->withInput();
