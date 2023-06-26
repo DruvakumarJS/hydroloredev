@@ -21,7 +21,7 @@
 
           <div class="col-md-3">
             <label for="name" class="label-title">Name *</label>
-            <input type="text" id="name" name="name" class="form-input"  required="required" value="{{ old('name') }}" />
+            <input type="text" id="name" name="name" class="form-control"  required="required" value="{{ old('name') }}" />
               @error('name')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -35,7 +35,7 @@
 
           <div class="col-md-3">
              <label for="email" class="label-title">Email ID * </label>
-            <input type="text" id="email" name="email" class="form-input"  required="required" value="{{ old('email') }}"/>
+            <input type="text" id="email" name="email" class="form-control"  required="required" value="{{ old('email') }}"/>
              @error('email')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -43,7 +43,7 @@
 
           <div class="col-md-3">
             <label for="role" class="label-title">Role * </label>
-            <input type="text"  class="form-input" required="required" value="Admin"/>
+            <input type="text"  class="form-control" required="required" value="Admin" readonly/>
              @error('role')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror

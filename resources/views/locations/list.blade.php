@@ -21,7 +21,7 @@
                                     <tr>
                                     <th>Sl.No</th>
                                     <th>Locations</th>
-                                    <th>Actin</th>
+                                    <th>Action</th>
                                     </tr>
                                     @php
                                        $index = $locations->firstItem()
@@ -31,10 +31,9 @@
                                         <td>{{ $index++ }}</td>
                                         <td>{{ $location->location }}</td>
                                         <td>
-                                            <a href="{{ route('edit-location', $location->id)}}">Edit</a>
-                                        </td>
-                                         <td >
-                                            <a id="MybtnModal_{{$location->id}}"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+                                            <a href="{{ route('edit-location', $location->id)}}"><button class="btn btn-sm btn-outline-success">Edit</button></a>
+                                       
+                                            <a id="MybtnModal_{{$location->id}}"> <button class="btn btn-sm btn-outline-danger">Delete</button></a>
                                         </td>
                                     </tr>
 

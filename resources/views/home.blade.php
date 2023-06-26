@@ -25,7 +25,7 @@
 
             <div class="row">
                 <div class="col-sm-6 col-md-4 ">
-                    <div class="card border-white">
+                    <div class="card  card-1 border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/hub1.png') }}" alt="hub" style="width:20px;height: 20px;">
                             <h2 class="card-text card-text-color" style="float:right;">{{$hub_count}}</h2>
@@ -72,6 +72,8 @@
                     <!--</div>-->
                 </div>
             </div>
+
+
 
             <div class="row">
                 <div class="col-md-6">
@@ -362,8 +364,8 @@
                   label: 'Tickets raised',  
                   fill: false,
                   lineTension: 0,
-                  backgroundColor: "rgba(0,0,255,1.0)",
-                  borderColor: "rgba(0,0,255,0.1)",
+                  backgroundColor: "#1D267D",
+                  borderColor: "#1D267D",
                   data: yValues
                 },
                
@@ -425,16 +427,16 @@
           label: 'TDS value',  
           fill: false,
          
-          backgroundColor: "<?php echo '#D7A1f9';  ?>",
-          borderColor: "<?php echo '#D7A1f9';  ?>",
+          backgroundColor: "<?php echo '#FF90BB';  ?>",
+          borderColor: "<?php echo '#FF90BB';  ?>",
           data: <?php echo $sensorsArray['tds'] ;  ?>,
         },
        {
           label: 'PH value',  
           fill: false,
           
-          backgroundColor: "<?php echo '#000000';  ?>",
-          borderColor: "<?php echo '#000000';  ?>",
+          backgroundColor: "<?php echo '#FFE4A7';  ?>",
+          borderColor: "<?php echo '#FFE4A7';  ?>",
           data: <?php echo $sensorsArray['ph'] ;  ?>,
         },
        
@@ -498,7 +500,7 @@
           fill: false,
          
           backgroundColor: "<?php echo 'red' ;  ?>",
-          borderColor: "<?php echo 'red' ;  ?>",
+          borderColor: "<?php echo '#ACBCFF' ;  ?>",
           data: <?php echo $mean_values['mean_day'] ;  ?>,
 
         },
@@ -506,8 +508,8 @@
           label: 'Mean tempatature of Night time',  
           fill: false,
          
-          backgroundColor: "<?php echo '#D7A1f9';  ?>",
-          borderColor: "<?php echo '#D7A1f9';  ?>",
+          backgroundColor: "<?php echo '#000000';  ?>",
+          borderColor: "<?php echo '#000000';  ?>",
           data: <?php echo $mean_values['mean_night'] ;  ?>,
         },
       

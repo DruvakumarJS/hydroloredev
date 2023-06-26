@@ -22,15 +22,16 @@
                                     <th>Sl.No</th>
                                     <th>Name</th>
                                     <th>email</th>
-                                    <th>Role</th>
+                                    <th></th>
+                                   
                                    @foreach ($admins as $key => $value) 
                                    <tr>
                                       <td>{{$key+1}}</td>
                                       <td>{{$value->name}}</td>
                                       <td>{{$value->email}}</td>
-                                      <td>{{$value->role_id}}</td>
+                                     
                                       <td>
-                                        <a href="{{route('delete_admin',$value->id)}}" onclick="return confirm('Are you sure to delete the user {{$value->name}}?')"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i>
+                                        <a href="{{route('delete_admin',$value->id)}}" onclick="return confirm('Are you sure to delete the user {{$value->name}}?')"> <button class="btn btn-sm btn-outline-danger">Delete</button>
                                         </a> 
                                       </td>
                                     </tr>

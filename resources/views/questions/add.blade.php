@@ -26,7 +26,7 @@
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
                                 <div>
-                                    <button class=" btn-primary rounded-pill " type="submit" name="action" value=" Update">Add</button>
+                                    <button class=" btn btn-sm btn-primary " type="submit" name="action" value=" Update">Add</button>
                                 </div>
 
                         </form>

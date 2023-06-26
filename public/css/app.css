@@ -10196,6 +10196,10 @@ textarea.form-control-lg {
   margin-right: 20px;
 }
 
+.form-control {
+  background-color: #FFF;
+}
+
 .date {
   font-size: 10px;
   margin-left: 10px;
