@@ -167,13 +167,6 @@
    
             </div>
 
-           
-
-        
-              
-    </div>  
-
-
 <div class="card">
    
 <table class="table">
@@ -285,7 +278,7 @@
        
    </div>
 
-     
+ </div>     
 </div>  
 
 
