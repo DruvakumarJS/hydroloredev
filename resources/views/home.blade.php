@@ -78,14 +78,14 @@
             <div class="row">
                 <div class="col-md-6">
                   <div  class="card card-shadow">
-                    <label>Sensor's temparature Graph</label>
+                    <label>Sensor's Temperature Graph</label>
                     <canvas id="sensor_chart"></canvas>
                   </div>     
                 </div>
 
                 <div class="col-md-6">
                    <div class="card">
-                    <label>Sensor's Mean Temaparature Graph</label>
+                    <label>Sensor's Mean Temperature Graph</label>
                     <canvas id="sensor_chart2"></canvas>
                   </div>    
                 </div>
@@ -496,7 +496,7 @@
 
         datasets: [
         {
-          label: 'Mean tempatature of Day time',  
+          label: 'Mean Temperature of Day time',  
           fill: false,
          
           backgroundColor: "<?php echo 'red' ;  ?>",
@@ -505,7 +505,7 @@
 
         },
         {
-          label: 'Mean tempatature of Night time',  
+          label: 'Mean Temperature of Night time',  
           fill: false,
          
           backgroundColor: "<?php echo '#000000';  ?>",

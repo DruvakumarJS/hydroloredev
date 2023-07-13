@@ -50,7 +50,6 @@ class TicketsController extends Controller
                             ->orWhere('sr_no','LIKE','%'.$request->search.'%')
                             ->orWhere('subject','LIKE','%'.$request->search.'%')
                             ->orWhere('status',$status)
-                            ->orWhere('hub_id','LIKE','%'.$request->search.'%')
                             ->orWhere('pod_id','LIKE','%'.$request->search.'%')
                             ->orWhere('created_at','LIKE','%'.$request->search.'%')
                             ->orderByRaw('FIELD(status , "1" , "2" ,"0")')
