@@ -25,8 +25,12 @@ class TicketsController extends Controller
      */
     public function index(Request $request)
     {
-       
-        if(!empty($request->search))
+       // print_r($request->Input()); die();
+      if(!isset($request->search) && isset($request->id)){
+             $tickets=Ticket::where('user_id', $request->id)->paginate(25);
+        }
+
+        else if(!empty($request->search) && empty($request->id))
         {
             $status="";
             if($request->search=='closed')
@@ -42,12 +46,8 @@ class TicketsController extends Controller
                 $status="1";
             }
          
-               $tickets=Ticket::whereHas('user',function($q) use ($request){
-               //print_r($request->input());die();
-                $q->where('mobile',$request['search']);
-                $q->orWhere('firstname',$request['search']);
-                $q->orWhere('location',$request['search']);})
-                            ->orWhere('sr_no','LIKE','%'.$request->search.'%')
+               $tickets=Ticket::
+                              Where('sr_no','LIKE','%'.$request->search.'%')
                             ->orWhere('subject','LIKE','%'.$request->search.'%')
                             ->orWhere('status',$status)
                             ->orWhere('pod_id','LIKE','%'.$request->search.'%')
@@ -58,14 +58,50 @@ class TicketsController extends Controller
 
 
 
-
-               /* $tickets=Ticket::when(($user->role_id == '3'), function ($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })*/
-
-
-
         }
+        else if(!empty($request->search) && !empty($request->id)){
+            
+            $status="";
+            if($request->search=='closed')
+            {
+                $status="0";
+            }
+            elseif($request->search=='pending')
+            {
+                $status="2";
+            }
+            elseif($request->search=='open')
+            {
+                $status="1";
+            }
+             $id = $request->id;
+             $search = $request->search;
+
+             $tickets=Ticket::where('user_id',$id)
+                             ->where(function($q) use ($search , $status) {
+                                 $q->where('sr_no','LIKE','%'.$search.'%')
+                                    ->orWhere('subject','LIKE','%'.$search.'%')
+                            ->orWhere('status',$status)
+                            ->orWhere('pod_id','LIKE','%'.$search.'%')
+                            ->orWhere('created_at','LIKE','%'.$search.'%')
+                            ->orderByRaw('FIELD(status , "1" , "2" ,"0")')
+                            ->orderBy('created_at','DESC');
+                             })->paginate(25);
+         
+              /* $tickets=Ticket::where(function($query) use ($id) {
+                                $query->where('user_id',$id);
+                            })
+                            ->orWhere('sr_no','LIKE','%'.$request->search.'%')
+                            ->orWhere('subject','LIKE','%'.$request->search.'%')
+                            ->orWhere('status',$status)
+                            ->orWhere('pod_id','LIKE','%'.$request->search.'%')
+                            ->orWhere('created_at','LIKE','%'.$request->search.'%')
+                            ->orderByRaw('FIELD(status , "1" , "2" ,"0")')
+                            ->orderBy('created_at','DESC')
+                           
+                            ->paginate(25);*/
+        }
+
         else
         {
           

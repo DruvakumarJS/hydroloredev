@@ -584,7 +584,7 @@
                      <td>Pod Mode </td>
                      
                      <td>
-                      <label>Mode</label> <br> <input class="form-control" style="background-color: white" type="" name="" placeholder="Mode" value="{{$threshold->PMODE}}" ></td>
+                      <label>Mode</label> <br> <input class="form-control" style="background-color: white" type="" name="" placeholder="Mode" value="{{$threshold->PMODE}}" disabled></td>
                       <td></td>
                     </tr>
 

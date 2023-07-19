@@ -75,7 +75,7 @@
 
 
 
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-6">
                   <div  class="card card-shadow">
                     <label>Sensor's Temperature Graph</label>
@@ -92,7 +92,7 @@
 
                
                 
-            </div>
+            </div> -->
             <div class="row">
 
             <label>Current Month </label> 

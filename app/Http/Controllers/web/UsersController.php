@@ -15,12 +15,13 @@ use App\Models\Locations;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 
 class UsersController extends Controller
 {
 
-     public function search(Request $request){
+     public function searchuser(Request $request){
 
       $output="";
       $searchdata=Userdetail::where('firstname','LIKE','%'.$request->search.'%')
@@ -321,6 +322,24 @@ class UsersController extends Controller
         }
 
        
+
+
+    }
+
+    public function autocomplete_user(Request $request){
+
+      //  $data = User::select('name' , 'id')->where('name', 'LIKE',$request->get('search'))->get();
+        $data = DB::table('userdetails')
+            ->select(
+                    DB::raw("CONCAT(firstname) AS value"),
+                    'user_id',
+                    'id'
+                )
+                    ->where('firstname', 'LIKE', '%'. $request->get('search'). '%')
+                   
+                    ->get(); 
+
+        return response()->json($data);
 
 
     }

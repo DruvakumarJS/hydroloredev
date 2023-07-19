@@ -171,38 +171,26 @@
    
 <table class="table">
 <tr class="tHead">
-             <th>Sl.No</th>
+            
              <th nowrap="nowrap">Time</th>
-             <th nowrap="nowrap">Ambient Temperature</th>
-             <!-- <th nowrap="nowrap">AB-H1</th>
-             <th nowrap="nowrap">POD-T1</th>
-             <th nowrap="nowrap">POD-H1</th> -->
-             <th nowrap="nowrap">Total Dissolved Salt</th>
-             <th nowrap="nowrap">pH value</th>
-             <!-- <th nowrap="nowrap">NUT-T1</th>
-             <th nowrap="nowrap">NP-I1</th>
-             <th nowrap="nowrap">SV-I1</th>
-             <th nowrap="nowrap">BAT-V1</th>
-             <th nowrap="nowrap">FLO-V1</th>
-             <th nowrap="nowrap">FLO-V2</th>
-             <th nowrap="nowrap">STS-PSU</th>
-             <th nowrap="nowrap">STS-NP1</th>
-             <th nowrap="nowrap">STS-NP2</th>
-             <th nowrap="nowrap">STS-SV1</th>
-             <th nowrap="nowrap">STS-SV2</th>
-             <th nowrap="nowrap">WL1H</th>-->
-             <th nowrap="nowrap">Source Tank [WL1L]</th>
-             <!-- <th nowrap="nowrap">WL2H</th> -->
-             <th nowrap="nowrap">Source Tank [WL2L]</th>
-             <!-- <th nowrap="nowrap">WL3H</th> -->
-             <!-- <th nowrap="nowrap">WL3L</th>  -->
-             <th nowrap="nowrap">RL1</th>
-             <th nowrap="nowrap">RL2</th> 
-             <th nowrap="nowrap">RL3</th>
-             <th nowrap="nowrap">RL4</th>
-             <!-- <th nowrap="nowrap">RL5</th> -->
-             <th nowrap="nowrap">PMODE</th>
+             <th title="<?php echo "Ambient Temperature Sensor – 1" ?>" nowrap="nowrap">AB-T1</th>
+             <th title="<?php echo "POD/BB Temperature Sensor – 1" ?>" nowrap="nowrap">POD-T1</th>
+             <th title="<?php echo "Total Dissolved Salt Sensor Value" ?>" nowrap="nowrap">TDS-V1</th>
+             <th title="<?php echo "pH Sensor Value" ?>" nowrap="nowrap">PH-V1</th>
+              <th title="<?php echo "Nutrient Solution Temperature Sensor Value – 1" ?>" nowrap="nowrap">NUT-T1</th>
+             <th title="<?php echo "Current (consumed) – Nutrient Pump 1" ?>" nowrap="nowrap">NP-I1</th>
+            
+             <th title="<?php echo "Nutrient Pump Health Status – 1" ?>" nowrap="nowrap">STS-NP1</th>
+            
+           
+             <th title="<?php echo "Source Tank Water Level Sensor-1 - High Level Status" ?>" nowrap="nowrap">WL1H</th>
+             <th title="<?php echo "Source Tank Water Level Sensor-1 – Low Level Status" ?>" nowrap="nowrap">WL1L</th>
+             <th title="<?php echo "Reservoir Tank Water Level Sensor-2 - High Level Status" ?>" nowrap="nowrap">WL2H</th>
+             <th title="<?php echo "Reservoir Tank Water Level Sensor-2 – Low Level Status" ?>" nowrap="nowrap">WL2L</th>
+             
+             <th title="<?php echo "Pod Mode " ?>" nowrap="nowrap">PMODE</th>
              <th nowrap="nowrap">API_type</th>
+             <th></th>
 </tr>
 
 <tbody id="myTable">
@@ -219,41 +207,145 @@
          @endphp   
  
         <tr>
-          <td nowrap="nowrap">{{$key + $pods->firstItem()}}</td>
+          <!-- <td nowrap="nowrap">{{$key + $pods->firstItem()}}</td> -->
           <td nowrap="nowrap">{{$time}}</td>
-          <td nowrap="nowrap">{{$value->AB_T1}} <span> &#176;C</span> </td>   
-            <!-- <td nowrap="nowrap">{{$value->AB_H1}}<span> %RH</span> </td>   
-            <td nowrap="nowrap">{{$value->POD_T1}}<span> &#176;C</span> </td>   
-            <td nowrap="nowrap">{{$value->POD_H1}}<span> %RH</span> </td>    -->
-            <td nowrap="nowrap">{{$value->TDS_V1}}<span> mg/L</span> </td>   
-            <td nowrap="nowrap">{{$value->PH_V1}} </td>   
-            <!-- <td nowrap="nowrap">{{$value->NUT_T1}}<span> &#176;C</span> </td>   
-            <td nowrap="nowrap">{{$value->NP_I1}}<span> mA</span> </td>   
-            <td nowrap="nowrap">{{$value->SV_I1}}<span> mA</span> </td>   
-            <td nowrap="nowrap">{{$value->BAT_V1}} <span> %</span></td>   
-            <td nowrap="nowrap">{{$value->FLO_V1}}</td>   
-            <td nowrap="nowrap">{{$value->FLO_V2}} </td>   
-            <td nowrap="nowrap">{{$value->STS_PSU}}</td>   
-            <td nowrap="nowrap">{{$value->STS_NP1}}</td>   
-            <td nowrap="nowrap">{{$value->STS_NP2}}</td>   
-            <td nowrap="nowrap">{{$value->STS_SV1}}</td>   
-            <td nowrap="nowrap">{{$value->STS_SV2}}</td>   
-            <td nowrap="nowrap">{{$value->WL1H}}</td>  -->   
-            <td nowrap="nowrap">{{$value->WL1L}}</td>   
-           <!--  <td nowrap="nowrap">{{$value->WL2H}}</td>    -->
-            <td nowrap="nowrap">{{$value->WL2L}}</td>   
-           <!--  <td nowrap="nowrap">{{$value->WL3H}}</td>    -->
-           <!--  <td nowrap="nowrap">{{$value->WL3L}}</td>   -->
-            <td nowrap="nowrap">{{$value->RL1}}</td>   
-            <td nowrap="nowrap">{{$value->RL2}}</td>   
-            <td nowrap="nowrap">{{$value->RL3}}</td>   
-            <td nowrap="nowrap">{{$value->RL4}}</td>   
-           <!--  <td nowrap="nowrap">{{$value->RL5}}</td>   --> 
-            <td nowrap="nowrap">{{$value->PMODE}}</td> 
-            <td nowrap="nowrap">{{$value->api_type}}</td>     
+          <td title="<?php echo "Ambient Temperature Sensor – 1" ?>" nowrap="nowrap">{{$value->AB_T1}} <span> &#176;C</span> </td>   
+            <td title="<?php echo "POD/BB Temperature Sensor – 1" ?>" nowrap="nowrap">{{$value->POD_T1}}<span> &#176;C</span> </td>
+            <td title="<?php echo "Total Dissolved Salt Sensor Value" ?>" nowrap="nowrap">{{$value->TDS_V1}}<span> mg/L</span> </td>   
+            <td title="<?php echo "pH Sensor Value" ?>" nowrap="nowrap">{{$value->PH_V1}} </td>   
+            <td title="<?php echo "Nutrient Solution Temperature Sensor Value – 1" ?>" nowrap="nowrap">{{$value->NUT_T1}}<span> &#176;C</span> </td>   
+            <td title="<?php echo "Current (consumed) – Nutrient Pump 1" ?>" nowrap="nowrap">{{$value->NP_I1}}<span> mA</span> </td>     
+            <td title="<?php echo "Nutrient Pump Health Status – 1" ?>" nowrap="nowrap">{{$value->STS_NP1}}</td>   
+             
+            <td title="<?php echo "Source Tank Water Level Sensor-1 - High Level Status" ?>" nowrap="nowrap">{{$value->WL1H}}</td>    
+            <td title="<?php echo "Source Tank Water Level Sensor-1 – Low Level Status" ?>" nowrap="nowrap">{{$value->WL1L}}</td>   
+            <td title="<?php echo "Reservoir Tank Water Level Sensor-2 - High Level Status" ?>" nowrap="nowrap">{{$value->WL2H}}</td>   
+            <td title="<?php echo "Reservoir Tank Water Level Sensor-2 – Low Level Status" ?>" nowrap="nowrap">{{$value->WL2L}}</td>   
+          
+           
+            <td title="<?php echo "Pod Mode " ?>" nowrap="nowrap">{{$value->PMODE}}</td> 
+            <td nowrap="nowrap">{{$value->api_type}}</td> 
+            <td nowrap="nowrap"><a id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-light">View more</button></a></td>    
 
         
         </tr>
+
+        <!-- Modal -->
+                              <div class="modal" id="modal_{{$key}}" >
+                                <div class="modal-dialog modal-xl">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">POD History</h5>
+
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <div>
+                                        <label>Date & time  : </label> <label class="label-bold btn">{{$time}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>Ambient Temperature Sensor – 1 : </label> <label class="label-bold btn">{{$value->AB_T1}}</label><span> &#176;C</span>
+                                      </div>
+
+                                      <div>
+                                        <label>Ambient Humidity Sensor – 1 : </label> <label class="label-bold btn">{{$value->AB_H1}}</label><span> %RH</span>
+                                      </div>
+
+                                      <div>
+                                        <label>POD/BB Temperature Sensor – 1 : </label> <label class="label-bold btn">{{$value->POD_T1}}</label><span> &#176;C</span>
+                                      </div>
+
+                                      <div>
+                                        <label>POD/BB Humidity Sensor – 1 : </label> <label class="label-bold btn">{{$value->POD_H1}}</label><span> %RH</span>
+                                      </div>
+
+                                      <div>
+                                        <label>Total Dissolved Salt Sensor Value : </label> <label class="label-bold btn">{{$value->TDS_V1}}</label><span> mg/L</span>
+                                      </div>
+
+                                      <div>
+                                        <label>pH Sensor Value : </label> <label class="label-bold btn">{{$value->PH_V1}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>Nutrient Solution Temperature Sensor Value – 1 : </label> <label class="label-bold btn">{{$value->NUT_T1}}</label><span> &#176;C</span>
+                                      </div>
+
+                                      <div>
+                                        <label>Current (consumed) – Nutrient Pump 1 : </label> <label class="label-bold btn">{{$value->NP_I1}}</label><span> mA</span>
+                                      </div>
+
+                                      <div>
+                                        <label>Current (consumed) – Solenoid Valve 1 : </label> <label class="label-bold btn">{{$value->SV_I1}}</label><span> mA</span>
+                                      </div>
+
+                                      <div>
+                                        <label>Battery Power in milli volts : </label> <label class="label-bold btn">{{$value->BAT_V1}}</label><span> %</span>
+                                      </div>
+
+                                      <div>
+                                        <label>Fresh Water Solenoid Valve Health Status – 1 : </label> <label class="label-bold btn">{{$value->STS_NP1}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>Source Tank Water Level Sensor-1 - High Level Status : </label> <label class="label-bold btn">{{$value->WL1H}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>Source Tank Water Level Sensor-1 – Low Level Status : </label> <label class="label-bold btn">{{$value->WL1L}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>Reservoir Tank Water Level Sensor-2 - High Level Status : </label> <label class="label-bold btn">{{$value->WL2H}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>Reservoir Tank Water Level Sensor-2 – Low Level Status : </label> <label class="label-bold btn">{{$value->WL2L}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>BackUP Tank Water Level Sensor-3 - High Level Status : </label> <label class="label-bold btn">{{$value->WL3H}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>BackUP Tank Water Level Sensor-3 – Low Level Status : </label> <label class="label-bold btn">{{$value->WL3L}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>Relay 1 Status – Controls Nutrient Pump – 1 : </label> <label class="label-bold btn">{{$value->RL1}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>Relay 3 Status – Controls Fresh Water  Valve – 1 : </label> <label class="label-bold btn">{{$value->RL3}}</label>
+                                      </div>
+
+                                       <div>
+                                        <label>Relay 4 Status – Controls Fresh Water  Valve – 2 : </label> <label class="label-bold btn">{{$value->RL4}}</label>
+                                      </div>
+
+                                       <div>
+                                        <label>Relay 8 Status – Controls RO Plant AC VOltage Supply : </label> <label class="label-bold btn">{{$value->RL8}}</label>
+                                      </div>
+
+                                       <div>
+                                        <label>Pod Mode : </label> <label class="label-bold btn">{{$value->PMODE}}</label>
+                                      </div>
+                                     
+                                    </div>
+                    </div>
+                  </div>
+                </div>
+
+<!--  end Modal -->
+
+ <script>
+$(document).ready(function(){
+  $('#MybtnModal_{{$key}}').click(function(){
+    $('#modal_{{$key}}').modal('show');
+  });
+});  
+</script>
 
         @endforeach
 

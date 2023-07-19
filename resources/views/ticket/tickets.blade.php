@@ -1,12 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-
-
-
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 <div class="container-body">
 
     <div class="row justify-content-center">
@@ -26,7 +22,8 @@
             <form method="get" action="{{route('show_tickets')}}" style="float:right; margin-right: 30px;">
                
                                   <div class="input-group">
-
+                                       <input id="user" type="text" class="form-control" placeholder="Search name"  >
+                                       <input type="hidden" name="id" id="user_id">
                                       <input class="form-control" type="text" placeholder="Search " name="search">
                                       <button class="btn btn-primary"><i class="fa fa-search"></i></button>
                                   </div>
@@ -149,7 +146,7 @@
            <td>
             <!-- <a  href="{{route('view_ticket',$value->sr_no)}}" style="color:<?php echo $colourcode; ?>">View</a> -->
             @if($value->status == '0')
-            <a ><button class="btn btn-sm btn-outline-success" disabled>Update</button></a>
+            <a href="{{route('view_ticket',$value->sr_no)}}"><button class="btn btn-sm btn-outline-success" >View</button></a>
             @else
             <a  href="{{route('view_ticket',$value->sr_no)}}"><button class="btn btn-sm btn-outline-success" >Update</button></a>
             @endif
@@ -239,6 +236,40 @@ $(document).ready(function(){
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+});
+</script>
+
+<script type="text/javascript">
+  $( document ).ready(function() {
+  
+  var path = "{{ route('autocomplete_user') }}";
+   let text = "";
+    $( "#user" ).autocomplete({
+        source: function( request, response ) {
+          $.ajax({
+            url: path,
+            type: 'GET',
+            dataType: "json",
+            data: {
+               search: request.term
+            },
+            success: function( data ) {
+             // console.log(data);
+             response( data );
+             
+            }
+          });
+        },
+        select: function (event, ui) {
+
+            $('#user').val(ui.item.label);
+        
+           $('#user_id').val(ui.item.id);
+          
+        
+        }
+      });
+ 
 });
 </script>
 

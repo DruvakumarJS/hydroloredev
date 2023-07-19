@@ -85,6 +85,7 @@ Route::middleware('auth:web')->group(function () {
             Route::get('deleteuser/{id}',[UsersController::class,'destroy'])->name('deleteuser');
             Route::post('updateuser/{id}',[UsersController::class,'update'])->name('updateuser');
             Route::get('user_details/{id}',[UsersController::class,'view'])->name('view_user_details');
+            Route::get('autocomplete_user',[UsersController::class,'autocomplete_user'])->name('autocomplete_user');
           //Route::get('search', [UsersController::class,'search']);
 
 
