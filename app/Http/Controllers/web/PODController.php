@@ -179,8 +179,81 @@ class PODController extends Controller
        $api_type=""; 
 
          $pods=MasterSyncData::where('pod_id',$id)->latest()->paginate(50);
+
+         //temaparature data 
+            $sensorsArray = array();
+            $time_array = array();
+            $ab_array = array();
+            $pod_array = array();
+            $nut_array = array();
+
+           
+            $data = MasterSyncData::where('pod_id',$id)->where('Date',date('Y-m-d'))->orderBy('id', 'ASC')->skip(0)->take(12)->get();
+
+          //  print_r(json_encode($data)); die();
+
+            foreach ($data as $key => $value) {
+                $time_array[]= \Carbon\Carbon::createFromFormat('H.i.s', $value->Time)->format('H:i');
+                $ab_array[]=$value->AB_T1;
+                $pod_array[]=$value->POD_T1;
+                $nut_array[]=$value->NUT_T1;
+
+            }
+
+           
+            $sensorsArray = array('time' => json_encode($time_array) , 'ambian' => json_encode($ab_array) ,
+                'pod' => json_encode($pod_array) , 'nut'=>json_encode($nut_array));
+
+       //temaparature data 
+
+        //temaparature data 
+            $tdsArray = array();
+            $time_array = array();
+            $tds_array = array();
+            
+
+           
+            $tds = MasterSyncData::select('Time','TDS_V1')->where('pod_id',$id)->where('Date',date('Y-m-d'))->orderBy('id', 'ASC')->skip(0)->take(12)->get();
+
+          //  print_r(json_encode($data)); die();
+
+            foreach ($tds as $key => $value) {
+                $time_array[]=\Carbon\Carbon::createFromFormat('H.i.s', $value->Time)->format('H:i');
+                $tds_array[]=$value->TDS_V1;
+               
+
+            }
+
+           
+            $tdsArray = array('time' => json_encode($time_array) , 'tds' => json_encode($tds_array) ,
+               );
+
+       //temaparature data 
+
+         //PH data 
+            $phArray = array();
+            $time_array = array();
+            $ph_array = array();
+            
+
+           
+            $tds = MasterSyncData::select('Time','PH_V1')->where('pod_id',$id)->where('Date',date('Y-m-d'))->orderBy('id', 'ASC')->skip(0)->take(12)->get();
+
+          //  print_r(json_encode($data)); die();
+
+            foreach ($tds as $key => $value) {
+                $time_array[]=\Carbon\Carbon::createFromFormat('H.i.s', $value->Time)->format('H:i');
+                $ph_array[]=$value->PH_V1;
+               
+            }
+
+           
+            $phArray = array('time' => json_encode($time_array) , 'ph' => json_encode($ph_array) ,
+               );
+
+       //PH data    
         
-         return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type'));
+         return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type' , 'sensorsArray' , 'tdsArray' , 'phArray'));
     }
 
     /**

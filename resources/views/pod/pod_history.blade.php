@@ -36,6 +36,7 @@
 
 <div class="container-body">
 
+
     <div class="row justify-content-center">
 
         @php
@@ -51,8 +52,6 @@
         }
 
         @endphp
-
-                
 
             <h2 class="head-h1">POD History</h2>
             <label class="date"> {{date('d M ,Y')}} </label>
@@ -90,31 +89,6 @@
                  
                </form>
 
-                 
-                <!--  <form method="POST" action="{{route('filter_history')}}" >
-                     @csrf
-
-                    <div style="float:right;margin-right: 10px ; margin-top:20px">
-
-                    <a class="fa fa-refresh" href="{{route('pod_history',$id)}}">  </a>
-
-                   <select class="form-input"  name="api_type" id="api_type">
-                      <option value="none">Select Data Type </option>
-                      <option value="normal">Normal Data</option>
-                      <option value="instant">Instant Data</option>
-                  </select>
-
-
-                    <input type="text" name="datetimes" id="datetimes" value="{{$datepicker}}" placeholder="Select Date Range" readonly/>
-                    <input type="hidden" name="pod_id" value="{{$id}}">
-                    <button class=" btn-primary" type="submit" name="action" value="filter">Filter</button>
-
-                 
-                 
-                    </div>
-                </form> -->
-
-                
                      <!-- Modal -->
 
                 <div class="modal" id="modal_export1" >
@@ -165,12 +139,37 @@
             
                  
    
+          </div>
+
+           <div class="row">
+                <div class="col-md-4">
+                  <div  class="card card-shadow">
+                    <label>Temperature Graph</label>
+                    <canvas id="temp_chart"></canvas>
+                  </div>     
+                </div>
+
+                  <div class="col-md-4">
+                  <div  class="card card-shadow">
+                    <label>TDS Graph</label>
+                    <canvas id="tds_chart"></canvas>
+                  </div>     
+                </div>
+
+                <div class="col-md-4">
+                  <div  class="card card-shadow">
+                    <label>PH Graph</label>
+                    <canvas id="ph_chart"></canvas>
+                  </div>     
+                </div>
+
+                
             </div>
 
-<div class="card">
-   
-<table class="table">
-<tr class="tHead">
+              <div class="card">
+                 
+              <table class="table">
+              <tr class="tHead">
             
              <th nowrap="nowrap">Time</th>
              <th title="<?php echo "Ambient Temperature Sensor – 1" ?>" nowrap="nowrap">AB-T1</th>
@@ -370,7 +369,7 @@ $(document).ready(function(){
        
    </div>
 
- </div>     
+     
 </div>  
 
 
@@ -431,6 +430,223 @@ $(".dropdown-menu li a").click(function() {
 });
 
 </script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script>
+
+   
+   var temparature = [];
+   Chart.defaults.global.defaultFontStyle = 'bold';
+
+   
+    new Chart("temp_chart", {
+      type: "bar",
+      title:{
+        text:"Chart Title",
+       },
+      
+      data: {
+       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
+         labels: <?php echo $sensorsArray['time'] ;  ?>,
+
+
+        datasets: [
+        {
+          label: 'Ambian Temparature',  
+          fill: false,
+         
+          backgroundColor: "<?php echo 'red' ;  ?>",
+          borderColor: "<?php echo 'red' ;  ?>",
+          data: <?php echo $sensorsArray['ambian'] ;  ?>,
+
+        },
+        {
+          label: 'POD-T1 value',  
+          fill: false,
+         
+          backgroundColor: "<?php echo '#FF90BB';  ?>",
+          borderColor: "<?php echo '#FF90BB';  ?>",
+          data: <?php echo $sensorsArray['pod'] ;  ?>,
+        },
+       {
+          label: 'NUT-T1 value',  
+          fill: false,
+          
+          backgroundColor: "<?php echo '#FFE4A7';  ?>",
+          borderColor: "<?php echo '#FFE4A7';  ?>",
+          data: <?php echo $sensorsArray['nut'] ;  ?>,
+        },
+       
+        ]
+      },
+      options: {
+         tooltips: {
+                  mode: 'index'
+                },
+        legend: {display: true},
+        scales: {
+          pointLabels :{
+           fontStyle: "bold",
+            },
+          yAxes: [{
+            gridLines: {
+             drawOnChartArea: false },
+             ticks: {min:0 } ,
+           
+            scaleLabel: {
+                    display: true,
+                    labelString: 'Temparature in \xB0C',
+                    fontColor: '#000',   }
+                }],
+          xAxes: [{
+            barPercentage: 1,
+             gridLines: {
+             drawOnChartArea: false },
+          
+            scaleLabel: {
+                    display: true,
+                    labelString: 'Time',
+                    fontColor: '#000', }
+                }],
+        }
+      }
+    });
+</script>
+
+<!-- TDS -->
+<script>
+
+   
+   var temparature = [];
+   Chart.defaults.global.defaultFontStyle = 'bold';
+
+   
+    new Chart("tds_chart", {
+      type: "line",
+      title:{
+        text:"Chart Title",
+       },
+      
+      data: {
+       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
+         labels: <?php echo $tdsArray['time'] ;  ?>,
+
+
+        datasets: [
+        {
+          label: 'TDS value',  
+          fill: false,
+         
+          backgroundColor: "<?php echo 'red' ;  ?>",
+          borderColor: "<?php echo 'red' ;  ?>",
+          data: <?php echo $tdsArray['tds'] ;  ?>,
+
+        }
+        ]
+      },
+      options: {
+         tooltips: {
+                  mode: 'index'
+                },
+        legend: {display: true},
+        scales: {
+          pointLabels :{
+           fontStyle: "bold",
+            },
+          yAxes: [{
+            gridLines: {
+             drawOnChartArea: false },
+
+            ticks: {min: 0} ,
+            scaleLabel: {
+                    display: true,
+                    labelString: 'TDS Value in mg/L',
+                    fontColor: '#000',   }
+                }],
+          xAxes: [{
+            barPercentage: 1,
+             gridLines: {
+             drawOnChartArea: false },
+          
+            scaleLabel: {
+                    display: true,
+                    labelString: 'Time',
+                    fontColor: '#000', }
+                }],
+        }
+      }
+    });
+</script>
+
+<!-- TDS -->
+<!-- ph -->
+
+<script>
+
+   
+   var temparature = [];
+   Chart.defaults.global.defaultFontStyle = 'bold';
+
+   
+    new Chart("ph_chart", {
+      type: "line",
+      title:{
+        text:"Chart Title",
+       },
+      
+      data: {
+       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
+         labels: <?php echo $phArray['time'] ;  ?>,
+
+
+        datasets: [
+        {
+          label: 'PH value',  
+          fill: false,
+         
+          backgroundColor: "<?php echo 'red' ;  ?>",
+          borderColor: "<?php echo 'red' ;  ?>",
+          data: <?php echo $phArray['ph'] ;  ?>,
+
+        }
+        ]
+      },
+      options: {
+         tooltips: {
+                  mode: 'index'
+                },
+        legend: {display: true},
+        scales: {
+          pointLabels :{
+           fontStyle: "bold",
+            },
+          yAxes: [{
+            gridLines: {
+             drawOnChartArea: false },
+
+            ticks: {min:0 , max:14} ,
+            scaleLabel: {
+                    display: true,
+                    labelString: 'PH Value',
+                    fontColor: '#000',   }
+                }],
+          xAxes: [{
+            barPercentage: 1,
+             gridLines: {
+             drawOnChartArea: false },
+           
+            scaleLabel: {
+                    display: true,
+                    labelString: 'Time',
+                    fontColor: '#000', }
+                }],
+        }
+      }
+    });
+</script>
+
+<!-- ph -->
+
+
 
 
 @endsection
