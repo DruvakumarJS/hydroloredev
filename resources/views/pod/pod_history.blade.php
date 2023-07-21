@@ -2,16 +2,6 @@
 
 @section('content')
 
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
-<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
  <style>
     table th {
       background-color:gray;
@@ -34,101 +24,7 @@
     }
     tr:hover {background-color: grey;}
 
-   .column1 {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
-}
-    .progress{
-  position: relative;
-  margin: 4px;
-/*  float:left;*/
-  height: 180px;
-  width: 100%;
-  text-align: center;
-}
-.barOverflow{ /* Wraps the rotating .bar */
-  position: !important;
-  overflow: hidden; /* Comment this line to understand the trick */
-  width: 90px; height: 45px; /* Half circle (overflow) */
-  margin-bottom: -14px; /* bring the numbers up */
-  margin-left: 90px;
-
-}
-.bar{
-  position: relative;
-  top: 0; left: 0;
-  width: 90px; height: 90px; /* full circle! */
-  border-radius: 50%;
-  box-sizing: border-box;
-  border: 10px solid #eee;     /* half gray, */
-  border-bottom-color: #0cf;  /* half azure */
-  border-right-color: #0bf;
-}
-
-/* The switch - the box around the slider */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
+  
 </style>
 
 
@@ -694,7 +590,7 @@ $(".dropdown-menu li a").click(function() {
 });
 
 </script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+ 
 <script>
 
    
@@ -907,6 +803,7 @@ $(".dropdown-menu li a").click(function() {
       }
     });
 </script> -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js"></script>
 <script type="text/javascript">
 
@@ -957,42 +854,6 @@ new Chart(ctx, options);
 
 <!-- ph -->
 
-<style type="text/css">
-    .column1 {
-  float: left;
-  width: 25%;
-  padding: 0 10px;
-}
-    .progress{
-  position: relative;
-  margin: 4px;
-/*  float:left;*/
-  height: 180px;
-  width: 100%;
-  text-align: center;
-}
-.barOverflow{ /* Wraps the rotating .bar */
-  position: !important;
-  overflow: hidden; /* Comment this line to understand the trick */
-  width: 90px; height: 45px; /* Half circle (overflow) */
-  margin-bottom: -14px; /* bring the numbers up */
-  margin-left: 90px;
-
-}
-.bar{
-  position: relative;
-  top: 0; left: 0;
-  width: 90px; height: 90px; /* full circle! */
-  border-radius: 50%;
-  box-sizing: border-box;
-  border: 10px solid #eee;     /* half gray, */
-  border-bottom-color: #0cf;  /* half azure */
-  border-right-color: #0bf;
-}
-</style>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
 <script>
