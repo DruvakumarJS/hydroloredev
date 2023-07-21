@@ -188,12 +188,12 @@ class PODController extends Controller
             $nut_array = array();
 
            
-            $data = MasterSyncData::where('pod_id',$id)->where('Date',date('Y-m-d'))->orderBy('id', 'ASC')->skip(0)->take(12)->get();
+            $data = MasterSyncData::select('created_at','AB_T1','POD_T1','NUT_T1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'ASC')->skip(0)->take(12)->get();
 
           //  print_r(json_encode($data)); die();
 
             foreach ($data as $key => $value) {
-                $time_array[]= \Carbon\Carbon::createFromFormat('H.i.s', $value->Time)->format('H:i');
+                $time_array[]= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('H:i');
                 $ab_array[]=$value->AB_T1;
                 $pod_array[]=$value->POD_T1;
                 $nut_array[]=$value->NUT_T1;
@@ -213,12 +213,12 @@ class PODController extends Controller
             
 
            
-            $tds = MasterSyncData::select('Time','TDS_V1')->where('pod_id',$id)->where('Date',date('Y-m-d'))->orderBy('id', 'ASC')->skip(0)->take(12)->get();
+            $tds = MasterSyncData::select('created_at','TDS_V1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'ASC')->skip(0)->take(12)->get();
 
           //  print_r(json_encode($data)); die();
 
             foreach ($tds as $key => $value) {
-                $time_array[]=\Carbon\Carbon::createFromFormat('H.i.s', $value->Time)->format('H:i');
+                $time_array[]=\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('H:i');
                 $tds_array[]=$value->TDS_V1;
                
 
@@ -237,12 +237,12 @@ class PODController extends Controller
             
 
            
-            $tds = MasterSyncData::select('Time','PH_V1')->where('pod_id',$id)->where('Date',date('Y-m-d'))->orderBy('id', 'ASC')->skip(0)->take(12)->get();
+            $tds = MasterSyncData::select('created_at','PH_V1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'ASC')->skip(0)->take(12)->get();
 
           //  print_r(json_encode($data)); die();
 
             foreach ($tds as $key => $value) {
-                $time_array[]=\Carbon\Carbon::createFromFormat('H.i.s', $value->Time)->format('H:i');
+                $time_array[]=\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('H:i');
                 $ph_array[]=$value->PH_V1;
                
             }
@@ -251,9 +251,63 @@ class PODController extends Controller
             $phArray = array('time' => json_encode($time_array) , 'ph' => json_encode($ph_array) ,
                );
 
-       //PH data    
+       //PH data  
+
+       //Mean 
+            $time= date('H:i');
+            $olddate = date('Y-m-d',strtotime("-1 days")); 
+
+           if($time >= '06:00' && $time < '17:59'){
+           // print($olddate);
+                $day_start = date('Y-m-d').' 06:00:00';
+                $day_end =  date('Y-m-d').' 17:59:59';
+
+                $night_start = $olddate.' 18:00:00';
+                $night_end = date('Y-m-d').' 05:59:59';
+               }
+           else if($time >= '17:59' && $time < '23:59' ){
+            // print("lll22222");
+                $day_start = date('Y-m-d').' 06:00:00';
+                $day_end =  date('Y-m-d').' 17:59:59';
+
+                $night_start = date('Y-m-d').' 18:00:00';
+                $night_end = date('Y-m-d').' 23:59:59';
+
+           }
+           else{
+                $day_start = $olddate.' 06:00:00';
+                $day_end =  $olddate.' 17:59:59';
+
+                $night_start = $olddate.' 18:00:00';
+                $night_end = date('Y-m-d').' 05:59:59';
+
+           }
+           
+            $ab_day = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$day_start, $day_end])->avg('AB_T1');
+
+            $ab_night = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$night_start, $night_end])->avg('AB_T1');
+
+            $pod_day = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$day_start, $day_end])->avg('POD_T1');
+
+            $pod_night = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$night_start, $night_end])->avg('POD_T1');
+
+            $nut_day = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$day_start, $day_end])->avg('NUT_T1');
+
+            $nut_night = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$night_start, $night_end])->avg('NUT_T1');
+            
+
+          $ambian_mean_values= array('mean_day'=>($ab_day) , 'mean_night' =>($ab_night) );
+          $pod_mean_values= array('mean_day'=>($pod_day) , 'mean_night' =>($pod_night) );
+          $nutri_mean_values= array('mean_day'=>($nut_day) , 'mean_night' =>($nut_night) );
+            
+       // Mean 
+      // print_r($pod_mean_values);die(); 
+
+        // switchs
+
+          $tanks = MasterSyncData::select('WL1H' , 'WL1L' , 'WL2H' ,'WL2L')->where('pod_id', $id)->orderBy('id', 'DESC')->first();
         
-         return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type' , 'sensorsArray' , 'tdsArray' , 'phArray'));
+         return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type' , 'sensorsArray' , 'tdsArray' , 'phArray' , 'ambian_mean_values' , 'pod_mean_values' , 'nutri_mean_values' , 'tanks'));
     }
 
     /**

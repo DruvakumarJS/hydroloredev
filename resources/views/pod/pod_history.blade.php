@@ -9,6 +9,9 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
  <style>
     table th {
       background-color:gray;
@@ -30,6 +33,101 @@
         background-color:white;
     }
     tr:hover {background-color: grey;}
+
+   .column1 {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+    .progress{
+  position: relative;
+  margin: 4px;
+/*  float:left;*/
+  height: 180px;
+  width: 100%;
+  text-align: center;
+}
+.barOverflow{ /* Wraps the rotating .bar */
+  position: !important;
+  overflow: hidden; /* Comment this line to understand the trick */
+  width: 90px; height: 45px; /* Half circle (overflow) */
+  margin-bottom: -14px; /* bring the numbers up */
+  margin-left: 90px;
+
+}
+.bar{
+  position: relative;
+  top: 0; left: 0;
+  width: 90px; height: 90px; /* full circle! */
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 10px solid #eee;     /* half gray, */
+  border-bottom-color: #0cf;  /* half azure */
+  border-right-color: #0bf;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 
 </style>
 
@@ -57,7 +155,7 @@
             <label class="date"> {{date('d M ,Y')}} </label>
 
             <div style="left: right;margin-right: 10px;">
-                 <h3 class="card head-h1" style="float: left;margin-right: 10px; background: blue;  color: white;">POD ID : {{$id}}</h3>
+                 <h6 class="card" style="float: left;margin-right: 10px; background: blue;  color: white;">POD ID : {{$id}}</h6>
                  
                 <div id="div2">
                   <button class="open-AddBookDialog btn-primary" id="btn_export1" value="export">Export</button>
@@ -133,37 +231,203 @@
 
 <!--  end Modal -->
 
-
-                 
-                
-            
-                 
-   
           </div>
 
            <div class="row">
-                <div class="col-md-4">
+
+                   <div class="col-sm-6 col-md-3" >
+                        <div class="card progress">
+                          <div class="card-header">Day time mean value</div>
+                          <div class="barOverflow">
+                            <div class="bar"></div>
+                          </div>
+                          @if(isset($ambian_mean_values['mean_day']))
+                          <div><span>{{$ambian_mean_values['mean_day']}} </span><label> &#176;C</label></div> 
+                          @else
+                          <div><span>0</span><label> &#176;C</label></div>
+                          @endif
+                          <h3>AB-T1</h3>
+                          <label>Ambient Temperature Sensor – 1</label>
+
+                        </div>
+                    </div> 
+
+
+                    <div class="col-sm-6 col-md-3" >
+                        <div class="card bg-dark text-white progress" >
+                          <div class="card-header">Night time mean value</div>
+                          <div class="barOverflow">
+                            <div class="bar"></div>
+                          </div>
+                           @if(isset($ambian_mean_values['mean_night']))
+                          <div><span>{{$ambian_mean_values['mean_night']}} </span><label> &#176;C</label></div> 
+                          @else
+                          <div><span>0</span><label> &#176;C</label></div>
+                          @endif
+                          <h3>AB-T1</h3>
+                          <label>Ambient Temperature Sensor – 1</label>
+
+                      </div>
+                    
+                    </div>
+
+
+                    <!--  -->
+                    <div class="col-sm-6 col-md-3" >
+                        <div class="card progress">
+                          <div class="card-header">Day time mean value</div>
+                          <div class="barOverflow">
+                            <div class="bar"></div>
+                          </div>
+                          @if(isset($pod_mean_values['mean_day']))
+                          <div><span>{{$pod_mean_values['mean_day']}}</span><label> &#176;C</label></div> 
+                          @else
+                          <div><span>0</span><label> &#176;C</label></div>
+                          @endif
+                          <h3>POD-T1</h3>
+                          <label>POD/BB Temperature Sensor – 1</label>
+
+                        </div>
+                    </div> 
+
+
+                    <div class="col-sm-6 col-md-3" >
+                        <div class="card bg-dark text-white progress">
+                          <div class="card-header">Night time mean value</div>
+                          <div class="barOverflow">
+                            <div class="bar"></div>
+                          </div>
+                          @if(isset($pod_mean_values['mean_night']))
+                          <div><span>{{$pod_mean_values['mean_night']}}</span><label> &#176;C</label></div> 
+                          @else
+                          <div><span>0</span><label> &#176;C</label></div>
+                          @endif
+                          <h3>POD-T1</h3>
+                          <label>POD/BB Temperature Sensor – 1</label>
+
+                      </div>
+                    
+                    </div>
+
+
+             </div>
+
+              
+
+
+           <div class="row">
+                <div class="col-md-6" style="margin-top: 20px">
+                  <div class="row">
+                   <div class="col-sm-6 col-md-6">
+                        <div class="card progress">
+                          <div class="card-header">Day time mean value</div>
+                          <div class="barOverflow">
+                            <div class="bar"></div>
+                          </div>
+                          @if(isset($nutri_mean_values['mean_day']))
+                          <div><span>{{$nutri_mean_values['mean_day']}}</span><label> &#176;C</label></div> 
+                          @else
+                          <div><span>0</span><label> &#176;C</label></div>
+                          @endif
+                          <h3>NUT-T1</h3>
+                          <label>Nutrition Solution Temperature Sensor – 1</label>
+
+                        </div>
+                    </div> 
+
+
+                    <div class="col-sm-6 col-md-6" >
+                        <div class="card bg-dark text-white progress">
+                          <div class="card-header">Night time mean value</div>
+                          <div class="barOverflow">
+                            <div class="bar"></div>
+                          </div>
+                          @if(isset($nutri_mean_values['mean_night']))
+                          <div><span>{{$nutri_mean_values['mean_night']}}</span><label> &#176;C</label></div> 
+                          @else
+                          <div><span>0</span><label> &#176;C</label></div>
+                          @endif
+                          <h3>NUT-T1</h3>
+                          <label>Nutrition Solution Temperature Sensor – 1</label>
+
+                      </div>
+                    
+                    </div>
+                  </div>
+
+                  <div class="row" style="margin-top: 30px">
+                      <div class="col-sm-6 col-md-3" >
+                        <div class="card">
+
+                          <label class="switch">
+                          <input type="checkbox" <?php ($tanks->WL1H == 'ON')?'checked':''  ?>  disabled><span class="slider round" ></span></label>
+                          
+                          <h3>WL1H</h3>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3" >
+                        <div class="card">
+
+                          <label class="switch">
+                          <input type="checkbox" <?php ($tanks->WL1L == 'ON')?'checked':''  ?> disabled><span class="slider round"></span></label>
+                          
+                          <h3>WL1L</h3>
+
+                        </div>
+                    </div> 
+
+                    <div class="col-sm-6 col-md-3" >
+                        <div class="card">
+
+                          <label class="switch">
+                          <input type="checkbox" <?php ($tanks->WL2H == 'ON')?'checked':''  ?> checked disabled><span class="slider round"></span></label>
+                          
+                          <h3>WL2H</h3>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3" >
+                        <div class="card">
+
+                          <label class="switch">
+                          <input type="checkbox" <?php ($tanks->WL2L == 'ON')?'checked':''  ?> checked disabled><span class="slider round"></span></label>
+                          
+                          <h3>Wl2L</h3>
+
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
                   <div  class="card card-shadow">
                     <label>Temperature Graph</label>
                     <canvas id="temp_chart"></canvas>
                   </div>     
                 </div>
 
-                  <div class="col-md-4">
+                   
+            </div>
+
+             <div class="row">
+
+               <div class="col-md-6">
                   <div  class="card card-shadow">
                     <label>TDS Graph</label>
                     <canvas id="tds_chart"></canvas>
                   </div>     
-                </div>
-
-                <div class="col-md-4">
+                </div> 
+                
+                <div class="col-md-6">
                   <div  class="card card-shadow">
                     <label>PH Graph</label>
                     <canvas id="ph_chart"></canvas>
                   </div>     
                 </div>
-
-                
+ 
             </div>
 
               <div class="card">
@@ -451,7 +715,7 @@ $(".dropdown-menu li a").click(function() {
 
         datasets: [
         {
-          label: 'Ambian Temparature',  
+          label: 'Ambian Temperature',  
           fill: false,
          
           backgroundColor: "<?php echo 'red' ;  ?>",
@@ -460,7 +724,7 @@ $(".dropdown-menu li a").click(function() {
 
         },
         {
-          label: 'POD-T1 value',  
+          label: 'POD Temaperature',  
           fill: false,
          
           backgroundColor: "<?php echo '#FF90BB';  ?>",
@@ -468,7 +732,7 @@ $(".dropdown-menu li a").click(function() {
           data: <?php echo $sensorsArray['pod'] ;  ?>,
         },
        {
-          label: 'NUT-T1 value',  
+          label: 'Nutrition Temaperature',  
           fill: false,
           
           backgroundColor: "<?php echo '#FFE4A7';  ?>",
@@ -494,7 +758,7 @@ $(".dropdown-menu li a").click(function() {
            
             scaleLabel: {
                     display: true,
-                    labelString: 'Temparature in \xB0C',
+                    labelString: 'Temperature in \xB0C',
                     fontColor: '#000',   }
                 }],
           xAxes: [{
@@ -566,6 +830,7 @@ $(".dropdown-menu li a").click(function() {
             barPercentage: 1,
              gridLines: {
              drawOnChartArea: false },
+
           
             scaleLabel: {
                     display: true,
@@ -580,7 +845,7 @@ $(".dropdown-menu li a").click(function() {
 <!-- TDS -->
 <!-- ph -->
 
-<script>
+<!-- <script>
 
    
    var temparature = [];
@@ -588,13 +853,12 @@ $(".dropdown-menu li a").click(function() {
 
    
     new Chart("ph_chart", {
-      type: "line",
+      type: "bar",
       title:{
         text:"Chart Title",
        },
       
       data: {
-       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
          labels: <?php echo $phArray['time'] ;  ?>,
 
 
@@ -603,8 +867,8 @@ $(".dropdown-menu li a").click(function() {
           label: 'PH value',  
           fill: false,
          
-          backgroundColor: "<?php echo 'red' ;  ?>",
-          borderColor: "<?php echo 'red' ;  ?>",
+          backgroundColor: "<?php echo 'green' ;  ?>",
+          borderColor: "<?php echo 'green' ;  ?>",
           data: <?php echo $phArray['ph'] ;  ?>,
 
         }
@@ -630,7 +894,7 @@ $(".dropdown-menu li a").click(function() {
                     fontColor: '#000',   }
                 }],
           xAxes: [{
-            barPercentage: 1,
+            barPercentage: 0.5,
              gridLines: {
              drawOnChartArea: false },
            
@@ -642,11 +906,133 @@ $(".dropdown-menu li a").click(function() {
         }
       }
     });
+</script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js"></script>
+<script type="text/javascript">
+
+  const options = {
+  type: 'bar',
+  data: {
+    labels: <?php echo $phArray['time'] ;  ?>,
+    datasets: [{
+      label: 'PH value',
+      data: <?php echo $phArray['ph'] ;  ?>,
+      backgroundColor: (ctx) => {
+        if (ctx.raw <= 1) {return 'red';}
+        if (ctx.raw <= 2) { return 'pink';}
+        if (ctx.raw <= 3) { return 'orange';}
+        if (ctx.raw <= 4) { return 'beige';}
+        if (ctx.raw <= 5) { return 'yellow';}
+        if (ctx.raw <= 6) { return 'limegreen';}
+        if (ctx.raw <= 7) { return 'green';}
+        if (ctx.raw <= 8) { return 'darkgreen';}
+        if (ctx.raw <= 9) { return 'turquoise';}
+        if (ctx.raw <= 10) { return 'paleblue';}
+        if (ctx.raw <= 11) { return 'blue';}
+        if (ctx.raw <= 12) { return 'darkblue';}
+        if (ctx.raw <= 13) { return 'violet';}
+        if (ctx.raw <= 14) { return 'purple';}
+
+
+         if (ctx.raw <= 60) {
+          return 'blue';
+        }
+
+        return 'green';
+      }
+    }]
+  },
+  options: {
+     plugins: {
+            legend: {
+                display: false
+            },
+        }
+  }
+}
+
+const ctx = document.getElementById('ph_chart').getContext('2d');
+new Chart(ctx, options);
 </script>
 
 <!-- ph -->
 
+<style type="text/css">
+    .column1 {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+    .progress{
+  position: relative;
+  margin: 4px;
+/*  float:left;*/
+  height: 180px;
+  width: 100%;
+  text-align: center;
+}
+.barOverflow{ /* Wraps the rotating .bar */
+  position: !important;
+  overflow: hidden; /* Comment this line to understand the trick */
+  width: 90px; height: 45px; /* Half circle (overflow) */
+  margin-bottom: -14px; /* bring the numbers up */
+  margin-left: 90px;
 
+}
+.bar{
+  position: relative;
+  top: 0; left: 0;
+  width: 90px; height: 90px; /* full circle! */
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 10px solid #eee;     /* half gray, */
+  border-bottom-color: #0cf;  /* half azure */
+  border-right-color: #0bf;
+}
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+      } else {
+          content.style.display = "block";
+      }
+  });
+  }
+
+</script>
+
+<script>
+  $(".progress").each(function(){
+  
+  var $bar = $(this).find(".bar");
+  var $val = $(this).find("span");
+  var perc = parseInt( $val.text(), 10);
+
+  $({p:0}).animate({p:perc}, {
+    duration: 3000,
+    easing: "swing",
+    step: function(p) {
+      $bar.css({
+        transform: "rotate("+ (45+(p*1.8)) +"deg)", // 100%=180° so: ° = % * 1.8
+        // 45 is to add the needed rotation to have the green borders at the bottom
+      });
+      $val.text(p|0);
+    }
+  });
+});
+</script>
 
 
 @endsection

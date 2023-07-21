@@ -8,7 +8,7 @@
                 <h2 class="head-h1">Dashboard</h2>
                 <label class="date"> {{date('d M ,Y')}} </label>
 
-                <form method="get" action="{{route('hub_serach')}}" style="float:right; ">
+                <!-- <form method="get" action="{{route('hub_serach')}}" style="float:right; ">
                     <div class="input-group">
 
                         <input class="form-control" type="text" placeholder="Search Hub ID" name="search">
@@ -19,7 +19,7 @@
                             {{ Session::get('message') }}
                         </div>
                     @endif
-                </form>
+                </form> -->
             </div>
 
 
