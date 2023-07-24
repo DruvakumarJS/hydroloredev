@@ -249,7 +249,7 @@
             </div>
 
               <div class="card">
-                 <label>Normal API Data</label>
+                 <label>Todays Sensors Data</label>
               <table class="table">
               <tr class="tHead">
             

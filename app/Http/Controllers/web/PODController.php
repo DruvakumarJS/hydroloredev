@@ -178,7 +178,7 @@ class PODController extends Controller
        $enddate=""; 
        $api_type=""; 
 
-         $pods=MasterSyncData::where('pod_id',$id)->where('api_type','normal')->where('created_at','LIKE',date('Y-m-d').'%')->latest()->paginate(100);
+         $pods=MasterSyncData::where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->latest()->paginate(150);
 
          //temaparature data 
             $sensorsArray = array();
@@ -305,7 +305,7 @@ class PODController extends Controller
 
         // switchs
 
-          $tanks = MasterSyncData::select('WL1H' , 'WL1L' , 'WL2H' ,'WL2L')->where('pod_id', $id)->where('api_type','normal')->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->first();
+          $tanks = MasterSyncData::select('WL1H' , 'WL1L' , 'WL2H' ,'WL2L')->where('pod_id', $id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->first();
 
          //  print_r(($sensorsArray));die();
         
