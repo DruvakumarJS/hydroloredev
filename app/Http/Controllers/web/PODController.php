@@ -188,7 +188,7 @@ class PODController extends Controller
             $nut_array = array();
 
            
-            $data = MasterSyncData::select('created_at','AB_T1','POD_T1','NUT_T1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'ASC')->skip(0)->take(12)->get();
+            $data = MasterSyncData::select('created_at','AB_T1','POD_T1','NUT_T1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->skip(0)->take(12)->get();
 
           //  print_r(json_encode($data)); die();
 
@@ -213,7 +213,7 @@ class PODController extends Controller
             
 
            
-            $tds = MasterSyncData::select('created_at','TDS_V1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'ASC')->skip(0)->take(12)->get();
+            $tds = MasterSyncData::select('created_at','TDS_V1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->skip(0)->take(12)->get();
 
           //  print_r(json_encode($data)); die();
 
@@ -237,7 +237,7 @@ class PODController extends Controller
             
 
            
-            $tds = MasterSyncData::select('created_at','PH_V1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'ASC')->skip(0)->take(12)->get();
+            $tds = MasterSyncData::select('created_at','PH_V1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->skip(0)->take(12)->get();
 
           //  print_r(json_encode($data)); die();
 
