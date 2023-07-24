@@ -306,6 +306,8 @@ class PODController extends Controller
         // switchs
 
           $tanks = MasterSyncData::select('WL1H' , 'WL1L' , 'WL2H' ,'WL2L')->where('pod_id', $id)->orderBy('id', 'DESC')->first();
+
+          // print_r(json_encode($tanks));die();
         
          return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type' , 'sensorsArray' , 'tdsArray' , 'phArray' , 'ambian_mean_values' , 'pod_mean_values' , 'nutri_mean_values' , 'tanks'));
     }

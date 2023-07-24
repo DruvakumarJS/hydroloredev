@@ -131,7 +131,7 @@
 
            <div class="row">
 
-                   <div class="col-sm-6 col-md-3" >
+                   <div class="col-sm-6 col-md-3  justify-content: center; align-items: center; display: flex;" >
                         <div class="card progress">
                           <div class="card-header">Day time mean value</div>
                           <div class="barOverflow">
@@ -142,7 +142,7 @@
                           @else
                           <div><span>0</span><label> &#176;C</label></div>
                           @endif
-                          <h3>AB-T1</h3>
+                          <label style="font-weight: bolder;" >AB-T1</label>
                           <label>Ambient Temperature Sensor – 1</label>
 
                         </div>
@@ -160,7 +160,7 @@
                           @else
                           <div><span>0</span><label> &#176;C</label></div>
                           @endif
-                          <h3>AB-T1</h3>
+                          <label style="font-weight: bolder;" >AB-T1</label>
                           <label>Ambient Temperature Sensor – 1</label>
 
                       </div>
@@ -180,7 +180,7 @@
                           @else
                           <div><span>0</span><label> &#176;C</label></div>
                           @endif
-                          <h3>POD-T1</h3>
+                          <label style="font-weight: bolder;" >POD-T1</label>
                           <label>POD/BB Temperature Sensor – 1</label>
 
                         </div>
@@ -198,7 +198,7 @@
                           @else
                           <div><span>0</span><label> &#176;C</label></div>
                           @endif
-                          <h3>POD-T1</h3>
+                          <label style="font-weight: bolder;" >POD-T1</label>
                           <label>POD/BB Temperature Sensor – 1</label>
 
                       </div>
@@ -225,7 +225,8 @@
                           @else
                           <div><span>0</span><label> &#176;C</label></div>
                           @endif
-                          <h3>NUT-T1</h3>
+                         
+                           <label style="font-weight: bolder;">NUT-T1</label>
                           <label>Nutrition Solution Temperature Sensor – 1</label>
 
                         </div>
@@ -243,7 +244,7 @@
                           @else
                           <div><span>0</span><label> &#176;C</label></div>
                           @endif
-                          <h3>NUT-T1</h3>
+                           <label style="font-weight: bolder;">NUT-T1</label>
                           <label>Nutrition Solution Temperature Sensor – 1</label>
 
                       </div>
@@ -256,7 +257,7 @@
                         <div class="card">
 
                           <label class="switch">
-                          <input type="checkbox" <?php ($tanks->WL1H == 'ON')?'checked':''  ?>  disabled><span class="slider round" ></span></label>
+                          <input type="checkbox" <?php echo ($tanks->WL1H == 'ON')?'checked':''  ?>  disabled><span class="slider round" ></span></label>
                           
                           <h3>WL1H</h3>
 
@@ -267,7 +268,7 @@
                         <div class="card">
 
                           <label class="switch">
-                          <input type="checkbox" <?php ($tanks->WL1L == 'ON')?'checked':''  ?> disabled><span class="slider round"></span></label>
+                          <input type="checkbox" <?php echo ($tanks->WL1L == 'ON')?'checked':''  ?> disabled><span class="slider round"></span></label>
                           
                           <h3>WL1L</h3>
 
@@ -278,7 +279,7 @@
                         <div class="card">
 
                           <label class="switch">
-                          <input type="checkbox" <?php ($tanks->WL2H == 'ON')?'checked':''  ?> checked disabled><span class="slider round"></span></label>
+                          <input type="checkbox" <?php echo ($tanks->WL2H == 'ON')?'checked':''  ?>  disabled><span class="slider round"></span></label>
                           
                           <h3>WL2H</h3>
 
@@ -289,9 +290,9 @@
                         <div class="card">
 
                           <label class="switch">
-                          <input type="checkbox" <?php ($tanks->WL2L == 'ON')?'checked':''  ?> checked disabled><span class="slider round"></span></label>
+                          <input type="checkbox" <?php echo ($tanks->WL2L == 'ON')?'checked':''  ?>  disabled><span class="slider round"></span></label>
                           
-                          <h3>Wl2L</h3>
+                          <h3>WL2L</h3>
 
                         </div>
                     </div>
