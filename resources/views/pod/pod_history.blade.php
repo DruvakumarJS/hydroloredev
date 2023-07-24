@@ -131,7 +131,7 @@
 
            <div class="row">
 
-                   <div class="col-sm-6 col-md-3  justify-content: center; align-items: center; display: flex;" >
+                   <div class="col-sm-6 col-md-3 justify-content: center; align-items: center; display: flex;" >
                         <div class="card progress">
                           <div class="card-header">Day time mean value</div>
                           <div class="barOverflow">
@@ -142,14 +142,14 @@
                           @else
                           <div><span>0</span><label> &#176;C</label></div>
                           @endif
-                          <label style="font-weight: bolder;" >AB-T1</label>
+                          <label style="font-weight: bolder;">AB-T1</label>
                           <label>Ambient Temperature Sensor – 1</label>
 
                         </div>
                     </div> 
 
 
-                    <div class="col-sm-6 col-md-3" >
+                    <div class="col-sm-6 col-md-3 justify-content: center; align-items: center; display: flex;" >
                         <div class="card bg-dark text-white progress" >
                           <div class="card-header">Night time mean value</div>
                           <div class="barOverflow">
@@ -169,7 +169,7 @@
 
 
                     <!--  -->
-                    <div class="col-sm-6 col-md-3" >
+                    <div class="col-sm-6 col-md-3 justify-content: center; align-items: center; display: flex;" >
                         <div class="card progress">
                           <div class="card-header">Day time mean value</div>
                           <div class="barOverflow">
@@ -187,7 +187,7 @@
                     </div> 
 
 
-                    <div class="col-sm-6 col-md-3" >
+                    <div class="col-sm-6 col-md-3 justify-content: center; align-items: center; display: flex;" >
                         <div class="card bg-dark text-white progress">
                           <div class="card-header">Night time mean value</div>
                           <div class="barOverflow">
@@ -214,7 +214,7 @@
            <div class="row">
                 <div class="col-md-6" style="margin-top: 20px">
                   <div class="row">
-                   <div class="col-sm-6 col-md-6">
+                   <div class="col-sm-6 col-md-6 justify-content: center; align-items: center; display: flex;">
                         <div class="card progress">
                           <div class="card-header">Day time mean value</div>
                           <div class="barOverflow">
@@ -233,7 +233,7 @@
                     </div> 
 
 
-                    <div class="col-sm-6 col-md-6" >
+                    <div class="col-sm-6 col-md-6 justify-content: center; align-items: center; display: flex;" >
                         <div class="card bg-dark text-white progress">
                           <div class="card-header">Night time mean value</div>
                           <div class="barOverflow">

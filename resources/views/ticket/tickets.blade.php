@@ -1,14 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js" ></script>
 
 <div class="container-body">
 
     <div class="row justify-content-center">
-
-
 
             <h2 class="head-h1">Tickets</h2>
             <label class="date"> {{date('d M ,Y')}} </label>
