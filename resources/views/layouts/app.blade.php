@@ -76,6 +76,7 @@
            || request()->routeIs('exportdata')
            || request()->routeIs('hub_serach')
            || request()->routeIs('filter_history')
+           || request()->routeIs('sensor_status')
            || request()->routeIs('search_alert')? 'active' : '' }}"
 
            >

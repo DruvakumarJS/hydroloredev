@@ -75,7 +75,7 @@
 
 
 
-            <div class="row">
+          <!--   <div class="row">
                 <div class="col-md-6">
                   <div  class="card card-shadow">
                     <label>Sensor's Temperature Graph</label>
@@ -88,11 +88,10 @@
                     <label>Sensor's Mean Temperature Graph</label>
                     <canvas id="sensor_chart2"></canvas>
                   </div>    
-                </div>
-
-               
-                
+                </div>  
             </div>
+ -->
+            
             <div class="row">
 
             <label>Current Month </label> 

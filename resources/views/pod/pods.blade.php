@@ -57,7 +57,8 @@
                                 <td>{{$value->PMODE}}</td>
                                 <td>{{$value->created_at}}</td>
                                 <td>{{$value->updated_at}}</td>
-                                <td><a href="{{route('pod_history',$value->pod_id)}}">History</a>
+                                <td><a href="{{route('sensor_status',$value->pod_id)}}"><button class="btn btn-sm btn-light btn-outline-primary">Sensor's Status</button></a>
+                               
                                 </td>
                                 <td></td>
                             </tr>

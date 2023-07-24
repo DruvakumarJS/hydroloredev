@@ -29,11 +29,11 @@
 
 
 <div class="container-body">
-
+ 
 
     <div class="row justify-content-center">
-
-        @php
+       <div class="container-header">
+       	 @php
 
         if($startdate=="")
         {
@@ -47,28 +47,32 @@
 
         @endphp
 
-            <h2 class="head-h1">POD History</h2>
-            <label class="date"> {{date('d M ,Y')}} </label>
-
             <div style="left: right;margin-right: 10px;">
-                 <h6 class="card" style="float: left;margin-right: 10px; background: blue;  color: white;">POD ID : {{$id}}</h6>
-                 
-                <div id="div2">
-                  <button class="open-AddBookDialog btn-primary" id="btn_export1" value="export">Export</button>
+                 <div id="div1">
+                  <h6 style="font-weight: bolder;font-size: 20px">{{$id}}</h6>
                 </div>
+                <div id="div2">
+                  <button class="open-AddBookDialog btn btn-light btn-outline-danger" id="btn_export1" value="export">Export</button>
+
+                    <a href="{{route('pod_history',$id)}}"><i class="fa fa-refresh"></i></a>
+             
+
+                    <a href="{{route('pods')}}"><button class="btn btn-outline-primary" style="margin-left: 20px">View PODs</button></a>
+                </div>
+
               
                <form method="POST" action="{{route('filter_history')}}" >
                   @csrf
-                    <div id="div2" style="margin-right: 10px ;">
-                      <button class=" btn-primary" type="submit" name="action" value="filter">Filter</button>
+                    <div id="div2" style="margin-right: 5px ;">
+                      <button class="btn btn-success" type="submit" name="action" value="filter">Filter</button>
                     </div>
 
-                    <div id="div2" style="margin-right: 10px;background-color: white">
+                    <div id="div2" style="margin-right: 5px;background-color: white">
                        <input class="form-control" type="text" name="datetimes" id="datetimes" value="{{$datepicker}}" placeholder="Select Date Range" style="background-color: white" readonly/>
                     </div>
 
-                    <div id="div2" style="margin-right: 10px">
-                       <select class="form-control"  name="api_type" id="api_type">
+                    <div id="div2" style="margin-right: 5px">
+                       <select class="form-control form-select"  name="api_type" id="api_type">
                           <option value="none" <?php echo $api_type == 'none' ? 'selected':''  ?> >Select Data Type </option>
                           <option value="normal" <?php echo $api_type == 'normal' ? 'selected':''  ?>>Normal Data</option>
                           <option value="instant" <?php echo $api_type == 'instant' ? 'selected':''  ?>>Instant Data</option>
@@ -77,13 +81,10 @@
 
                     <input type="hidden" name="pod_id" value="{{$id}}">
 
-                    <div id="div2" style="margin-right: 10px">
-                       <a href="{{route('pod_history',$id)}}"><i class="fa fa-refresh"></i>  </a>
-                    </div>
+                    
                  
                </form>
 
-                     <!-- Modal -->
 
                 <div class="modal" id="modal_export1" >
                   <div class="modal-dialog">
@@ -125,210 +126,15 @@
                   </div>
                 </div>
 
-<!--  end Modal -->
-
-          </div>
-
-           <div class="row">
-
-                   <div class="col-sm-6 col-md-3 justify-content: center; align-items: center; display: flex;" >
-                        <div class="card progress">
-                          <div class="card-header">Day time mean value</div>
-                          <div class="barOverflow">
-                            <div class="bar"></div>
-                          </div>
-                          @if(isset($ambian_mean_values['mean_day']))
-                          <div><span>{{$ambian_mean_values['mean_day']}} </span><label> &#176;C</label></div> 
-                          @else
-                          <div><span>0</span><label> &#176;C</label></div>
-                          @endif
-                          <label style="font-weight: bolder;">AB-T1</label>
-                          <label>Ambient Temperature Sensor – 1</label>
-
-                        </div>
-                    </div> 
 
 
-                    <div class="col-sm-6 col-md-3 justify-content: center; align-items: center; display: flex;" >
-                        <div class="card bg-dark text-white progress" >
-                          <div class="card-header">Night time mean value</div>
-                          <div class="barOverflow">
-                            <div class="bar"></div>
-                          </div>
-                           @if(isset($ambian_mean_values['mean_night']))
-                          <div><span>{{$ambian_mean_values['mean_night']}} </span><label> &#176;C</label></div> 
-                          @else
-                          <div><span>0</span><label> &#176;C</label></div>
-                          @endif
-                          <label style="font-weight: bolder;" >AB-T1</label>
-                          <label>Ambient Temperature Sensor – 1</label>
+          </div> 
+         </div> 
+        </div>
+         
 
-                      </div>
-                    
-                    </div>
-
-
-                    <!--  -->
-                    <div class="col-sm-6 col-md-3 justify-content: center; align-items: center; display: flex;" >
-                        <div class="card progress">
-                          <div class="card-header">Day time mean value</div>
-                          <div class="barOverflow">
-                            <div class="bar"></div>
-                          </div>
-                          @if(isset($pod_mean_values['mean_day']))
-                          <div><span>{{$pod_mean_values['mean_day']}}</span><label> &#176;C</label></div> 
-                          @else
-                          <div><span>0</span><label> &#176;C</label></div>
-                          @endif
-                          <label style="font-weight: bolder;" >POD-T1</label>
-                          <label>POD/BB Temperature Sensor – 1</label>
-
-                        </div>
-                    </div> 
-
-
-                    <div class="col-sm-6 col-md-3 justify-content: center; align-items: center; display: flex;" >
-                        <div class="card bg-dark text-white progress">
-                          <div class="card-header">Night time mean value</div>
-                          <div class="barOverflow">
-                            <div class="bar"></div>
-                          </div>
-                          @if(isset($pod_mean_values['mean_night']))
-                          <div><span>{{$pod_mean_values['mean_night']}}</span><label> &#176;C</label></div> 
-                          @else
-                          <div><span>0</span><label> &#176;C</label></div>
-                          @endif
-                          <label style="font-weight: bolder;" >POD-T1</label>
-                          <label>POD/BB Temperature Sensor – 1</label>
-
-                      </div>
-                    
-                    </div>
-
-
-             </div>
-
-              
-
-
-           <div class="row">
-                <div class="col-md-6" style="margin-top: 20px">
-                  <div class="row">
-                   <div class="col-sm-6 col-md-6 justify-content: center; align-items: center; display: flex;">
-                        <div class="card progress">
-                          <div class="card-header">Day time mean value</div>
-                          <div class="barOverflow">
-                            <div class="bar"></div>
-                          </div>
-                          @if(isset($nutri_mean_values['mean_day']))
-                          <div><span>{{$nutri_mean_values['mean_day']}}</span><label> &#176;C</label></div> 
-                          @else
-                          <div><span>0</span><label> &#176;C</label></div>
-                          @endif
-                         
-                           <label style="font-weight: bolder;">NUT-T1</label>
-                          <label>Nutrition Solution Temperature Sensor – 1</label>
-
-                        </div>
-                    </div> 
-
-
-                    <div class="col-sm-6 col-md-6 justify-content: center; align-items: center; display: flex;" >
-                        <div class="card bg-dark text-white progress">
-                          <div class="card-header">Night time mean value</div>
-                          <div class="barOverflow">
-                            <div class="bar"></div>
-                          </div>
-                          @if(isset($nutri_mean_values['mean_night']))
-                          <div><span>{{$nutri_mean_values['mean_night']}}</span><label> &#176;C</label></div> 
-                          @else
-                          <div><span>0</span><label> &#176;C</label></div>
-                          @endif
-                           <label style="font-weight: bolder;">NUT-T1</label>
-                          <label>Nutrition Solution Temperature Sensor – 1</label>
-
-                      </div>
-                    
-                    </div>
-                  </div>
-
-                  <div class="row" style="margin-top: 30px">
-                      <div class="col-sm-6 col-md-3" >
-                        <div class="card">
-
-                          <label class="switch">
-                          <input type="checkbox" <?php echo ($tanks->WL1H == 'ON')?'checked':''  ?>  disabled><span class="slider round" ></span></label>
-                          
-                          <h3>WL1H</h3>
-
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-md-3" >
-                        <div class="card">
-
-                          <label class="switch">
-                          <input type="checkbox" <?php echo ($tanks->WL1L == 'ON')?'checked':''  ?> disabled><span class="slider round"></span></label>
-                          
-                          <h3>WL1L</h3>
-
-                        </div>
-                    </div> 
-
-                    <div class="col-sm-6 col-md-3" >
-                        <div class="card">
-
-                          <label class="switch">
-                          <input type="checkbox" <?php echo ($tanks->WL2H == 'ON')?'checked':''  ?>  disabled><span class="slider round"></span></label>
-                          
-                          <h3>WL2H</h3>
-
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6 col-md-3" >
-                        <div class="card">
-
-                          <label class="switch">
-                          <input type="checkbox" <?php echo ($tanks->WL2L == 'ON')?'checked':''  ?>  disabled><span class="slider round"></span></label>
-                          
-                          <h3>WL2L</h3>
-
-                        </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6">
-                  <div  class="card card-shadow">
-                    <label>Temperature Graph</label>
-                    <canvas id="temp_chart"></canvas>
-                  </div>     
-                </div>
-
-                   
-            </div>
-
-             <div class="row">
-
-               <div class="col-md-6">
-                  <div  class="card card-shadow">
-                    <label>TDS Graph</label>
-                    <canvas id="tds_chart"></canvas>
-                  </div>     
-                </div> 
-                
-                <div class="col-md-6">
-                  <div  class="card card-shadow">
-                    <label>PH Graph</label>
-                    <canvas id="ph_chart"></canvas>
-                  </div>     
-                </div>
- 
-            </div>
-
-              <div class="card">
-                 
+          <div class="card">
+                 <label>Normal API Data</label>
               <table class="table">
               <tr class="tHead">
             
@@ -528,11 +334,8 @@ $(document).ready(function(){
 
 
        
-   </div>
-
-     
-</div>  
-
+   </div> 
+</div> 
 
 <script>
 $(function() {
@@ -575,326 +378,7 @@ $(document).on("click", ".open-AddBookDialog", function () {
 
 </script>
 
-<script>
-$(document).ready(function(){
-  $("#search").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
 
-$(".dropdown-menu li a").click(function() {
-  $(this).parents(".dropdown").find('.btn').html($(this).text() + ' <span class="caret"></span>');
-  $(this).parents(".dropdown").find('.btn').val($(this).data('value'));
-});
-
-</script>
- 
-<script>
-
-   
-   var temparature = [];
-   Chart.defaults.global.defaultFontStyle = 'bold';
-
-   
-    new Chart("temp_chart", {
-      type: "bar",
-      title:{
-        text:"Chart Title",
-       },
-      
-      data: {
-       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
-         labels: <?php echo $sensorsArray['time'] ;  ?>,
-
-
-        datasets: [
-        {
-          label: 'Ambian Temperature',  
-          fill: false,
-         
-          backgroundColor: "<?php echo 'red' ;  ?>",
-          borderColor: "<?php echo 'red' ;  ?>",
-          data: <?php echo $sensorsArray['ambian'] ;  ?>,
-
-        },
-        {
-          label: 'POD Temaperature',  
-          fill: false,
-         
-          backgroundColor: "<?php echo '#FF90BB';  ?>",
-          borderColor: "<?php echo '#FF90BB';  ?>",
-          data: <?php echo $sensorsArray['pod'] ;  ?>,
-        },
-       {
-          label: 'Nutrition Temaperature',  
-          fill: false,
-          
-          backgroundColor: "<?php echo '#FFE4A7';  ?>",
-          borderColor: "<?php echo '#FFE4A7';  ?>",
-          data: <?php echo $sensorsArray['nut'] ;  ?>,
-        },
-       
-        ]
-      },
-      options: {
-         tooltips: {
-                  mode: 'index'
-                },
-        legend: {display: true},
-        scales: {
-          pointLabels :{
-           fontStyle: "bold",
-            },
-          yAxes: [{
-            gridLines: {
-             drawOnChartArea: false },
-             ticks: {min:0 } ,
-           
-            scaleLabel: {
-                    display: true,
-                    labelString: 'Temperature in \xB0C',
-                    fontColor: '#000',   }
-                }],
-          xAxes: [{
-            barPercentage: 1,
-             gridLines: {
-             drawOnChartArea: false },
-          
-            scaleLabel: {
-                    display: true,
-                    labelString: 'Time',
-                    fontColor: '#000', }
-                }],
-        }
-      }
-    });
-</script>
-
-<!-- TDS -->
-<script>
-
-   
-   var temparature = [];
-   Chart.defaults.global.defaultFontStyle = 'bold';
-
-   
-    new Chart("tds_chart", {
-      type: "line",
-      title:{
-        text:"Chart Title",
-       },
-      
-      data: {
-       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
-         labels: <?php echo $tdsArray['time'] ;  ?>,
-
-
-        datasets: [
-        {
-          label: 'TDS value',  
-          fill: false,
-         
-          backgroundColor: "<?php echo 'red' ;  ?>",
-          borderColor: "<?php echo 'red' ;  ?>",
-          data: <?php echo $tdsArray['tds'] ;  ?>,
-
-        }
-        ]
-      },
-      options: {
-         tooltips: {
-                  mode: 'index'
-                },
-        legend: {display: true},
-        scales: {
-          pointLabels :{
-           fontStyle: "bold",
-            },
-          yAxes: [{
-            gridLines: {
-             drawOnChartArea: false },
-
-            ticks: {min: 0} ,
-            scaleLabel: {
-                    display: true,
-                    labelString: 'TDS Value in mg/L',
-                    fontColor: '#000',   }
-                }],
-          xAxes: [{
-            barPercentage: 1,
-             gridLines: {
-             drawOnChartArea: false },
-
-          
-            scaleLabel: {
-                    display: true,
-                    labelString: 'Time',
-                    fontColor: '#000', }
-                }],
-        }
-      }
-    });
-</script>
-
-<!-- TDS -->
-<!-- ph -->
-
-<!-- <script>
-
-   
-   var temparature = [];
-   Chart.defaults.global.defaultFontStyle = 'bold';
-
-   
-    new Chart("ph_chart", {
-      type: "bar",
-      title:{
-        text:"Chart Title",
-       },
-      
-      data: {
-         labels: <?php echo $phArray['time'] ;  ?>,
-
-
-        datasets: [
-        {
-          label: 'PH value',  
-          fill: false,
-         
-          backgroundColor: "<?php echo 'green' ;  ?>",
-          borderColor: "<?php echo 'green' ;  ?>",
-          data: <?php echo $phArray['ph'] ;  ?>,
-
-        }
-        ]
-      },
-      options: {
-         tooltips: {
-                  mode: 'index'
-                },
-        legend: {display: true},
-        scales: {
-          pointLabels :{
-           fontStyle: "bold",
-            },
-          yAxes: [{
-            gridLines: {
-             drawOnChartArea: false },
-
-            ticks: {min:0 , max:14} ,
-            scaleLabel: {
-                    display: true,
-                    labelString: 'PH Value',
-                    fontColor: '#000',   }
-                }],
-          xAxes: [{
-            barPercentage: 0.5,
-             gridLines: {
-             drawOnChartArea: false },
-           
-            scaleLabel: {
-                    display: true,
-                    labelString: 'Time',
-                    fontColor: '#000', }
-                }],
-        }
-      }
-    });
-</script> -->
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js"></script>
-<script type="text/javascript">
-
-  const options = {
-  type: 'bar',
-  data: {
-    labels: <?php echo $phArray['time'] ;  ?>,
-    datasets: [{
-      label: 'PH value',
-      data: <?php echo $phArray['ph'] ;  ?>,
-      backgroundColor: (ctx) => {
-        if (ctx.raw <= 1) {return 'red';}
-        if (ctx.raw <= 2) { return 'pink';}
-        if (ctx.raw <= 3) { return 'orange';}
-        if (ctx.raw <= 4) { return 'beige';}
-        if (ctx.raw <= 5) { return 'yellow';}
-        if (ctx.raw <= 6) { return 'limegreen';}
-        if (ctx.raw <= 7) { return 'green';}
-        if (ctx.raw <= 8) { return 'darkgreen';}
-        if (ctx.raw <= 9) { return 'turquoise';}
-        if (ctx.raw <= 10) { return 'paleblue';}
-        if (ctx.raw <= 11) { return 'blue';}
-        if (ctx.raw <= 12) { return 'darkblue';}
-        if (ctx.raw <= 13) { return 'violet';}
-        if (ctx.raw <= 14) { return 'purple';}
-
-
-         if (ctx.raw <= 60) {
-          return 'blue';
-        }
-
-        return 'green';
-      }
-    }]
-  },
-  options: {
-     plugins: {
-            legend: {
-                display: false
-            },
-        }
-  }
-}
-
-const ctx = document.getElementById('ph_chart').getContext('2d');
-new Chart(ctx, options);
-</script>
-
-<!-- ph -->
-
-
-
-<script>
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-      coll[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.display === "block") {
-          content.style.display = "none";
-      } else {
-          content.style.display = "block";
-      }
-  });
-  }
-
-</script>
-
-<script>
-  $(".progress").each(function(){
-  
-  var $bar = $(this).find(".bar");
-  var $val = $(this).find("span");
-  var perc = parseInt( $val.text(), 10);
-
-  $({p:0}).animate({p:perc}, {
-    duration: 3000,
-    easing: "swing",
-    step: function(p) {
-      $bar.css({
-        transform: "rotate("+ (45+(p*1.8)) +"deg)", // 100%=180° so: ° = % * 1.8
-        // 45 is to add the needed rotation to have the green borders at the bottom
-      });
-      $val.text(p|0);
-    }
-  });
-});
-</script>
 
 
 @endsection

@@ -178,7 +178,7 @@ class PODController extends Controller
        $enddate=""; 
        $api_type=""; 
 
-         $pods=MasterSyncData::where('pod_id',$id)->latest()->paginate(50);
+         $pods=MasterSyncData::where('pod_id',$id)->where('api_type','normal')->where('created_at','LIKE',date('Y-m-d').'%')->latest()->paginate(100);
 
          //temaparature data 
             $sensorsArray = array();
@@ -305,11 +305,11 @@ class PODController extends Controller
 
         // switchs
 
-          $tanks = MasterSyncData::select('WL1H' , 'WL1L' , 'WL2H' ,'WL2L')->where('pod_id', $id)->orderBy('id', 'DESC')->first();
+          $tanks = MasterSyncData::select('WL1H' , 'WL1L' , 'WL2H' ,'WL2L')->where('pod_id', $id)->where('api_type','normal')->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->first();
 
-          // print_r(json_encode($tanks));die();
+         //  print_r(($sensorsArray));die();
         
-         return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type' , 'sensorsArray' , 'tdsArray' , 'phArray' , 'ambian_mean_values' , 'pod_mean_values' , 'nutri_mean_values' , 'tanks'));
+         return view('pod/pod_sensors',compact('pods', 'id', 'startdate','enddate','api_type' , 'sensorsArray' , 'tdsArray' , 'phArray' , 'ambian_mean_values' , 'pod_mean_values' , 'nutri_mean_values' , 'tanks'));
     }
 
     /**
@@ -470,9 +470,6 @@ class PODController extends Controller
 
     public function filter(Request $request){
 
-
-
-      
        $startdate="";
        $enddate=""; 
        $id=$request->pod_id;
@@ -530,9 +527,21 @@ class PODController extends Controller
         } 
 
         return view('pod/pod_history',compact('pods', 'id' , 'startdate','enddate' , 'api_type'));
-        /* return redirect()->route('pod_history/{id}')
+        /* return redirect()->route('view_history/{id}')
                         ->withErrors($validator)
-                        ->withInput();
-*/
+                        ->withInput();*/
+
+    }
+
+
+    public function history($id){
+       $startdate="";
+       $enddate=""; 
+       $api_type=""; 
+
+      $pods=MasterSyncData::where('pod_id',$id)->latest()->paginate(100);
+
+      return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type'));
+
     }
 }
