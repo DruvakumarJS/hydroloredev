@@ -177,6 +177,21 @@ class PODController extends Controller
        $startdate="";
        $enddate=""; 
        $api_type=""; 
+       $timearray=array();
+
+       for ($i=00 ;$i<=22; $i++ ){
+          if($i%2 == 0){
+              if(strlen($i) == 1){
+                $timearray[]='0'.$i;
+              }
+              else{
+                 $timearray[]=$i;
+              }
+           
+          }
+       }
+
+     //  print_r($timearray); die();
 
          $pods=MasterSyncData::where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->latest()->paginate(150);
 
@@ -186,72 +201,46 @@ class PODController extends Controller
             $ab_array = array();
             $pod_array = array();
             $nut_array = array();
-
-           
-            $data = MasterSyncData::select('created_at','AB_T1','POD_T1','NUT_T1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->skip(0)->take(12)->get();
-
-          //  print_r(json_encode($data)); die();
-
-            foreach ($data as $key => $value) {
-                $time_array[]= \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('H:i');
-                $ab_array[]=$value->AB_T1;
-                $pod_array[]=$value->POD_T1;
-                $nut_array[]=$value->NUT_T1;
-
-            }
-
-           
-            $sensorsArray = array('time' => json_encode($time_array) , 'ambian' => json_encode($ab_array) ,
-                'pod' => json_encode($pod_array) , 'nut'=>json_encode($nut_array));
-
-       //temaparature data 
-
-        //temaparature data 
-            $tdsArray = array();
-            $time_array = array();
             $tds_array = array();
-            
-
-           
-            $tds = MasterSyncData::select('created_at','TDS_V1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->skip(0)->take(12)->get();
-
-          //  print_r(json_encode($data)); die();
-
-            foreach ($tds as $key => $value) {
-                $time_array[]=\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('H:i');
-                $tds_array[]=$value->TDS_V1;
-               
-
-            }
-
-           
-            $tdsArray = array('time' => json_encode($time_array) , 'tds' => json_encode($tds_array) ,
-               );
-
-       //temaparature data 
-
-         //PH data 
             $phArray = array();
-            $time_array = array();
-            $ph_array = array();
-            
 
            
-            $tds = MasterSyncData::select('created_at','PH_V1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->skip(0)->take(12)->get();
+            /*$data = MasterSyncData::select('created_at','AB_T1','POD_T1','NUT_T1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->skip(0)->take(12)->get();*/
 
-          //  print_r(json_encode($data)); die();
+            foreach ($timearray as $key=>$value) {
+              $start_hour = $value.':00:01' ;
 
-            foreach ($tds as $key => $value) {
-                $time_array[]=\Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value->created_at)->format('H:i');
-                $ph_array[]=$value->PH_V1;
+              $even_hour = intval(($value)+intval(1));
+
+              if(strlen($even_hour) == 1){
+                $even_hour= '0'.$even_hour;
+              }
+              $end_hour = $even_hour.':59:59' ;
+
+               $ambian_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('AB_T1');
+
+                $pod_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('POD_T1');
+
+                $nut_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('NUT_T1');
+
+                $tds_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('TDS_V1');
+
+                $ph_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('PH_V1');
+
+              // print_r($start_hour);print_r(" "); print_r($Ambiam);print_r('<br>');
+                $ab_array[]=$ambian_avg;
+                $pod_array[]=$pod_avg;
+                $nut_array[]=$nut_avg;
+                $tds_array[]=$tds_avg;
+                $ph_array[]=$ph_avg;
                
-            }
+              }
 
-           
-            $phArray = array('time' => json_encode($time_array) , 'ph' => json_encode($ph_array) ,
-               );
+            $sensorsArray = array('time' => json_encode($timearray) , 'ambian' => json_encode($ab_array) ,
+                'pod' => json_encode($pod_array) , 'nut'=>json_encode($nut_array) , 'tds'=>json_encode($tds_array) ,'ph'=>json_encode(($ph_array)));
 
-       //PH data  
+
+          //  print_r($sensorsArray); die();
 
        //Mean 
             $time= date('H:i');
@@ -309,7 +298,7 @@ class PODController extends Controller
 
          //  print_r(($sensorsArray));die();
         
-         return view('pod/pod_sensors',compact('pods', 'id', 'startdate','enddate','api_type' , 'sensorsArray' , 'tdsArray' , 'phArray' , 'ambian_mean_values' , 'pod_mean_values' , 'nutri_mean_values' , 'tanks'));
+         return view('pod/pod_sensors',compact('pods', 'id', 'startdate','enddate','api_type' , 'sensorsArray' , 'ambian_mean_values' , 'pod_mean_values' , 'nutri_mean_values' , 'tanks'));
     }
 
     /**

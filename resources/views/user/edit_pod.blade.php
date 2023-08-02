@@ -431,6 +431,7 @@
 
           $t1=trim($outputArr[0]);
 
+
           
 
           @endphp
@@ -441,6 +442,7 @@
           $outputArr= preg_split("/[-:]/", $thresholdValue);
 
           $t1=trim($outputArr[0]);
+          $t2=trim($outputArr[1]);
           
 
           @endphp

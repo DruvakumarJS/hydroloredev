@@ -133,24 +133,23 @@ class DataController extends Controller
         
         $this->validate_AB_T1($Inputdata, $threshold , $date );
         $this->validate_POD_T1($Inputdata, $threshold , $date ); 
-        //$this->validate_TDS_V1($Inputdata, $threshold , $date ); 
-       // $this->validate_PH_V1($Inputdata, $threshold , $date );  
+        $this->validate_TDS_V1($Inputdata, $threshold , $date ); 
+        $this->validate_PH_V1($Inputdata, $threshold , $date );  
         $this->validate_NUT_T1($Inputdata, $threshold , $date );           
-       // $this->validate_NP_I1($Inputdata, $threshold , $date );
-       // $this->validate_NP_I2($Inputdata, $threshold , $date );
-       // $this->validate_SV_I1($Inputdata, $threshold , $date );
-        $this->validate_FLO_UT($Inputdata, $threshold , $date );
-        $this->validate_FLO_BT($Inputdata, $threshold , $date );
+        $this->validate_NP_I1($Inputdata, $threshold , $date );
+       
+        $this->validate_SV_I1($Inputdata, $threshold , $date );
+       
         $this->validate_STS_NP1($Inputdata, $threshold , $date );
-        $this->validate_STS_NP2($Inputdata, $threshold , $date ); 
-        $this->validate_STS_SV1($Inputdata, $threshold , $date );
-        $this->validate_WL1L($Inputdata, $threshold , $date);
-        $this->validate_WL2L($Inputdata, $threshold , $date); 
-        $this->validate_WL3L($Inputdata, $threshold , $date);
-       // $this->validate_RL1($Inputdata, $threshold , $date);
-       // $this->validate_RL2($Inputdata, $threshold , $date);
-       // $this->validate_RL3($Inputdata, $threshold , $date);
-       // $this->validate_RL4($Inputdata, $threshold , $date);
+       
+         $this->validate_STS_SV1($Inputdata, $threshold , $date );
+         $this->validate_WL1L($Inputdata, $threshold , $date);
+         $this->validate_WL2L($Inputdata, $threshold , $date); 
+         $this->validate_WL3L($Inputdata, $threshold , $date);
+        // $this->validate_RL1($Inputdata, $threshold , $date);
+        // $this->validate_RL2($Inputdata, $threshold , $date);
+        // $this->validate_RL3($Inputdata, $threshold , $date);
+        // $this->validate_RL4($Inputdata, $threshold , $date);
 
      
         //  }
@@ -239,6 +238,7 @@ class DataController extends Controller
 
     public function validate_AB_T1($Inputdata ,$threshold , $date)
     {
+       // print_r("AB_T1");die();
 
         $thresholdValue=$threshold->AB_T1;
         /*$outputArr= preg_split("/[-:]/", $thresholdValue);
@@ -270,7 +270,8 @@ class DataController extends Controller
                 'hub_id'=>$threshold['hub_id'],
                 'pod_id'=>$threshold['pod_id'],
                 'threshold'=>$thresholdValue,
-                'current_value'=>$Inputdata['AB-T1']
+                'current_value'=>$Inputdata['AB-T1'],
+                'key'=> 'AB_T1 Should be below '.$thresholdValue
                                             
             ]);
            $ticket_controller->alerts($content);
@@ -281,18 +282,21 @@ class DataController extends Controller
 
      public function validate_POD_T1($Inputdata ,$threshold , $date)
      {
+      
         $thresholdValue=$threshold->POD_T1;
 
         /*$outputArr= preg_split("/[-:]/", $thresholdValue);
 
         $min=trim($outputArr[0]);
         $max=trim($outputArr[1]);
-        $x=trim($outputArr[2]);*/
+            $x=trim($outputArr[2]);*/
 
        // print_r($min ." max".$max . " x".$x);die();
 
-
-         if($Inputdata['POD-T1']>((int)$Inputdata['AB-T1']+$thresholdValue))
+        
+       $val = intval($Inputdata['AB-T1'])+intval($thresholdValue);
+     
+         if($Inputdata['POD-T1']>$val)
             {
 
              $subject='POD/BB Temperature Sensor – 1 has issue';
@@ -317,7 +321,8 @@ class DataController extends Controller
                         'hub_id'=>$Inputdata['hub_id'],
                         'pod_id'=>$Inputdata['PODUID'],
                         'threshold'=>$thresholdValue,
-                        'current_value'=>$Inputdata['POD-T1']
+                        'current_value'=>$Inputdata['POD-T1'],
+                        'key'=> 'POD-T1 Should be below '.$val
                                                     
                     ]);
 
@@ -330,7 +335,7 @@ class DataController extends Controller
 
     public function validate_TDS_V1($Inputdata ,$threshold , $date)
       {
-
+        
         $thresholdValue=$threshold->TDS_V1;
        /* $outputArr= preg_split("/[-:]/", $thresholdValue);
 
@@ -341,7 +346,7 @@ class DataController extends Controller
             if($Inputdata['TDS-V1']>$thresholdValue)
             {
 
-            $subject='Total Dissolved Salt Sensor issue';
+            $subject='Total Dissolved Salt Sensor value is high';
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -361,7 +366,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['TDS-V1']
+                            'current_value'=>$Inputdata['TDS-V1'],
+                            'key'=> 'TDS-V1 Should be below '.$thresholdValue
                                                         
                         ]);
 
@@ -406,7 +412,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['PH-V1']
+                            'current_value'=>$Inputdata['PH-V1'],
+                            'key'=> 'pH Should be below '.$thresholdValue
                                                         
                         ]);
 
@@ -426,7 +433,8 @@ class DataController extends Controller
         $min=trim($outputArr[0]);
         $max=trim($outputArr[1]);
         $x=trim($outputArr[2]);*/
-
+        
+        $val = ((int)$Inputdata['POD-T1']+$thresholdValue) ;
 
          if($Inputdata['NUT-T1']>((int)$Inputdata['POD-T1']+$thresholdValue))
                 {
@@ -454,7 +462,8 @@ class DataController extends Controller
                         'hub_id'=>$Inputdata['hub_id'],
                         'pod_id'=>$Inputdata['PODUID'],
                         'threshold'=>$thresholdValue,
-                        'current_value'=>$Inputdata['NUT-T1']
+                        'current_value'=>$Inputdata['NUT-T1'],
+                        'key'=> 'NUT-T1 Should be below '.$val
                                                     
                     ]);
 
@@ -482,7 +491,7 @@ class DataController extends Controller
             if($Inputdata['NP-I1']<$min || $Inputdata['NP-I1']>$max)
             {
 
-            $subject='Current (consumed) – Nutrient Pump 1 issue';
+            $subject='Nutrient Pump 1 issue';
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -502,7 +511,9 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['NP-I1']
+                            'current_value'=>$Inputdata['NP-I1'],
+                            'key'=> 'Relay 1 is ON and NP-I1 value Should be between '.$min.' & '.$max
+
                                                         
                         ]);
 
@@ -579,7 +590,7 @@ class DataController extends Controller
             if($Inputdata['SV-I1']<$min || $Inputdata['SV-I1']>$max)
             {
 
-            $subject='Current (consumed) – Solenoid Valve issue';
+            $subject='Solenoid Valve issue';
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -599,7 +610,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['SV-I1']
+                            'current_value'=>$Inputdata['SV-I1'],
+                            'key'=> 'Relay 3 is ON and NP-I1 value Should be between '.$min.' & '.$max
                                                         
                         ]);
 
@@ -627,29 +639,32 @@ class DataController extends Controller
         $outputArr= preg_split("/[-:]/", $thresholdValue);
        
         $threshold_time= "-".trim($outputArr[1])."minutes";
+        $val = ltrim($threshold_time, '-');
        
-        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
+        $before_hour=date('Y-m-d H:i:s',strtotime($val));
 
         $trigger='true';
 
         
-            if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
+           /* if($Inputdata['STS-NP1']=='FLT')
             {
-
+*/
           //  $check_data=MasterSyncData::where('created_at','<',$before_hour)->get();  
 
             
                 if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
-                {   
+                {  
+
 
 
                     $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
 
                     foreach ($prev_data as $key => $value) {
                        
-                       if(($value->STS_NP1)!='FLT' ||  ($value->STS_NP2)!='FLT'){
+                       if(($value->WL2H)!='FLT'){
                                
                                $trigger='false';
+
                                
 
                        }
@@ -660,7 +675,7 @@ class DataController extends Controller
                    
                     $trigger='false';
                 }
-
+ 
 
            /* print_r("req time ".$before_hour);
             print_r($trigger);
@@ -689,7 +704,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['STS-NP1']
+                            'current_value'=>$Inputdata['STS-NP1'],
+                            'key'=> 'High Level Reservoir Tank-2 is FLT for more than '.$val
                                                         
                         ]);
 
@@ -698,7 +714,7 @@ class DataController extends Controller
                     }  
            
             }
-         }
+        // }
         
       
       }
@@ -784,14 +800,13 @@ class DataController extends Controller
         $thresholdValue=$threshold->STS_SV1;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
         $threshold_time= "-".trim($outputArr[1])."minutes";
+        $val = ltrim($threshold_time, '-');
        
-        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
-
+        $before_hour=date('Y-m-d H:i:s',strtotime($val));
+         
         $trigger='true';
         
-            if($Inputdata['STS-SV1']=='FLT' && $Inputdata['STS-SV2']=='FLT')
-            {
-
+           
                 if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
                 {
 
@@ -799,7 +814,7 @@ class DataController extends Controller
 
                     foreach ($prev_data as $key => $value) {
                        
-                       if(($value->STS_SV1)!='FLT' ||  ($value->STS_SV2)!='FLT'){
+                       if(($value->WL3H)!='FLT'){
                                
                                $trigger='false';
                                
@@ -819,7 +834,7 @@ class DataController extends Controller
             {
 
 
-            $subject="Fresh Water Solenoid Valve Health Status – 1 issue";
+            $subject="Fresh Water Solenoid Valve Health issue";
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -839,7 +854,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['STS-SV1']
+                            'current_value'=>$Inputdata['STS-SV1'],
+                            'key'=> 'High Level Reservoir Tank-3 status is FLT for more than '.$val
                                                         
                         ]);
 
@@ -848,7 +864,7 @@ class DataController extends Controller
                     }  
            
             }
-         }
+        
       
       } 
 
@@ -858,6 +874,7 @@ class DataController extends Controller
         $thresholdValue=$threshold->WL1L;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
         $threshold_time= "-".trim($outputArr[1])."minutes";
+        $val = ltrim($threshold_time, '-');
        
         $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
@@ -904,8 +921,8 @@ class DataController extends Controller
             if($trigger=='true')
             {
 
-
-            $subject="Source Tank Water Level Sensor-1 – Low Level Status issue";
+          //  $subject="Source Tank Water Level Sensor-1 – Low Level Status issue";
+             $subject="Low level Source Tank-1 issue";
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -925,7 +942,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['WL1L']
+                            'current_value'=>$Inputdata['WL1L'],
+                            'key' => "Low level Source Tank-1 status is OFF for more than ".$val
                                                         
                         ]);
 
@@ -944,6 +962,7 @@ class DataController extends Controller
         $thresholdValue=$threshold->WL2L;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
          $threshold_time= "-".trim($outputArr[1])."minutes";
+         $val = ltrim($threshold_time, '-');
        
         $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
@@ -989,7 +1008,9 @@ class DataController extends Controller
             {
 
 
-            $subject="Source Tank Water Level Sensor-2 – Low Level Status issue";
+           // $subject="Source Tank Water Level Sensor-2 – Low Level Status issue";
+            $subject="Low level Source Tank-2 issue";
+
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -1009,7 +1030,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['WL2L']
+                            'current_value'=>$Inputdata['WL2L'],
+                            'key' => "Low level Source Tank-2 status is OFF for more than ".$val
                                                         
                         ]);
 
@@ -1028,6 +1050,7 @@ class DataController extends Controller
         $thresholdValue=$threshold->WL3L;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
         $threshold_time= "-".trim($outputArr[1])."minutes";
+        $val = ltrim($threshold_time, '-');
        
         $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
@@ -1073,7 +1096,8 @@ class DataController extends Controller
             {
 
 
-            $subject="Source Tank Water Level Sensor-3 – Low Level Status issue";
+           // $subject="Source Tank Water Level Sensor-3 – Low Level Status issue";
+            $subject="Low level Source Tank-3 issue";
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -1093,7 +1117,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['WL3L']
+                            'current_value'=>$Inputdata['WL3L'],
+                            'key' => "Low level Source Tank-3 status is OFF for more than ".$val
                                                         
                         ]);
 

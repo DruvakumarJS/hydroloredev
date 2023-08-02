@@ -26,4 +26,9 @@ class Ticket extends Model
 
           }
 
+         public function threshold()
+         {
+          return $this->hasOne(Threshold::class,'pod_id','pod_id');
+         } 
+
 }

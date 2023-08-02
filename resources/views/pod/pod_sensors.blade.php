@@ -179,7 +179,7 @@
                           <label class="switch">
                           <input type="checkbox" <?php echo ($tanks->WL1H == 'ON')?'checked':''  ?>  disabled><span class="slider round" ></span></label>
                           
-                          <h3>WL1H</h3>
+                          <label>Tank-1</label><label>High Level</label>
 
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                           <label class="switch">
                           <input type="checkbox" <?php echo ($tanks->WL1L == 'ON')?'checked':''  ?> disabled><span class="slider round"></span></label>
                           
-                          <h3>WL1L</h3>
+                          <label>Tank-1 </label><label>Low Level</label>
 
                         </div>
                     </div> 
@@ -201,7 +201,7 @@
                           <label class="switch">
                           <input type="checkbox" <?php echo ($tanks->WL2H == 'ON')?'checked':''  ?>  disabled><span class="slider round"></span></label>
                           
-                          <h3>WL2H</h3>
+                          <label>Tank-2 </label><label>High Level</label>
 
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                           <label class="switch">
                           <input type="checkbox" <?php echo ($tanks->WL2L == 'ON')?'checked':''  ?>  disabled><span class="slider round"></span></label>
                           
-                          <h3>WL2L</h3>
+                          <label>Tank-2 </label><label>Low Level</label>
 
                         </div>
                     </div>
@@ -525,7 +525,7 @@ $(".dropdown-menu li a").click(function() {
       
       data: {
        // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
-         labels: <?php echo $sensorsArray['time'] ;  ?>,
+         labels: ['2am', '4am' , '6am' , '8am','10am' , '12am' , '2pm' , '4pm' ,'6pm', '8pm', '10pm', '12pm' ],
 
 
         datasets: [
@@ -606,8 +606,8 @@ $(".dropdown-menu li a").click(function() {
        },
       
       data: {
-       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
-         labels: <?php echo $tdsArray['time'] ;  ?>,
+         labels: ['2am', '4am' , '6am' , '8am','10am' , '12am' , '2pm' , '4pm' ,'6pm', '8pm', '10pm', '12pm' ],
+         
 
 
         datasets: [
@@ -617,7 +617,7 @@ $(".dropdown-menu li a").click(function() {
          
           backgroundColor: "<?php echo 'red' ;  ?>",
           borderColor: "<?php echo 'red' ;  ?>",
-          data: <?php echo $tdsArray['tds'] ;  ?>,
+          data: <?php echo $sensorsArray['tds'] ;  ?>,
 
         }
         ]
@@ -657,82 +657,18 @@ $(".dropdown-menu li a").click(function() {
     });
 </script>
 
-<!-- TDS -->
-<!-- ph -->
-
-<!-- <script>
-
-   
-   var temparature = [];
-   Chart.defaults.global.defaultFontStyle = 'bold';
-
-   
-    new Chart("ph_chart", {
-      type: "bar",
-      title:{
-        text:"Chart Title",
-       },
-      
-      data: {
-         labels: <?php echo $phArray['time'] ;  ?>,
-
-
-        datasets: [
-        {
-          label: 'PH value',  
-          fill: false,
-         
-          backgroundColor: "<?php echo 'green' ;  ?>",
-          borderColor: "<?php echo 'green' ;  ?>",
-          data: <?php echo $phArray['ph'] ;  ?>,
-
-        }
-        ]
-      },
-      options: {
-         tooltips: {
-                  mode: 'index'
-                },
-        legend: {display: true},
-        scales: {
-          pointLabels :{
-           fontStyle: "bold",
-            },
-          yAxes: [{
-            gridLines: {
-             drawOnChartArea: false },
-
-            ticks: {min:0 , max:14} ,
-            scaleLabel: {
-                    display: true,
-                    labelString: 'PH Value',
-                    fontColor: '#000',   }
-                }],
-          xAxes: [{
-            barPercentage: 0.5,
-             gridLines: {
-             drawOnChartArea: false },
-           
-            scaleLabel: {
-                    display: true,
-                    labelString: 'Time',
-                    fontColor: '#000', }
-                }],
-        }
-      }
-    });
-</script> -->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.js"></script>
 <script type="text/javascript">
 
   const options = {
   type: 'bar',
   data: {
-    labels: <?php echo $phArray['time'] ;  ?>,
+  
+    labels: ['2am', '4am' , '6am' , '8am','10am' , '12am' , '2pm' , '4pm' ,'6pm', '8pm', '10pm', '12pm' ],
+
     datasets: [{
       label: 'PH value',
-      data: <?php echo $phArray['ph'] ;  ?>,
+      data: <?php echo $sensorsArray['ph'] ;  ?>,
       backgroundColor: (ctx) => {
         if (ctx.raw <= 1) {return 'red';}
         if (ctx.raw <= 2) { return 'pink';}

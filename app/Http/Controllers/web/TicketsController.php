@@ -5,6 +5,7 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use App\Models\Threshold;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Userdetail;
 use App\Models\Questions;
@@ -273,9 +274,12 @@ class TicketsController extends Controller
      */
     public function edit($id)
     {
-        $tickets=Ticket::where('sr_no',$id)->first();
+         $t_id=Ticket::select('pod_id','id')->where('sr_no',$id)->first();
+        $tickets=Ticket::where('id',$t_id->id)->first();
+        $threshold = Threshold::where('pod_id',$t_id->pod_id)->first();
+      //  print_r(json_encode($threshold)); die();
         
-        return view('ticket/ticket_details',compact('id','tickets'));
+        return view('ticket/ticket_details',compact('id','tickets','threshold'));
     }
 
     /**
@@ -358,11 +362,11 @@ class TicketsController extends Controller
 
 
 
+
         $hint='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $SR_NO='SYS'.substr(str_shuffle($hint), 0, 9);
        
         $ticket_data=Ticket::create([
-                                    
                                      'subject'=>$input->subject,
                                      'status'=>'1',
                                      'user_id'=> $user_id,
@@ -370,9 +374,10 @@ class TicketsController extends Controller
                                      'pod_id'=>$input->pod_id,
                                      'threshold_value'=>$input->threshold,
                                      'current_value'=>$input->current_value,
+                                     'inputkeys'=>$request->key,
                                      'sr_no'=>$SR_NO]);
 
-         $ticket = new Ticket();
+        $ticket = new Ticket();
 
         $ticket->subject = $input->subject;
         $ticket->user_name = $user_name;

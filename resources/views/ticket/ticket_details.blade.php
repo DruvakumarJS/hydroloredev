@@ -32,7 +32,7 @@
             <label for="text" class="col-3 col-form-label">HUB ID</label>
             <div class="col-7">
              
-                <input id="text" name="pcn" type="text" class="form-control"  value="{{$tickets->hub_id}}" readonly="readonly">
+                <input id="text"  type="text" class="form-control"  value="{{$tickets->hub_id}}" readonly="readonly">
                     
             </div>
         </div>
@@ -42,7 +42,7 @@
             <label for="text" class="col-3 col-form-label">POD ID</label>
             <div class="col-7">
              
-                <input id="text" name="pcn" type="text" class="form-control"  value="{{$tickets->pod_id}}" readonly="readonly">
+                <input id="text" type="text" class="form-control"  value="{{$tickets->pod_id}}" readonly="readonly">
                     
             </div>
         </div>
@@ -58,7 +58,7 @@
                   @endphp
                   @foreach($array as $key => $val)
                  
-                  <input id="text" name="pcn" type="text" class="form-control"  value="{{$val}}" readonly="readonly">
+                  <input id="text"  type="text" class="form-control"  value="{{$val}}" readonly="readonly">
                   @endforeach
                 
                     
@@ -66,11 +66,20 @@
         </div>
 
         @if(($tickets->current_value)!="")
+         <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">Threshold Condition</label>
+            <div class="col-7">
+                <input id="text" type="text" class="form-control"  value="{{$tickets->inputkeys}}" readonly="readonly">
+                
+                    
+            </div>
+        </div>
+
         <div class="form-group row div-margin">
             <label for="text" class="col-3 col-form-label">Current Value</label>
             <div class="col-7">
              
-                <input id="text" name="pcn" type="text" class="form-control"  value="{{$tickets->current_value}}" readonly="readonly">
+                <input id="text"  type="text" class="form-control"  value="{{$tickets->current_value}}" readonly="readonly">
                     
             </div>
         </div>
@@ -80,7 +89,7 @@
             <label for="text" class="col-3 col-form-label">Username</label>
             <div class="col-7">
              
-                <input id="text" name="pcn" type="text" class="form-control"  value="{{$tickets->user->firstname}}" readonly="readonly">
+                <input id="text"  type="text" class="form-control"  value="{{$tickets->user->firstname}}" readonly="readonly">
                     
             </div>
         </div>
@@ -89,7 +98,7 @@
             <label for="text" class="col-3 col-form-label">Mobile Number</label>
             <div class="col-7">
              
-                <input id="text" name="pcn" type="text" class="form-control"  value="{{$tickets->user->mobile}}" readonly="readonly">
+                <input id="text"  type="text" class="form-control"  value="{{$tickets->user->mobile}}" readonly="readonly">
                     
             </div>
         </div>
@@ -98,7 +107,7 @@
             <label for="text" class="col-3 col-form-label">Location</label>
             <div class="col-7">
              
-                <input id="text" name="pcn" type="text" class="form-control"  value="{{$tickets->user->location}}" readonly="readonly">
+                <input id="text" type="text" class="form-control"  value="{{$tickets->user->location}}" readonly="readonly">
                     
             </div>
         </div>

@@ -61,4 +61,8 @@ class Threshold extends Model
             return $this->belongsTo(Userdetail::class,'user_id','id');
         }
 
+        function threshold(){
+            return $this->belongsTo(Ticket::class,'pod_id','pod_id');
+        }
+
 }
