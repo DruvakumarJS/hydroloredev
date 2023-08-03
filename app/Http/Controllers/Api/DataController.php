@@ -116,7 +116,7 @@ class DataController extends Controller
           $date=date('Y-m-d');
 
            
-        if($Inputdata['api_type'] == "instant")
+       /* if($Inputdata['api_type'] == "instant")
         {
        
              $critical=$Inputdata['critical'];  
@@ -126,7 +126,7 @@ class DataController extends Controller
              $ticket_controller = new TicketsController;
 
              $ticket_controller->critical_alerts($Inputdata,$threshold , $date , $critical); 
-        }
+        }*/
        /* else
         {*/
               
