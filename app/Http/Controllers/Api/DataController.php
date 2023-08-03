@@ -146,10 +146,10 @@ class DataController extends Controller
          $this->validate_WL1L($Inputdata, $threshold , $date);
          $this->validate_WL2L($Inputdata, $threshold , $date); 
          $this->validate_WL3L($Inputdata, $threshold , $date);
-        // $this->validate_RL1($Inputdata, $threshold , $date);
+         $this->validate_RL1($Inputdata, $threshold , $date);
         // $this->validate_RL2($Inputdata, $threshold , $date);
-        // $this->validate_RL3($Inputdata, $threshold , $date);
-        // $this->validate_RL4($Inputdata, $threshold , $date);
+         $this->validate_RL3($Inputdata, $threshold , $date);
+         $this->validate_RL4($Inputdata, $threshold , $date);
 
      
         //  }
@@ -885,7 +885,8 @@ class DataController extends Controller
             {
 
                 if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
-                {    
+                {   
+
 
                     $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
 
@@ -1152,11 +1153,13 @@ class DataController extends Controller
         if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
         {
 
+
         
             $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
             if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
             {
+
  
             foreach ($prev_data as $key => $value) {
 
@@ -1216,9 +1219,13 @@ class DataController extends Controller
 
             if($RL_ON=='true' || $RL_OFF=='true')
             {
+               if($RL_ON=='true'){
+                 $subject="Relay-1 is ON for more than ".ltrim($on_time,'-');
+               }
+               else if($RL_OFF=='true'){
+                  $subject="Relay-1 is OFF for more than ".ltrim($off_time,'-');
+               }
 
-
-            $subject="Source Tank Water Level Sensor-1 – Low Level Status issue";
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -1238,7 +1245,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['RL1']
+                            'current_value'=>$Inputdata['RL1'],
+                            'key' => "Relay 1 (Nutrition pump controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-')
                                                         
                         ]);
 
@@ -1456,8 +1464,12 @@ class DataController extends Controller
             if($RL_ON=='true' || $RL_OFF=='true')
             {
 
-
-            $subject="Source Tank Water Level Sensor-3 – Low Level Status issue";
+            if($RL_ON=='true'){
+                 $subject="Relay-3 is ON for more than ".ltrim($on_time,'-');
+               }
+               else if($RL_OFF=='true'){
+                  $subject="Relay-3 is OFF for more than ".ltrim($off_time,'-');
+               }
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -1477,7 +1489,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['RL3']
+                            'current_value'=>$Inputdata['RL3'],
+                            'key' => "Relay 3 (Fresh Water valve-1 controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-')
                                                         
                         ]);
 
@@ -1580,8 +1593,12 @@ class DataController extends Controller
             if($RL_ON=='true' || $RL_OFF=='true')
             {
 
-
-            $subject="Source Tank Water Level Sensor-4 – Low Level Status issue";
+            if($RL_ON=='true'){
+                 $subject="Relay-4 is ON for more than ".ltrim($on_time,'-');
+               }
+               else if($RL_OFF=='true'){
+                  $subject="Relay-4 is OFF for more than ".ltrim($off_time,'-');
+               }
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -1601,7 +1618,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['RL4']
+                            'current_value'=>$Inputdata['RL4'],
+                            'key' => "Relay 4 (Fresh Water valve-2 controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-')
                                                         
                         ]);
 

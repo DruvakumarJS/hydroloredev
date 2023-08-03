@@ -69,7 +69,8 @@
          <div class="form-group row div-margin">
             <label for="text" class="col-3 col-form-label">Threshold Condition</label>
             <div class="col-7">
-                <input id="text" type="text" class="form-control"  value="{{$tickets->inputkeys}}" readonly="readonly">
+               <!--  <input id="text" type="text" class="form-control"  value="{{$tickets->inputkeys}}" readonly="readonly"> -->
+                <textarea  class="form-control" readonly>{{$tickets->inputkeys}}</textarea>
                 
                     
             </div>
