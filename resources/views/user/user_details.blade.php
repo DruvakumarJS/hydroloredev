@@ -537,8 +537,12 @@
                     <td>{{$value->polyhouses}}</td>
                     
                     <td>
+                       <a href="{{route('add_crops',$value->pod_id)}}">
+                        <button class="btn btn-sm btn-light btn-outline-success">Crops</button>
+                       </a>
+
                        <a href="{{route('view_pod',$value->pod_id)}}">
-                        <button class="btn btn-sm btn-outline-success">Update</button>
+                        <button class="btn btn-sm btn-light btn-outline-primary">Update Threshold</button>
                        </a>
 
                        <a onclick="return confirm('Are you sure to delete?')" href="{{route('deletepod',$value->pod_id)}}">

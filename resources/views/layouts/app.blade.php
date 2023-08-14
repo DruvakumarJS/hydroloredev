@@ -87,7 +87,7 @@
         <a
            href="{{route('show_users')}}"
            class="list-group-item  py-2 ripple {{ request()->routeIs('show_users')||request()->routeIs('edituser') ||request()->routeIs('view_pod')||
-           request()->routeIs('show_add_user_form') ||request()->routeIs('view_user_details')? 'active' : ''
+           request()->routeIs('show_add_user_form') ||request()->routeIs('view_user_details') || request()->routeIs('add_crops')? 'active' : ''
             }} "
 
            >

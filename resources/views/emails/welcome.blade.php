@@ -12,7 +12,7 @@ to assist you.</p>
 
 <p>Please reffer this email to login to Hydrolore Dashboard</p>
 <br></br>
-<h3>dashboard link : {{$url}}/home</h3><br></br>
+<h3>dashboard link : {{$url}}/</h3><br></br>
 <h3>Password for Hydrolore Dashboard : {{$password}}</h3><br></br>
 
 <h3>Details of your POD</h3>

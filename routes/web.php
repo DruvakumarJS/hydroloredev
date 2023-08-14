@@ -17,6 +17,8 @@ use App\Http\Controllers\web\QuestionsController;
 use App\Http\Controllers\web\LocationController;
 use App\Http\Controllers\Api\AlertController;
 
+use App\Http\Controllers\CropController;
+
 
 
 /*
@@ -158,6 +160,11 @@ Route::middleware('auth:web')->group(function () {
             Route::get('delete/{id}',[AdminController::class, 'destroy'])->name('delete_admin');
             Route::get('resetpassword',[AdminController::class, 'resetPassword'])->name('resetpassword');
             Route::post('update_admin_password',[AdminController::class, 'update'])->name('update_admin_password');
+
+            //crops
+            Route::get('add_crops/{id}',[CropController::class,'create'])->name('add_crops');
+            Route::get('getcrops',[CropController::class,'getcrops'])->name('getcrops');
+            Route::post('save-crop',[CropController::class,'store'])->name('save_crop');
            
         });
         Route::middleware(['auth','isCustomer'])->group(function () {

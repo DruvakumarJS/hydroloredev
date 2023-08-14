@@ -83,7 +83,7 @@ class PODController extends Controller
     public function store(Request $request)
     {
        
-     
+     // print_r($request->Input()); die();
        $validator = Validator::make($request->all(), [
             'pod_id' => 'required|unique:pods',
         ]);

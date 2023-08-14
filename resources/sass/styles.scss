@@ -558,4 +558,21 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
+.label-bold{
+    font-weight: bold;
+    font-size: 18px;
+}
+.form-build{
+    padding: 20px;
+    h3{
+        font-weight: 600;
+        padding-bottom: 20px;
+        font-size: 18px;
+    }
+    .form-group{
+        margin-top: 20px;
+
+    }
+}
+
 

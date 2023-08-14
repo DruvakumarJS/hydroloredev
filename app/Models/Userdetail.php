@@ -22,7 +22,11 @@ class Userdetail extends Model
         'email',
         'location',
         'address',
-        'hub_id'];
+        'hub_id',
+        'otp',
+        'otp_verified',
+        'is_loggedin',
+        'last_seen'];
 
 
         function tickets(){

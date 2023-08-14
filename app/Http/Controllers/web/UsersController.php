@@ -117,7 +117,7 @@ class UsersController extends Controller
        $password='SYS'.substr(str_shuffle($hint), 0, 9);
        $encrypted_password=Hash::make($password);
 
-       $user=new  User();
+       $user=new User();
          $user->name=$request->firstname." ".$request->lastname;
          $user->email=$request->email;
          $user->role_id="3";
@@ -134,12 +134,13 @@ class UsersController extends Controller
        {
         $user_login_details=User::where('email',$request->email)->first();
         $user_id=$user_login_details->id;
-
+       // $otp = rand('0000','9999');
+         $otp = '1234';
         $request->request->add(['user_id'=>$user_id]);
+        $request->request->add(['otp'=>$otp]);
+
  
         $data = $request->all();
-
-        
     
         $insert=Userdetail::create($data);
 
@@ -147,7 +148,6 @@ class UsersController extends Controller
 
         $user=Userdetail::where('mobile',$request->mobile)->first();
 
-      
 
         $hubdata=Hub::create([
               'hub_id'=>$user->hub_id,
@@ -312,7 +312,7 @@ class UsersController extends Controller
          $deleteUserlogindata=User::where('id',$user_id)
          ->delete();
 
-         $deleteHub=Hub::where('user_id',$user_id)
+         $deleteHub=Hub::where('user_id',$id)
          ->delete();
 
         

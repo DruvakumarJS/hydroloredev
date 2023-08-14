@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\DataController;
 use App\Http\Controllers\Api\InstagramAPIController;
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\CropsController;
 
 
 /*
@@ -30,6 +32,11 @@ Route::post('/hub-data', [DataController::class, 'store'])->name('hub-data');
 Route::get('/get-threshold-data/{podid}',[DataController::class,'getThresholdData'])->name('get-threshold-data');
 Route::get('/get-instagram-token',[InstagramAPIController::class, 'get_instatoken']);
 
+Route::post('/verify-login',[LoginController::class , 'verify_login']);
+Route::post('/verify-otp',[LoginController::class , 'verify_otp']);
+Route::post('/get-otp',[LoginController::class , 'get_otp']);
+Route::post('/get-app-details',[LoginController::class , 'mydetails']);
+Route::post('/get-my-crops',[CropsController::class , 'mycrops']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
