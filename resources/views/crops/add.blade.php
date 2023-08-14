@@ -28,11 +28,11 @@
                   <div class="col-7">
                       <select class="form-select" name="channel_no" id="channel_no" required>
                          <option value="">select</option>
-                         @for($i=1 ; $i<17 ; $i++)
+                         @foreach($channel as $i)
                       
                          <option value="{{$i}}">Channel - {{$i}}</option>
 
-                         @endfor
+                         @endforeach
                         
                       </select>
                   </div>
@@ -98,6 +98,7 @@
           
           <div class="card">
             <div class="card-header text-align-centre">Channel - {{$value['channel_no']}}</div>
+            @if($value['name']!='')
              <div class="row no-gutters" >
               <div class="col-md-5">
                 <div class="" style="padding: 10px;">
@@ -130,6 +131,7 @@
               </div>
                
              </div>
+             @endif
           </div>
         </div>
        

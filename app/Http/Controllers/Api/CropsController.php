@@ -18,7 +18,7 @@ class CropsController extends Controller
     		$user_id = $request->user_id ;
     	    $pod_id = $request->pod_id ;
 
-    		$mycrops = Cultivation::where('user_id' , $user_id)->where('pod_id',$pod_id)->get();
+    		$mycrops = Cultivation::where('user_id' , $user_id)->where('pod_id',$pod_id)->orderBy('chennel_no', 'ASC')->get();
 
     		foreach ($mycrops as $key => $value) {
     			$crop_detail = Crop::where('id' , $value->crop_id)->first();

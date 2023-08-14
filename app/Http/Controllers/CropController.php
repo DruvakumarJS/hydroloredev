@@ -32,9 +32,12 @@ class CropController extends Controller
        // $crops = Cultivation::where('pod_id' , $id)->orderBy('chennel_no','ASC')->get();
         //print_r(json_encode($crops)); die();
 
-            $mycrops = Cultivation::where('pod_id',$id)->orderBy('chennel_no','ASC')->get();
-            $count = 0;
-            foreach ($mycrops as $key => $value) {
+           
+            $count = 1;
+            $channel=array();
+            while($count < 17){
+            if(Cultivation::where('pod_id',$id)->where('chennel_no',$count)->where('status', '1')->exists()){
+                $value= Cultivation::where('pod_id',$id)->where('chennel_no',$count)->first();
                 $crop_detail = Crop::where('id' , $value->crop_id)->first();
                 $crop_growth = GrowthDuration::where('crop_id',$value->crop_id)->where('category_id', $value->category_id)->first();
                 
@@ -161,12 +164,28 @@ class CropController extends Controller
                          'planted_date' => $value->planted_on,
                          'harvesting_date'=> $days_remaining
                      ];
+                 }
+                 else {
+                    $channel[]= $count ;
+                    $crops[]=[
+                         'name' => '' ,
+                         'description' => '',
+                         'plant_age' => '' ,
+                         'channel_no'=> $count,
+                         'current_stage' => '',
+                         'image' => '',
+                         'planted_date' => '',
+                         'harvesting_date'=> ''
+                     ];
+                 }
+               $count++; 
 
+             }
+            
+            
+          // print_r(json_encode($channel)); die();
 
-            }
-           
-
-        return view('crops/add',compact('category','crops','id'));
+        return view('crops/add',compact('category','crops','id','channel'));
     }
 
     /**
@@ -177,7 +196,7 @@ class CropController extends Controller
      */
     public function store(Request $request)
     {
-       // print_r($request->Input()); die();
+        //print_r($request->Input()); die();
 
         $pod_detail = Pod::select('user_id')->where('pod_id', $request->pod_id)->first();
 
@@ -188,7 +207,7 @@ class CropController extends Controller
             'category_id' => $request->category ,
             'chennel_no' => $request->channel_no ,
             'planted_on' => $request->planted_on ,
-            'status' => 'active'
+            'status' => '1'
         ]);
 
         if($myCrops){
