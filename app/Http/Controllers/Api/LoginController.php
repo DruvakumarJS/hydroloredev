@@ -89,7 +89,7 @@ class LoginController extends Controller
     	else {
     		return response()->json([
     		       'status'=> '0',
-    		       'otp_verified'=> '0',
+    		      // 'otp_verified'=> '0',
     		       'message'=> 'Invalid Mobile Number',
     		       'data'=>$data ]);
     	}
@@ -166,7 +166,7 @@ class LoginController extends Controller
 
             return response()->json([
     		       'status'=> '0',
-    		       'otp_verified'=> '0',
+    		      // 'otp_verified'=> '0',
     		       'message'=> 'UnAuthorised',
     		       'data'=>$data ]);
     	}

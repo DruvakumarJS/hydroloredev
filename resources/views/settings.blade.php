@@ -49,6 +49,28 @@
                 
             </div>
 
+            <div class="row settings-container ">
+                <div class="col-md-3">
+                    <div class="card card-section text-center">
+                        <a href="{{route('Category_master')}}">
+                                
+                                <h3>Category Master</h3>
+                        </a> 
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card card-section text-center">
+                        <a href="{{route('Crop_master')}}">
+                               
+                                <h3>Crop Master</h3>
+                        </a> 
+                    </div>
+                </div>
+                
+
+                
+            </div>
+
            
               
            

@@ -122,6 +122,9 @@
            ||request()->routeIs('edit_question')
            ||request()->routeIs('add-locations')
            ||request()->routeIs('edit-location')
+           ||request()->routeIs('Category_master')
+           ||request()->routeIs('Crop_master')
+           ||request()->routeIs('search_crop')
            ? 'active' : '' }}"
 
            >

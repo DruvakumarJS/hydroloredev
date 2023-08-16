@@ -18,6 +18,9 @@ use App\Http\Controllers\web\LocationController;
 use App\Http\Controllers\Api\AlertController;
 
 use App\Http\Controllers\CropController;
+use App\Http\Controllers\CultivationController;
+use App\Http\Controllers\CategoryController;
+
 
 
 
@@ -162,9 +165,17 @@ Route::middleware('auth:web')->group(function () {
             Route::post('update_admin_password',[AdminController::class, 'update'])->name('update_admin_password');
 
             //crops
-            Route::get('add_crops/{id}',[CropController::class,'create'])->name('add_crops');
-            Route::get('getcrops',[CropController::class,'getcrops'])->name('getcrops');
+            Route::get('add_crops/{id}',[CultivationController::class,'create'])->name('add_crops');
+            Route::get('getcrops',[CultivationController::class,'getcrops'])->name('getcrops');
+            Route::post('save-crop',[CultivationController::class,'store'])->name('save_crop');
+
+            Route::get('Category-master',[CategoryController::class,'index'])->name('Category_master');
+            Route::post('save-category',[CategoryController::class,'store'])->name('save_category');
+            Route::get('Crop-master',[CropController::class,'index'])->name('Crop_master');
             Route::post('save-crop',[CropController::class,'store'])->name('save_crop');
+            Route::post('search-crop',[CropController::class,'search'])->name('search_crop');
+
+
            
         });
         Route::middleware(['auth','isCustomer'])->group(function () {

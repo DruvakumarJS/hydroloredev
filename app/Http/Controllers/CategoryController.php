@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+       $data = Category::all();
+       return view('cropsmaster/category', compact('data'));
     }
 
     /**
@@ -35,7 +36,14 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       // print_r($request->Input());die();
+
+        $insert = Category::create(['category_name' => $request->category , 'description' => $request->desc]);
+
+        if($insert){
+            return redirect()->back();
+        }
+
     }
 
     /**

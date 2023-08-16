@@ -18,7 +18,7 @@
               <a style="float:right;margin-right: 30px" class="btn btn-primary" href="{{route('add_tickets')}}">Generate Ticket</a>
 
             
-            <form method="get" action="{{route('show_tickets')}}" style="float:right; margin-right: 30px;">
+            <form method="post" action="{{route('show_tickets')}}" style="float:right; margin-right: 30px;">
                
                                   <div class="input-group">
                                        <input id="user" type="text" class="form-control" placeholder="Search name"  >

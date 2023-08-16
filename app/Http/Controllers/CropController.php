@@ -18,7 +18,10 @@ class CropController extends Controller
      */
     public function index()
     {
-        //
+        
+        $data = Crop::paginate(25);
+        $category = Category::all();
+       return view('cropsmaster/crops',compact('data' , 'category'));
     }
 
     /**
@@ -26,166 +29,30 @@ class CropController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create()
     {
-        $category = Category::get();
-       // $crops = Cultivation::where('pod_id' , $id)->orderBy('chennel_no','ASC')->get();
-        //print_r(json_encode($crops)); die();
+       
+    }
 
-           
-            $count = 1;
-            $channel=array();
-            while($count < 17){
-            if(Cultivation::where('pod_id',$id)->where('chennel_no',$count)->where('status', '1')->exists()){
-                $value= Cultivation::where('pod_id',$id)->where('chennel_no',$count)->first();
-                $crop_detail = Crop::where('id' , $value->crop_id)->first();
-                $crop_growth = GrowthDuration::where('crop_id',$value->crop_id)->where('category_id', $value->category_id)->first();
-                
-                $planting_date = $value->planted_on ;
-                $today = date('Y-m-d');
-                $age = (strtotime($today)-strtotime($planting_date))/(60*60*24);
+    public function search(Request $request){
+      //  print_r($request->Input()); die();
+        if($request->search == ''){
+            return redirect()->route('Crop_master');
+        }
+        else {
+          $search = $request->search;
+        $data = Crop::whereHas('category', function($query)use($search){
+                      $query->where('category_name', 'LIKE' , $search.'%');
+                    })
+                    ->orWhere('name' , 'LIKE' , $request->search.'%')
+                    ->orWhere('season' ,'LIKE' ,$request->search.'%' )
+                    ->orWhere('duration' , 'LIKE' ,$request->search.'%')
+                    ->orWhere('description','LIKE' ,$request->search.'%')
+                    ->paginate(25);
 
-                $seedling_day = $crop_growth->seedling;
-                $young = $crop_growth->young_plants;
-                $matured = $crop_growth->matured;
-                if($value->category_id == '5'){
-                    $vegetative = $crop_growth->vegetative_phase;
-                    $flowering = $crop_growth->flowering_stage;
-                    $fruiting = $crop_growth->fruiting_stage;
-
-                    $vegetative_range= preg_split("/[-:]/", $vegetative);
-                    $vegetative_start = $vegetative_range[0];
-                    $vegetative_end = $vegetative_range[1];
-
-                    $flowering_range= preg_split("/[-:]/", $flowering);
-                    $flowering_start = $flowering_range[0];
-                    $flowering_end = $flowering_range[1];
-
-                    $fruitingd_range= preg_split("/[-:]/", $fruiting);
-                    $fruiting_start = $fruitingd_range[0];
-                    $fruiting_end = $fruitingd_range[1];
-                }
-                
-                $harvest = $crop_growth->harvesting ;
-
-                $seedling_range= preg_split("/[-:]/", $seedling_day);
-                $seedling_start = $seedling_range[0];
-                $seedling_end = $seedling_range[1];
-
-                $young_range= preg_split("/[-:]/", $young);
-                $young_start = $young_range[0];
-                $young_end = $young_range[1];
-
-                $matured_range= preg_split("/[-:]/", $matured);
-                $matured_start = $matured_range[0];
-                $matured_end = $matured_range[1];
-
-
-
-                $harvest_range= preg_split("/[-:]/", $harvest);
-                $harvest_start = $harvest_range[0];
-                $harvest_end = $harvest_range[1];
-               
-               if($value->category_id != '5'){
-                if($age < $seedling_start){
-                    $current_stage = "Planted";
-
-                }
-
-                else if($age >= $seedling_start && $age < $young_start){
-                      $current_stage = "Seedling";
-                      $src =$crop_growth->seeding_image; 
-                }
-
-                else if($age >= $young_start && $age < $matured_start){
-                      $current_stage = "Young Plants";
-                      $src =$crop_growth->young_image;
-                }
-               else if($age >= $matured_start && $age < $harvest_start){
-                      $current_stage = "Matured Plant";
-                      $src =$crop_growth->matured_image;
-                }
-                else  if($age >= $harvest_start){
-                     $current_stage = "Harvest";
-                     $src =$crop_growth->harvesting_image;
-                }
-               }
-               else {
-                  if($age < $seedling_start){
-                    $current_stage = "Planted";
-
-                }
-
-                else if($age >= $seedling_start && $age < $young_start){
-                      $current_stage = "Seedling";
-                      $src =$crop_growth->seeding_image; 
-                }
-
-                else if($age >= $young_start && $age < $vegetative_start ){
-                      $current_stage = "Young Plants";
-                      $src =$crop_growth->young_image;
-                }
-               else if($age >= $vegetative_start && $age < $flowering_start){
-                      $current_stage = "Vegitative Phase";
-                      $src =$crop_growth->matured_image;
-                }
-
-                else if($age >= $flowering_start && $age < $fruiting_start){
-                      $current_stage = "Flowering Stage";
-                      $src =$crop_growth->matured_image;
-                }
-
-                else if($age >= $fruiting_start && $age < $harvest_start){
-                      $current_stage = "Fruiting Stage";
-                      $src =$crop_growth->matured_image;
-                }
-
-                else  if($age >= $harvest_start){
-                     $current_stage = "Harvest";
-                     $src = $crop_growth->harvesting_image;
-                }
-
-               } 
-           
-                
-                $harvest_date_range= preg_split("/[-:]/", $harvest);
-                $harvest_start_date = $harvest_date_range[0];
-                $harvest_date = date('Y-m-d', strtotime($planting_date . ' + '. $harvest_start_date . 'days'));
-
-                $days_remaining  = (strtotime($harvest_date)-strtotime(date('Y-m-d')))/(60*60*24);
-                
-                $crops[]=[
-                         'name' => $crop_detail->name ,
-                         'description' => $crop_detail->description,
-                         'plant_age' => $age.' days' ,
-                         'channel_no'=> $value->chennel_no,
-                         'current_stage' => $current_stage,
-                         'image' => $crop_detail->image,
-                         'planted_date' => $value->planted_on,
-                         'harvesting_date'=> $days_remaining
-                     ];
-                 }
-                 else {
-                    $channel[]= $count ;
-                    $crops[]=[
-                         'name' => '' ,
-                         'description' => '',
-                         'plant_age' => '' ,
-                         'channel_no'=> $count,
-                         'current_stage' => '',
-                         'image' => '',
-                         'planted_date' => '',
-                         'harvesting_date'=> ''
-                     ];
-                 }
-               $count++; 
-
-             }
-            
-            
-          // print_r(json_encode($channel)); die();
-
-        return view('crops/add',compact('category','crops','id','channel'));
+        $category = Category::all();
+       return view('cropsmaster/crops',compact('data' , 'category'));
+        }
     }
 
     /**
@@ -196,28 +63,161 @@ class CropController extends Controller
      */
     public function store(Request $request)
     {
-        //print_r($request->Input()); die();
+        $crop_image="";
+        $seedling_image="";
+        $young_image="";
+        $matured_image="";
+        $vegetative_image="";
+        $flowering_image="";
+        $fruiting_image="";
+        $harvesting_image="";
 
-        $pod_detail = Pod::select('user_id')->where('pod_id', $request->pod_id)->first();
+     
+       if($file = $request->hasFile('crops_img')) {
+            $fileName = basename($_FILES['crops_img']['name']);        
+            $temp = explode(".", $fileName);             
+            $fileName = rand('111111','999999') . '.' . end($temp);
+            $destinationPath = public_path().'/crops/'.$fileName ;
+            move_uploaded_file($_FILES["crops_img"]["tmp_name"], $destinationPath);
+            $crop_image= $fileName;
+        }
 
-        $myCrops = Cultivation::create([
-            'user_id' => $pod_detail->user_id ,
-            'pod_id' => $request->pod_id ,
-            'crop_id' => $request->crop ,
-            'category_id' => $request->category ,
-            'chennel_no' => $request->channel_no ,
-            'planted_on' => $request->planted_on ,
-            'status' => '1'
-        ]);
+        if($file = $request->hasFile('seedings_img')) {
+            $fileName = basename($_FILES['seedings_img']['name']);        
+            $temp = explode(".", $fileName);             
+            $fileName = rand('111111','999999') . '.' . end($temp);
+            $destinationPath = public_path().'/growth/'.$fileName ;
+            move_uploaded_file($_FILES["seedings_img"]["tmp_name"], $destinationPath);
+            $seedling_image= $fileName;
+        }
 
-        if($myCrops){
+        if($file = $request->hasFile('young_plant_img')) {
+            $fileName = basename($_FILES['young_plant_img']['name']);        
+            $temp = explode(".", $fileName);             
+            $fileName = rand('111111','999999') . '.' . end($temp);
+            $destinationPath = public_path().'/growth/'.$fileName ;
+            move_uploaded_file($_FILES["young_plant_img"]["tmp_name"], $destinationPath);
+            $young_image= $fileName;
+        }
 
-             return redirect()->route('add_crops',$request->pod_id);
+         if($file = $request->hasFile('matured_img')) {
+            $fileName = basename($_FILES['matured_img']['name']);        
+            $temp = explode(".", $fileName);             
+            $fileName = rand('111111','999999') . '.' . end($temp);
+            $destinationPath = public_path().'/growth/'.$fileName ;
+            move_uploaded_file($_FILES["matured_img"]["tmp_name"], $destinationPath);
+            $matured_image= $fileName;
+        }
+
+        if($file = $request->hasFile('vegetative_img')) {
+            $fileName = basename($_FILES['vegetative_img']['name']);        
+            $temp = explode(".", $fileName);             
+            $fileName = rand('111111','999999') . '.' . end($temp);
+            $destinationPath = public_path().'/growth/'.$fileName ;
+            move_uploaded_file($_FILES["vegetative_img"]["tmp_name"], $destinationPath);
+            $vegetative_image= $fileName;
+        }
+
+        if($file = $request->hasFile('flowering_img')) {
+            $fileName = basename($_FILES['flowering_img']['name']);        
+            $temp = explode(".", $fileName);             
+            $fileName = rand('111111','999999') . '.' . end($temp);
+            $destinationPath = public_path().'/growth/'.$fileName ;
+            move_uploaded_file($_FILES["flowering_img"]["tmp_name"], $destinationPath);
+            $flowering_image= $fileName;
+        }
+
+        if($file = $request->hasFile('fruit_img')) {
+            $fileName = basename($_FILES['fruit_img']['name']);        
+            $temp = explode(".", $fileName);             
+            $fileName = rand('111111','999999') . '.' . end($temp);
+            $destinationPath = public_path().'/growth/'.$fileName ;
+            move_uploaded_file($_FILES["fruit_img"]["tmp_name"], $destinationPath);
+            $fruiting_image= $fileName;
         }
 
        
+        if($file = $request->hasFile('harvesting_img')) {
+            $fileName = basename($_FILES['harvesting_img']['name']);        
+            $temp = explode(".", $fileName);             
+            $fileName = rand('111111','999999') . '.' . end($temp);
+            $destinationPath = public_path().'/growth/'.$fileName ;
+            move_uploaded_file($_FILES["harvesting_img"]["tmp_name"], $destinationPath);
+            $harvesting_image= $fileName;
+        }
 
+    
 
+      if($request->category == '5'){
+
+        $crop = new Crop();
+        $crop->name = $request->crop;
+        $crop->category_id = $request->category;
+        $crop->season = $request->season;
+        $crop->duration = $request->duration;
+        $crop->description = $request->desc;
+        $crop->image = $crop_image;
+
+        $crop->save();
+
+        $id = $crop->id;
+
+        if($id != ''){
+           
+            $duration = GrowthDuration::create([
+                'category_id' => $request->category ,
+                'crop_id' => $id ,
+                'seedling' => $request->seedings ,
+                'seeding_image'=> $seedling_image ,
+                'young_plants' => $request->young_plant ,
+                'young_image' => $young_image ,
+                'vegetative_phase' => $request->vegetative ,
+                'vegetative_image' => $vegetative_image ,
+                'flowering_stage' => $request->flowering ,
+                'flowering_image' => $flowering_image ,
+                'fruiting_stage' => $request->fruit ,
+                'fruiting_image' => $fruiting_image ,
+                'harvesting' => $request->harvesting ,
+                'harvesting_image' => $harvesting_image ]);
+
+            if($duration){
+                return redirect()->route('Crop_master');
+            }
+        }
+      }
+      else {
+
+        $crop = new Crop();
+        $crop->name = $request->crop;
+        $crop->category_id = $request->category;
+        $crop->season = $request->season;
+        $crop->duration = $request->duration;
+        $crop->description = $request->desc;
+        $crop->image = $crop_image;
+
+        $crop->save();
+
+        $id = $crop->id;
+
+        if($id != ''){
+           
+            $duration = GrowthDuration::create([
+                'category_id' => $request->category ,
+                'crop_id' => $id ,
+                'seedling' => $request->seedings ,
+                'seeding_image'=> $seedling_image ,
+                'young_plants' => $request->young_plant ,
+                'young_image' => $young_image ,
+                'matured' => $request->matured ,
+                'matured_image' => $matured_image ,
+                'harvesting' =>$request->harvesting ,
+                'harvesting_image' => $harvesting_image ]);
+
+            if($duration){
+                return redirect()->route('Crop_master');
+            }
+        }
+      }
     }
 
     /**
@@ -265,10 +265,5 @@ class CropController extends Controller
         //
     }
 
-    public function getcrops(Request $request){
-
-        $crops = Crop::where('category_id',$request->search )->get();
-
-       return response()->json($crops);
-    }
+    
 }
