@@ -75,9 +75,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $category)
     {
-        //
+       // print_r($category);die();
+        $update = Category::where('id',$category)->update(['category_name' => $request->name , 'description' => $request->desc]);
+
+        if($update){
+            return redirect()->route('Category_master');
+        }
     }
 
     /**
@@ -86,8 +91,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($category)
     {
-        //
+       $delete = Category::where('id', $category)->delete();
+
+       if($delete){
+        return redirect()->route('Category_master');
+       }
     }
 }

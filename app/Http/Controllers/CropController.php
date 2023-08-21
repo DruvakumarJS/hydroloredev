@@ -249,7 +249,7 @@ class CropController extends Controller
      * @param  \App\Models\Crop  $crop
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Crop $crop)
+    public function update(Request $request,$id)
     {
         //
     }
@@ -260,9 +260,13 @@ class CropController extends Controller
      * @param  \App\Models\Crop  $crop
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Crop $crop)
+    public function destroy($id)
     {
-        //
+        $delete = Crop::where('id', $id)->delete();
+
+        if($delete){
+          return redirect()->route('Crop_master');
+        }
     }
 
     

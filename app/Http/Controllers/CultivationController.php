@@ -156,7 +156,10 @@ class CultivationController extends Controller
                 $days_remaining  = (strtotime($harvest_date)-strtotime(date('Y-m-d')))/(60*60*24);
                 
                 $crops[]=[
+                         'id'=> $value->id,
                          'name' => $crop_detail->name ,
+                         'crop_id' => $value->crop_id,
+                         'category_id' => $value->category_id,
                          'description' => $crop_detail->description,
                          'plant_age' => $age.' days' ,
                          'channel_no'=> $value->chennel_no,
@@ -169,7 +172,10 @@ class CultivationController extends Controller
                  else {
                     $channel[]= $count ;
                     $crops[]=[
+                         'id'=> '',
                          'name' => '' ,
+                         'crop_id' => '',
+                         'category_id' =>'',
                          'description' => '',
                          'plant_age' => '' ,
                          'channel_no'=> $count,
@@ -249,9 +255,19 @@ class CultivationController extends Controller
      * @param  \App\Models\Cultivation  $cultivation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cultivation $cultivation)
+    public function update(Request $request, $id)
     {
-        //
+       // print_r($request->Input()); die();
+
+        $update = Cultivation::where('id', $id)->where('pod_id', $request->pod_id)->update([
+            'chennel_no' => $request->channel_no ,
+            'category_id' => $request->category ,
+            'crop_id' => $request->crop,
+            'planted_on' => $request->planted_on]);
+
+        if($update){
+            return redirect()->back();
+        }
     }
 
     /**
@@ -260,9 +276,13 @@ class CultivationController extends Controller
      * @param  \App\Models\Cultivation  $cultivation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cultivation $cultivation)
+    public function destroy($id)
     {
-        //
+        $remove = Cultivation::where('id', $id)->delete();
+
+        if($remove){
+            return redirect()->back();
+        }
     }
 
     public function getcrops(Request $request){
@@ -271,4 +291,6 @@ class CultivationController extends Controller
 
        return response()->json($crops);
     }
+
+
 }

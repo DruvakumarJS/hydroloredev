@@ -167,13 +167,20 @@ Route::middleware('auth:web')->group(function () {
             //crops
             Route::get('add_crops/{id}',[CultivationController::class,'create'])->name('add_crops');
             Route::get('getcrops',[CultivationController::class,'getcrops'])->name('getcrops');
-            Route::post('save-crop',[CultivationController::class,'store'])->name('save_crop');
+            Route::post('save_channel',[CultivationController::class,'store'])->name('save_channel');
+            Route::put('update-channel/{id}',[CultivationController::class,'update'])->name('update_channel');
+            Route::get('remove-channel/{id}',[CultivationController::class,'destroy'])->name('remove_channel');
 
             Route::get('Category-master',[CategoryController::class,'index'])->name('Category_master');
             Route::post('save-category',[CategoryController::class,'store'])->name('save_category');
+            Route::put('update-category/{id}',[CategoryController::class,'update'])->name('update_category');
+            Route::get('delete-category/{id}',[CategoryController::class,'destroy'])->name('delete_category');
+
             Route::get('Crop-master',[CropController::class,'index'])->name('Crop_master');
             Route::post('save-crop',[CropController::class,'store'])->name('save_crop');
             Route::post('search-crop',[CropController::class,'search'])->name('search_crop');
+            Route::put('update-crop/{id}',[CropController::class,'update'])->name('update_crop');
+            Route::get('delete-crop/{id}',[CropController::class,'destroy'])->name('delete_crop');
 
 
            

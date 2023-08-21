@@ -156,7 +156,7 @@ class LoginController extends Controller
     		else{
 
     			return response()->json([
-    		       'status'=> '1',
+    		       'status'=> '0',
     		       //'otp_verified'=> '0',
     		       'message'=> 'Invalid OTP',
     		       'data'=>$data ]);
