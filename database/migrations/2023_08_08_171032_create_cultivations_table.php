@@ -19,7 +19,8 @@ class CreateCultivationsTable extends Migration
             $table->string('pod_id');
             $table->string('crop_id');
             $table->string('category_id');
-            $table->integer('chennel_no');
+            $table->integer('channel_no');
+            $table->string('sub_channel');
             $table->string('planted_on')->nullable();
             $table->string('current_stage')->nullable();
             $table->string('harvesting_date')->nullable();

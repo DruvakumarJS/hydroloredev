@@ -11,6 +11,10 @@
       </div>
       <label class="date">{{date('d M ,Y')}} </label>
 
+      @if(Session::has('message'))
+            <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>
+        @endif
+
     </div>
 
   <div class="page-container" style="margin-top: 20px">
@@ -33,6 +37,20 @@
                          <option value="{{$i}}">Channel - {{$i}}</option>
 
                          @endforeach
+                        
+                      </select>
+                  </div>
+              </div>
+
+              <div class="form-group row">
+                  <label for="" class="col-4 col-form-label">Sub Channel *</label>
+                  <div class="col-7">
+                      <select class="form-select" name="sub_channel" id="channel_no" required>
+                         <option value="">select</option>
+                         <option value="A">A</option>
+                         <option value="B">B</option>
+                         <option value="C">C</option>
+                         
                         
                       </select>
                   </div>
