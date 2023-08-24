@@ -35,7 +35,6 @@ class CultivationController extends Controller
 
            
             $count = 1;
-
             $channel_array=array();
             $channel_no_array= array();
             $sub_channel_array= array();
@@ -204,24 +203,9 @@ class CultivationController extends Controller
                          
                      }
 
-                      
                       array_push($channel_array['sub_chanel'], $sub_channel_array);
                  }
 
-                /* $data = Cultivation::where('pod_id',$id)->where('channel_no',$count)->orderBy('sub_channel', 'ASC')->get();
-                 foreach ($data as $key => $value) {
-                  
-                       $sub_channel_array=[
-                         'id'=> $value->id,
-                         'channel_no' => $value->channel_no ,
-                         'sub_channel'=> $value->sub_channel 
-                     ]; 
-                      array_push($channel['sub_chanel'], $sub_channel_array);
-                  
-   
-                 }*/
-            
-         
                  $crops[]=$channel_array; 
                  $channel[]= $count ; 
              $count++;
@@ -241,10 +225,43 @@ class CultivationController extends Controller
      */
     public function store(Request $request)
     {
+       //  print_r($request->Input()); 
         
-        //print_r($request->Input()); die();
+        if(isset($request->sub_channel_a))$sub_chanel_array[] ='A';
+        if(isset($request->sub_channel_b))$sub_chanel_array[] ='B'; 
+        if(isset($request->sub_channel_c))$sub_chanel_array[] ='C';
+        $message=array();
 
-        $pod_detail = Pod::select('user_id')->where('pod_id', $request->pod_id)->first();
+       
+      //  print_r($sub_chanel_array); die();
+
+        foreach($sub_chanel_array as $sub_channel){
+          //  print_r($sub_channel);
+             $pod_detail = Pod::select('user_id')->where('pod_id', $request->pod_id)->first();
+             if(Cultivation::where('user_id',$pod_detail->user_id)->where('pod_id',$request->pod_id)->where('channel_no',$request->channel_no)->where('sub_channel',$sub_channel)->exists()){
+                $message[]='Crop Already exists for Channel-'.$request->channel_no.$sub_channel;
+             }
+             else {
+            $myCrops = Cultivation::create([
+                    'user_id' => $pod_detail->user_id ,
+                    'pod_id' => $request->pod_id ,
+                    'crop_id' => $request->crop ,
+                    'category_id' => $request->category ,
+                    'channel_no' => $request->channel_no ,
+                    'sub_channel' => $sub_channel ,
+                    'planted_on' => $request->planted_on ,
+                    'status' => '1'
+                ]);
+            $message[]='Crop added succesfully for  Channel-'.$request->channel_no.$sub_channel;
+        }
+        }
+
+       //  return redirect()->route('add_crops',$request->pod_id)->withMessage($message);
+
+        return redirect()->back()->withMessage($message);
+        
+
+       /* $pod_detail = Pod::select('user_id')->where('pod_id', $request->pod_id)->first();
 
         if(Cultivation::where('user_id',$pod_detail->user_id)->where('pod_id',$request->pod_id)->where('channel_no',$request->channel_no)->where('sub_channel',$request->sub_channel)->exists()){
              
@@ -266,7 +283,7 @@ class CultivationController extends Controller
 
              return redirect()->route('add_crops',$request->pod_id);
         }
-        }
+        }*/
 
         
 

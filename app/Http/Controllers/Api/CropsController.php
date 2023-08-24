@@ -160,7 +160,7 @@ class CropsController extends Controller
                          'plant_age' => $age.' days' ,
                          'channel_no'=> $value->channel_no,
                          'current_stage' => $current_stage,
-                         'image' => $crop_detail->image,
+                         'image' => url('/').'/crops/'.$crop_detail->image,
                          'planted_date' => $value->planted_on,
                          'harvesting_date'=> $days_remaining
                      ];

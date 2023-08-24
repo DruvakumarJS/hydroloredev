@@ -41,13 +41,13 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-
+<script src="@@path/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
 
-
+<link type="text/css" href="@@path/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body class="body">
     <div id="app">
