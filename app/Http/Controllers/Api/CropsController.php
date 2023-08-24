@@ -216,11 +216,23 @@ class CropsController extends Controller
         $pod_id = $request->pod_id;
         $user_id = $request->user_id;
 
-        $data = [
+        $data = array();
+
+        $data[] = [
+            'image' => url('/').'/crops/amarnath.jpg',
             'subject' => 'Amarnath',
             'Channel' => '1' ,
             'subchannel' => 'A',
             'message' => 'harvesting in 1 day(s)' ,
+            'alert_type' => 'Reminder'
+        ];
+
+         $data[] = [
+            'image' => url('/').'/crops/amarnath.jpg',
+            'subject' => 'Amarnath',
+            'Channel' => '1' ,
+            'subchannel' => 'B',
+            'message' => 'harvesting in 11 day(s)' ,
             'alert_type' => 'Reminder'
         ];
 
