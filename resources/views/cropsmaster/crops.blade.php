@@ -101,6 +101,25 @@
                  
                </div>
 
+               <!-- <div class="row">
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                     <label for="message-text" class="col-form-label">Crop Icon *</label>
+                     <input class="form-control" type="file" name="crops_icon" accept="image/*" onchange="previewcropicon(event);" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="mb-3">
+
+                     <img src="" id="crop_icon" style="width: 70px;height: 70px;">
+                      
+                    </div>
+
+                  </div>
+                 
+               </div> -->
+
                <label for="message-text" class="col-form-label label-bold ">Crop Cycle</label>
 
                <div class="row">
@@ -539,6 +558,19 @@
    
     var input = event.target;
      var image = document.getElementById('crop_img');
+     if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+           image.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+     }
+  }
+
+  function previewcropicon(event){
+   
+    var input = event.target;
+     var image = document.getElementById('crop_icon');
      if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function(e) {

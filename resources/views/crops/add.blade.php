@@ -141,7 +141,7 @@
                 @foreach($value['sub_chanel'] as $key2=>$value2)
                  
                
-            <label >Channel - {{$value['channel_no']}}{{$value2['sub_channel']}}</label>
+            <label style="font-size: 15px;font-weight: bold;">Channel - {{$value['channel_no']}}{{$value2['sub_channel']}}</label>
             @if($value2['name']!='')
              <div class="row no-gutters" >
               <div class="col-md-5">
@@ -228,19 +228,19 @@
                               <label for="" class="col-4 col-form-label">Sub Channel *</label>
                               <div class="col-7" >
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="A" name="sub_channel_a" <?php echo ($value2['sub_channel'] == 'A')?'checked':''  ?> >
+                                  <input class="form-check-input" type="checkbox" value="A" name="sub_channel" <?php echo ($value2['sub_channel'] == 'A')?'checked':''  ?> onclick="onlyOne(this)">
                                   <label class="form-check-label" for="flexCheckDefault">
                                     Sub Channel A
                                   </label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="B" name="sub_channel_b" <?php echo ($value2['sub_channel'] == 'B')?'checked':''  ?> >
+                                  <input class="form-check-input" type="checkbox" value="B" name="sub_channel" <?php echo ($value2['sub_channel'] == 'B')?'checked':''  ?> onclick="onlyOne(this)">
                                   <label class="form-check-label" for="flexCheckChecked">
                                     Sub Channel B
                                   </label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="checkbox" value="C" name="sub_channel_c" <?php echo ($value2['sub_channel'] == 'C')?'checked':''  ?> >
+                                  <input class="form-check-input" type="checkbox" value="C" name="sub_channel" <?php echo ($value2['sub_channel'] == 'C')?'checked':''  ?> onclick="onlyOne(this)">
                                   <label class="form-check-label" for="flexCheckChecked">
                                     Sub Channel C
                                   </label>
@@ -248,6 +248,15 @@
                                 
                               </div>
                           </div>
+
+                          <script type="text/javascript">
+                            function onlyOne(checkbox) {
+                              var checkboxes = document.getElementsByName('sub_channel')
+                              checkboxes.forEach((item) => {
+                                  if (item !== checkbox) item.checked = false
+                              })
+                            }
+                          </script>
 
                           <div class="form-group row">
                               <label for="" class="col-4 col-form-label">Crop Category *</label>
@@ -267,7 +276,7 @@
                               <label for="" class="col-4 col-form-label">Crop Name *</label>
                               <div class="col-7" id="crop_{{$key}}_{{$key2}}">
                                   <select class="form-control" name="crop">
-                                    <option value="{{$value2['crop_id']}}" >{{$value2['name']}}</option> 
+                                    <option  value="{{$value2['crop_id']}}" >{{$value2['name']}}</option> 
                                   </select>
                                   
                               </div>
@@ -321,31 +330,6 @@
           @endforeach
           
         </div>
-       
-         <!--  <div class="row flex">
-           @foreach($crops as $key=>$value)
-           <div class="col card">
-              <label>Chan{{$value['channel_no']}}</label>
-            @foreach($value['sub_chanel'] as $key2=>$value2)
-             <div class="card">
-                @if($value2['id'] != '')
-                 <label>{{$value2['name']}}</label>
-                @else
-                 <label>No Crop</label>
-                @endif 
-              </div>
-            @endforeach 
-           </div>
-        
-        @endforeach
-        </div> -->
-       
-        
-
-       
-
-
-
         
     </div>
         

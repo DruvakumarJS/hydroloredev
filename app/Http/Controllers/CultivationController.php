@@ -80,6 +80,13 @@ class CultivationController extends Controller
                             $fruiting_start = $fruitingd_range[0];
                             $fruiting_end = $fruitingd_range[1];
                         }
+                        if($value->category_id != '5'){
+                           
+                            $matured_range= preg_split("/[-:]/", $matured);
+                            $matured_start = $matured_range[0];
+                            $matured_end = $matured_range[1];
+
+                        }
                         
                         $harvest = $crop_growth->harvesting ;
 
@@ -90,12 +97,6 @@ class CultivationController extends Controller
                         $young_range= preg_split("/[-:]/", $young);
                         $young_start = $young_range[0];
                         $young_end = $young_range[1];
-
-                        $matured_range= preg_split("/[-:]/", $matured);
-                        $matured_start = $matured_range[0];
-                        $matured_end = $matured_range[1];
-
-
 
                         $harvest_range= preg_split("/[-:]/", $harvest);
                         $harvest_start = $harvest_range[0];
@@ -326,11 +327,14 @@ class CultivationController extends Controller
         $update = Cultivation::where('id', $id)->where('pod_id', $request->pod_id)->update([
             'channel_no' => $request->channel_no ,
             'category_id' => $request->category ,
+            'sub_channel'=> $request->sub_channel,
             'crop_id' => $request->crop,
             'planted_on' => $request->planted_on]);
 
         if($update){
-            return redirect()->back();
+            $message=array();
+            $message[] = 'Channel -'.$request->channel_no.$request->sub_channel." updated suceesfully";
+            return redirect()->back()->withMessage($message);
         }
     }
 
@@ -345,7 +349,10 @@ class CultivationController extends Controller
         $remove = Cultivation::where('id', $id)->delete();
 
         if($remove){
-            return redirect()->back();
+            $message=array();
+            $message[] = "Crop Removed suceesfully";
+
+            return redirect()->back()->withMessage($message);
         }
     }
 
