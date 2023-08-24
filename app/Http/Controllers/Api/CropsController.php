@@ -61,6 +61,12 @@ class CropsController extends Controller
                             $fruiting_start = $fruitingd_range[0];
                             $fruiting_end = $fruitingd_range[1];
                         }
+                        else if($value->category_id != '5'){
+                        $matured_range= preg_split("/[-:]/", $matured);
+                        $matured_start = $matured_range[0];
+                        $matured_end = $matured_range[1];
+
+                        }
                         
                         $harvest = $crop_growth->harvesting ;
 
@@ -72,12 +78,7 @@ class CropsController extends Controller
                         $young_start = $young_range[0];
                         $young_end = $young_range[1];
 
-                        $matured_range= preg_split("/[-:]/", $matured);
-                        $matured_start = $matured_range[0];
-                        $matured_end = $matured_range[1];
-
-
-
+                        
                         $harvest_range= preg_split("/[-:]/", $harvest);
                         $harvest_start = $harvest_range[0];
                         $harvest_end = $harvest_range[1];
@@ -206,6 +207,28 @@ class CropsController extends Controller
     		       'message' => 'Insufficient Inputs',
     		       'data'=>$data ]);
     	}
+
+    }
+
+
+    public function alerts(Request $request){
+
+        $pod_id = $request->pod_id;
+        $user_id = $request->user_id;
+
+        $data = [
+            'subject' => 'Amarnath',
+            'Channel' => '1' ,
+            'subchannel' => 'A',
+            'message' => 'harvesting in 1 day(s)' ,
+            'alert_type' => 'Reminder'
+        ];
+
+
+        return response()->json([
+                   'status' => '1',
+                   'data'=>$data ]);
+
 
     }
 }

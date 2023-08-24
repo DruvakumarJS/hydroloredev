@@ -66,6 +66,15 @@
                         </a> 
                     </div>
                 </div>
+
+                <div class="col-md-3">
+                    <div class="card card-section text-center">
+                        <a href="{{route('sensor_master')}}">
+                               
+                                <h3>Sensor Notification</h3>
+                        </a> 
+                    </div>
+                </div>
                 
 
                 

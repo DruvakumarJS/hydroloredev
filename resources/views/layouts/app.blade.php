@@ -125,6 +125,8 @@
            ||request()->routeIs('Category_master')
            ||request()->routeIs('Crop_master')
            ||request()->routeIs('search_crop')
+           ||request()->routeIs('sensor_master')
+           ||request()->routeIs('update_sensor_solution')
            ? 'active' : '' }}"
 
            >

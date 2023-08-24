@@ -37,6 +37,7 @@ Route::post('/verify-otp',[LoginController::class , 'verify_otp']);
 Route::post('/get-otp',[LoginController::class , 'get_otp']);
 Route::post('/get-app-details',[LoginController::class , 'mydetails']);
 Route::post('/get-my-crops',[CropsController::class , 'mycrops']);
+Route::post('/get-alerts',[CropsController::class , 'alerts']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

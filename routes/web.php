@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\AlertController;
 use App\Http\Controllers\CropController;
 use App\Http\Controllers\CultivationController;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\SensorNotificationController;
 
 
 
@@ -182,9 +182,13 @@ Route::middleware('auth:web')->group(function () {
             Route::put('update-crop/{id}',[CropController::class,'update'])->name('update_crop');
             Route::get('delete-crop/{id}',[CropController::class,'destroy'])->name('delete_crop');
 
+            Route::get('sensor-notification_master',[SensorNotificationController::class,'index'])->name('sensor_master');
+            Route::post('save_sensor_solution',[SensorNotificationController::class,'store'])->name('save_sensor_solution');
+            Route::get('delete-solution/{id}',[SensorNotificationController::class,'destroy'])->name('delete_solution');
+            Route::put('update-solution/{id}',[SensorNotificationController::class,'update'])->name('update_sensor_solution');
 
-           
-        });
+ 
+        }); 
         Route::middleware(['auth','isCustomer'])->group(function () {
                 
                 Route::get('/customer-dashboard', [CustomerController::class, 'index'])->name('customer-dashboard');
