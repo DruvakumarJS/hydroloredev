@@ -151,6 +151,13 @@ class CropsController extends Controller
 
                         $days_remaining  = (strtotime($harvest_date)-strtotime(date('Y-m-d')))/(60*60*24);
 
+                         if($crop_detail->image == ''){
+                                $crop_image = '';
+                            }
+                            else{
+                                $crop_image = $crop_detail->image;
+                            }
+
                         $sub_channel_array=[
                          'sub_channel'=> $k,   
                          'id'=> $value->id,
@@ -161,7 +168,8 @@ class CropsController extends Controller
                          'plant_age' => $age.' days' ,
                          'channel_no'=> $value->channel_no,
                          'current_stage' => $current_stage,
-                         'image' => url('/').'/crops/'.$crop_detail->image,
+                         'file_directory'=> url('/').'/crops/',
+                         'image' => $crop_image,
                          'planted_date' => $value->planted_on,
                          'harvesting_date'=> $days_remaining
                      ];
@@ -364,6 +372,13 @@ class CropsController extends Controller
 
             $days_remaining  = (strtotime($harvest_date)-strtotime(date('Y-m-d')))/(60*60*24);
 
+            if($crop_detail->image == ''){
+                $crop_image = '';
+            }
+            else{
+                $crop_image = $crop_detail->image;
+            }
+
             $sub_channel_array=[
              'sub_channel'=> $value->sub_channel,   
              'id'=> $value->id,
@@ -374,7 +389,8 @@ class CropsController extends Controller
              'plant_age' => $age.' days' ,
              'channel_no'=> $value->channel_no,
              'current_stage' => $current_stage,
-             'image' => url('/').'/crops/'.$crop_detail->image,
+             'file_directory'=> url('/').'/crops/',
+             'image' => $crop_image,
              'planted_date' => $value->planted_on,
              'harvesting_date'=> $days_remaining
          ];
