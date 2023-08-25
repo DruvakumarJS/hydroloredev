@@ -103,15 +103,44 @@ class LoginController extends Controller
     public function get_otp(Request $request){
        $otp = '';
         if (Userdetail::where('id', $request->user_id)->exists()) {
-           // $otp = rand('0000', '9999');
-            $otp = '1234';
+            $otp = rand('0000', '9999');
+            $user = Userdetail::where('id', $request->user_id)->first();
+           // $otp = '1234';
 
             $updateotp = Userdetail::where('id', $request->user_id)->update(['otp' => $otp]);
+
+            $hash = env('TEXTLOCAL_apikey');
+    
+            // Message details
+            $name = $user->firstname;
+           
+            $numbers = $user->mobile;
+            $sender = 'hydrlr';
+           // $message1 = "Dear ".$name.", Welcome to Hydrolore.Please use OTP".$otp." to Login.";
+            $message = "Dear ".$name.", Welcome to Hydrolore. Please use OTP ".$otp." to Login.";
+
+            print_r($message);
+         
+           // $numbers = implode(',', $numbers);
+         
+            // Prepare data for POST request
+            $data = array('api_key' => $hash, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+         
+            // Send the POST request with cURL
+            $ch = curl_init('https://api.textlocal.in/send/');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($ch);
+            curl_close($ch);
+            
+            // Process your response here
+           // echo $response;
 
             if($updateotp){
                 return response()->json([
                    'status'=> '1',
-                   'message'=> 'Success',
+                   'message'=> 'OTP sent successfully',
                    'otp'=> $otp
                    ]);
             }
@@ -215,28 +244,33 @@ class LoginController extends Controller
 
     public function send_otp(Request $request){
 
-    $username =  env('TEXTLOCAL_USERNAME');
-    $hash =  env('TEXTLOCAL_HASH');
-    // Config variables. Consult http://api.textlocal.in/docs for more info.
-    $test = "0";
+    $hash = env('TEXTLOCAL_apikey');
+    
+    // Message details
+    $name = "Druva";
+    $otp = "1234";
+    $numbers = "918792422947";
+    $sender = 'hydrlr';
+   // $message1 = "Dear ".$name.", Welcome to Hydrolore.Please use OTP".$otp." to Login.";
+    $message = "Dear ".$name.", Welcome to Hydrolore. Please use OTP ".$otp." to Login.";
 
-    // Data for text message. This is the text message data.
-    $sender = "hydrlr"; // This is who the message appears to be from.
-    $numbers = "879422947"; // A single number or a comma-seperated list of numbers
-    $message = "Dear Druva,Welcome to Hydrolore. Please use OTP123 to Login.";
-    // 612 chars or less
-    // A single number or a comma-seperated list of numbers
-    $message = urlencode($message);
-    $data = "username=".$username."&hash=".$hash."&message=".$message."&sender=".$sender."&numbers=".$numbers."&test=".$test;
-    $ch = curl_init('http://api.textlocal.in/send/?');
+    print_r($message);
+ 
+   // $numbers = implode(',', $numbers);
+ 
+    // Prepare data for POST request
+    $data = array('api_key' => $hash, 'numbers' => $numbers, "sender" => $sender, "message" => $message);
+ 
+    // Send the POST request with cURL
+    $ch = curl_init('https://api.textlocal.in/send/');
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    $result = curl_exec($ch); // This is the result from the API
-  
+    $response = curl_exec($ch);
     curl_close($ch);
+    
+    // Process your response here
+    echo $response;
 
    
     }

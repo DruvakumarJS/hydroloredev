@@ -186,6 +186,7 @@ class CropsController extends Controller
                          'plant_age' => '' ,
                          'channel_no'=> $count,
                          'current_stage' => '',
+                         'file_directory'=> '',
                          'image' => '',
                          'planted_date' => '',
                          'harvesting_date'=> ''
