@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Userdetail;
 use App\Models\Pod;
+use App\Models\User;
 use GuzzleHttp\Exception\GuzzleException;
 use http\Client;
 use Illuminate\Support\Facades\Http;
@@ -220,9 +221,9 @@ class LoginController extends Controller
     $test = "0";
 
     // Data for text message. This is the text message data.
-    $sender = "TXTLCL"; // This is who the message appears to be from.
+    $sender = "hydrlr"; // This is who the message appears to be from.
     $numbers = "879422947"; // A single number or a comma-seperated list of numbers
-    $message = "Dear Druva, Welcome to Hydrolore. Please use OTP123 to Login.";
+    $message = "Dear Druva,Welcome to Hydrolore. Please use OTP123 to Login.";
     // 612 chars or less
     // A single number or a comma-seperated list of numbers
     $message = urlencode($message);
@@ -238,5 +239,63 @@ class LoginController extends Controller
     curl_close($ch);
 
    
+    }
+
+    public function update_profile(Request $request){
+       // print_r($request->Input()); die();
+
+        if(Userdetail::where('id', $request->user_id)->exists()){
+
+            if(Userdetail::where('mobile',$request->mobile)->where('id','!=',$request->user_id)->exists()){
+                 return response()->json([
+                   'status'=> '0',
+                   'message' => 'Mobile number already exists'
+                     ]);
+            }
+
+            else if(Userdetail::where('email',$request->email)->where('id','!=',$request->user_id)->exists()){
+                 return response()->json([
+                   'status'=> '0',
+                   'message' => 'Email already exists'
+                     ]);
+            }
+            else {
+                $update = Userdetail::where('id', $request->user_id)->update([
+                    'firstname' => $request->firstname ,
+                    'lastname' => $request->lastname ,
+                    'mobile' => $request->mobile ,
+                    'email' => $request->email]);
+
+                if($update){
+                    $user = Userdetail::where('id', $request->user_id)->first();
+
+                    $update_user = User::where('id', $user->user_id)->update([
+                        'name' =>$request->firstname." ".$request->lastname ,
+                        'email' => $request->email ]);
+
+                    if($update_user){
+                        return response()->json([
+                           'status'=> '1',
+                           'message' => 'profile updated successfully'
+                             ]);
+                    }
+                    else {
+                        return response()->json([
+                           'status'=> '0',
+                           'message' => 'Something went wrong..'
+                             ]);
+                    }
+                }
+            }
+
+            
+
+        }
+        else{
+            return response()->json([
+                   'status'=> '0',
+                   'message' => 'UnAuthorized'
+                     ]);
+        }
     }
 }
