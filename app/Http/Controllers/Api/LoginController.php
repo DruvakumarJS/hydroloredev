@@ -103,7 +103,7 @@ class LoginController extends Controller
     public function get_otp(Request $request){
        $otp = '';
         if (Userdetail::where('id', $request->user_id)->exists()) {
-            $otp = rand('0000', '9999');
+            $otp = rand('1111', '9999');
             $user = Userdetail::where('id', $request->user_id)->first();
            // $otp = '1234';
 
@@ -141,7 +141,6 @@ class LoginController extends Controller
                 return response()->json([
                    'status'=> '1',
                    'message'=> 'OTP sent successfully',
-                   'otp'=> $otp
                    ]);
             }
         }
@@ -149,7 +148,6 @@ class LoginController extends Controller
             return response()->json([
                    'status'=> '0',
                    'message'=> 'UnAuthorised',
-                   'otp'=> $otp
                    ]);
         }
     }
