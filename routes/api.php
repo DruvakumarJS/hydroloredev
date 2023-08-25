@@ -34,7 +34,7 @@ Route::get('/get-instagram-token',[InstagramAPIController::class, 'get_instatoke
 
 Route::post('/verify-login',[LoginController::class , 'verify_login']);
 Route::post('/verify-otp',[LoginController::class , 'verify_otp']);
-Route::post('/get-otp',[LoginController::class , 'get_otp']);
+Route::post('/get-otp',[LoginController::class , 'send_otp']);
 Route::post('/get-app-details',[LoginController::class , 'mydetails']);
 Route::post('/get-my-crops',[CropsController::class , 'mycrops']);
 Route::post('/get-alerts',[CropsController::class , 'alerts']);
