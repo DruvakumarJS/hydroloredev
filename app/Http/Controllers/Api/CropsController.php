@@ -392,7 +392,7 @@ class CropsController extends Controller
              'file_directory'=> url('/').'/crops/',
              'image' => $crop_image,
              'planted_date' => $value->planted_on,
-             'harvesting_date'=> $days_remaining
+             'harvesting_date'=> $harvest_date
          ];
 
           return response()->json([
