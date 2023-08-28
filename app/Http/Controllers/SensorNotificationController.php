@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SensorNotification;
 use Illuminate\Http\Request;
 
+
 class SensorNotificationController extends Controller
 {
     /**
@@ -42,6 +43,7 @@ class SensorNotificationController extends Controller
             'issue' => $request->issue ,
             'description' => $request->desc ,
             'solution' => $request->solution,
+            'sensor_key' => $request->param ,
             'type' => $request->type]);
 
         if($insert){
@@ -86,6 +88,7 @@ class SensorNotificationController extends Controller
             'issue' => $request->issue ,
             'description' => $request->desc ,
             'solution' => $request->solution,
+            'sensor_key' => $request->param ,
             'type' => $request->type]);
         if($update){
             return redirect()->back();

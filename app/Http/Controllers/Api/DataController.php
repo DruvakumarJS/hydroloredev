@@ -641,18 +641,17 @@ class DataController extends Controller
         $threshold_time= "-".trim($outputArr[1])."minutes";
         $val = ltrim($threshold_time, '-');
        
-        $before_hour=date('Y-m-d H:i:s',strtotime($val));
+        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
         $trigger='true';
 
-        
            /* if($Inputdata['STS-NP1']=='FLT')
             {
 */
           //  $check_data=MasterSyncData::where('created_at','<',$before_hour)->get();  
 
             
-                if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
+                if(MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
                 {  
 
 
@@ -734,7 +733,7 @@ class DataController extends Controller
             if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
             {
 
-                if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
+                if(MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
                 {   
 
                     $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
@@ -802,12 +801,12 @@ class DataController extends Controller
         $threshold_time= "-".trim($outputArr[1])."minutes";
         $val = ltrim($threshold_time, '-');
        
-        $before_hour=date('Y-m-d H:i:s',strtotime($val));
+        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
          
         $trigger='true';
         
            
-                if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
+                if(MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
                 {
 
                     $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
@@ -884,7 +883,7 @@ class DataController extends Controller
             if($Inputdata['WL1L']=='OFF')
             {
 
-                if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
+                if(MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
                 {   
 
 
@@ -972,7 +971,7 @@ class DataController extends Controller
             if($Inputdata['WL2L']=='OFF')
             {
 
-                if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
+                if(MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
                 {   
 
                     $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
@@ -1060,7 +1059,7 @@ class DataController extends Controller
             if($Inputdata['WL3L']=='OFF')
             {
 
-            if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
+            if(MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
             {   
 
                 $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
@@ -1148,16 +1147,14 @@ class DataController extends Controller
 
        
          $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
-         $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
+         $off_interval=date('Y-m-d H:i:s',strtotime($off_time));
 
         if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
         {
 
-
-        
             $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+            if($prev_data->count()>1)
             {
 
  
@@ -1189,7 +1186,7 @@ class DataController extends Controller
 
             $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+            if($prev_data->count()>1)
             {
 
 
@@ -1275,7 +1272,7 @@ class DataController extends Controller
 
        
          $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
-         $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
+         $off_interval=date('Y-m-d H:i:s',strtotime($off_time));
 
         if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
         {
@@ -1283,7 +1280,7 @@ class DataController extends Controller
         
             $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+            if($prev_data->count()>1)
             {
 
             foreach ($prev_data as $key => $value) {
@@ -1314,7 +1311,7 @@ class DataController extends Controller
 
              $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-             if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+             if($prev_data->count()>1)
             {
                 print_r('inside');
 
@@ -1395,7 +1392,7 @@ class DataController extends Controller
 
        
          $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
-         $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
+         $off_interval=date('Y-m-d H:i:s',strtotime($off_time));
 
         
         if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
@@ -1404,7 +1401,7 @@ class DataController extends Controller
         
             $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+            if($prev_data->count()>1)
             {
 
 
@@ -1436,7 +1433,7 @@ class DataController extends Controller
 
              $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-             if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+             if($prev_data->count()>1)
             {
 
 
@@ -1520,7 +1517,7 @@ class DataController extends Controller
 
        
          $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
-         $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
+         $off_interval=date('Y-m-d H:i:s',strtotime($off_time));
 
         
         if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
@@ -1529,7 +1526,7 @@ class DataController extends Controller
         
             $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+            if($prev_data->count()>1)
             {
 
 
@@ -1561,7 +1558,7 @@ class DataController extends Controller
 
              $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-             if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+             if($prev_data->count()>1)
             {
 
 
@@ -1648,7 +1645,7 @@ class DataController extends Controller
 
        
          $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
-         $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
+         $off_interval=date('Y-m-d H:i:s',strtotime($off_time));
       
         if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
         {
@@ -1657,7 +1654,7 @@ class DataController extends Controller
         
             $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+            if($prev_data->count()>1)
             {
 
 
@@ -1689,7 +1686,7 @@ class DataController extends Controller
 
              $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
-             if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
+             if($prev_data->count()>1)
             {
 
 

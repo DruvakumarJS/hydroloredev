@@ -57,6 +57,7 @@
 
                </div>
 
+               
                <div class="row">
                 <div class="col">
                   <div class="mb-3">
@@ -67,6 +68,27 @@
                  </div>
 
                </div>
+
+               @php
+                $sensors = ['AB_T1','POD_T1','TDS_V1','PH_V1','NUT_T1','NP_I1','SV_I1','STS_NP1','STS_SV1',
+                'WL1L','WL2H','WL2L','WL3L','RL1','RL3','RL4'];
+               @endphp
+              
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Sensor Parameter </label>
+                     <select class="form-select form-control" name="param">
+                      <option value="">Select Sensor Parameter</option>
+                      @foreach($sensors as $value)
+                      <option value="{{$value}}">{{$value}}</option> 
+                      @endforeach
+                     </select>
+                  </div>
+                 </div>
+
+               </div>
+
 
                <div class="row">
                 <div class="col">
@@ -120,13 +142,30 @@
              <td width="150px">{{$value->tittle}}</td>
              <td width="250px">{{$value->issue}}</td>
              <td width="250px">{{$value->description}}</td>
-             <td>{{$value->solution}}</td>
+             <td> <table>
+                  <tbody>
+                   @php
+                      $sloution = $value->solution;
+                      $data1 = explode('.',$sloution);
+
+                     @endphp
+                    @foreach($data1 as $sol)
+                      
+                            <tr>
+                                <td>{{$sol}}.</td>
+                            </tr>
+                       
+                    @endforeach
+                  </tbody>
+                </table>
+              </td>
+             
              <td>{{$value->type}}</td>
              <td>
                <a href="#" id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-primary">Edit</button></a>
 
              </td>
-             <td><a onclick="return confirm('Are you sure to delete?')" href="{{route('update_sensor_solution',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a></td>
+             <td><a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_solution',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a></td>
            </tr>
 
            <!-- Modal -->
@@ -178,6 +217,25 @@
                     <label for="message-text" class="col-form-label">Solution *</label>
                      
                       <textarea class="form-control" name="solution" placeholder="Enter Solution for the issue"  required>{{$value->solution}}</textarea>
+                  </div>
+                 </div>
+
+               </div>
+                @php
+                $sensors = ['AB_T1','POD_T1','TDS_V1','PH_V1','NUT_T1','NP_I1','SV_I1','STS_NP1','STS_SV1',
+                'WL1L','WL2H','WL2L','WL3L','RL1','RL3','RL4'];
+               @endphp
+
+               <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Type *</label>
+                      <select class="form-select form-control" name="param">
+                        <option value="">Select Sensor Parameter</option>
+                        @foreach($sensors as $value2)
+                        <option <?php echo ($value2 == $value->sensor_key)?'selected':'' ?> value="{{$value2}}">{{$value2}}</option> 
+                        @endforeach
+                     </select>
                   </div>
                  </div>
 

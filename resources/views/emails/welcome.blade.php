@@ -12,9 +12,9 @@ to assist you.</p>
 
 <p>Please reffer this email to login to Hydrolore Dashboard</p>
 <br></br>
-<h3>dashboard link : {{$url}}/</h3><br></br>
-<h3>Email ID : {{$user->email}}/</h3><br></br>
-<h3>Password for Hydrolore Dashboard : {{$password}}</h3><br></br>
+<h3>dashboard link : https://hydrolore.netiapps.com</h3><br></br>
+<h3>Use your mobile number to login /</h3><br></br>
+
 
 <h3>Details of your POD</h3>
 <h3>HUBID : {{$user->hub_id}}</h3>
