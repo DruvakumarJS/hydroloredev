@@ -24,6 +24,12 @@ class CreateCultivationsTable extends Migration
             $table->string('planted_on')->nullable();
             $table->string('current_stage')->nullable();
             $table->string('harvesting_date')->nullable();
+            $table->string('pruning')->nullable();
+            $table->string('staking')->nullable();
+            $table->string('nutrition_addition')->nullable();
+            $table->string('spray1')->nullable();
+            $table->string('spray2')->nullable();
+            $table->string('spray3')->nullable();
             $table->string('status');
             $table->timestamps();
         });

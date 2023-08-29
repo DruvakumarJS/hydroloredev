@@ -26,7 +26,8 @@ class Userdetail extends Model
         'otp',
         'otp_verified',
         'is_loggedin',
-        'last_seen'];
+        'last_seen',
+        'profile_image'];
 
 
         function tickets(){

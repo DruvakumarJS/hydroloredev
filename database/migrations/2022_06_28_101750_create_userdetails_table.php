@@ -24,6 +24,7 @@ class CreateUserdetailsTable extends Migration
             $table->string('address');
             $table->string('hub_id')->unique();
             $table->string('otp')->nullable();
+            $table->strtotime('profile_image')->nullable();
             $table->timestamps();
         });
     }

@@ -72,6 +72,8 @@ class LoginController extends Controller
             		'mobile' => $user->mobile,
             		'email' => $user->email,
             		'hub_id' => $user->hub_id,
+                    'file_directory' => url('/').'/profile/',
+                    'image' => $user->profile_image,
             		'pods'=> $podarray];
 
             	return response()->json([
@@ -176,6 +178,8 @@ class LoginController extends Controller
             		'mobile' => $user->mobile,
             		'email' => $user->email,
             		'hub_id' => $user->hub_id,
+                    'file_directory' => url('/').'/profile/',
+                    'image' => $user->profile_image,
             		'pods'=> $podarray];
                 
                 return response()->json([
@@ -225,6 +229,8 @@ class LoginController extends Controller
             		'mobile' => $user->mobile,
             		'email' => $user->email,
             		'hub_id' => $user->hub_id,
+                    'file_directory' => url('/').'/profile/',
+                    'image' => $user->profile_image,
             		'pods'=> $podarray];
                 
                 return response()->json([
@@ -292,11 +298,29 @@ class LoginController extends Controller
                      ]);
             }
             else {
+                
+                $fileName = '';
+                 if($file = $request->hasFile('image')) {
+             
+                    $file = $request->file('image') ;
+                   // $fileName = $file->getClientOriginalName() ;
+                    
+                   // $newfilename = round(microtime(true)) . '.' . end($temp);
+                    $temp = explode(".", $file->getClientOriginalName());
+                    $fileName="profile".$request->user_id. '.' . end($temp);
+                   
+                    $destinationPath = public_path().'/profile' ;
+                    $file->move($destinationPath,$fileName);
+                    
+                 }
+
+
                 $update = Userdetail::where('id', $request->user_id)->update([
                     'firstname' => $request->firstname ,
                     'lastname' => $request->lastname ,
                     'mobile' => $request->mobile ,
-                    'email' => $request->email]);
+                    'email' => $request->email,
+                    'profile_image' => $fileName]);
 
                 if($update){
                     $user = Userdetail::where('id', $request->user_id)->first();
