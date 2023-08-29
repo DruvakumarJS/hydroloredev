@@ -8,7 +8,7 @@ use App\Models\Crop;
 use App\Models\Pod;
 use App\Models\Category;
 use App\Models\GrowthDuration;
-
+use App\Models\Activity;
 
 class CultivationController extends Controller
 {
@@ -347,14 +347,28 @@ class CultivationController extends Controller
      */
     public function destroy($id)
     {
-        $remove = Cultivation::where('id', $id)->delete();
+        $message=array();
+        $remove_activity = Activity::where('cultivation_id' , $id)->delete();
+        if($remove_activity){
+            $remove = Cultivation::where('id', $id)->delete();
 
         if($remove){
-            $message=array();
+            
             $message[] = "Crop Removed suceesfully";
 
             return redirect()->back()->withMessage($message);
         }
+        else {
+            $message[] = "Could not remove the crop";
+             return redirect()->back()->withMessage($message);
+        }
+        }
+        else {
+            $message[] = "Something went wrong";
+             return redirect()->back()->withMessage($message);
+        }
+
+        
     }
 
     public function getcrops(Request $request){

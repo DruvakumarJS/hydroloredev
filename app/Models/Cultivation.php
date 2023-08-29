@@ -29,5 +29,9 @@ class Cultivation extends Model
 
     public function crop(){
         return $this->belongsTo(Crop::class , 'crop_id', 'id');
-    }            
+    } 
+
+     public function activities(){
+        return $this->hasMany(Activity::class , 'id', 'cultivation_id');
+    }           
 }

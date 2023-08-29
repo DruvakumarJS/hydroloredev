@@ -266,6 +266,7 @@ class CropController extends Controller
      */
     public function destroy($id)
     {
+        $activity = 
         $delete = Crop::where('id', $id)->delete();
 
         if($delete){

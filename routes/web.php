@@ -21,6 +21,7 @@ use App\Http\Controllers\CropController;
 use App\Http\Controllers\CultivationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SensorNotificationController;
+use App\Http\Controllers\ActivityController;
 
 
 
@@ -170,6 +171,7 @@ Route::middleware('auth:web')->group(function () {
             Route::post('save_channel',[CultivationController::class,'store'])->name('save_channel');
             Route::put('update-channel/{id}',[CultivationController::class,'update'])->name('update_channel');
             Route::get('remove-channel/{id}',[CultivationController::class,'destroy'])->name('remove_channel');
+            Route::get('channel-details/{id}',[ActivityController::class,'index'])->name('channel_details');
 
             Route::get('Category-master',[CategoryController::class,'index'])->name('Category_master');
             Route::post('save-category',[CategoryController::class,'store'])->name('save_category');

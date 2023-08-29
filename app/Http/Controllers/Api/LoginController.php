@@ -330,10 +330,31 @@ class LoginController extends Controller
                         'email' => $request->email ]);
 
                     if($update_user){
-                        return response()->json([
-                           'status'=> '1',
-                           'message' => 'profile updated successfully'
-                             ]);
+
+                    $user = Userdetail::where('Mobile', $request->mobile)->first();
+                    $pods = Pod::select('pod_id','status' ,'location')->where('user_id' , $user->id)->get();
+                    $podarray=array();
+
+                    foreach ($pods as $key => $value) {
+                      $podarray[]=['pod_id'=>$value->pod_id , 'status' => $value->status , 'location' => $value->location ];
+                    }
+
+                    $data = [
+                    'user_id' => $user->id ,
+                    'first_name' => $user->firstname ,
+                    'last_name' => $user->lastname,
+                    'mobile' => $user->mobile,
+                    'email' => $user->email,
+                    'hub_id' => $user->hub_id,
+                    'file_directory' => url('/').'/profile/',
+                    'image' => $user->profile_image,
+                    'pods'=> $podarray];
+
+                    return response()->json([
+                       'status'=> '1',
+                       'message' => 'profile updated successfully',
+                       'data'=>$data
+                         ]);
                     }
                     else {
                         return response()->json([

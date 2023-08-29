@@ -177,10 +177,13 @@
              </div>
 
              <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <a href="#"  id="MybtnModal_{{$key}}_{{$key2}}" data-id="{{$value2['id']}}"><button class="btn btn-sm btn-outline-success" style="width: 100%">Edit</button></a>
               </div>
-              <div class="col-md-6">
+               <div class="col-md-4">
+                <a href="{{route('channel_details',$value2['id'])}}" ><button class="btn btn-sm btn-outline-primary" style="width: 100%">Details</button></a>
+              </div>
+              <div class="col-md-4">
                 <a onclick="return confirm('The crop will be removed from this channel.')" href="{{route('remove_channel',$value2['id'])}}"><button class="btn btn-sm btn-outline-danger" style="width: 100%">Remove</button></a>
               </div>
                

@@ -43,6 +43,7 @@ Route::post('/get-my-crops',[CropsController::class , 'mycrops']);
 Route::post('/get-alerts',[CropsController::class , 'alerts']);
 
 Route::get('/get-crop-details/{id}',[CropsController::class , 'crop_details']);
+Route::post('save-activity',[CropsController::class,'save_activity']);
 
 Route::get('/get-sensor_details/{id}',[ActiveSensorController::class , 'sensor_details']);
 

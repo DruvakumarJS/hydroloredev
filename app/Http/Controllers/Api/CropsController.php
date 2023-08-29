@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Cultivation;
 use App\Models\Crop;
 use App\Models\GrowthDuration;
+use App\Models\Activity;
 
 class CropsController extends Controller
 {
@@ -379,6 +380,27 @@ class CropsController extends Controller
             else{
                 $crop_image = $crop_detail->image;
             }
+           
+           $is_pruning='0';$is_staking='0';$is_nutrition='0';$is_spray1='0';$is_spray2='0';$is_spray3='0';
+
+            if(Activity::where('user_id' , $value->user_id)->where('cultivation_id' ,$id)->where('activity','pruning')->exists()){
+              $is_pruning = '1';
+            }
+            if(Activity::where('user_id' , $value->user_id)->where('cultivation_id' ,$id)->where('activity','staking')->exists()){
+              $is_staking = '1';
+            }
+            if(Activity::where('user_id' , $value->user_id)->where('cultivation_id' ,$id)->where('activity','nutrition')->exists()){
+              $is_nutrition = '1';
+            }
+            if(Activity::where('user_id' , $value->user_id)->where('cultivation_id' ,$id)->where('activity','spray1')->exists()){
+              $is_spray1 = '1';
+            }
+            if(Activity::where('user_id' , $value->user_id)->where('cultivation_id' ,$id)->where('activity','spray2')->exists()){
+              $is_spray2 = '1';
+            }
+            if(Activity::where('user_id' , $value->user_id)->where('cultivation_id' ,$id)->where('activity','spray3')->exists()){
+              $is_spray3 = '1';
+            }
 
             $sub_channel_array=[
              'sub_channel'=> $value->sub_channel,   
@@ -395,11 +417,17 @@ class CropsController extends Controller
              'planted_date' => $value->planted_on,
              'harvesting_date'=> $harvest_date,
              'pruning' => $value->pruning ,
+             'is_pruning_done' => $is_pruning, 
              'staking' => $value->staking ,
+             'is_staking_done' => $is_staking, 
              'nutrition' => $value->nutrition_addition ,
+             'is_nutrition_added' => $is_nutrition, 
              'spray1' => $value->spray1,
+             'is_spary1_done' => $is_spray1, 
              'spray2' => $value->spray2,
+             'is_spray2_done' => $is_spray2, 
              'spray3' => $value->spray3,
+             'is_spray3_done' => $is_spray3
          ];
 
           return response()->json([
@@ -407,6 +435,61 @@ class CropsController extends Controller
                    'message' => 'Success',
                    'data'=>$sub_channel_array ]);
      
+
+    }
+
+    public function save_activity(Request $request){
+
+        if(isset($request->user_id) && isset($request->activity) && isset($request->id)){
+            $imagearray = array();
+            $fileName='';
+
+            if($file = $request->hasFile('images')) {
+
+            foreach($_FILES['images']['name'] as $key=>$val){ 
+                
+               $fileName = basename($_FILES['images']['name'][$key]); 
+               $temp = explode(".", $fileName);  
+               $fileName = rand('111111','999999') . '.' . end($temp);
+               $destinationPath = public_path().'/activity/'.$fileName ;
+               move_uploaded_file($_FILES["images"]["tmp_name"][$key], $destinationPath);
+               $imagearray[] = $fileName ;
+        
+            }
+
+          }
+          $imageNames = implode(',', $imagearray);
+
+          $activity = Activity::create([
+            'user_id' => $request->user_id ,
+            'cultivation_id' => $request->id ,
+            'activity' => $request->activity ,
+            'feedback' => $request->feedback,
+            'images' => $imageNames]);
+
+          if($activity){
+            return response()->json([
+                   'status' => '1',
+                   'message' => 'Activity saved Successfully',
+                   ]);
+          }
+          else{
+            return response()->json([
+                   'status' => '0',
+                   'message' => 'Something went Wrong',
+                   ]);
+
+          }
+          
+           
+        }
+        else{
+            return response()->json([
+                   'status' => '0',
+                   'message' => 'UnAuthorised',
+                   ]);
+
+        }
 
     }
 }
