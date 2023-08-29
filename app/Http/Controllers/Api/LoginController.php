@@ -280,17 +280,9 @@ class LoginController extends Controller
     }
 
     public function update_profile(Request $request){
-       print_r($request->user_id);
-       print_r($request->input());
-       return response()->json([
-        'status'=> '0',
-        'message' => $request->input()
-          ]);
-
+    
         if(Userdetail::where('id', $request->user_id)->exists()){
-            echo "COMES HERE";
-            die();
-
+            
             if(Userdetail::where('mobile',$request->mobile)->where('id','!=',$request->user_id)->exists()){
                  return response()->json([
                    'status'=> '0',
