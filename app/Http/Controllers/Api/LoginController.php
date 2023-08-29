@@ -310,16 +310,23 @@ class LoginController extends Controller
                    
                     $destinationPath = public_path().'/profile' ;
                     $file->move($destinationPath,$fileName);
-                    
-                 }
 
-
-                $update = Userdetail::where('id', $request->user_id)->update([
+                    $update = Userdetail::where('id', $request->user_id)->update([
                     'firstname' => $request->firstname ,
                     'lastname' => $request->lastname ,
                     'mobile' => $request->mobile ,
                     'email' => $request->email,
                     'profile_image' => $fileName]);
+                    
+                 }
+                 else {
+                    $update = Userdetail::where('id', $request->user_id)->update([
+                    'firstname' => $request->firstname ,
+                    'lastname' => $request->lastname ,
+                    'mobile' => $request->mobile ,
+                    'email' => $request->email]);
+                 }
+
 
                 if($update){
                     $user = Userdetail::where('id', $request->user_id)->first();
