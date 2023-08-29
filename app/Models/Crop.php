@@ -15,7 +15,9 @@ class Crop extends Model
        'season',
        'duration',
        'description',
-       'image'];
+       'image',
+       'pruning',
+       'staking'];
 
     public function cultivation(){
         return $this->hasMany(Cultivation::class , 'id', 'crop_id');

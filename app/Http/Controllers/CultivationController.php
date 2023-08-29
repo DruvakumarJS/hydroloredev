@@ -243,51 +243,52 @@ class CultivationController extends Controller
                 $message[]='Crop Already exists for Channel-'.$request->channel_no.$sub_channel;
              }
              else {
-            $myCrops = Cultivation::create([
-                    'user_id' => $pod_detail->user_id ,
-                    'pod_id' => $request->pod_id ,
-                    'crop_id' => $request->crop ,
-                    'category_id' => $request->category ,
-                    'channel_no' => $request->channel_no ,
-                    'sub_channel' => $sub_channel ,
-                    'planted_on' => $request->planted_on ,
-                    'status' => '1'
-                ]);
-            $message[]='Crop added succesfully for  Channel-'.$request->channel_no.$sub_channel;
-        }
-        }
+                $crop_details = Crop::where('id', $request->crop)->first();
+                $pruning = $crop_details->pruning;
+                $staking  = $crop_details->staking;
+                $plantation_date = $request->planted_on;
 
-       //  return redirect()->route('add_crops',$request->pod_id)->withMessage($message);
+                $pruning_date = date('Y-m-d',strtotime($plantation_date.' +'.$pruning.' days'));
+                $staking_date = date('Y-m-d',strtotime($plantation_date.' +'.$staking.' days'));
+                $nutrition_date = date('Y-m-d',strtotime($plantation_date.' + 10 days'));
+                $spray1_date = date('Y-m-d',strtotime($plantation_date.' + 30 days'));
+                $spray2_date = date('Y-m-d',strtotime($spray1_date.' + 10 days'));
+                $spray3_date = date('Y-m-d',strtotime($spray2_date.' + 10 days'));
+
+                /*print_r($plantation_date);print_r('<br>');
+                print_r($pruning_date);print_r('<br>');
+                print_r($staking_date);print_r('<br>');
+                print_r($nutrition_date);print_r('<br>');
+                print_r($spray1_date);print_r('<br>');
+                print_r($spray2_date);print_r('<br>');
+                print_r($spray3_date);print_r('<br>');
+                die();*/
+
+
+                $myCrops = Cultivation::create([
+                        'user_id' => $pod_detail->user_id ,
+                        'pod_id' => $request->pod_id ,
+                        'crop_id' => $request->crop ,
+                        'category_id' => $request->category ,
+                        'channel_no' => $request->channel_no ,
+                        'sub_channel' => $sub_channel ,
+                        'planted_on' => $request->planted_on ,
+                        'pruning' => $pruning_date ,
+                        'staking' => $staking_date ,
+                        'nutrition_addition' => $nutrition_date ,
+                        'spray1' => $spray1_date ,
+                        'spray2' => $spray2_date ,
+                        'spray3' => $spray3_date ,
+                        'status' => '1'
+                    ]);
+                $message[]='Crop added succesfully for  Channel-'.$request->channel_no.$sub_channel;
+            }
+        }
 
         return redirect()->back()->withMessage($message);
         
 
-       /* $pod_detail = Pod::select('user_id')->where('pod_id', $request->pod_id)->first();
-
-        if(Cultivation::where('user_id',$pod_detail->user_id)->where('pod_id',$request->pod_id)->where('channel_no',$request->channel_no)->where('sub_channel',$request->sub_channel)->exists()){
-             
-             return redirect()->route('add_crops',$request->pod_id)->withMessage('Crop already exists for channel selected')->withInput();
-        }
-        else{
-            $myCrops = Cultivation::create([
-            'user_id' => $pod_detail->user_id ,
-            'pod_id' => $request->pod_id ,
-            'crop_id' => $request->crop ,
-            'category_id' => $request->category ,
-            'channel_no' => $request->channel_no ,
-            'sub_channel' => $request->sub_channel ,
-            'planted_on' => $request->planted_on ,
-            'status' => '1'
-        ]);
-
-        if($myCrops){
-
-             return redirect()->route('add_crops',$request->pod_id);
-        }
-        }*/
-
-        
-
+       
        
     }
 

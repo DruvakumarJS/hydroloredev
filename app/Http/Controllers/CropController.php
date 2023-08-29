@@ -157,6 +157,8 @@ class CropController extends Controller
         $crop->duration = $request->duration;
         $crop->description = $request->desc;
         $crop->image = $crop_image;
+        $crop->pruning = $request->pruning ;
+        $crop->staking = $request->staking;
 
         $crop->save();
 
@@ -194,6 +196,8 @@ class CropController extends Controller
         $crop->duration = $request->duration;
         $crop->description = $request->desc;
         $crop->image = $crop_image;
+        $crop->pruning = $request->pruning ;
+        $crop->staking = $request->staking;
 
         $crop->save();
 

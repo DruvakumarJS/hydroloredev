@@ -19,6 +19,12 @@ class Cultivation extends Model
                 'planted_on',
                 'current_stage',
                 'harvesting_date',
+                'pruning',
+                'staking',
+                'nutrition_addition',
+                'spray1',
+                'spray2',
+                'spray3',
                 'status'];
 
     public function crop(){

@@ -243,14 +243,27 @@
                  <img src="" id="image7"  style="width: 100px;height: 70px;">
                </div>
 
-               <div class="row">
+               <label for="message-text" class="col-form-label label-bold ">Nutrition & Spray</label>
+
+                 <div class="row">
+                    <div class="col-md-4">
+                          <label>Pruning (Day after planting)*</label>
+                          <input class="form-control" type="number" min="1" name="pruning" placeholder="nth day after plantation" required>   
+                    </div>
+
+                    <div class="col-md-4">
+                     <label>Staking (Day after planting)*</label>
+                          <input class="form-control" type="number" min="1" name="staking" placeholder="nth day after plantation" required>
+
+                    </div>
+                 
+                 </div>
+
+               <div class="row" style="margin-top: 20px">
                   <div class="col-md-8">
                        
                         <textarea class="form-control" name="desc" placeholder="Enter Crop description here ...." required ></textarea> 
                   </div>
-
-                  
-                 
                </div>
 
                 <div class="modal-footer div-margin">
