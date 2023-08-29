@@ -280,7 +280,9 @@ class LoginController extends Controller
     }
 
     public function update_profile(Request $request){
-       print_r($request->Input()); die();
+       print_r($request->user_id);
+       print_r($request->input());
+       die();
 
         if(Userdetail::where('id', $request->user_id)->exists()){
 
