@@ -8,6 +8,8 @@ use App\Models\Cultivation;
 use App\Models\Crop;
 use App\Models\GrowthDuration;
 use App\Models\Activity;
+use App\Models\Ticket;
+use App\Models\SensorNotification;
 
 class CropsController extends Controller
 {
@@ -228,7 +230,97 @@ class CropsController extends Controller
 
         $data = array();
 
-        $data[] = [
+        $week = date('Y-m-d',strtotime('+7 days'));
+
+        $channels = Cultivation::where('pod_id', $pod_id)->where('user_id' , $user_id)->get();
+
+        foreach ($channels as $key => $value) {
+            $growth = GrowthDuration::where('crop_id', $value->crop_id)->first();
+            $harvest = $growth->harvesting ;
+
+            $harvest_range= preg_split("/[-:]/", $harvest);
+            $harvest_start = $harvest_range[0];
+
+            $harvest_date = date('Y-m-d', strtotime($value->planted_on . ' + '. $harvest_start . 'days'));
+
+            if($harvest_date >= date('Y-m-d') && $harvest_date <= $week ){
+               
+                $days_remaining  = (strtotime($harvest_date)-strtotime(date('Y-m-d')))/(60*60*24);
+                $crop = Crop::where('id',$value->crop_id)->first();
+
+                $data[]= ['image' => url('/').'/crops/'.$crop->image,
+                          'subject' =>$crop->name,
+                          'Channel' => $value->channel_no,
+                          'subchannel' => $value->sub_channel ,
+                          'message' => 'Harvesting in '.$days_remaining.' Days',
+                          'alert_type' => 'Reminder' ];
+               
+            }
+
+            if($value->pruning == date('Y-m-d')){
+                $data[]= ['image' => url('/').'/crops/'.$crop->image,
+                          'subject' =>$crop->name,
+                          'Channel' => $value->channel_no,
+                          'subchannel' => $value->sub_channel ,
+                          'message' => 'Pruning Day',
+                          'alert_type' => 'Reminder' ];
+
+            }
+
+            if($value->staking == date('Y-m-d')){
+                $data[]= ['image' => url('/').'/crops/'.$crop->image,
+                          'subject' =>$crop->name,
+                          'Channel' => $value->channel_no,
+                          'subchannel' => $value->sub_channel ,
+                          'message' => 'Staking Day',
+                          'alert_type' => 'Reminder' ];
+
+            }
+
+            if($value->nutrition_addition == date('Y-m-d')){
+                $data[]= ['image' => url('/').'/crops/'.$crop->image,
+                          'subject' =>$crop->name,
+                          'Channel' => $value->channel_no,
+                          'subchannel' => $value->sub_channel ,
+                          'message' => 'Add Nutritions to Crop today',
+                          'alert_type' => 'Reminder' ];
+
+            }
+
+            if($value->spray1 == date('Y-m-d')){
+                $data[]= ['image' => url('/').'/crops/'.$crop->image,
+                          'subject' =>$crop->name,
+                          'Channel' => $value->channel_no,
+                          'subchannel' => $value->sub_channel ,
+                          'message' => 'Do first round of Spray on plants today',
+                          'alert_type' => 'Reminder' ];
+
+            }
+
+            if($value->spray2 == date('Y-m-d')){
+                $data[]= ['image' => url('/').'/crops/'.$crop->image,
+                          'subject' =>$crop->name,
+                          'Channel' => $value->channel_no,
+                          'subchannel' => $value->sub_channel ,
+                          'message' => 'Do secound round of Spray on plants today',
+                          'alert_type' => 'Reminder' ];
+
+            }
+
+            if($value->spray3 == date('Y-m-d')){
+                $data[]= ['image' => url('/').'/crops/'.$crop->image,
+                          'subject' =>$crop->name,
+                          'Channel' => $value->channel_no,
+                          'subchannel' => $value->sub_channel ,
+                          'message' => 'Do final round of Spray on plants today',
+                          'alert_type' => 'Reminder' ];
+
+            }
+
+        }
+
+       
+        /*$data[] = [
             'image' => url('/').'/crops/amarnath.jpg',
             'subject' => 'Amarnath',
             'Channel' => '1' ,
@@ -245,7 +337,7 @@ class CropsController extends Controller
             'message' => 'harvesting in 11 day(s)' ,
             'alert_type' => 'Reminder'
         ];
-
+*/
 
         return response()->json([
                    'status' => '1',
