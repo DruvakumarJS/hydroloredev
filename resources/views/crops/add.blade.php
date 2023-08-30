@@ -152,7 +152,7 @@
               </div>
 
               <div class="col-md-7">
-                <div class="" style="padding-top: 10px">
+                <div class="" style="padding-top: 10px; white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                    <label style="font-size: 17px;font-weight: bolder;">{{$value2['name']}}</label>
                    <div>
                      <img src="{{ URL::to('/') }}/crops/stage.svg" style="width: 10px;height: 10px;">

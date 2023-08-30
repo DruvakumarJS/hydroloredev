@@ -65,6 +65,45 @@
       </div>
 
       <label class="label-bold">Activities</label>
+
+      <!-- <div class="row flex-nowrap scrollmenu">
+        @foreach($data as $key=>$value)
+        <div class="col-lg-3 mb-3 d-flex align-items-stretch" >
+          <div class="card" style="<?php echo  ($value['date']!='')?'background-color: #ECECEC':''; ?>;width: 18rem;">
+             <div class="card-header">{{$value['activity']}}</div>
+             <div>
+               <label>Expected Date: </label><label style="font-size: 13px;font-weight: bold;">{{date("d M Y", strtotime($value['expected_date']))}}</label>
+             </div>
+
+              <div>
+               <label>Execution Date: </label><label style="font-size: 13px;font-weight: bold;"><?php echo ($value['date']!='')?date("d M Y", strtotime($value['date'])):''  ?></label>
+             </div>
+
+             <div>
+               <label>Feedback: </label>
+             </div>
+             <label style="font-size: 13px;font-weight: bold;white-space: pre-line;">{{$value['feedback']}}</label>
+              @php
+                 $docx = explode(',',$value['documents']) ;
+              @endphp
+
+              <div class="row">
+               
+               @foreach ($docx as $image)
+                  @if($image != '')
+                  <div class="col-md-6" style="padding: 10px">
+                    <a target="_blank" href="{{ URL::to('/') }}/activity/{{$image}}"><img src="{{ URL::to('/') }}/activity/{{$image}}" style="width: 120px ; height: 120px;"></a>
+                  </div>
+                   
+                  @endif
+              @endforeach
+             </div>
+            
+          </div>
+          
+        </div>
+       @endforeach 
+      </div> -->
     
       <table class="table">
         <tbody>
@@ -88,7 +127,9 @@
                 @endphp
                 <td>
                   @foreach ($docx as $image)
-                   <a  target="_blank" href="{{ URL::to('/') }}/activity/{{$image}}"><img src="{{ URL::to('/') }}/activity/{{$image}}" style="width: 50px ; height: 50px;"></a>
+                  @if($image != '')
+                   <a target="_blank" href="{{ URL::to('/') }}/activity/{{$image}}"><img src="{{ URL::to('/') }}/activity/{{$image}}" style="width: 50px ; height: 50px;"></a>
+                   @endif
                   @endforeach
                 </td>
                 
