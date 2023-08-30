@@ -9,6 +9,10 @@ use App\Models\Pod;
 use App\Models\Category;
 use App\Models\GrowthDuration;
 use App\Models\Activity;
+use App\Models\Report;
+use App\Models\Userdetail;
+use App\Models\MasterSyncData;
+
 
 class CultivationController extends Controller
 {
@@ -376,6 +380,114 @@ class CultivationController extends Controller
         $crops = Crop::where('category_id',$request->search )->get();
 
        return response()->json($crops);
+    }
+
+    public function report(Request $request){
+       // print_r($request->Input()); 
+        $cultivation_id = $request->c_id ;
+
+        $cultivation = Cultivation::where('id', $cultivation_id)->first();
+        $crop = Crop::where('id' , $cultivation->crop_id)->first();
+       // $activity = Activity::where('cultivation_id',$cultivation_id)->get();
+        $user = Userdetail::where('id',$cultivation->user_id)->first();
+
+        if(Activity::where('cultivation_id',$cultivation_id)->where('activity','pruning')->exists()){
+            $pr = Activity::where('cultivation_id',$cultivation_id)->where('activity','pruning')->first();
+            $pruning = $pr->created_at ;
+        }
+        else {
+            $pruning = $cultivation->pruning ;
+        }
+
+        if(Activity::where('cultivation_id',$cultivation_id)->where('activity','staking')->exists()){
+            $st = Activity::where('cultivation_id',$cultivation_id)->where('activity','staking')->first();
+            $staking = $st->created_at ;
+        }
+        else {
+            $staking = $cultivation->staking ;
+        }
+
+        if(Activity::where('cultivation_id',$cultivation_id)->where('activity','nutrition')->exists()){
+            $nutr = Activity::where('cultivation_id',$cultivation_id)->where('activity','nutrition')->first();
+            $nutrition_addition = $nutr->created_at ;
+        }
+        else {
+            $nutrition_addition = $cultivation->nutrition_addition ;
+        }
+
+        if(Activity::where('cultivation_id',$cultivation_id)->where('activity','spray1')->exists()){
+            $sp1 = Activity::where('cultivation_id',$cultivation_id)->where('activity','pruning')->first();
+            $spray1 = $sp1->created_at ;
+        }
+        else {
+            $spray1 = $cultivation->spray1 ;
+        }
+
+        if(Activity::where('cultivation_id',$cultivation_id)->where('activity','spray2')->exists()){
+            $sp2 = Activity::where('cultivation_id',$cultivation_id)->where('activity','spray2')->first();
+            $spray2 = $sp2->created_at ;
+        }
+        else {
+            $spray2 = $cultivation->spray2 ;
+        }
+
+        if(Activity::where('cultivation_id',$cultivation_id)->where('activity','spray3')->exists()){
+            $sp3 = Activity::where('cultivation_id',$cultivation_id)->where('activity','spray3')->first();
+            $spray3 = $sp3->created_at ;
+        }
+        else {
+            $spray3 = $cultivation->spray3 ;
+        }
+
+        
+        $ab = MasterSyncData::select('AB_T1')->where('pod_id',$cultivation->pod_id)->whereBetween('date',[$cultivation->planted_on , date('Y-m-d')])->avg('AB_T1');
+        $pod = MasterSyncData::select('POD_T1')->where('pod_id',$cultivation->pod_id)->whereBetween('date',[$cultivation->planted_on , date('Y-m-d')])->avg('POD_T1');
+        $tds = MasterSyncData::select('TDS_V1')->where('pod_id',$cultivation->pod_id)->whereBetween('date',[$cultivation->planted_on , date('Y-m-d')])->avg('TDS_V1');
+        $ph = MasterSyncData::select('PH_V1')->where('pod_id',$cultivation->pod_id)->whereBetween('date',[$cultivation->planted_on , date('Y-m-d')])->avg('PH_V1');
+        $nut = MasterSyncData::select('NUT_T1')->where('pod_id',$cultivation->pod_id)->whereBetween('date',[$cultivation->planted_on , date('Y-m-d')])->avg('NUT_T1');
+
+        $harvest = GrowthDuration::where('crop_id', $cultivation->crop_id)->first();
+        $harvest_date_range= preg_split("/[-:]/", $harvest->harvesting);
+        $harvest_start_date = $harvest_date_range[0];
+        $harvest_date = date('Y-m-d', strtotime($cultivation->planted_on . ' + '. $harvest_start_date . 'days'));
+
+
+        //print_r($ab);die();
+
+        $report = Report::create([
+            'user_id' => $cultivation->user_id,
+            'user_name'=> $user->firstname." ".$user->lastname,
+            'mobile'=> $user->mobile,
+            'email'=> $user->email,
+            'category'=> $cultivation->crop->category->category_name,
+            'crop_id'=> $cultivation->crop_id,
+            'crop_name'=> $crop->name,
+            'duration'=> $crop->duration,
+            'channel'=> $request->channel,
+            'seeds_quantity'=> $request->seeds,
+            'planted_date'=> $cultivation->planted_on,
+            'pruning_date'=> $pruning,
+            'staking_date'=> $staking,
+            'nutrition_date'=> $nutrition_addition,
+            'spray1_date'=> $spray1,
+            'spray2_date'=> $spray2,
+            'spray3_date'=> $spray3,
+            'nutritions'=> $request->nutritions,
+            'pesticides'=> $request->pesticides,
+            'avg_ab'=> $ab,
+            'avg_pod'=> $pod,
+            'avg_tds'=> $tds,
+            'avg_ph'=> $ph,
+            'avg_nut'=> $nut,
+            'harvesting_date'=> $harvest_date,
+            'expected_quantitiy'=> $request->estimated_yield,
+            'actual_quantity'=> $request->total_yield,
+            'grade1'=> $request->grade1,
+            'grade2'=> $request->grade2,
+            'grade3'=> $request->grade3,
+            'status'=> $request->Status,
+            'comments'=> $request->comments,
+        ]);   
     }
 
 
