@@ -12,6 +12,7 @@ use App\Models\Activity;
 use App\Models\Report;
 use App\Models\Userdetail;
 use App\Models\MasterSyncData;
+use PDF;
 
 
 class CultivationController extends Controller
@@ -541,12 +542,12 @@ class CultivationController extends Controller
     }
 
     public function download($id){
-      
-        /*$value = Report::where('id', $id)->first();
+      //print_r($id) ;die();
+        $value = Report::where('id', $id)->first();
         $filename = 'Report.pdf';
         $pdf = PDF::loadView('report/pdf', compact('value'));
     
-        return $pdf->download();*/
+        return $pdf->download();
     }
 
 
