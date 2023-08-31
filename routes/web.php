@@ -175,6 +175,7 @@ Route::middleware('auth:web')->group(function () {
             Route::get('channel-details/{id}',[ActivityController::class,'index'])->name('channel_details');
 
             Route::get('reports',[CultivationController::class,'report'])->name('reports');
+            Route::get('download/{id}',[CultivationController::class,'download'])->name('download');
 
             Route::get('Category-master',[CategoryController::class,'index'])->name('Category_master');
             Route::post('save-category',[CategoryController::class,'store'])->name('save_category');

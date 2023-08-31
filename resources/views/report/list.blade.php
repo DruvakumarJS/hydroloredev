@@ -97,7 +97,7 @@
                           <div><label>Harvest Completion Date : </label> <label style="font-weight: bold;">{{date("d M Y", strtotime($value['created_at']))}}</label></div>
                           
                           <div class="modal-footer">
-                            <button type="button" class="btn btn-sm btn-light btn-outline-success" data-bs-dismiss="modal">Download</button>
+                            <a href="{{route('download',$value->id)}}"><button type="button" class="btn btn-sm btn-light btn-outline-success" data-bs-dismiss="modal">Download</button></a>
                             <button type="button" class="btn btn-sm btn-light btn-outline-primary" data-bs-dismiss="modal">Close</button>
                             
                           </div>

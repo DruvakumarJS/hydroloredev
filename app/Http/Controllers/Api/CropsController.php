@@ -256,6 +256,7 @@ class CropsController extends Controller
                           'alert_type' => 'Reminder' ];
                
             }
+            $crop = Crop::where('id',$value->crop_id)->first();
 
             if($value->pruning == date('Y-m-d')){
                 $data[]= ['image' => url('/').'/crops/'.$crop->image,
