@@ -317,6 +317,8 @@ class LoginController extends Controller
                     'mobile' => $request->mobile ,
                     'email' => $request->email,
                     'profile_image' => $fileName]);
+
+                    $isimage = 'profile image changed';
                     
                  }
                  else {
@@ -325,6 +327,8 @@ class LoginController extends Controller
                     'lastname' => $request->lastname ,
                     'mobile' => $request->mobile ,
                     'email' => $request->email]);
+
+                     $isimage = 'profile image unchanged';
                  }
 
 
@@ -354,6 +358,7 @@ class LoginController extends Controller
                     'hub_id' => $user->hub_id,
                     'file_directory' => url('/').'/profile/',
                     'image' => $user->profile_image,
+                    'profile'=> $isimage , 
                     'pods'=> $podarray];
 
                     return response()->json([

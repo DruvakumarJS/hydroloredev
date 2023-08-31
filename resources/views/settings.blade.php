@@ -75,6 +75,15 @@
                         </a> 
                     </div>
                 </div>
+
+                <div class="col-md-3">
+                    <div class="card card-section text-center">
+                        <a href="{{route('reports')}}">
+                               
+                                <h3>Report</h3>
+                        </a> 
+                    </div>
+                </div>
                 
 
                 

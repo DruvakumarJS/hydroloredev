@@ -358,7 +358,7 @@ class CultivationController extends Controller
 
         if($remove){
             
-            $message[] = "Crop Removed suceesfully";
+            $message[] = "Crop Removed succesfully";
 
             return redirect()->back()->withMessage($message);
         }
@@ -382,7 +382,7 @@ class CultivationController extends Controller
        return response()->json($crops);
     }
 
-    public function report(Request $request){
+    public function save_harvest_data(Request $request){
        // print_r($request->Input()); 
         $cultivation_id = $request->c_id ;
 
@@ -488,6 +488,56 @@ class CultivationController extends Controller
             'status'=> $request->Status,
             'comments'=> $request->comments,
         ]);   
+
+        if($report){
+            if(Activity::where('cultivation_id' , $cultivation_id)->exists()){
+                $remove_activity = Activity::where('cultivation_id' , $cultivation_id)->delete();
+                    if($remove_activity){
+                        $remove = Cultivation::where('id', $cultivation_id)->delete();
+
+                        if($remove){
+                            
+                            $message = "Crop Removed and Report Genrated Succesfully";
+
+                           // return redirect()->back()->withMessage($message);
+                        }
+                        else {
+                            $message = "Could Not Remove The Crop";
+                             return redirect()->back()->withMessage($message);
+                        }
+                    }
+                    else {
+                        $message = "Could Not Remove Activities";
+                         return redirect()->back()->withMessage($message);
+                    }
+
+            }
+            else{
+                $remove = Cultivation::where('id', $cultivation_id)->delete();
+
+                        if($remove){
+                            
+                            $message = "Crop Removed and Report Genrated Succesfully";
+
+                           // return redirect()->back()->withMessage($message);
+                        }
+                        else {
+                            $message = "Could Not Remove The Crop";
+                             return redirect()->back()->withMessage($message);
+                        }
+            }
+            
+        }
+        else {
+             $message = "Could Not Generate Report";
+             return redirect()->back()->withMessage($message);
+        }
+    }
+
+
+    public function report(){
+        $data = Report::all();
+        return view('report/list',compact('data'));
     }
 
 

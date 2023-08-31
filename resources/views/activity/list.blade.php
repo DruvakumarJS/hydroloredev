@@ -10,6 +10,11 @@
         
       </div>
       <label class="date">{{date('d M ,Y')}} </label>
+
+      @if(Session::has('message'))
+         <p id="mydiv" class="text-danger text-center">{{ Session::get('message') }}</p>  
+      @endif
+
       <div id="div2">
           <a data-bs-toggle="modal" data-bs-target="#mymodal" href=""><button class="btn btn-sm btn-danger">Mark as Completed</button></a>
       </div>

@@ -171,8 +171,10 @@ Route::middleware('auth:web')->group(function () {
             Route::post('save_channel',[CultivationController::class,'store'])->name('save_channel');
             Route::put('update-channel/{id}',[CultivationController::class,'update'])->name('update_channel');
             Route::get('remove-channel/{id}',[CultivationController::class,'destroy'])->name('remove_channel');
-            Route::post('save-harvest-data',[CultivationController::class,'report'])->name('save_harvesting_data');
+            Route::post('save-harvest-data',[CultivationController::class,'save_harvest_data'])->name('save_harvesting_data');
             Route::get('channel-details/{id}',[ActivityController::class,'index'])->name('channel_details');
+
+            Route::get('reports',[CultivationController::class,'report'])->name('reports');
 
             Route::get('Category-master',[CategoryController::class,'index'])->name('Category_master');
             Route::post('save-category',[CategoryController::class,'store'])->name('save_category');
