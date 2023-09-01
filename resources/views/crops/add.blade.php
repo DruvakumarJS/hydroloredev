@@ -2,12 +2,6 @@
 
 @section('content')
 
-<style type="text/css"> 
- 
-}
- 
-</style>
-
 <div class="container-body">
     <div class="container-header">
       
@@ -416,9 +410,6 @@ function myFunction(id) {
    
 }
 </script>
-
- 
-
 
 
 @endsection

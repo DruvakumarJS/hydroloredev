@@ -44,6 +44,8 @@
 <script src="@@path/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
 
@@ -282,6 +284,69 @@ $(document).ready(function(){
     $('#modal_logout').modal('show')
   });
 });
-
   
 </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
+    <script>
+      
+    var firebaseConfig = {
+          apiKey:'{{ env('API_KEY') }}' ,
+          authDomain: '{{ env('AUTH_DOMAIN') }}',
+          projectId: '{{ env('PROJECT_ID') }}',
+          storageBucket: '{{ env('STORAGE_BUCKET') }}',
+          messagingSenderId: '{{ env('SENDER_ID') }}',
+          appId: '{{ env('APP_ID') }}',
+          measurementId: '{{ env('MEASUREMENT_ID') }}'
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+
+    function initFirebaseMessagingRegistration() {
+        messaging
+            .requestPermission()
+            .then(function() {
+                return messaging.getToken()
+            })
+            .then(function(token) {
+                console.log(token);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    }
+                });
+
+                $.ajax({
+                    url: '{{ route("save-token") }}',
+                    type: 'POST',
+                    data: {
+                        token: token
+                    },
+                    dataType: 'JSON',
+                    success: function(response) {
+                        alert('Token saved successfully.');
+                    },
+                    error: function(err) {
+                        console.log('User Chat Token Error' + err);
+                    },
+                });
+
+            }).catch(function(err) {
+                console.log('User Chat Token Error' + err);
+            });
+    }
+
+    messaging.onMessage(function(payload) {
+        const noteTitle = payload.notification.title;
+        const noteOptions = {
+            body: payload.notification.body,
+            icon: payload.notification.icon,
+        };
+        new Notification(noteTitle, noteOptions);
+    });
+    </script> 
+
+

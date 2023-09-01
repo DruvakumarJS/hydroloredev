@@ -41,14 +41,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
     <script>
+      
     var firebaseConfig = {
-          apiKey: "AIzaSyCIVob-XSsM8tFPjeRJRMjC5bvbxGSCZHM",
-          authDomain: "hydrolore-365906.firebaseapp.com",
-          projectId: "hydrolore-365906",
-          storageBucket: "hydrolore-365906.appspot.com",
-          messagingSenderId: "150924737338",
-          appId: "1:150924737338:web:d8b3e2f61b4dac9b21ee03",
-          measurementId: "G-B1DNYXWWM5"
+          apiKey:'{{ env('API_KEY') }}' ,
+          authDomain: '{{ env('AUTH_DOMAIN') }}',
+          projectId: '{{ env('PROJECT_ID') }}',
+          storageBucket: '{{ env('STORAGE_BUCKET') }}',
+          messagingSenderId: '{{ env('SENDER_ID') }}',
+          appId: '{{ env('APP_ID') }}',
+          measurementId: '{{ env('MEASUREMENT_ID') }}'
     };
 
     firebase.initializeApp(firebaseConfig);
