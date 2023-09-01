@@ -52,8 +52,7 @@
             <div class="row settings-container ">
                 <div class="col-md-3">
                     <div class="card card-section text-center">
-                        <a href="{{route('Category_master')}}">
-                                
+                        <a href="{{route('Category_master')}}"> 
                                 <h3>Category Master</h3>
                         </a> 
                     </div>
@@ -61,7 +60,6 @@
                 <div class="col-md-3">
                     <div class="card card-section text-center">
                         <a href="{{route('Crop_master')}}">
-                               
                                 <h3>Crop Master</h3>
                         </a> 
                     </div>
@@ -70,7 +68,6 @@
                 <div class="col-md-3">
                     <div class="card card-section text-center">
                         <a href="{{route('sensor_master')}}">
-                               
                                 <h3>Sensor Notification</h3>
                         </a> 
                     </div>
@@ -79,13 +76,20 @@
                 <div class="col-md-3">
                     <div class="card card-section text-center">
                         <a href="{{route('reports')}}">
-                               
                                 <h3>Report</h3>
                         </a> 
                     </div>
                 </div>
                 
+            </div>
 
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card card-section text-center">
+                        <a href="{{route('nutrition_master')}}"> <h3>Nutrients Master</h3> </a>
+                    </div>
+                    
+                </div>
                 
             </div>
 

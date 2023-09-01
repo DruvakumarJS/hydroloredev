@@ -15,6 +15,7 @@ use App\Models\Locations;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Hash;
+use App\Models\NutritionMaster;
 use DB;
 
 
@@ -72,12 +73,13 @@ class UsersController extends Controller
 
        
         $pods_list=Pod::where('user_id',$id)->get();
-        $user_detail=Userdetail::where('id',$id)->get();
+        $value=Userdetail::where('id',$id)->first();
         $podMaster=PodMaster::all();
+        $nutrition =NutritionMaster::where('user_id' , $id)->get(); 
 
         $locations=Locations::all();
         
-        return view('user/user_details',compact('pods_list' , 'user_detail' ,'podMaster', 'locations'));
+        return view('user/user_details',compact('pods_list' , 'value' ,'podMaster', 'locations' , 'id' , 'nutrition'));
 
 
     }

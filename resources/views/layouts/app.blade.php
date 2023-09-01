@@ -127,6 +127,8 @@
            ||request()->routeIs('search_crop')
            ||request()->routeIs('sensor_master')
            ||request()->routeIs('update_sensor_solution')
+           ||request()->routeIs('reports')
+           ||request()->routeIs('nutrition_master')
            ? 'active' : '' }}"
 
            >

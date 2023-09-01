@@ -42,13 +42,13 @@
     <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
     <script>
     var firebaseConfig = {
-          apiKey: "AIzaSyBQnwQHe97LTq0PyA-6EkEJxfhY8itQxug",
-          authDomain: "hydrolore.firebaseapp.com",
-          projectId: "hydrolore",
-          storageBucket: "hydrolore.appspot.com",
-          messagingSenderId: "245060607925",
-          appId: "1:245060607925:web:0c42822440b8e83121c3fc",
-          measurementId: "G-HHQYLZSJNB"
+          apiKey: "AIzaSyCIVob-XSsM8tFPjeRJRMjC5bvbxGSCZHM",
+          authDomain: "hydrolore-365906.firebaseapp.com",
+          projectId: "hydrolore-365906",
+          storageBucket: "hydrolore-365906.appspot.com",
+          messagingSenderId: "150924737338",
+          appId: "1:150924737338:web:d8b3e2f61b4dac9b21ee03",
+          measurementId: "G-B1DNYXWWM5"
     };
 
     firebase.initializeApp(firebaseConfig);

@@ -22,7 +22,7 @@ use App\Http\Controllers\CultivationController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SensorNotificationController;
 use App\Http\Controllers\ActivityController;
-
+use App\Http\Controllers\NutritionMasterController;
 
 
 /*
@@ -192,6 +192,9 @@ Route::middleware('auth:web')->group(function () {
             Route::post('save_sensor_solution',[SensorNotificationController::class,'store'])->name('save_sensor_solution');
             Route::get('delete-solution/{id}',[SensorNotificationController::class,'destroy'])->name('delete_solution');
             Route::put('update-solution/{id}',[SensorNotificationController::class,'update'])->name('update_sensor_solution');
+
+            Route::get('nutrition-master',[NutritionMasterController::class,'index'])->name('nutrition_master');
+            Route::post('save-nutritions-data',[NutritionMasterController::class,'store'])->name('save_nutritions_data');
 
  
         }); 

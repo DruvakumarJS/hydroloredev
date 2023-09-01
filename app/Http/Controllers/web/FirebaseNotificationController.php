@@ -44,7 +44,7 @@ class FirebaseNotificationController extends Controller
         $url = 'https://fcm.googleapis.com/fcm/send';
         $FcmToken = User::whereNotNull('device_token')->pluck('device_token')->all();
           
-        $serverKey = 'AAAAOQ7AH7U:APA91bHQ99j6Vd96i9p794E3EWDtT7IsfbUz-Q0hoayGeXAddF__YjO1FLzdpb7DPlEx0h_tDG_WvfjnQFmobrJEpuANg22lfyl-iVOZj3bbkakPvQrCCiqFCsQcehBIFkn_rfeYbL8q';
+        $serverKey = 'RHKh5TZn9ibysKRFX-ZFjvWEcYiVoh59JPcIHN6yu4k';
   
         $data = [
             "registration_ids" => $FcmToken,
@@ -62,6 +62,8 @@ class FirebaseNotificationController extends Controller
             'Authorization:key=' . $serverKey,
             'Content-Type: application/json',
         ];
+
+
     
         $ch = curl_init();
       
@@ -77,6 +79,7 @@ class FirebaseNotificationController extends Controller
         // Execute post
         $result = curl_exec($ch);
         if ($result === FALSE) {
+             print_r($data); die();
             die('Curl failed: ' . curl_error($ch));
         }        
         // Close connection

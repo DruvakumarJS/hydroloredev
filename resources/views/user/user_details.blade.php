@@ -3,22 +3,142 @@
 @section('content')
 
 <body>
+  
   <div class="container-body">
-
-      <div>
+     <div class="container-header">
+       <div>
          <h2 class="head-h1">PODs</h2>
          <label class="date">{{date('d M ,Y')}} </label>
-      </div>
+
+         <div id="div3" style="margin-right: 30px;">
+            <a data-bs-toggle="modal" data-bs-target="#add_modal" href=""><button class="btn btn-sm btn-outline-primary">Provide Nutrients</button></a>
+         </div>
+
+          <div id="div3" style="margin-right: 30px;">
+            <a data-bs-toggle="modal" data-bs-target="#nutrients_modal" href=""><button class="btn btn-sm btn-outline-primary">View Nutrients list</button></a>
+         </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="add_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-xl">
+            <div class="modal-content ">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Provide Nutrients to a User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form method="post" action="{{route('save_nutritions_data')}}" >
+                 @csrf
+                
+               <div class="row">
+                <div class="col-md-3">
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Nutrient Name *</label>
+                     <input class="form-control" type="text" name="nutrient">
+                  </div>
+                 </div>
+
+                 <div class="col-md-3">
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Quantity in kg *</label>
+                     <input class="form-control" type="number" name="qty">
+                  </div>
+                 </div>
+
+                  <div class="col-md-3">
+                  <div class="mb-3">
+                    <label for="message-text" class="col-form-label">Date *</label>
+                     <input class="form-control" type="date" name="date" max="<?php echo date('Y-m-d'); ?>">
+                  </div>
+                 </div>
+
+               </div>
+               <input type="hidden" name="user_id" value="{{$id}}">
+
+               
+               </div>
+
+                <div class="modal-footer div-margin">
+                    
+                    <button type="submit" class="btn btn-success">Submit</button>
+                  </div>
+
+              </form>
+
+               
+              </div>
+              
+            </div>
+          </div>
+        </div>
+<!-- Modal -->
 
 
-      <div class="row mt">
+
+       <!-- Modal -->
+        <div class="modal fade" id="nutrients_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog ">
+            <div class="modal-content ">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Nutrients Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+               
+               <div class="row">
+                <table class="table">
+                  <tbody>
+                    <tr>
+                      <th>Nutrient Name</th>
+                      <th>Quantity</th>
+                      <th>Date</th>
+                    </tr> 
+                  </tbody>
+
+                  <tbody>
+                    @foreach($nutrition as $keys=>$values)
+                    <tr>
+                      <td>{{$values->nutrients}}</td>
+                      <td>{{$values->quantity}}kg</td>
+                      <td>{{date("d M Y", strtotime($values->issue_date))}}</td>
+                    </tr>
+                    @endforeach
+                  </tbody>
+                  
+                </table>
+
+               </div>
+               
+               </div>
+
+                <div class="modal-footer div-margin">
+                   <button type="button" class="btn btn-sm btn-outline-primary"data-bs-dismiss="modal" aria-label="Close">Okey</button>
+                  </div>
+
+             
+
+               
+              </div>
+              
+            </div>
+          </div>
+       
+<!-- Modal -->
+
+       </div>
+
+      
+    </div> 
+
+     <div class="page-container" style="margin-top: 20px">
+     <div class="row mt">
         <div class="col-sm-6 col-md-4 ">
              <div class="card ">
 
                 <div class="card-body">
                   <div class="row align-items-center">
 
-                    @foreach ($user_detail as $key => $value)
+                   
 
                      <h4 class="head-h1">{{$value->firstname}} {{$value->lastname}}</h4>
                      <label class="label_black">{{$value->email}}</label>
@@ -137,8 +257,6 @@
                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                          @enderror
                                       </div>
-
-
 
                                        <input type="hidden" name="user_id" id="user_id" value="{{$value->id}}">
                                        <input type="hidden" name="hub_id" id="hub_id" value="{{$value->hub_id}}">
@@ -507,7 +625,7 @@
 
 
 
-                     @endforeach
+                   
 
                   </div>
 
@@ -562,7 +680,7 @@
       </div>
 
 
-
+  
   </div>
 
   <script>
@@ -570,81 +688,19 @@ $(document).ready(function(){
   $('#MybtnModal').click(function(){
     $('#Mymodal').modal('show')
   });
-
-
-
-
 });
 
-
-
 function addValue(val, pod, field){
-
 
       min=($('#min_'+pod).val() =='')?'0':$('#min_'+pod).val();
       max=($('#max_'+pod).val()=='')?'0':$('#max_'+pod).val();
       x=($('#x_value_'+pod).val()=='')?'0':$('#x_value_'+pod).val();
       $("#hide_"+pod).val(min + " - "+max +" - "+x);
+ }
 
-    /*if(field == 'min'){
-
-
-     min=($('#min_'+pod).val());
-
-     $("#hide_"+pod).val(val);
-    }
-
-     if(field == 'max'){
-
-      min=($('#min_'+pod).val());
-      max=($('#max_'+pod).val());
-
-     $("#hide_"+pod).val(min + " - "+max);
-    }
-
-    if(field == 'x_value'){
-
-
-      min=($('#min_'+pod).val());
-      max=($('#max_'+pod).val());
-      x=($('#x_value_'+pod).val());
-
-      $("#hide_"+pod).val(min + " - "+max +" - "+x);
-    }
-*/
-
-  }
-
-
-    /* $(function () {
-        $("#btnCopy").click(function () {
-            //Reference the TextBox.
-            var txtName = $("#pod_name");
-
-            //Reference the Label.
-            var lblName = $("#pods");
-
-            var label = $("#pods")
-            var text = label.text();
-
-           // alert(text);
-
-            if(text==''){
-               lblName.html(txtName.val());
-               document.getElementById("podnames").value = txtName.val();
-            }
-            else
-            {
-               lblName.html(text+" , "+txtName.val());
-               document.getElementById("podnames").value = text+" , "+txtName.val();
-            }
-
-
-
-             document.getElementById("pod_name").value = "";
-        });
-    });*/
 </script>
+
+ </div>
   </div>
 
 </body>
