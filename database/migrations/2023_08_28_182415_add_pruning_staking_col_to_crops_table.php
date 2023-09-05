@@ -15,7 +15,13 @@ class AddPruningStakingColToCropsTable extends Migration
     {
         Schema::table('crops', function (Blueprint $table) {
             $table->string('pruning')->nullable();
+            $table->string('pruning_steps')->nullable();
             $table->string('staking')->nullable();
+            $table->string('staking_steps')->nullable();
+            $table->string('nutrients_addition_steps')->nullable();
+            $table->string('spray1_steps')->nullable();
+            $table->string('spray2_steps')->nullable();
+            $table->string('spray3_steps')->nullable();
         });
     }
 

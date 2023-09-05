@@ -161,7 +161,7 @@
 
                    <div style="margin-top: 10px;margin-left: 2px" >
                      <img src="{{ URL::to('/') }}/crops/info.svg" style="width: 10px;height: 10px;">
-                     <label style="font-size: 10px">Harvesting season in {{$value2['harvesting_date']}} days</label>
+                     <label style="font-size: 10px">Harvesting season <?php echo (str_starts_with($value2['harvesting_date'], '-'))?'': 'in '. $value2['harvesting_date'] .' days' ?> </label>
                      
                    </div>
                 </div>

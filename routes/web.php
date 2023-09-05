@@ -187,6 +187,7 @@ Route::middleware('auth:web')->group(function () {
             Route::post('search-crop',[CropController::class,'search'])->name('search_crop');
             Route::put('update-crop/{id}',[CropController::class,'update'])->name('update_crop');
             Route::get('delete-crop/{id}',[CropController::class,'destroy'])->name('delete_crop');
+             Route::get('crop-details/{id}',[CropController::class,'show'])->name('crop_details');
 
             Route::get('sensor-notification_master',[SensorNotificationController::class,'index'])->name('sensor_master');
             Route::post('save_sensor_solution',[SensorNotificationController::class,'store'])->name('save_sensor_solution');

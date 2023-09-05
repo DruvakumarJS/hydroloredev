@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cultivation;
 use Illuminate\Http\Request;
 use App\Models\Crop;
-use App\Models\user;
+use App\Models\User;
 use App\Models\Pod;
 use App\Models\Category;
 use App\Models\GrowthDuration;
@@ -38,9 +38,7 @@ class CultivationController extends Controller
     {
          $category = Category::get();
        // $crops = Cultivation::where('pod_id' , $id)->orderBy('channel_no','ASC')->get();
-        //print_r(json_encode($crops)); die();
-
-           
+        
             $count = 1;
             $channel_array=array();
             $channel_no_array= array();
@@ -254,6 +252,13 @@ class CultivationController extends Controller
                 $pruning = $crop_details->pruning;
                 $staking  = $crop_details->staking;
                 $plantation_date = $request->planted_on;
+                
+                $crop_growth = GrowthDuration::where('crop_id',$request->crop)->first();
+                $harvest = $crop_growth->harvesting;
+                $harvest_range= preg_split("/[-:]/", $harvest);
+                $harvest_start = $harvest_range[0];
+                $harvest_date = date('Y-m-d', strtotime($request->planted_on . ' + '. $harvest_start . 'days'));
+
 
                 $pruning_date = date('Y-m-d',strtotime($plantation_date.' +'.$pruning.' days'));
                 $staking_date = date('Y-m-d',strtotime($plantation_date.' +'.$staking.' days'));
@@ -280,6 +285,7 @@ class CultivationController extends Controller
                         'channel_no' => $request->channel_no ,
                         'sub_channel' => $sub_channel ,
                         'planted_on' => $request->planted_on ,
+                        'harvesting_date' => $harvest_date ,
                         'pruning' => $pruning_date ,
                         'staking' => $staking_date ,
                         'nutrition_addition' => $nutrition_date ,
@@ -298,66 +304,13 @@ class CultivationController extends Controller
             'title' => 'Hydrolore' ,
             'body' => 'New Crop Added to your POD ' ]);
       
-        // $fcm->show($data);
+         $fcm->show($data);
 
       return redirect()->back()->withMessage($message);
        
     }
 
-    public function show_fcm(Request $request)
-    {
-
-       // $url = 'https://fcm.googleapis.com/fcm/send';
-        $url = 'https://fcm.googleapis.com/fcm/send';
-        $FcmToken = User::whereNotNull('device_token')->pluck('device_token')->all();
-          
-        $serverKey = env('FCM_SERVER_KEY');
-  
-        $data = [
-            "registration_ids" => $FcmToken,
-
-            "notification" => [
-                "title" => $request->title,
-                "body" => $request->body, 
-                "click_action" =>  "http://127.0.0.1:8000/tickets" 
-
-            ]
-        ];
-        $encodedData = json_encode($data);
     
-        $headers = [
-            'Authorization:key=' . $serverKey,
-            'Content-Type: application/json',
-        ];
-
-      //  print_r($data); die();
-    
-        $ch = curl_init();
-      
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
-        // Disabling SSL Certificate support temporarly
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);        
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
-        // Execute post
-        $result = curl_exec($ch);
-        if ($result === FALSE) {
-           
-            die('Curl failed: ' . curl_error($ch));
-        }        
-        // Close connection
-       
-        $err = curl_error($ch);
-        
-        curl_close($ch);
-        // print_r($data);
-         print_r($result);
-        
-    }
 
     /**
      * Display the specified resource.

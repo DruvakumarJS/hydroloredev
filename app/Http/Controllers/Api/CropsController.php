@@ -511,16 +511,22 @@ class CropsController extends Controller
              'harvesting_date'=> $harvest_date,
              'pruning' => $value->pruning ,
              'is_pruning_done' => $is_pruning, 
+             'pruning_steps' => $crop_detail->pruning_steps,
              'staking' => $value->staking ,
              'is_staking_done' => $is_staking, 
-             'nutrition' => $value->nutrition_addition ,
-             'is_nutrition_added' => $is_nutrition, 
+             'staking_steps' => $crop_detail->staking_steps,
+             'nutrients' => $value->nutrition_addition ,
+             'is_nutrients_added' => $is_nutrition, 
+             'nutrients_addition_steps' => $crop_detail->nutrients_addition_steps,
              'spray1' => $value->spray1,
-             'is_spary1_done' => $is_spray1, 
+             'is_spary1_done' => $is_spray1,
+             'spray1_steps' => $crop_detail->spray1_steps, 
              'spray2' => $value->spray2,
              'is_spray2_done' => $is_spray2, 
+             'spray2_steps' => $crop_detail->spray2_steps,
              'spray3' => $value->spray3,
-             'is_spray3_done' => $is_spray3
+             'is_spray3_done' => $is_spray3,
+             'spray3_steps' => $crop_detail->spray3_steps
          ];
 
           return response()->json([

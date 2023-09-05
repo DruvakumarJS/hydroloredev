@@ -101,6 +101,13 @@
                  
                </div>
 
+                <div class="row" style="margin-top: 20px">
+                  <div class="col-md-8">
+                       
+                        <textarea class="form-control" name="desc" placeholder="Enter Crop description here ...." required ></textarea> 
+                  </div>
+               </div>
+
                <!-- <div class="row">
                   <div class="col-md-4">
                     <div class="mb-3">
@@ -259,13 +266,49 @@
                  
                  </div>
 
-               <div class="row" style="margin-top: 20px">
-                  <div class="col-md-8">
-                       
-                        <textarea class="form-control" name="desc" placeholder="Enter Crop description here ...." required ></textarea> 
+                  <div class="row" style="margin-top: 20px">
+                    <div class="col-md-8">
+                          <label>Pruning Steps *</label>
+                          <textarea class="form-control" name="steps_pruning" placeholder="Enter Steps to be followed while Pruning" required ></textarea> 
+                    </div>
                   </div>
-               </div>
 
+                  <div class="row" style="margin-top: 20px">
+                    <div class="col-md-8">
+                          <label>Staking Steps *</label>
+                          <textarea class="form-control" name="steps_staking" placeholder="Enter Steps to be followed while Staking" required ></textarea> 
+                    </div>
+                  </div>
+
+                  <div class="row" style="margin-top: 20px">
+                    <div class="col-md-8">
+                          <label>Nutrition Addition Steps *</label>
+                          <textarea class="form-control" name="steps_nutrients" placeholder="Enter Steps to be followed while adding Nutrients" required ></textarea> 
+                    </div>
+                  </div>
+
+                  <div class="row" style="margin-top: 20px">
+                    <div class="col-md-8">
+                          <label>Plant Protection Spray Steps</label>
+                          <textarea class="form-control" name="steps_spray1" placeholder="Enter Steps to be followed while Spray 1" required ></textarea> 
+                    </div>
+                  </div>
+
+                  <div class="row" style="margin-top: 20px">
+                    <div class="col-md-8">
+                          <label>Crop Fertigation -1 Steps</label>
+                          <textarea class="form-control" name="steps_spray2" placeholder="Enter Steps to be followed while Spray 2" required ></textarea> 
+                    </div>
+                  </div>
+
+                  <div class="row" style="margin-top: 20px">
+                    <div class="col-md-8">
+                          <label>Crop Fertigation -2 Steps</label>
+                          <textarea class="form-control" name="steps_spray3" placeholder="Enter Steps to be followed while Spray 3" required ></textarea> 
+                    </div>
+                  </div>
+
+                
                 <div class="modal-footer div-margin">
                     
                     <button type="submit" class="btn btn-success">Submit</button>
@@ -309,9 +352,9 @@
              <td width="250px">{{$value->season}}</td>
              <td width="150px">{{$value->duration}} days</td>
              <td>{{$value->description}}</td>
-            <!--  <td>
-               <a href="#" id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-primary">Edit</button></a>
-             </td> -->
+             <td>
+               <a href="{{route('crop_details',$value->id)}}"><button class="btn btn-sm btn-outline-primary">Details</button></a>
+             </td>
              <td>
                <a onclick="return confirm('Are you sure to delete?')" href="{{route('delete_crop',$value->id)}}"><button class="btn btn-sm btn-outline-danger">Delete</button></a>
              </td>

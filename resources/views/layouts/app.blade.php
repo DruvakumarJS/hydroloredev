@@ -131,6 +131,7 @@
            ||request()->routeIs('update_sensor_solution')
            ||request()->routeIs('reports')
            ||request()->routeIs('nutrition_master')
+           ||request()->routeIs('crop_details')
            ? 'active' : '' }}"
 
            >

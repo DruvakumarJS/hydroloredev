@@ -17,7 +17,13 @@ class Crop extends Model
        'description',
        'image',
        'pruning',
-       'staking'];
+       'staking',
+       'pruning_steps',
+       'staking_steps',
+       'nutrients_addition_steps',
+       'spray1_steps',
+       'spray2_steps',
+       'spray3_steps' ];
 
     public function cultivation(){
         return $this->hasMany(Cultivation::class , 'id', 'crop_id');

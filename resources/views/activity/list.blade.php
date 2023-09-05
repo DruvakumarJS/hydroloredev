@@ -93,7 +93,7 @@
                      <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Nutritions used*</label>
                       <div class="col-7">
-                          <textarea class="form-control" placeholder="Mention Nutrition name with quantity provided" 
+                          <textarea class="form-control" placeholder="Mention Nutrition name with quantity used" 
                           name="nutritions" required></textarea>
                       </div>
                     </div>
@@ -101,7 +101,7 @@
                      <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Pesticides used*</label>
                       <div class="col-7">
-                          <textarea class="form-control" placeholder="Mention Pesticides name with quantity provided" name="pesticides" required></textarea>
+                          <textarea class="form-control" placeholder="Mention Pesticides name with quantity used" name="pesticides" required></textarea>
                       </div>
                     </div>
 
