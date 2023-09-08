@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\NutritionMaster;
-
+use App\Models\Indent;
+use App\Models\StockMaster;
 use Illuminate\Http\Request;
 
-class NutritionMasterController extends Controller
+class IndentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,9 @@ class NutritionMasterController extends Controller
      */
     public function index()
     {
-        $data = NutritionMaster::all();
-        return view('nutrients/list',compact('data'));
+       $category = StockMaster::select('category')->orderByRaw('FIELD(category, "Spray" ,"Nutrition" ,"Seeds","others")')->groupBy('category')->get();
+
+        return view('indent/list',compact('category'));
     }
 
     /**
@@ -37,24 +38,16 @@ class NutritionMasterController extends Controller
      */
     public function store(Request $request)
     {
-        $save = NutritionMaster::create([
-            'user_id' => $request->user_id,
-            'nutrients' => $request->nutrient ,
-            'quantity' => $request->qty ,
-            'issue_date' => $request->date]);
-
-        if($save){
-            return redirect()->back();
-        }
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\NutritionMaster  $nutritionMaster
+     * @param  \App\Models\Indent  $indent
      * @return \Illuminate\Http\Response
      */
-    public function show(NutritionMaster $nutritionMaster)
+    public function show(Indent $indent)
     {
         //
     }
@@ -62,10 +55,10 @@ class NutritionMasterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\NutritionMaster  $nutritionMaster
+     * @param  \App\Models\Indent  $indent
      * @return \Illuminate\Http\Response
      */
-    public function edit(NutritionMaster $nutritionMaster)
+    public function edit(Indent $indent)
     {
         //
     }
@@ -74,10 +67,10 @@ class NutritionMasterController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\NutritionMaster  $nutritionMaster
+     * @param  \App\Models\Indent  $indent
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, NutritionMaster $nutritionMaster)
+    public function update(Request $request, Indent $indent)
     {
         //
     }
@@ -85,10 +78,10 @@ class NutritionMasterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\NutritionMaster  $nutritionMaster
+     * @param  \App\Models\Indent  $indent
      * @return \Illuminate\Http\Response
      */
-    public function destroy(NutritionMaster $nutritionMaster)
+    public function destroy(Indent $indent)
     {
         //
     }

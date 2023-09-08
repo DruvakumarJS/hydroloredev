@@ -130,8 +130,9 @@
            ||request()->routeIs('sensor_master')
            ||request()->routeIs('update_sensor_solution')
            ||request()->routeIs('reports')
-           ||request()->routeIs('nutrition_master')
+           ||request()->routeIs('stocks')
            ||request()->routeIs('crop_details')
+           ||request()->routeIs('stock_history')
            ? 'active' : '' }}"
 
            >

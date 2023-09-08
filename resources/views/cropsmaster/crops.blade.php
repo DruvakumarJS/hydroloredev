@@ -75,7 +75,7 @@
                   <div class="col-md-4">
                   <div class="mb-3">
                     <label for="message-text" class="col-form-label">Crop Duration *</label>
-                     <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter Crop Duration "required>
+                     <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter Crop Duration in days" onkeypress="return isNumberKey(event)" required>
                   </div>
 
                   </div>
@@ -100,6 +100,25 @@
                   </div>
                  
                </div>
+
+              <!--  <div class="row">
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                     <label for="message-text" class="col-form-label">Crop Banner image *</label>
+                     <input class="form-control" type="file" name="crops_banner_img" accept="image/*" onchange="previewcropbannerimage(event);" required>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="mb-3">
+
+                     <img src="" id="crop_banner_img" style="width: 400px;height: 300px;">
+                      
+                    </div>
+
+                  </div>
+                 
+               </div> -->
 
                 <div class="row" style="margin-top: 20px">
                   <div class="col-md-8">
@@ -132,7 +151,7 @@
                <div class="row">
                   <div class="col-md-4">
                         <label>Seedling</label>
-                        <input class="form-control" type="text" name="seedings" placeholder="approx. days range" required>
+                        <input class="form-control" type="text" name="seedings" placeholder="approx. days range" onkeypress="return isNumberKey(event)" required>
                   </div>
 
                   <div class="col-md-4">
@@ -149,7 +168,7 @@
                <div class="row">
                   <div class="col-md-4">
                         <label>Young Plants</label>
-                        <input class="form-control" type="text" name="young_plant" placeholder="approx. days range" required>
+                        <input class="form-control" type="text" name="young_plant" placeholder="approx. days range" onkeypress="return isNumberKey(event)"required>
                   </div>
 
                   <div class="col-md-4">
@@ -166,7 +185,7 @@
                  <div class="row" >
                   <div class="col-md-4">
                         <label>Matured</label>
-                        <input class="form-control" type="text"  id="mature" name="matured" placeholder="approx. days range" >
+                        <input class="form-control" type="text"  id="mature" name="matured" placeholder="approx. days range" onkeypress="return isNumberKey(event)">
                   </div>
 
                   <div class="col-md-4">
@@ -186,7 +205,7 @@
                <div class="row" id="vegetative" >
                   <div class="col-md-4">
                         <label>Vegetative Phase</label>
-                        <input class="form-control" type="text" name="vegetative" id="veget" placeholder="approx. days range" >
+                        <input class="form-control" type="text" name="vegetative" id="veget" placeholder="approx. days range" onkeypress="return isNumberKey(event)" >
                   </div>
 
                   <div class="col-md-4">
@@ -202,7 +221,7 @@
                <div class="row" id="flowering" >
                   <div class="col-md-4">
                         <label>Flowering Stage</label>
-                        <input class="form-control" type="text"  id="flower" name="flowering" placeholder="approx. days range" >
+                        <input class="form-control" type="text"  id="flower" name="flowering" placeholder="approx. days range"  onkeypress="return isNumberKey(event)">
                   </div>
 
                   <div class="col-md-4">
@@ -218,7 +237,7 @@
                <div class="row" id="fruit">
                   <div class="col-md-4">          
                         <label>Fruiting Stage</label>
-                        <input class="form-control" type="text" id="fru" name="fruit" placeholder="approx. days range" >     
+                        <input class="form-control" type="text" id="fru" name="fruit" placeholder="approx. days range" onkeypress="return isNumberKey(event)">     
                   </div>
 
                   <div class="col-md-4">
@@ -237,7 +256,7 @@
                <div class="row">
                   <div class="col-md-4">
                         <label>Harvesting</label>
-                        <input class="form-control" type="text" name="harvesting" placeholder="approx. days range" required>   
+                        <input class="form-control" type="text" name="harvesting" placeholder="approx. days range" onkeypress="return isNumberKey(event)" required>   
                   </div>
 
                   <div class="col-md-4">
@@ -623,6 +642,19 @@
      }
   }
 
+  function previewcropbannerimage(event){
+   
+    var input = event.target;
+     var image = document.getElementById('crop_banner_img');
+     if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+           image.src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+     }
+  }
+
   function previewcropicon(event){
    
     var input = event.target;
@@ -756,6 +788,15 @@
 
    
 }
+
+function isNumberKey(evt)
+  {
+     var charCode = (evt.which) ? evt.which : event.keyCode
+     if (charCode != 45  && charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+
+     return true;
+  }
 
 </script>
 

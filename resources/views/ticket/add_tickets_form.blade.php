@@ -31,7 +31,7 @@ else {
           <div>
 <!--  value="{{!isset($email)? old('email') : $email}}" -->
         	<label  class="radio_btn_padding">User's Email ID :</label>
-        	<input  type="text" name="email" id="email" placeholder="Enter Email ID " required="required" value="{{$email!=''? $email :old('email') }}">
+        	<input  type="text" name="email" id="email" placeholder="Enter Email ID " required="required" >
   	         @error('email')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror

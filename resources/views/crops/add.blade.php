@@ -2,6 +2,22 @@
 
 @section('content')
 
+<style type="text/css">
+  .card {
+   
+    border-radius: 20px;
+    background-color: #FFFFFF;
+
+    &:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+        .glyphicon {
+            color: #48B0F7;
+            background-color: #d4d7da;
+        }
+    }
+}
+</style>
+
 <div class="container-body">
     <div class="container-header">
       
@@ -15,7 +31,7 @@
     </div>
 
   <div class="page-container" style="margin-top: 20px">
-      <div class="card">
+      <div class="card" style="box-shadow: none">
          <h2 class="label-bold">Add Crops</h2>
        
         <div class="form-build">

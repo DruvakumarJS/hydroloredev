@@ -1,6 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+  .card {
+   
+    border-radius: 20px;
+    background-color: #FFFFFF;
+
+    &:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+        .glyphicon {
+            color: #48B0F7;
+            background-color: #d4d7da;
+        }
+    }
+}
+</style>
 
     <div class="container-body">
         <div class="row justify-content-center">
@@ -22,10 +37,9 @@
                 </form> -->
             </div>
 
-
             <div class="row">
-                <div class="col-sm-6 col-md-4 ">
-                    <div class="card  card-1 border-white">
+                <div class="col-sm-6 col-md-4">
+                    <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/hub1.png') }}" alt="hub" style="width:20px;height: 20px;">
                             <h2 class="card-text card-text-color" style="float:right;">{{$hub_count}}</h2>
@@ -38,7 +52,7 @@
                     </div>
                     <!--</div>-->
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-6 col-md-4" >
                     <div class="card border-white">
 
                         <div class="card-body">
@@ -97,7 +111,7 @@
             <label>Current Month </label> 
                
                     <div class="col-md-6">
-                        <div class="card">
+                        <div class="card" style="box-shadow: none">
                             <canvas id="users_chart"></canvas>
                         </div>
                     </div>
@@ -105,7 +119,7 @@
                 
                 
                     <div class="col-md-6">
-                        <div class="card">
+                        <div class="card"  style="box-shadow: none">
                             <canvas id="tickets_chart" ></canvas>
                         </div>
                     </div>
@@ -122,7 +136,7 @@
                         <label class="header-lab p-10">Tickets</label>
                         <label style="float: right;margin-top: 10px;margin-right: 10px;"></label>
                         <div>
-                            <div class="card table-responsive">
+                            <div class="card table-responsive" style="box-shadow: none">
                                 <table class="table table-hover">
                                     <tr>
                                         <th>Date</th>

@@ -65,7 +65,7 @@
                   <div class="col-md-4">
                   <div class="mb-3">
                     <label for="message-text" class="col-form-label">Crop Duration *</label>
-                     <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter Crop Duration " value="{{$data->duration}}" required >
+                     <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter Crop Duration " value="{{$data->duration}}" onkeypress="return isNumberKey(event)" required >
                   </div>
 
                   </div>
@@ -122,7 +122,7 @@
                <div class="row">
                   <div class="col-md-4">
                         <label>Seedling</label>
-                        <input class="form-control" type="text" name="seedings" placeholder="approx. days range" value="{{$growth->seedling}}" required>
+                        <input class="form-control" type="text" name="seedings" placeholder="approx. days range" value="{{$growth->seedling}}" onkeypress="return isNumberKey(event)" required>
                   </div>
 
                   <div class="col-md-4">
@@ -139,7 +139,7 @@
                <div class="row">
                   <div class="col-md-4">
                         <label>Young Plants</label>
-                        <input class="form-control" type="text" name="young_plant" placeholder="approx. days range" value="{{$growth->young_plants}}" required>
+                        <input class="form-control" type="text" name="young_plant" placeholder="approx. days range" value="{{$growth->young_plants}}" onkeypress="return isNumberKey(event)" required>
                   </div>
 
                   <div class="col-md-4">
@@ -156,7 +156,7 @@
                  <div class="row" >
                   <div class="col-md-4">
                         <label>Matured</label>
-                        <input class="form-control" type="text"  id="mature" name="matured" placeholder="approx. days range" value="{{$growth->matured}}" >
+                        <input class="form-control" type="text"  id="mature" name="matured" placeholder="approx. days range" value="{{$growth->matured}}" onkeypress="return isNumberKey(event)">
                   </div>
 
                   <div class="col-md-4">
@@ -176,7 +176,7 @@
                <div class="row" id="vegetative" >
                   <div class="col-md-4">
                         <label>Vegetative Phase</label>
-                        <input class="form-control" type="text" name="vegetative" id="veget" placeholder="approx. days range" value="{{$growth->vegetative_phase}}">
+                        <input class="form-control" type="text" name="vegetative" id="veget" placeholder="approx. days range" value="{{$growth->vegetative_phase}}" onkeypress="return isNumberKey(event)">
                   </div>
 
                   <div class="col-md-4">
@@ -192,7 +192,7 @@
                <div class="row" id="flowering" >
                   <div class="col-md-4">
                         <label>Flowering Stage</label>
-                        <input class="form-control" type="text"  id="flower" name="flowering" placeholder="approx. days range" value="{{$growth->flowering_stage}}">
+                        <input class="form-control" type="text"  id="flower" name="flowering" placeholder="approx. days range" value="{{$growth->flowering_stage}}" onkeypress="return isNumberKey(event)">
                   </div>
 
                   <div class="col-md-4">
@@ -208,7 +208,7 @@
                <div class="row" id="fruit">
                   <div class="col-md-4">          
                         <label>Fruiting Stage</label>
-                        <input class="form-control" type="text" id="fru" name="fruit" placeholder="approx. days range" value="{{$growth->fruiting_stage}}">     
+                        <input class="form-control" type="text" id="fru" name="fruit" placeholder="approx. days range" value="{{$growth->fruiting_stage}}" onkeypress="return isNumberKey(event)">     
                   </div>
 
                   <div class="col-md-4">
@@ -227,7 +227,7 @@
                <div class="row">
                   <div class="col-md-4">
                         <label>Harvesting</label>
-                        <input class="form-control" type="text" name="harvesting" placeholder="approx. days range" value="{{$growth->harvesting}}" required>   
+                        <input class="form-control" type="text" name="harvesting" placeholder="approx. days range" value="{{$growth->harvesting}}" onkeypress="return isNumberKey(event)" required>   
                   </div>
 
                   <div class="col-md-4">
@@ -575,6 +575,15 @@
 
    
 }
+
+function isNumberKey(evt)
+  {
+     var charCode = (evt.which) ? evt.which : event.keyCode
+     if (charCode != 45  && charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+
+     return true;
+  }
 
 </script>
 

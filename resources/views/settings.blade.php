@@ -11,37 +11,49 @@
 
             <div class="row settings-container ">
                 <div class="col">
-                    <div class="card card-section text-center">
-                        <a href="admins">
-                                <img src="{{ asset('images/person.png') }}" alt="questions" width="50"/>
-                                <h3>Admins</h3>
-                        </a> 
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card card-section text-center">
-                        <a href="questions">
-                                <img src="{{ asset('images/questions.png') }}" alt="questions" width="50"/>
-                                <h3>Questions</h3>
-                        </a> 
-                    </div>
-                </div>
-                <div class="col">
-                        <div class="card card-section text-center">
-                            <a href="locations">
-                                <img src="{{ asset('images/location.png') }}" alt="questions" width="50"/>
-                                <h3>Locations </h3>
-                            </a> 
+                    
+                    <a class="card1" href="{{route('admins')}}">
+                        <h3>Admins Master</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
                         </div>
+                    </a>
+                </div>
+                <div class="col">
+                   
+                    <a class="card1" href="{{route('questions')}}">
+                        <h3>Questions Master</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col">
+                        
+                        <a class="card1" href="{{route('locations')}}">
+                        <h3>Location Master</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
 
                 </div>
                 <div class="col">
-                    <div class="card card-section text-center ">
-                        <a href="resetpassword">
-                            <img src="{{ asset('images/person.png') }}" alt="questions" width="50"/>
-                            <h3>Reset Password </h3> 
-                        </a> 
-                    </div>
+                    
+                    <a class="card1" href="{{route('resetpassword')}}">
+                        <h3>Reset Password </h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
 
                </div>
                  
@@ -51,47 +63,84 @@
 
             <div class="row settings-container ">
                 <div class="col-md-3">
-                    <div class="card card-section text-center">
-                        <a href="{{route('Category_master')}}"> 
-                                <h3>Category Master</h3>
-                        </a> 
-                    </div>
+                    
+                    <a class="card1" href="{{route('Category_master')}}">
+                        <h3>Category Master</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
                 </div>
                 <div class="col-md-3">
-                    <div class="card card-section text-center">
-                        <a href="{{route('Crop_master')}}">
-                                <h3>Crop Master</h3>
-                        </a> 
-                    </div>
+                   
+                    <a class="card1" href="{{route('Crop_master')}}">
+                        <h3>Crop Master</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="col-md-3">
-                    <div class="card card-section text-center">
-                        <a href="{{route('sensor_master')}}">
-                                <h3>Sensor Notification</h3>
-                        </a> 
-                    </div>
+                   
+                    <a class="card1" href="{{route('sensor_master')}}">
+                        <h3>Sensor Notification</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="col-md-3">
-                    <div class="card card-section text-center">
-                        <a href="{{route('reports')}}">
-                                <h3>Report</h3>
-                        </a> 
-                    </div>
+                    
+                    <a class="card1" href="{{route('reports')}}">
+                        <h3>Reports</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
                 </div>
                 
             </div>
 
-            <div class="row">
+            <div class="row settings-container" >
                 <div class="col-md-3">
-                    <div class="card card-section text-center">
-                        <a href="{{route('nutrition_master')}}"> <h3>Nutrients Master</h3> </a>
-                    </div>
+                   
+                    <a class="card1" href="{{route('stocks')}}">
+                        <h3>Stocks Management</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
+                    
+                </div>
+
+                <div class="col-md-3">
+                   
+                    <a class="card1" href="{{route('indents')}}">
+                        <h3>Indent Management</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
                     
                 </div>
                 
             </div>
+
+ 
 
            
               

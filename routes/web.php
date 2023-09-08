@@ -23,6 +23,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\SensorNotificationController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\NutritionMasterController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\IndentController;
 
 
 /*
@@ -92,6 +94,7 @@ Route::middleware('auth:web')->group(function () {
             Route::post('updateuser/{id}',[UsersController::class,'update'])->name('updateuser');
             Route::get('user_details/{id}',[UsersController::class,'view'])->name('view_user_details');
             Route::get('autocomplete_user',[UsersController::class,'autocomplete_user'])->name('autocomplete_user');
+            Route::get('getuser',[UsersController::class,'getuser'])->name('getuser');
           //Route::get('search', [UsersController::class,'search']);
 
 
@@ -187,16 +190,26 @@ Route::middleware('auth:web')->group(function () {
             Route::post('search-crop',[CropController::class,'search'])->name('search_crop');
             Route::put('update-crop/{id}',[CropController::class,'update'])->name('update_crop');
             Route::get('delete-crop/{id}',[CropController::class,'destroy'])->name('delete_crop');
-             Route::get('crop-details/{id}',[CropController::class,'show'])->name('crop_details');
+            Route::get('crop-details/{id}',[CropController::class,'show'])->name('crop_details');
 
             Route::get('sensor-notification_master',[SensorNotificationController::class,'index'])->name('sensor_master');
             Route::post('save_sensor_solution',[SensorNotificationController::class,'store'])->name('save_sensor_solution');
             Route::get('delete-solution/{id}',[SensorNotificationController::class,'destroy'])->name('delete_solution');
             Route::put('update-solution/{id}',[SensorNotificationController::class,'update'])->name('update_sensor_solution');
 
-            Route::get('nutrition-master',[NutritionMasterController::class,'index'])->name('nutrition_master');
-            Route::post('save-nutritions-data',[NutritionMasterController::class,'store'])->name('save_nutritions_data');
+            Route::get('stocks',[StockController::class,'index'])->name('stocks');
+            Route::post('save-stock',[StockController::class,'store'])->name('save_stock');
+            Route::put('update-stock/{id}',[StockController::class,'update'])->name('update_stock');
+            Route::put('update-stock-quantity/{id}',[StockController::class,'update_quantity'])->name('update_stock_quantity');
+            Route::get('stock-details',[StockController::class,'history'])->name('stock_history');
+            Route::get('getstocks',[StockController::class,'get_products'])->name('getstocks');
 
+            Route::get('indents',[IndentController::class,'index'])->name('indents');
+    
+    
+           // Route::post('save-nutritions-data',[NutritionMasterController::class,'store'])->name('save_nutritions_data');
+
+            
  
         }); 
         Route::middleware(['auth','isCustomer'])->group(function () {

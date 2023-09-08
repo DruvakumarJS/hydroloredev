@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Hash;
 use App\Models\NutritionMaster;
+use App\Models\StockMaster;
+use App\Models\Stock;
 use DB;
 
 
@@ -76,7 +78,7 @@ class UsersController extends Controller
         $value=Userdetail::where('id',$id)->first();
         $podMaster=PodMaster::all();
         $nutrition =NutritionMaster::where('user_id' , $id)->get(); 
-
+        
         $locations=Locations::all();
         
         return view('user/user_details',compact('pods_list' , 'value' ,'podMaster', 'locations' , 'id' , 'nutrition'));
@@ -343,6 +345,23 @@ class UsersController extends Controller
 
         return response()->json($data);
 
+
+    }
+
+    public function getuser(Request $request){
+        $data = DB::table('userdetails')
+            ->select(
+                    DB::raw("CONCAT(firstname) AS value"),
+                    'user_id',
+                    'id'
+                )
+                    ->where('firstname', 'LIKE',$request->get('search').'%')
+                    ->orWhere('lastname', 'LIKE',$request->get('search').'%')
+                    ->orWhere('mobile', 'LIKE',$request->get('search').'%')
+                    ->orWhere('email', 'LIKE',$request->get('search').'%')
+                    ->get(); 
+
+        return response()->json($data);
 
     }
 }
