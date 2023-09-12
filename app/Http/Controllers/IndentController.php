@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Indent;
+use App\Models\Userdetail;
 use App\Models\StockMaster;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,9 @@ class IndentController extends Controller
     {
        $category = StockMaster::select('category')->orderByRaw('FIELD(category, "Spray" ,"Nutrition" ,"Seeds","others")')->groupBy('category')->get();
 
-        return view('indent/list',compact('category'));
+       $data = Indent::all();
+
+        return view('indent/list',compact('category' , 'data'));
     }
 
     /**
@@ -38,7 +41,91 @@ class IndentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      //  print_r($request->Input()); die();
+        if(Userdetail::where('id', $request->user_id)->exists() || Userdetail::where('mobile', $request->mobile)->exists()){
+    
+            if(isset($request->indent)){
+                
+                if(isset($request->user_id)){
+                    $user_id = $request->user_id;
+                }
+                else {
+                    $user = Userdetail::where('mobile', $request->mobile)->first();
+                    $user_id = $user->id;
+                }
+              
+                 $message = array();
+                foreach ($request->indent as $key => $value) {
+
+                    if($value['measurement'] == 'kg'){
+                        $weight = $value['qty']*1000;
+                        $measurement = 'grams';
+                    }
+                    else if($value['measurement'] == 'grams') {
+                        $weight = $value['qty'];
+                        $measurement = 'grams';
+                    }
+
+                    if($value['measurement'] == 'liter'){
+                        $weight = $value['qty']*1000;
+                        $measurement = 'ml';
+                    }
+                    else if($value['measurement'] == 'ml') {
+                        $weight = $value['qty'];
+                        $measurement = 'ml';
+                    }
+
+                    if($value['measurement'] == 'numbers'){
+                        $weight = $value['qty'];
+                        $measurement = 'numbers';
+                    }
+                    $stock = StockMaster::where('id' , $value['stock_id'])->first();
+                    $available_weight = $stock->available_weight;
+
+                    if(intval($available_weight) >= intval($weight)){
+                        $save = Indent::create([
+                        'user_id' => $user_id ,
+                        'stock_id'=> $value['stock_id'] ,
+                        'quantity'=> $weight ,
+                        'measurement'=> $measurement ,
+                        'issue_date'=> $request->date]);
+
+                    if($save){
+                        $stock = StockMaster::where('id' , $value['stock_id'])->first();
+                        $available_weight = $stock->available_weight;
+
+                        $new_weight = intval($available_weight)-intval($weight);
+                       // print_r($new_weight); die();
+                        $update = StockMaster::where('id' , $value['stock_id'])->update(['available_weight' => $new_weight]);
+                    }
+                    }
+                    else {
+                        $message[]=$stock->product.' : requested quantity is not available in the stock';
+                    }
+
+                    
+                }
+                 
+                 if(sizeof($message) == 0){
+                     return redirect()->back();
+                 }
+                 else{
+                     return redirect()->back()->with('msg',$message);
+                 }
+
+                
+
+            }
+            else {
+               
+                return redirect()->back()->withMessage('Indents cannot be empty')->withInput();
+            }
+
+        }
+        else {
+            return redirect()->back()->withMessage('Please Check the Mobile Number')->withInput();
+        }
+      //  print_r(json_encode($request->Input())); die();
     }
 
     /**

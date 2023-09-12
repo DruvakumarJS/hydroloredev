@@ -21,7 +21,7 @@ class CreateIndentsTable extends Migration
             $table->string('quantity');
             $table->string('measurement');
             $table->string('issue_date');
-            $table->string('comments');
+            $table->string('comments')->nullable();
             $table->timestamps();
         });
     }

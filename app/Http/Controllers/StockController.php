@@ -302,4 +302,13 @@ class StockController extends Controller
          return response()->json($data);
 
     }
+
+    public function check_stocks(Request $request){
+        
+        $stock = StockMaster::where('id',$request->search)->first();
+
+        $available = $stock->available_weight.$stock->measurement;
+        $data = ['in_stocks' => $stock->available_weight , 'uom'=>$stock->measurement];
+        return response()->json($data);
+    }
 }

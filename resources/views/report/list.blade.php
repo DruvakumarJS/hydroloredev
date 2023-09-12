@@ -6,7 +6,7 @@
     <div class="container-header">
       
       <div >
-        <label class="label-bold">Reports </label> 
+        <label class="label-bold">Crop Yield Reports </label> 
       </div>
       <label class="date">{{date('d M ,Y')}} </label>
 
@@ -18,7 +18,7 @@
     </div>
 
   <div class="page-container" style="margin-top: 20px">
-    
+     <div class="card">
       <table class="table">
         <tbody>
           <tr>
@@ -43,15 +43,15 @@
                 <td>{{$value['mobile']}}</td>
                 <td>{{$value['category']}}</td>
                 <td>{{$value['crop_name']}}</td>
-                <td>{{$value['duration']}} days</td>
+                <td width="100px">{{$value['duration']}} days</td>
                 <td>{{$value['channel']}}/3 of a Channel</td>
                 <td>{{$value['seeds_quantity']}}</td>
-                <td>{{date("d M Y", strtotime($value['planted_date']))}}</td>
+                <td width="150px">{{date("d M Y", strtotime($value['planted_date']))}}</td>
                 <td>{{$value['expected_quantitiy']}}kg</td>
                 <td>{{$value['actual_quantity']}}kg</td>
                 <td>{{$value['status']}}</td>
                 <td>
-                  <a href="#" id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-success">View More</button></a>
+                  <a href="#" id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-success">ViewMore</button></a>
                 </td>
               </tr>
 
@@ -118,7 +118,7 @@
           @endforeach
         </tbody>
       </table>
-      
+      </div> 
     </div>
     
   </div>

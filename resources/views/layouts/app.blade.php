@@ -133,6 +133,7 @@
            ||request()->routeIs('stocks')
            ||request()->routeIs('crop_details')
            ||request()->routeIs('stock_history')
+           ||request()->routeIs('indents')
            ? 'active' : '' }}"
 
            >
@@ -350,5 +351,3 @@ $(document).ready(function(){
         new Notification(noteTitle, noteOptions);
     });
     </script> 
-
-

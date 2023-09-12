@@ -349,18 +349,16 @@ class UsersController extends Controller
     }
 
     public function getuser(Request $request){
+      $data = '';
+       if(Userdetail::where('mobile',$request->get('search'))->exists()){
         $data = DB::table('userdetails')
             ->select(
-                    DB::raw("CONCAT(firstname) AS value"),
-                    'user_id',
-                    'id'
+                    '*'
                 )
-                    ->where('firstname', 'LIKE',$request->get('search').'%')
-                    ->orWhere('lastname', 'LIKE',$request->get('search').'%')
-                    ->orWhere('mobile', 'LIKE',$request->get('search').'%')
-                    ->orWhere('email', 'LIKE',$request->get('search').'%')
-                    ->get(); 
-
+                    ->where('mobile',$request->get('search'))
+                    ->first(); 
+       }
+        
         return response()->json($data);
 
     }

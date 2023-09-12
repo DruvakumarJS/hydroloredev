@@ -28,5 +28,6 @@ class StockMaster extends Model
     public function indent(){
         return $this->hasMany(Indent::class , 'id','stock_id');
 
-    }    
+    } 
+       
 }

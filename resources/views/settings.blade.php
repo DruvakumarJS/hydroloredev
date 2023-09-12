@@ -100,7 +100,7 @@
                 <div class="col-md-3">
                     
                     <a class="card1" href="{{route('reports')}}">
-                        <h3>Reports</h3>
+                        <h3>Crop Yield Reports</h3>
                         <div class="go-corner" href="">
                           <div class="go-arrow">
                             →

@@ -203,8 +203,10 @@ Route::middleware('auth:web')->group(function () {
             Route::put('update-stock-quantity/{id}',[StockController::class,'update_quantity'])->name('update_stock_quantity');
             Route::get('stock-details',[StockController::class,'history'])->name('stock_history');
             Route::get('getstocks',[StockController::class,'get_products'])->name('getstocks');
+            Route::get('check-stocks',[StockController::class,'check_stocks'])->name('check_stocks');
 
             Route::get('indents',[IndentController::class,'index'])->name('indents');
+            Route::post('save-indents',[IndentController::class,'store'])->name('save_indent');
     
     
            // Route::post('save-nutritions-data',[NutritionMasterController::class,'store'])->name('save_nutritions_data');
