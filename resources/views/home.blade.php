@@ -89,22 +89,26 @@
 
 
 
-          <!--   <div class="row">
-                <div class="col-md-6">
-                  <div  class="card card-shadow">
-                    <label>Sensor's Temperature Graph</label>
-                    <canvas id="sensor_chart"></canvas>
+            <div class="row no-gutters">
+               
+                <div class="col-md-5">
+                  <div  class="card" style="box-shadow: none;">
+                    <label class="label-bold">Comparison of Crops Cultivated</label>
+                     <div id="piechart_3d"></div>
                   </div>     
                 </div>
 
-                <div class="col-md-6">
-                   <div class="card">
-                    <label>Sensor's Mean Temperature Graph</label>
-                    <canvas id="sensor_chart2"></canvas>
-                  </div>    
-                </div>  
+                 <div class="col-md-7">
+                  <div  class="card" style="box-shadow: none;">
+                    <label class="label-bold">Crop Yield information - {{ date('Y')}}</label>
+                     <div id="yield"></div>
+                  </div>     
+                </div>
+
+                
             </div>
- -->
+
+
             
             <div class="row">
 
@@ -349,7 +353,8 @@
                             fontColor: '#000', }
                         }],
                   xAxes: [{
-                    ticks: {min: 0, max:31} ,
+                    ticks: {min: 0, max:31 , skip:false} ,
+
                     scaleLabel: {
                             display: true,
                             labelString: '----- Date ----- ',
@@ -381,6 +386,14 @@
                   borderColor: "#1D267D",
                   data: yValues
                 },
+                {
+                  label: 'Tickets Closed',  
+                  fill: false,
+                  lineTension: 0,
+                  backgroundColor: "#FF0000",
+                  borderColor: "#FF0000",
+                  data: tickets_closed_yValue
+                },
                
                 ]
               },
@@ -408,168 +421,53 @@
         
 
         <!-- Tickets -->
-<script>
 
-   
-   var temparature = [];
-   Chart.defaults.global.defaultFontStyle = 'bold';
-
-   
-    new Chart("sensor_chart", {
-      type: "line",
-      title:{
-        text:"Chart Title",
-       },
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        var crop = <?php echo json_encode($chart) ?>;
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
       
-      data: {
-       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
-         labels: <?php echo $sensorsArray['pods'] ;  ?>,
+        var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Pizza');
+      data.addColumn('number', 'Populartiy');
+      data.addRows(crop);
 
+        var options = {
+          'legend':'bottom',
+          'title':'',
+          'is3D':true,
+          'height':300
+        };
 
-        datasets: [
-        {
-          label: 'Ambian Temparature',  
-          fill: false,
-         
-          backgroundColor: "<?php echo 'red' ;  ?>",
-          borderColor: "<?php echo 'red' ;  ?>",
-          data: <?php echo $sensorsArray['ambian'] ;  ?>,
-
-        },
-        {
-          label: 'TDS value',  
-          fill: false,
-         
-          backgroundColor: "<?php echo '#FF90BB';  ?>",
-          borderColor: "<?php echo '#FF90BB';  ?>",
-          data: <?php echo $sensorsArray['tds'] ;  ?>,
-        },
-       {
-          label: 'PH value',  
-          fill: false,
-          
-          backgroundColor: "<?php echo '#FFE4A7';  ?>",
-          borderColor: "<?php echo '#FFE4A7';  ?>",
-          data: <?php echo $sensorsArray['ph'] ;  ?>,
-        },
-       
-        ]
-      },
-      options: {
-         tooltips: {
-                  mode: 'index'
-                },
-        legend: {display: true},
-        scales: {
-          pointLabels :{
-           fontStyle: "bold",
-            },
-          yAxes: [{
-            gridLines: {
-             drawOnChartArea: false },
-
-            ticks: {min: 0} ,
-            scaleLabel: {
-                    display: true,
-                    labelString: 'Sensors Value',
-                    fontColor: '#000',   }
-                }],
-          xAxes: [{
-            barPercentage: 1,
-             gridLines: {
-             drawOnChartArea: false },
-            ticks: {min: 0, max:31 ,autoSkip: false} ,
-            scaleLabel: {
-                    display: true,
-                    labelString: 'PODs',
-                    fontColor: '#000', }
-                }],
-        }
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
       }
-    });
-</script>
+    </script>
 
-<script>
-
-   
-   var temparature = [];
-   Chart.defaults.global.defaultFontStyle = 'bold';
-
-   
-    new Chart("sensor_chart2", {
-      type: "line",
-      title:{
-        text:"Chart Title",
-       },
+     <script type="text/javascript">
+        var yields = <?php echo json_encode($yield) ?>;
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
       
-      data: {
-       // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
-         labels: <?php echo $mean_values['mean_pods'] ;  ?>,
+        var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Pizza');
+      data.addColumn('number', 'Yield in kgs');
+      data.addRows(yields);
 
+        var options = {
+          'legend':'bottom',
+          'title':'',
+          'is3D':true,
+          'height':300
+        };
 
-        datasets: [
-        {
-          label: 'Mean Temperature of Day time',  
-          fill: false,
-         
-          backgroundColor: "<?php echo 'red' ;  ?>",
-          borderColor: "<?php echo '#ACBCFF' ;  ?>",
-          data: <?php echo $mean_values['mean_day'] ;  ?>,
-
-        },
-        {
-          label: 'Mean Temperature of Night time',  
-          fill: false,
-         
-          backgroundColor: "<?php echo '#000000';  ?>",
-          borderColor: "<?php echo '#000000';  ?>",
-          data: <?php echo $mean_values['mean_night'] ;  ?>,
-        },
-      
-        ]
-      },
-      options: {
-         tooltips: {
-                  mode: 'index'
-                },
-        legend: {display: true},
-        scales: {
-          pointLabels :{
-           fontStyle: "bold",
-            },
-          yAxes: [{
-            gridLines: {
-             drawOnChartArea: false },
-
-            ticks: {min: 0} ,
-            scaleLabel: {
-                    display: true,
-                    labelString: 'Mean Value',
-                    fontColor: '#000',   }
-                }],
-          xAxes: [{
-            barPercentage: 1,
-             gridLines: {
-             drawOnChartArea: false },
-            
-            scaleLabel: {
-                    display: true,
-                    labelString: 'PODs',
-                    fontColor: '#000', }
-                }],
-        }
+        var chart = new google.visualization.AreaChart(document.getElementById('yield'));
+        chart.draw(data, options);
       }
-    });
-</script>
-
-        
-       
-        <script type="text/javascript">
-            setTimeout(function () {
-                $("#mydiv").fadeOut().empty();
-            }, 3000);
-        </script>
-
+    </script>
    
 
 @endsection

@@ -11,7 +11,9 @@ use App\Models\Alert;
 use App\Models\Userdetail;
 use App\Models\Threshold;
 use App\Models\MasterSyncData;
-
+use App\Models\Crop;
+use App\Models\Cultivation;
+use App\Models\Report;
 
 class HomeController extends Controller
 {
@@ -126,70 +128,47 @@ class HomeController extends Controller
 
         //end   
 
-        //sensors data 
-            $sensorsArray = array();
-            $pods_array = array();
-            $ab_array = array();
-            $tds_array = array();
-            $ph_array = array();
+        //pie chart
+        $cultivation = Cultivation::select('crop_id')->groupBy('crop_id')->get();
+        foreach ($cultivation as $key => $crops) {
+           $count = Cultivation::where('crop_id' , $crops->crop_id)->count();
+           $crop = Crop::where('id',$crops->crop_id)->first();
 
-            $pods =  Pod::select('pod_id' , 'AB_T1' ,'TDS_V1' , 'PH_V1')->where('updated_at', 'LIKE', '%'.date('Y-m-d').'%')->get();
-            foreach ($pods as $key => $value) {
-                $pods_array[]=$value->pod_id;
-                $ab_array[]=$value->AB_T1;
-                $tds_array[]=$value->TDS_V1;
-                $ph_array[]=$value->PH_V1;
+           $chart[]=[$crop->name , $count];
 
-            }
+         //  
+        }
+        // crop harvest chart
+        $yield = array();
+        $month_names = array("Jan","Feb","Mar","April","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
 
-           // print_r(json_encode($ab_array) ); die();
-            $sensorsArray = array('pods' => json_encode($pods_array) , 'ambian' => json_encode($ab_array) ,
-                'tds' => json_encode($tds_array) , 'ph'=>json_encode($ph_array));
-
-       //sensors data 
-
-      //mean value data
-            $olddate = date('Y-m-d',strtotime("-1 days")); 
-            $mean_pods = array();
-            $mean_day = array();
-            $mean_night = array();
-            $mean_values = array();
-
-            $day_start = $olddate.' 06:00:00';
-            $day_end = $olddate.' 17:59:59';
-
-            $night_start = $olddate.' 18:00:00';
-            $night_end = date('Y-m-d').' 05:59:59';
-
-          $mean = MasterSyncData::select('pod_id')->where('created_at' , 'LIKE' , '%'.$olddate . '%')->groupBy('pod_id')->get();
-          foreach ($mean as $key => $value) {
-            $mean_pods[]=$value->pod_id;
-
-            $mean_day[] = MasterSyncData::where('pod_id',$value->pod_id)->whereBetween('created_at' , [$day_start, $day_end])->avg('AB_T1');
-
-             $mean_night[] = MasterSyncData::where('pod_id',$value->pod_id)->whereBetween('created_at' , [$night_start, $night_end])->avg('AB_T1');
-
-              
+        foreach ($month_names as $key=> $monthname) {
+          if(strlen($key) == 1 && $key != '9'){
+            $month=$key+1;
+            $date = date('Y').'-0'.$month;
           }
+          else if($key==9){
+            $month=$key+1;
+            $date = date('Y').'-'.$month;
+          }
+          else{
+            $month=$key+1;
+            $date = date('Y').'-'.$month;
+          }
+       
+          $formatdate = date('Y-m', strtotime($date));
+          $report  = Report::where('created_at','LIKE',$formatdate.'%')->sum('actual_quantity');
 
-          $mean_values= array('mean_pods' => json_encode($mean_pods), 'mean_day'=>json_encode($mean_day) , 'mean_night' =>json_encode($mean_night) );
+          $yield[] = [$monthname , $report];
+          
+        }
+  
 
-           /*print_r($mean_pods);
-           print_r('<br>');
-           print_r($mean_day);
-           print_r('<br>');
-           print_r($mean_night);
-           die();*/
-
-
-      //mean value data      
-        
-    
     $date = date('Y-m-d');
        $tickets=Ticket::where('status','!=','0')
                         ->where('created_at','LIKE','%'.$date.'%')->paginate(10);
 
-         return view('home',compact('tickets', 'pods_count' ,'hub_count','alert_count','tickets_count', 'users_xValue', 'users_yValue','tickets_xValue', 'tickets_yValue' , 'tickets_closed_yValue' , 'sensorsArray' , 'mean_values'));
+         return view('home',compact('tickets', 'pods_count' ,'hub_count','alert_count','tickets_count', 'users_xValue', 'users_yValue','tickets_xValue', 'tickets_yValue' , 'tickets_closed_yValue' ,'chart' , 'yield'));
          
        }
 

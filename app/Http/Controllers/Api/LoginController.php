@@ -163,14 +163,18 @@ class LoginController extends Controller
     		if($user->otp == $request->otp){
 
     			$update = Userdetail::where('id' , $request->user_id)->update(['otp_verified' => 1 , 'is_loggedin'=>1 , 'last_seen' => date('Y-m-d H:i:s')]);
+                $podarray=array();
 
-    			$pods = Pod::select('pod_id','status' ,'location')->where('user_id' , $request->user_id)->get();
-            	$podarray=array();
+                if(Pod::where('user_id' , $request->user_id)->exists()){
+                
+                    $pods = Pod::select('pod_id','status' ,'location')->where('user_id' , $request->user_id)->get();
+                
+                    foreach ($pods as $key => $value) {
+                      $podarray[]=['pod_id'=>$value->pod_id , 'status' => $value->status , 'location' => $value->location ];
+                    }
 
-            	foreach ($pods as $key => $value) {
-            	  $podarray[]=['pod_id'=>$value->pod_id , 'status' => $value->status , 'location' => $value->location ];
-            	}
-
+                }
+                
             	$data = [
             		'user_id' => $user->id ,
             		'first_name' => $user->firstname ,
@@ -215,12 +219,18 @@ class LoginController extends Controller
 
     		$update = Userdetail::where('id' , $request->user_id)->update(['otp_verified' => 1 , 'is_loggedin'=>1 , 'last_seen' => date('Y-m-d H:i:s')]);
 
-    			$pods = Pod::select('pod_id','status' ,'location')->where('user_id' , $request->user_id)->get();
+    			
             	$podarray=array();
 
-            	foreach ($pods as $key => $value) {
-            	  $podarray[]=['pod_id'=>$value->pod_id , 'status' => $value->status , 'location' => $value->location ];
-            	}
+            	if(Pod::where('user_id' , $request->user_id)->exists()){
+                
+                    $pods = Pod::select('pod_id','status' ,'location')->where('user_id' , $request->user_id)->get();
+                
+                    foreach ($pods as $key => $value) {
+                      $podarray[]=['pod_id'=>$value->pod_id , 'status' => $value->status , 'location' => $value->location ];
+                    }
+
+                }
 
             	$data = [
             		'user_id' => $user->id ,

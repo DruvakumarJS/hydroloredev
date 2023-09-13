@@ -141,7 +141,7 @@ class TicketsController extends Controller
     
         $validator = Validator::make($request->all(), [
             
-            'email' => 'required|email',
+            'email_id' => 'required|email',
             
         ]);
 
@@ -153,7 +153,7 @@ class TicketsController extends Controller
         }
 
 
-       $user=Userdetail::where('email',$request->email)->first();
+       $user=Userdetail::where('email',$request->email_id)->first();
 
        if($user){
 

@@ -58,8 +58,8 @@ class ActivityController extends Controller
                 'documents' => ''];
         }
 
-        if(Activity::where('cultivation_id' , $id)->where('activity', 'nutrition')->exists()){
-            $detail3 = Activity::where('cultivation_id' , $id)->where('activity', 'nutrition')->first();
+        if(Activity::where('cultivation_id' , $id)->where('activity', 'nutrients')->exists()){
+            $detail3 = Activity::where('cultivation_id' , $id)->where('activity', 'nutrients')->first();
             $data[]=[
                 'activity' => 'Nutrition Addition',
                 'expected_date' =>$cultivation->nutrition_addition, 
