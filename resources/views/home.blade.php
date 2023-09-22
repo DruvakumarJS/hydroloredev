@@ -87,8 +87,6 @@
                 </div>
             </div>
 
-
-
             <div class="row no-gutters">
                
                 <div class="col-md-5">
@@ -107,9 +105,7 @@
 
                 
             </div>
-
-
-            
+  
             <div class="row">
 
             <label>Current Month </label> 
@@ -453,15 +449,20 @@
       function drawChart() {
       
         var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Pizza');
+      data.addColumn('string', 'Month');
       data.addColumn('number', 'Yield in kgs');
       data.addRows(yields);
 
         var options = {
-          'legend':'bottom',
+          'legend':'top',
           'title':'',
           'is3D':true,
-          'height':300
+          'height':300,
+           hAxis: {
+            title: data.getColumnLabel(0)
+          },
+          
+
         };
 
         var chart = new google.visualization.AreaChart(document.getElementById('yield'));

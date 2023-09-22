@@ -37,15 +37,22 @@
                     <label class="label-bold">{{$cultivation->crop->name}} - </label>
                     <label >Channel {{$cultivation->channel_no}}{{$cultivation->sub_channel}} </label>
                     <div class="form-group row">
-                      <label for="" class="col-4 col-form-label">Seeds/Sapling (weight/numbers)*</label>
-                      <div class="col-7">
-                          <input class="form-control" name="seeds" type="text" placeholder="Enter weight / numbers with unit" required >
+                      <label for="" class="col-4 col-form-label">Seeds / Sapling (weight / numbers)*</label>
+                      <div class="col-5">
+                          <input class="form-control" name="seeds" type="text" placeholder="Enter weight / numbers " required >
+                      </div>
+                      <div class="col-3">
+                          <select class="form-control" name="uom" required>
+                            <option value="">Select unit</option>
+                            <option value="grams">Grams</option>
+                            <option value="numbers">Numbers</option>
+                          </select>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Channels used*</label>
-                      <div class="col-7">
+                      <div class="col-8">
                          <select class="form-control form-select" name="channel" required>
                            <option value="">Select Channels usage</option>
                            <option value="3">Entire Channel</option>
@@ -57,57 +64,57 @@
 
                     <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Estimated Yield Quantity(in kgs) *</label>
-                      <div class="col-7">
+                      <div class="col-8">
                           <input class="form-control" name="estimated_yield" type="number" placeholder="Enter Total Yield (in kgs)" required>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Total Yield Quantity(in kgs) *</label>
-                      <div class="col-7">
+                      <div class="col-8">
                           <input class="form-control" name="total_yield" type="number" placeholder="Enter Total Yield (in kgs)"  required>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Grade 1(in kgs) </label>
-                      <div class="col-7">
+                      <div class="col-8">
                           <input class="form-control" name="grade1" type="number" placeholder="Enter Grade 1 Yield (in kgs)" >
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Grade 2(in kgs) </label>
-                      <div class="col-7">
+                      <div class="col-8">
                           <input class="form-control" name="grade2" type="number" placeholder="Enter Grade 2 Yield (in kgs)" >
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Grade 3(in kgs) </label>
-                      <div class="col-7">
+                      <div class="col-8">
                           <input class="form-control" name="grade3" type="number" placeholder="Enter Grade 3 Yield (in kgs)">
                       </div>
                     </div>
 
                      <div class="form-group row">
-                      <label for="" class="col-4 col-form-label">Nutritions used*</label>
-                      <div class="col-7">
-                          <textarea class="form-control" placeholder="Mention Nutrition name with quantity used" 
+                      <label for="" class="col-4 col-form-label">Nutrients used*</label>
+                      <div class="col-8">
+                          <textarea class="form-control" placeholder="Mention Nutrients name with quantity used" 
                           name="nutritions" required></textarea>
                       </div>
                     </div>
 
                      <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Pesticides used*</label>
-                      <div class="col-7">
+                      <div class="col-8">
                           <textarea class="form-control" placeholder="Mention Pesticides name with quantity used" name="pesticides" required></textarea>
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Yield Status </label>
-                      <div class="col-7">
+                      <div class="col-8">
                          <select class="form-control form-select" name="Status" required>
                             <option value="">Select Yield Status</option>
                             <option value="Excellent">Excellent</option>
@@ -119,7 +126,7 @@
 
                     <div class="form-group row">
                       <label for="" class="col-4 col-form-label">Comments * </label>
-                      <div class="col-7">
+                      <div class="col-8">
                         <textarea class="form-control" placeholder="Comments here..." name="comments" required></textarea>
                       </div>
                     </div>

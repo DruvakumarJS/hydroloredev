@@ -41,8 +41,8 @@ class IndentController extends Controller
      */
     public function store(Request $request)
     {
-      //  print_r($request->Input()); die();
-        if(Userdetail::where('id', $request->user_id)->exists() || Userdetail::where('mobile', $request->mobile)->exists()){
+       // print_r($request->Input()); die();
+        if(Userdetail::where('id', $request->user_id)->exists() || Userdetail::where('mobile', $request->user)->exists()){
     
             if(isset($request->indent)){
                 
@@ -50,7 +50,7 @@ class IndentController extends Controller
                     $user_id = $request->user_id;
                 }
                 else {
-                    $user = Userdetail::where('mobile', $request->mobile)->first();
+                    $user = Userdetail::where('mobile', $request->user)->first();
                     $user_id = $user->id;
                 }
               

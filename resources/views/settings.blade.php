@@ -137,6 +137,19 @@
                     </a>
                     
                 </div>
+
+                <div class="col-md-3">
+                   
+                    <a class="card1" href="{{route('enquiry')}}">
+                        <h3>Enquiry</h3>
+                        <div class="go-corner" href="">
+                          <div class="go-arrow">
+                            →
+                          </div>
+                        </div>
+                    </a>
+                    
+                </div>
                 
             </div>
 

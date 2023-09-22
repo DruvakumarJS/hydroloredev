@@ -22,13 +22,14 @@
       <table class="table">
         <tbody>
           <tr>
+            <th>Report Date</th>
             <th>User Name</th>
             <th>Mobile</th>
             <th>Crop Category</th>
             <th>Crop Name</th>
             <th>Duration</th>
             <th>Channel Used</th>
-            <th>Seeds Planted</th>
+            <th>Seeds/ saplings</th>
             <th>Planted Date</th>
             <th>Expected Quantity</th>
             <th>Produced Quantity</th>
@@ -39,19 +40,20 @@
         <tbody>
           @foreach($data as $key=>$value)
               <tr>
-                <td>{{$value['user_name']}}</td>
+                <td width="120px">{{date("d M Y", strtotime($value['created_at']))}}</td>
+                <td width="120px">{{$value['user_name']}}</td>
                 <td>{{$value['mobile']}}</td>
                 <td>{{$value['category']}}</td>
-                <td>{{$value['crop_name']}}</td>
+                <td width="100px">{{$value['crop_name']}}</td>
                 <td width="100px">{{$value['duration']}} days</td>
-                <td>{{$value['channel']}}/3 of a Channel</td>
+                <td width="150px">{{$value['channel']}}/3 of a Channel</td>
                 <td>{{$value['seeds_quantity']}}</td>
-                <td width="150px">{{date("d M Y", strtotime($value['planted_date']))}}</td>
+                <td width="120px">{{date("d M Y", strtotime($value['planted_date']))}}</td>
                 <td>{{$value['expected_quantitiy']}}kg</td>
                 <td>{{$value['actual_quantity']}}kg</td>
                 <td>{{$value['status']}}</td>
                 <td>
-                  <a href="#" id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-success">ViewMore</button></a>
+                  <a href="#" id="MybtnModal_{{$key}}"><button class="btn btn-sm btn-outline-danger">Details</button></a>
                 </td>
               </tr>
 
@@ -59,8 +61,8 @@
                 <div class="modal" id="modal_{{$key}}" >
                   <div class="modal-dialog">
                     <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">REPORT</h5>
+                      <div class="modal-header"style="background-color: #00cc88">
+                          <h5 class="modal-title text-white" id="exampleModalLabel">REPORT</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       <div class="modal-body">

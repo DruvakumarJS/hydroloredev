@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-1">
           <label></label>
-          <input class="btn btn-light btn-outline-primary form-control" type="submit" value="submit" >
+          <input class="btn btn-light btn-outline-success form-control" type="submit" value="submit" >
         </div>
      
      </div>
@@ -58,8 +58,8 @@
             <div class="modal" id="modal_{{$key}}" >
               <div class="modal-dialog">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
+                  <div class="modal-header"style="background-color: #00cc88">
+                  <h5 class="modal-title text-white" id="exampleModalLabel">Edit Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
@@ -78,7 +78,7 @@
                       <input type="hidden" name="id" value="{{$value->id}}">
 
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-danger">Update</button>
                       </div>
                     </form>

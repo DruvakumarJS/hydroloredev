@@ -6,7 +6,9 @@ use App\Models\Activity;
 use App\Models\Cultivation;
 use App\Models\Crop;
 use App\Models\Userdetail;
+use App\Models\StockMaster;
 use Illuminate\Http\Request;
+
 
 class ActivityController extends Controller
 {
@@ -130,9 +132,10 @@ class ActivityController extends Controller
                 'documents' => ''];
         }
 
-
+        $nutrients = StockMaster::where('category','Nutrition')->get();
+        $spray = StockMaster::where('category','Spray')->get();
        // print_r(json_encode($data)); die();
-        return view('activity/list',compact('data' , 'cultivation' , 'user'));
+        return view('activity/list',compact('data' , 'cultivation' , 'user','nutrients','spray'));
     }
 
     /**

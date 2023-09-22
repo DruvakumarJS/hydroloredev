@@ -7,6 +7,9 @@ use App\Models\StockMaster;
 use App\Models\NutritionMaster;
 use Illuminate\Http\Request;
 
+use App\Mail\RemainderMail;
+use Mail;
+
 class StockController extends Controller
 {
     /**
@@ -16,6 +19,7 @@ class StockController extends Controller
      */
     public function index()
     {
+     
         $stocks=StockMaster::select('category')->orderByRaw('FIELD(category, "Spray" ,"Nutrition" ,"Seeds","others")')->groupBy('category')->get();
 
         $categoryarray=array();

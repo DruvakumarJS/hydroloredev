@@ -3,23 +3,44 @@
 @section('content')
 
 <div class="container-body">
-    <div class="container-header">
-      
-      <div >
-        <label class="label-bold">Stocks Import Details </label>
-        
-      </div>
-      <label class="date">{{date('d M ,Y')}} </label>
+	<div class="container-header">
+		<label>Header</label>
+		<div id="div2">
+			<a data-bs-toggle="modal" data-bs-target="#mymodal" href=""><button class="btn btn-sm btn-outline-primary">Modal</button></a>
+		</div> 
+		
+	</div>
 
-      <div id="div2">
-        <a href="{{route('stocks')}}"><button class="btn btn-sm btn-outline-primary">Back to Stocks</button></a>
-      </div>
+	<div class="page-container div-margin">
+		<div class="card">
+			<table>
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Name</th>
+					</tr>
+				</thead>
 
-      <div class="modal" id="mymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<tbody>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			
+		</div>
+		
+	</div>
+	
+</div>
+
+
+<div class="modal" id="mymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">
-            <div class="modal-header"style="background-color: #00cc88">
-              <h5 class="modal-title text-white">Add Stock</h5>
+            <div class="modal-header">
+              <h5 class="modal-title">Add Stock</h5>
              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                
             </div>
@@ -28,12 +49,12 @@
              <div class="form-build">
               <div class="row">
                 <div class="col-6">
-                  <form method="post" action="{{route('save_stock')}}" enctype="multipart/form-data" >
+                  <form method="post" action="" enctype="multipart/form-data" >
                     @csrf
                     
 
                     <div class="form-group row">
-                      <label for="" class="col-4 col-form-label">Nutrient Category*</label>
+                      <label for="" class="col-4 col-form-label">Category*</label>
                       <div class="col-7">
                          <select class="form-control form-select" name="category" required>
                            <option value="">Select Category </option>
@@ -130,58 +151,12 @@
         </div>
       </div>
 
-    </div>
+<script>
+	$(document).ready(function(){
+		$('#updateModal').click(function(){
 
-
-
-  <div class="page-container" style="margin-top: 20px">
-    
-    <div class="card">
-      <table class="table">
-                    <tbody>
-                      <tr>
-                     
-                        <th>Date</th>
-                        <th>Category</th>
-                        <th>Product</th>
-                        <th>Brand</th>
-                        <th>Weight</th>
-                        <th>Expiry Date</th>
-                        <th>Imported From</th>
-                      </tr>
-                    </tbody>
-
-                    <tbody>
-                      @foreach($history as $key=>$value)
-                      <tr>
-                        
-                        <td>{{date('d M Y', strtotime($value->created_at))}}</td>
-                        <td>{{$value->stockMaster->category}}</td>
-                        <td>{{$value->stockMaster->product}}</td>
-                        <td>{{$value->stockMaster->brand}}</td>
-                        <td>{{$value->total_weight}} {{$value->measurement}}</td>
-                        <td><?php echo ($value->expiry_date !='')?date('d M Y', strtotime($value->expiry_date)):'No Expiry'  ?></td>
-                        <td>{{$value->source_of_import}}</td>
-                      </tr>
-
-                      @endforeach
-                    </tbody>
-                    
-                  </table>
-                   <label>Showing {{ $history->firstItem() }} to {{ $history->lastItem() }}
-                                    of {{$history->total()}} results</label>
-
-                                {!! $history->links('pagination::bootstrap-4') !!}
-               
-                 
-      
-    </div>
-  
-     
-   </div>
-  </div>
-
-
-
-
+		  $('#updatemodal').modal('show');
+		});
+	});  
+</script>      
 @endsection

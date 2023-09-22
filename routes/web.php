@@ -25,6 +25,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\NutritionMasterController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\IndentController;
+use App\Http\Controllers\EnquiryController;
 
 
 /*
@@ -207,12 +208,16 @@ Route::middleware('auth:web')->group(function () {
 
             Route::get('indents',[IndentController::class,'index'])->name('indents');
             Route::post('save-indents',[IndentController::class,'store'])->name('save_indent');
-    
-    
+
+            Route::get('enquiry',[EnquiryController::class,'index'])->name('enquiry');
+            Route::post('save-enquiry',[EnquiryController::class,'store'])->name('save_enquiry');
+            Route::put('update-enquiry/{id}',[EnquiryController::class,'update'])->name('update_enquiry');
+            Route::get('convert-enquiry/{id}',[EnquiryController::class,'show'])->name('convert_enquiry');
+            Route::post('convert-enquiry-to-user',[EnquiryController::class,'convert'])->name('enquiry_to_user');
+        
            // Route::post('save-nutritions-data',[NutritionMasterController::class,'store'])->name('save_nutritions_data');
 
             
- 
         }); 
         Route::middleware(['auth','isCustomer'])->group(function () {
                 

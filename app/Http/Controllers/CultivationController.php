@@ -399,7 +399,7 @@ class CultivationController extends Controller
     }
 
     public function save_harvest_data(Request $request){
-       // print_r($request->Input()); 
+        //print_r($request->Input()); die();
         $cultivation_id = $request->c_id ;
 
         $cultivation = Cultivation::where('id', $cultivation_id)->first();
@@ -468,7 +468,7 @@ class CultivationController extends Controller
         $harvest_date = date('Y-m-d', strtotime($cultivation->planted_on . ' + '. $harvest_start_date . 'days'));
 
 
-        //print_r($ab);die();
+       // print_r($ab);die();
 
         $report = Report::create([
             'user_id' => $cultivation->user_id,
@@ -480,7 +480,7 @@ class CultivationController extends Controller
             'crop_name'=> $crop->name,
             'duration'=> $crop->duration,
             'channel'=> $request->channel,
-            'seeds_quantity'=> $request->seeds,
+            'seeds_quantity'=> $request->seeds.' '.$request->uom,
             'planted_date'=> $cultivation->planted_on,
             'pruning_date'=> $pruning,
             'staking_date'=> $staking,
@@ -515,7 +515,7 @@ class CultivationController extends Controller
                             
                             $message = "Crop Removed and Report Genrated Succesfully";
 
-                           // return redirect()->back()->withMessage($message);
+                            return redirect()->route('reports');
                         }
                         else {
                             $message = "Could Not Remove The Crop";
@@ -535,7 +535,7 @@ class CultivationController extends Controller
                             
                             $message = "Crop Removed and Report Genrated Succesfully";
 
-                           // return redirect()->back()->withMessage($message);
+                           return redirect()->route('reports');
                         }
                         else {
                             $message = "Could Not Remove The Crop";
@@ -552,7 +552,7 @@ class CultivationController extends Controller
 
 
     public function report(){
-        $data = Report::all();
+        $data = Report::orderBy('id', 'DESC')->get();
         return view('report/list',compact('data'));
     }
 

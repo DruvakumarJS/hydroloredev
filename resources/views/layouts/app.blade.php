@@ -134,6 +134,8 @@
            ||request()->routeIs('crop_details')
            ||request()->routeIs('stock_history')
            ||request()->routeIs('indents')
+           ||request()->routeIs('enquiry')
+           ||request()->routeIs('convert_enquiry')
            ? 'active' : '' }}"
 
            >
