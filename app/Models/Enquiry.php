@@ -19,7 +19,8 @@ class Enquiry extends Model
     	'location',
     	'installation_date',
     	'no_of_channels',
-    	'crops',
+    	'crops_id',
+        'crops_name',
     	'require_monitoring',
     	'comments'];
 }

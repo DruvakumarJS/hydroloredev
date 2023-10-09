@@ -10,8 +10,11 @@ use App\Models\Threshold;
 use App\Models\MasterSyncData;
 use App\Exports\ExportPodHistory;
 use App\Models\Ticket;
+use App\Models\Userdetail;
 use Illuminate\Support\Facades\Validator;
 use Excel;
+use App\Mail\PODstatusEmail;
+use Mail;
 
 class PODController extends Controller
 {
@@ -22,7 +25,6 @@ class PODController extends Controller
      */
     public function index()
     {
-
         $pods=Pod::paginate(50);
 
         return view('pod/pods',compact('pods'));

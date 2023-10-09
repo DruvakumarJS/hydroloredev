@@ -6,6 +6,7 @@ use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Jobs\SendNotifications;
 use App\Jobs\SendEmailNotification;
+use App\Jobs\CheckPODstatus;
 
 
 class Kernel extends ConsoleKernel
@@ -20,7 +21,9 @@ class Kernel extends ConsoleKernel
     {
          //$schedule->command('inspire')->hourly();
          // $schedule->job(new SendNotifications)->everyTwoMinutes();
-          $schedule->job(new SendEmailNotification)->everyTwoMinutes();
+          //$schedule->job(new SendEmailNotification)->everyTwoMinutes();
+          //$schedule->job(new CheckPODstatus)->everySixHours($minutes = 0);
+          $schedule->job(new CheckPODstatus)->everyTwoMinutes();
     }
 
     /**

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Userdetail;
 use App\Models\User;
 use App\Models\Hub;
+use App\Models\Crop;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Mail\WelcomeMail;
@@ -21,8 +22,9 @@ class EnquiryController extends Controller
      */
     public function index()
     {
+        $crops = Crop::get();
         $data = Enquiry::orderBy('id','DESC')->get();
-        return view('enquiry.list',compact('data'));
+        return view('enquiry.list',compact('data','crops'));
     }
 
     /**
@@ -43,6 +45,24 @@ class EnquiryController extends Controller
      */
     public function store(Request $request)
     {
+       // print_r($request->Input()); die();
+
+        $crops = $request->crop ;
+
+        $cropids = implode(',', $crops);
+
+        $cropdata = Crop::select('name')->whereIn('id',$crops)->get();
+
+        $croparray = array();
+
+        foreach ($cropdata as $key => $value) {
+            $croparray[] = $value->name;
+        }
+        
+        $crop_name = implode(',', $croparray);
+       /* print_r(($crop_name));
+        die();*/
+
         $insert = Enquiry::create([
             'firstname' => $request->firstname ,
             'lastname' => $request->lastname ,
@@ -52,7 +72,8 @@ class EnquiryController extends Controller
             'type_of_building' => $request->type ,
             'installation_date' => $request->date ,
             'no_of_channels' => $request->channels ,
-            'crops' => $request->crops ,
+            'crops_id' => $cropids ,
+            'crops_name' => $crop_name,
             'require_monitoring' => $request->monitor ,
             'comments' => $request->comments  ]);
 
@@ -187,7 +208,7 @@ class EnquiryController extends Controller
             $filename = $path.'/'."Hydrolore Crop Maintaincance Guide.pdf";
             $url = url('/');
          
-        // Mail::to($user->email)->send(new WelcomeMail($user ,$filename , $password , $url ));
+         Mail::to($user->email)->send(new WelcomeMail($user ,$filename , $password , $url ));
 
          }
 

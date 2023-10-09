@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script> 
+<style type="text/css">
+        .dropdown-toggle{
+            height: 40px;
+            width: 300px !important;
+        }
+    </style>  
 
 <div class="container-body">
   <div class="container-header">
@@ -37,11 +46,11 @@
             <td>{{$value->firstname}} {{$value->lastname}}</td>
             <td>{{$value->mobile}}</td>
             <td>{{$value->email}}</td>
-            <td width="150px">{{$value->address}}</td>
+            <td>{{$value->address}}</td>
             <td>{{$value->type_of_building}}</td>
             <td>{{date('d M Y',strtotime($value->installation_date))}}</td>
             <td>{{$value->no_of_channels}}</td>
-            <td>{{$value->crops}}</td>
+            <td>{{$value->crops_name}}</td>
             <td>{{$value->require_monitoring}}</td>
             <td>{{$value->comments}}</td>
             <td>
@@ -125,14 +134,40 @@
                                   </div>
                               </div>
                               
-                              <div class="form-group row">
+                             <!--  <div class="form-group row">
                                   <label for="" class="col-4 col-form-label">Crops </label>
                                   <div class="col-7">
                                       <input class="form-control" name="crops" type="text" placeholder="Enter crop names" value="{{$value->crops}}"  >
                                   </div>
-                              </div>
+                              </div> -->
 
+                               <div class="form-group row">
+                                  <label for="" class="col-4 col-form-label">Crops </label>
+                                  <div class="col-7">
+                                    <select class="col-7 selectpicker" multiple name="crop[]">
+                                    @foreach($crops as $crop)
+                                       
+                                            <option <?php echo (in_array($crop->id, $value->crops_id))?'selected':'' ?> value="{{$crop->id}}">{{$crop->name}}</option>
+                                       
+                                    @endforeach
+                                    </select>
+                                    </div>
+                                  
+                                </div>
 
+                               <!-- <div class="form-group row">
+                                  <label for="" class="col-4 col-form-label">Crops </label>
+                                  <div class="col-7">
+                                    @php
+                                      $crops3 = explode(',',$value->crops);
+                                    @endphp
+                                    @foreach($crops as $crop)
+                                      <option >{{$crop->name}}</option>
+                                    @endforeach   
+                                  </div>
+                                </div> -->
+
+                             
                                <div class="form-group row">
                                   <label for="" class="col-4 col-form-label">Installation Date </label>
                                   <div class="col-7">
@@ -271,11 +306,19 @@
                         </div>
                     </div>
                     
+                  
                     <div class="form-group row">
-                        <label for="" class="col-4 col-form-label">Crops </label>
-                        <div class="col-7">
-                            <input class="form-control" name="crops" type="text" placeholder="Enter crop names"  >
+                      <label for="" class="col-4 col-form-label">Crops </label>
+                      <div class="col-7">
+                        <select class="col-7 selectpicker" multiple name="crop[]">
+                        @foreach($crops as $crop)
+                           
+                                <option value="{{$crop->id}}">{{$crop->name}}</option>
+                           
+                        @endforeach
+                        </select>
                         </div>
+                      
                     </div>
 
 
@@ -330,6 +373,13 @@
 
       $('#updatemodal').modal('show');
     });
-  });  
-</script>      
+  }); 
+
+
+</script>   
+<script>
+ $(document).ready(function() {
+        $('select').selectpicker();
+    });
+</script>   
 @endsection
