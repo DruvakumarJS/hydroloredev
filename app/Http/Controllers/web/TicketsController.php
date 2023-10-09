@@ -14,6 +14,7 @@ use App\Mail\TriggerEmail;
 use App\Mail\CriticalEmail;
 use App\Mail\GenerateTicket;
 use DB;
+use App\Models\Pod;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -354,7 +355,8 @@ class TicketsController extends Controller
 
        // print_r($input->input());
 
-        $userdata=Userdetail::where('hub_id',$request->hub_id)->first();
+       // $userdata=Userdetail::where('hub_id',$request->hub_id)->first();
+        $userdata=Pod::where('pod_id',$request->pod_id)->first();
         $user_id=$userdata->id;
         $user_name=$userdata->firstname;
         $user_mobile=$userdata->mobile;
