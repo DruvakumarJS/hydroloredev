@@ -641,7 +641,7 @@ class DataController extends Controller
         $threshold_time= "-".trim($outputArr[1])."minutes";
         $val = ltrim($threshold_time, '-');
        
-        $before_hour=date('Y-m-d H:i:s',strtotime($val));
+        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
         $trigger='true';
 
@@ -802,7 +802,7 @@ class DataController extends Controller
         $threshold_time= "-".trim($outputArr[1])."minutes";
         $val = ltrim($threshold_time, '-');
        
-        $before_hour=date('Y-m-d H:i:s',strtotime($val));
+        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
          
         $trigger='true';
         
