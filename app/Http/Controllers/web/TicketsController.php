@@ -5,6 +5,7 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use App\Models\Pod;
 use App\Models\Threshold;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Userdetail;
