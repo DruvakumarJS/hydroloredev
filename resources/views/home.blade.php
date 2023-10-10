@@ -116,7 +116,120 @@
            
 
 
-               
+                @if(!empty($tickets) && $tickets->count())
+
+                    <div>
+                        <label class="header-lab p-10">Tickets</label>
+                        <label style="float: right;margin-top: 10px;margin-right: 10px;"></label>
+                        <div>
+                            <div class="card table-responsive">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Ticket ID</th>
+                                        <th>Issue</th>
+                                        <th>Current Value</th>
+                                        <th>Customer Name</th>
+                                        <th>Mobile</th>
+                                        <!--  <th>Threshold Value</th> -->
+
+                                        <th>Status</th>
+                                        
+
+                                        <th></th>
+                                    </tr>
+
+
+                                    @foreach ($tickets as $key => $value)
+
+                                        @php
+                                            $statusvalue=$value->status;
+
+                                              if($statusvalue=='2'){$data='pending';$colourcode='#e6b00e';}
+                                              else if($statusvalue=='1'){$data='open';$colourcode='#e86413';}
+                                              else if($statusvalue=='0'){$data='closed';$colourcode='#0ee6c9';}
+                                              else {$data='undefined';$colourcode='#FF0000';}
+
+                                              $issue=$value->subject;
+                                               if(str_contains($issue , "$"))
+                                               {
+                                                  $array=explode('$', $issue);
+                                               }
+                                               else
+                                               {
+                                                   $array=explode(',', $issue);
+                                               }
+
+
+
+                                               $thresold=$value->current_value;
+
+                                               if(str_contains($thresold , "$"))
+                                               {
+                                                 $threshold_array=explode('$', $thresold);
+                                               }
+                                               else
+                                               {
+                                                   $threshold_array=explode(',', $thresold);
+                                               }
+
+
+
+
+                                        @endphp
+
+                                        <tr>
+                                            <td>{{$value->created_at}}</td>
+                                            <td>{{$value->sr_no}}</td>
+                                            <td>
+                                                <table>
+                                                    @foreach($array as $key => $val)
+                                                        @if($val!="")
+                                                            <tr>
+                                                                <td> {{$val}}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </table>
+                                            </td>
+
+                                            <td>
+                                                <table>
+                                                    @foreach($threshold_array as $key => $val2)
+                                                        @if($val2!="")
+                                                            <tr>
+                                                                <td> {{$val2}}</td>
+                                                            </tr>
+                                                        @endif
+                                                    @endforeach
+                                                </table>
+                                            </td>
+                                            <td>{{$value->user->firstname}}</td>
+                                            <td>{{$value->user->mobile}}</td>
+                                            <!--  <td>{{$value->threshold_value}}</td> -->
+
+                                            <td><label class="curved-text"
+                                                       style="background-color: {{$colourcode}}">{{$data}}</label></td>
+                                           
+                                           
+                                        </tr>
+
+                                    @endforeach
+
+                                </table>
+
+                                <label>Showing {{ $tickets->firstItem() }} to {{ $tickets->lastItem() }}
+                                    of {{$tickets->total()}} results</label>
+
+                                {!! $tickets->links() !!}
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                @endif
 
         </div>
 
