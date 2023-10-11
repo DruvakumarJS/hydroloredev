@@ -145,9 +145,10 @@
                                   <label for="" class="col-4 col-form-label">Crops </label>
                                   <div class="col-7">
                                     <select class="col-7 selectpicker" multiple name="crop[]">
+                                      @php $crops_list = explode(',',$value->crops_id); @endphp
                                     @foreach($crops as $crop)
                                        
-                                            <option <?php echo (in_array($crop->id, $value->crops_id))?'selected':'' ?> value="{{$crop->id}}">{{$crop->name}}</option>
+                                            <option <?php echo (in_array($crop->id, $crops_list))?'selected':'' ?> value="{{$crop->id}}">{{$crop->name}}</option>
                                        
                                     @endforeach
                                     </select>

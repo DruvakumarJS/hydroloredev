@@ -396,4 +396,31 @@ class LoginController extends Controller
                      ]);
         }
     }
+
+    public function update_fcm_token(Request $request){
+        if(isset($request->user_id) && isset($request->device_token) && Userdetail::where('id' , $request->user_id)->exists()){
+
+            $user = Userdetail::where('id' , $request->user_id)->first();
+            $update_token = User::where('id',$user->user_id)->update(['device_token' => $request->device_token]);
+
+            if($update_token){
+                return response()->json([
+                    'status' => '1' ,
+                    'message' => 'FCM device token updated successfully']);
+            }
+            else {
+                return response()->json([
+                    'status' => '0' ,
+                    'message' => 'Error while updating FCM device token']);
+            }
+
+        }
+        else{
+            return response()->json([
+                   'status'=> '0',
+                   'message' => 'UnAuthorized'
+                     ]);
+
+        }
+    }
 }
