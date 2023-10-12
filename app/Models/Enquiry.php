@@ -22,5 +22,6 @@ class Enquiry extends Model
     	'crops_id',
         'crops_name',
     	'require_monitoring',
-    	'comments'];
+    	'comments'
+    ];
 }

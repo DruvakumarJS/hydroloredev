@@ -136,6 +136,7 @@
            ||request()->routeIs('indents')
            ||request()->routeIs('enquiry')
            ||request()->routeIs('convert_enquiry')
+           ||request()->routeIs('edit_enquiry')
            ? 'active' : '' }}"
 
            >

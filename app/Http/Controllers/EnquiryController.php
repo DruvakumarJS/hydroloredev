@@ -100,9 +100,11 @@ class EnquiryController extends Controller
      * @param  \App\Models\Enquiry  $enquiry
      * @return \Illuminate\Http\Response
      */
-    public function edit(Enquiry $enquiry)
+    public function edit($id)
     {
-        //
+        $crops = Crop::get();
+        $value = Enquiry::where('id', $id)->first();
+        return view('enquiry.edit', compact('value','crops'));
     }
 
     /**
@@ -114,6 +116,21 @@ class EnquiryController extends Controller
      */
     public function update(Request $request,$enquiry)
     {
+        //print_r($request->input()); die();
+        $crops = $request->crop ;
+
+        $cropids = implode(',', $crops);
+
+        $cropdata = Crop::select('name')->whereIn('id',$crops)->get();
+
+        $croparray = array();
+
+        foreach ($cropdata as $key => $value) {
+            $croparray[] = $value->name;
+        }
+        
+        $crop_name = implode(',', $croparray);
+
          $insert = Enquiry::where('id', $enquiry)->update([
             'firstname' => $request->firstname ,
             'lastname' => $request->lastname ,
@@ -123,9 +140,10 @@ class EnquiryController extends Controller
             'type_of_building' => $request->type ,
             'installation_date' => $request->date ,
             'no_of_channels' => $request->channels ,
-            'crops' => $request->crops ,
+            'crops_id' => $cropids ,
+            'crops_name' => $crop_name,
             'require_monitoring' => $request->monitor ,
-            'comments' => $request->comments  ]);
+            'comments' => $request->comments   ]);
 
         if($insert){
             return redirect()->route('enquiry');
