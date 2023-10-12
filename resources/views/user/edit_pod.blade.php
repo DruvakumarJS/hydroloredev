@@ -153,17 +153,6 @@
 
 
         <tr>
-         <td>AB_H1</td>
-         <td>Ambient Humidity Sensor – 1</td>
-         
-         <td>
-          <label>x value</label>
-          <br>
-          <input class="form-control" style="background-color: white" value="{{$threshold->AB_H1}}" type="text" name="AB_H1" placeholder="x value" disabled></td>
-          <td></td>
-        </tr>
-
-        <tr>
          <td>POD_T1</td>
          <td>POD/BB Temperature Sensor – 1</td>
          
@@ -175,28 +164,37 @@
         </tr>
 
 
-        <tr>
-         <td>POD_H1</td>
-         <td>POD/BB Humidity Sensor – 1</td>
-         
-         <td>
-          <label>x value</label>
-          <br>
-          <input class="form-control" style="background-color: white" value="{{$threshold->POD_H1}}" type="text" name="POD_H1" placeholder="x vlaue" disabled></td>
-          <td></td>
-        </tr>
+
+         @php
+            $thresholdValue=$threshold->TDS_V1;
+            $outputArr= preg_split("/[-:]/", $thresholdValue);
+
+            $min_tds=trim($outputArr[0]);
+            $max_tds=trim($outputArr[1]);
+        @endphp
 
         <tr>
          <td>TDS_V1</td>
          <td>Total Dissolved Salt Sensor Value</td>
          
          <td>
+          <label>threshold min value</label>
+          <br>
+          <input class="form-control" style="background-color: white" type="text" value="{{$min_tds}}" name="min_TDS_V1" placeholder="max value"></td>
+          
+          <td>
           <label>threshold max value</label>
           <br>
-          <input class="form-control" style="background-color: white" type="text" value="{{$threshold->TDS_V1}}" name="TDS_V1" placeholder="max value"></td>
-          <td></td>
+          <input class="form-control" style="background-color: white" type="text" value="{{$max_tds}}" name="max_TDS_V1" placeholder="max value"></td>
         </tr>
+         
+        @php
+            $thresholdValue=$threshold->PH_V1;
+            $outputArr= preg_split("/[-:]/", $thresholdValue);
 
+            $min_ph=trim($outputArr[0]);
+            $max_ph=trim($outputArr[1]);
+        @endphp 
 
         <tr>
          <td>PH_V1</td>
@@ -204,8 +202,11 @@
          
          <td>
           <label>threshold max value</label> <br> 
-          <input class="form-control" style="background-color: white" value="{{$threshold->PH_V1}}" type="text" name="PH_V1" placeholder="max value"></td>
-          <td></td>
+          <input class="form-control" style="background-color: white" value="{{$min_ph}}" type="text" name="min_PH_V1" placeholder="max value"></td>
+
+          <td>
+          <label>threshold max value</label> <br> 
+          <input class="form-control" style="background-color: white" value="{{$max_ph}}" type="text" name="max_PH_V1" placeholder="max value"></td>
         </tr>
 
         <tr>
@@ -266,65 +267,26 @@
               <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_SV_I1" placeholder="maximum mA "></td>
             </tr>
 
-            <tr>
-             <td>FLO_UT</td>
-             <td>Flow Meter value (ppm) at the inlet of SourceTank</td>
-             
-             <td>
-              <label>max temparature</label> <br> <input class="form-control" style="background-color: white" value="{{$threshold->FLO_UT}}"  type="text" name="FLO_UT" placeholder="max temparature"></td>
-              <td></td>
-            </tr>
-
-
-            <tr>
-             <td>FLO_BT</td>
-             <td>Flow Meter value (ppm) at the inlet of Reservoir Tank</td>
-             
-             <td>
-              <label>max temparature</label> <br> <input class="form-control" style="background-color: white" value="{{$threshold->FLO_BT}}" type="text" name="FLO_BT" placeholder="max temparature"></td>
-              <td></td>
-            </tr>
-
+            
 
             @php
-
             $thresholdValue=$threshold->STS_NP1;
             $outputArr= preg_split("/[-:]/", $thresholdValue);
 
             $t1=trim($outputArr[0]);
             $t2=trim($outputArr[1]);
-
             @endphp
-
 
             <tr>
              <td>STS_NP1</td>
-             <td>"Nutrient Pump Health Status – 1"</td>
+             <td>Nutrient Pump Health Status – 1</td>
              
              <td>
               <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_time_STS_NP1" placeholder="max time in minutes"></td>
               <td></td>
             </tr>
 
-            @php
-
-            $thresholdValue=$threshold->STS_NP2;
-            $outputArr= preg_split("/[-:]/", $thresholdValue);
-
-            $t1=trim($outputArr[0]);
-            $t2=trim($outputArr[1]);
-
-            @endphp
-
-            <tr>
-             <td>STS_NP2</td>
-             <td>Nutrient Pump Health Status – 2</td>
-             
-             <td>
-              <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_time_STS_NP2" placeholder="max time in minutes"></td>
-              <td></td>
-            </tr>
-
+          
             @php
 
             $thresholdValue=$threshold->STS_SV1;
@@ -345,33 +307,7 @@
               <td></td>
             </tr>
 
-            @php
-
-            $thresholdValue=$threshold->STS_SV2;
-            $outputArr= preg_split("/[-:]/", $thresholdValue);
-
-            $t1=trim($outputArr[0]);
-            $t2=trim($outputArr[1]);
-
-            @endphp
-
-            <tr>
-             <td>STS_SV2</td>
-             <td>Fresh Water Solenoid Valve Health Status – 2</td>
-             
-             <td>
-              <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="max_time_STS_SV2" placeholder="max time in minutes"></td>
-              <td></td>
-            </tr>
-
-            @php
-
-            $thresholdValue=$threshold->WL1H;
-            $outputArr= preg_split("/[-:]/", $thresholdValue);
-
-            $t1=trim($outputArr[0]);
-            
-            @endphp
+           
 
             @php
 
@@ -392,15 +328,7 @@
               <td></td>
             </tr>
 
-            @php
-
-            $thresholdValue=$threshold->WL2H;
-            $outputArr= preg_split("/[-:]/", $thresholdValue);
-
-            $t1=trim($outputArr[0]);
-            
-
-            @endphp
+           
 
 
           </tr>
@@ -423,18 +351,6 @@
             <label>max time in minutes</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t2}}" name="max_time_WL2L" placeholder="max time in minutes"></td>
             <td></td>
           </tr>
-
-          @php
-
-          $thresholdValue=$threshold->WL3H;
-          $outputArr= preg_split("/[-:]/", $thresholdValue);
-
-          $t1=trim($outputArr[0]);
-
-
-          
-
-          @endphp
 
           @php
 
@@ -483,27 +399,7 @@
             </tr>
 
             
-            @php
-
-            $thresholdValue=$threshold->RL2;
-            $outputArr= preg_split("/[-:]/", $thresholdValue);
-
-            $t1=trim($outputArr[0]);
-            $t2=trim($outputArr[1]);
-            $t3=trim($outputArr[2]);
-            
-
-            @endphp
-
-            <tr>
-             <td>RL2</td>
-             <td>Relay 2 Status – Controls Nutrient Pump – 2</td>
-             
-             <td>
-              <label>Max minute for ON</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t2}}"  name="min_time_RL2" placeholder="Max minute for ON "disabled></td>
-              <td>
-                <label>Max minute for OFF</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t3}}"  name="max_time_RL2" placeholder="max minutes for OFF"disabled ></td>
-              </tr>
+          
 
               
               @php
@@ -555,31 +451,7 @@
                     <input class="form-control" style="background-color: white" value="{{$t3}}"  type="text" name="max_time_RL4" placeholder="max minutes for OFF"></td>
                   </tr>
 
-                  @php
-
-                  $thresholdValue=$threshold->RL5;
-                  $outputArr= preg_split("/[-:]/", $thresholdValue);
-
-                  $t1=trim($outputArr[0]);
-                  $t2=trim($outputArr[1]);
-                  $t3=trim($outputArr[2]);
-                  
-
-                  @endphp
-
-                  
-
-                  <tr>
-                   <td>RL8</td>
-                   <td>Relay 8 Status – Controls RO Plant AC VOltage Supply </td>
-                   
-                   <td>
-                    <label>max temparature</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t2}}"  name="min_time_RL8" placeholder="Max minute for ON "disabled></td>
-                    <td>
-                      <label>max temparature</label> <br> <input class="form-control" style="background-color: white" type="text" value="{{$t3}}"  name="max_time_RL8" placeholder="max minutes for OFF" disabled></td>
-                    </tr>
-
-                    
+                 
 
                     <tr>
                      <td>PMODE</td>
