@@ -32,7 +32,7 @@
                         </div>
                         <div>
                             <h4 class="card-text-black" style="float:left;">HUB</h4>
-                            <a style="float:right;" class="btn btn-primary" href="{{route('hub_detail')}}">Explore</a>
+                            <a style="float:right;" class="btn btn-primary" href="">Explore</a>
                         </div>
                         <label class="card-text-label">Total number of hub</label>
                     </div>

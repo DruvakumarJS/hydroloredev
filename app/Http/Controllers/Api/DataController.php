@@ -107,6 +107,7 @@ class DataController extends Controller
             unset($syncdata['api_type']);
             unset($syncdata['id']);
             unset($syncdata['critical_data']);
+            unset($syncdata['hub_id']);
 
         
          $update=Pod::where('pod_id', $Inputdata['PODUID'])->update($syncdata->toArray());
@@ -641,7 +642,7 @@ class DataController extends Controller
         $threshold_time= "-".trim($outputArr[1])."minutes";
         $val = ltrim($threshold_time, '-');
        
-        $before_hour=date('Y-m-d H:i:s',strtotime($val));
+        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
         $trigger='true';
 
@@ -802,7 +803,7 @@ class DataController extends Controller
         $threshold_time= "-".trim($outputArr[1])."minutes";
         $val = ltrim($threshold_time, '-');
        
-        $before_hour=date('Y-m-d H:i:s',strtotime($val));
+        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
          
         $trigger='true';
         

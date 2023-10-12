@@ -5,6 +5,7 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use App\Models\Pod;
 use App\Models\Threshold;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Userdetail;
@@ -354,8 +355,9 @@ class TicketsController extends Controller
 
        // print_r($input->input());
 
-        $userdata=Userdetail::where('hub_id',$request->hub_id)->first();
-        $user_id=$userdata->id;
+        //$userdata=Userdetail::where('hub_id',$request->hub_id)->first();
+        $userdata=Pod::where('pod_id',$request->pod_id)->first();
+        $user_id=$userdata->user_id;
         $user_name=$userdata->firstname;
         $user_mobile=$userdata->mobile;
         $user_location=$userdata->location;
