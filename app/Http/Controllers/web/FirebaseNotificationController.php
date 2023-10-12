@@ -104,7 +104,7 @@ class FirebaseNotificationController extends Controller
         foreach ($harvest as $key => $value) {
        //  $userdetail = Userdetail::where('id', $value->user_id)->first();
       
-         $FcmToken= User::select('device_token')->where('id' ,'1')->first();
+         $FcmToken= User::select('device_token')->where('id' ,'1')->orWhere('id','3')->first();
           //print_r($FcmToken->device_token);
          $harvest_array[]=['token' => $FcmToken->device_token , 'pod_id'=>$value->pod_id , 'channel' => $value->channel_no.$value->sub_channel , 'id' => $value->id];
 
