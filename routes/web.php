@@ -210,6 +210,7 @@ Route::middleware('auth:web')->group(function () {
             Route::post('save-indents',[IndentController::class,'store'])->name('save_indent');
 
             Route::get('enquiry',[EnquiryController::class,'index'])->name('enquiry');
+            Route::get('edit-enquiry/{id}',[EnquiryController::class,'edit'])->name('edit_enquiry');
             Route::post('save-enquiry',[EnquiryController::class,'store'])->name('save_enquiry');
             Route::put('update-enquiry/{id}',[EnquiryController::class,'update'])->name('update_enquiry');
             Route::get('convert-enquiry/{id}',[EnquiryController::class,'show'])->name('convert_enquiry');

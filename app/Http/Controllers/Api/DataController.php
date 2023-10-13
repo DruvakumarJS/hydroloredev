@@ -107,6 +107,7 @@ class DataController extends Controller
             unset($syncdata['api_type']);
             unset($syncdata['id']);
             unset($syncdata['critical_data']);
+            unset($syncdata['hub_id']);
 
         
          $update=Pod::where('pod_id', $Inputdata['PODUID'])->update($syncdata->toArray());

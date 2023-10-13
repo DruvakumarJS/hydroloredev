@@ -24,7 +24,8 @@ class CreateEnquiriesTable extends Migration
             $table->string('location')->nullable();
             $table->string('installation_date')->nullable();
             $table->string('no_of_channels')->nullable();
-            $table->string('crops')->nullable();
+            $table->string('crops_id')->nullable();
+            $table->string('crops_name')->nullable();
             $table->string('require_monitoring')->nullable();
             $table->string('comments')->nullable();
             $table->timestamps();
