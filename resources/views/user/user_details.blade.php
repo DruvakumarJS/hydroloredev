@@ -275,7 +275,7 @@
                               <td>
                               <label>minimum mA </label>
                               <br>
-                              <input class="form-control" value="800" type="number" min="0" name="min_NP_I1" placeholder="minimum mA "></td>
+                              <input class="form-control" value="1800" type="number" min="0" name="min_NP_I1" placeholder="minimum mA "></td>
                               <td>
                               <label>maximum mA </label>
                               <br>

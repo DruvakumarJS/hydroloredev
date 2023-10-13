@@ -107,7 +107,6 @@ class DataController extends Controller
             unset($syncdata['api_type']);
             unset($syncdata['id']);
             unset($syncdata['critical_data']);
-            unset($syncdata['hub_id']);
 
         
          $update=Pod::where('pod_id', $Inputdata['PODUID'])->update($syncdata->toArray());
@@ -338,16 +337,16 @@ class DataController extends Controller
       {
         
         $thresholdValue=$threshold->TDS_V1;
-       /* $outputArr= preg_split("/[-:]/", $thresholdValue);
+        $outputArr= preg_split("/[-:]/", $thresholdValue);
 
         $min=trim($outputArr[0]);
         $max=trim($outputArr[1]);
-        $x=trim($outputArr[2]);*/
+       
 
-            if($Inputdata['TDS-V1']>$thresholdValue)
+            if($Inputdata['TDS-V1']<$min || $Inputdata['TDS-V1']>$max)
             {
 
-            $subject='Total Dissolved Salt Sensor value is high';
+            $subject='Total Dissolved Salt Sensor issue';
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -368,7 +367,7 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['TDS-V1'],
-                            'key'=> 'TDS-V1 Should be below '.$thresholdValue
+                            'key'=> 'TDS-V1 value should be between '.$min.' & '.$max 
                                                         
                         ]);
 
@@ -384,13 +383,13 @@ class DataController extends Controller
       {
 
         $thresholdValue=$threshold->PH_V1;
-        // $outputArr= preg_split("/[-:]/", $thresholdValue);
+        $outputArr= preg_split("/[-:]/", $thresholdValue);
 
-        // $min=trim($outputArr[0]);
-        // $max=trim($outputArr[1]);
+        $min=trim($outputArr[0]);
+        $max=trim($outputArr[1]);
         // $x=trim($outputArr[2]);
 
-            if($Inputdata['PH-V1']>$thresholdValue)
+            if($Inputdata['PH-V1']<$min || $Inputdata['PH-V1']>$max)
             {
 
             $subject='PH Sensor issue';
@@ -414,7 +413,7 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['PH-V1'],
-                            'key'=> 'pH Should be below '.$thresholdValue
+                            'key'=> 'pH value Should be between '.$min.' & '.$max 
                                                         
                         ]);
 
@@ -440,7 +439,7 @@ class DataController extends Controller
          if($Inputdata['NUT-T1']>((int)$Inputdata['POD-T1']+$thresholdValue))
                 {
 
-                $subject='Nutrient Solution Temperature Sensor Value – 1 has issue';
+                $subject='Nutrient Solution Temperature Sensor – 1 has issue';
 
 
                  $checkalert=Ticket::where('subject',$subject)
@@ -492,7 +491,7 @@ class DataController extends Controller
             if($Inputdata['NP-I1']<$min || $Inputdata['NP-I1']>$max)
             {
 
-            $subject='Nutrient Pump 1 issue';
+            $subject='Nutrient Pump - 1 issue';
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -655,10 +654,11 @@ class DataController extends Controller
             
                 if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
                 {  
-
-
-
+                    
+ 
                     $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
+
+
 
                     foreach ($prev_data as $key => $value) {
                        
@@ -676,7 +676,6 @@ class DataController extends Controller
                    
                     $trigger='false';
                 }
- 
 
            /* print_r("req time ".$before_hour);
             print_r($trigger);
@@ -684,7 +683,7 @@ class DataController extends Controller
             if($trigger=='true')
             {
 
-
+       
             $subject="Nutrient Pump Health Status – 1 issue";
 
             $checkalert=Ticket::where('subject',$subject)
@@ -711,7 +710,7 @@ class DataController extends Controller
                         ]);
 
 
-                   $ticket_controller->alerts($content);
+                  // $ticket_controller->alerts($content);
                     }  
            
             }
@@ -803,7 +802,7 @@ class DataController extends Controller
         $threshold_time= "-".trim($outputArr[1])."minutes";
         $val = ltrim($threshold_time, '-');
        
-        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
+        $before_hour=date('Y-m-d H:i:s',strtotime($thresholdValue));
          
         $trigger='true';
         
@@ -1154,8 +1153,6 @@ class DataController extends Controller
         if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
         {
 
-
-        
             $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
 
             if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
@@ -1731,7 +1728,7 @@ class DataController extends Controller
 
                     if(!$checkalert)
                     {
-                       $ticket_controller = new TicketsController; 
+                       $ticket_controller = new TicketsController;  
                    
                     $content = new Request
                         ([
