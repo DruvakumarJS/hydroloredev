@@ -102,10 +102,10 @@ class FirebaseNotificationController extends Controller
        $harvest = Cultivation::where('harvesting_date' , date('Y-m-d'))->where('status', '1')->get();
        $harvest_array=array();
         foreach ($harvest as $key => $value) {
-       //  $userdetail = Userdetail::where('id', $value->user_id)->first();
+         $userdetail = Userdetail::where('id', $value->user_id)->first();
       
-         $FcmToken= User::select('device_token')->where('id' ,'1')->orWhere('id','3')->first();
-          //print_r($FcmToken->device_token);
+         $FcmToken= User::select('device_token')->where('id' ,$userdetail->user_id)->first();
+          
          $harvest_array[]=['token' => $FcmToken->device_token , 'pod_id'=>$value->pod_id , 'channel' => $value->channel_no.$value->sub_channel , 'id' => $value->id];
 
         } 
@@ -119,7 +119,9 @@ class FirebaseNotificationController extends Controller
 
                 "notification" => [
                     "title" => 'Hydrolore - '.$value2['pod_id'] ,
-                    "body" => 'Hi..Start harvesting in Channel '.$value2['channel'], 
+                    "body" => 'Hi..Start harvesting in Channel '.$value2['channel'],
+                    "sound" => "default",
+                    "image" => url('/').'/images/logo1.png',
                     "click_action" =>  $value2['id'] 
 
                 ]
@@ -159,8 +161,9 @@ class FirebaseNotificationController extends Controller
         $nutrients_array=array();
          foreach ($nutrients as $key => $value) {
           
-         //  $userdetail = Userdetail::where('id', $value->user_id)->first();
-           $FcmToken= User::select('device_token')->where('id' ,'1')->first();
+         $userdetail = Userdetail::where('id', $value->user_id)->first();
+      
+         $FcmToken= User::select('device_token')->where('id' ,$userdetail->user_id)->first();
             //print_r($FcmToken->device_token);
            $nutrients_array[]=['token' => $FcmToken->device_token , 'pod_id'=>$value->pod_id , 'channel' => $value->channel_no.$value->sub_channel , 'id' => $value->id ];
  
@@ -213,9 +216,9 @@ class FirebaseNotificationController extends Controller
         $spray1 = Cultivation::where('spray1' , date('Y-m-d'))->where('status', '1')->get();
        $spray1_array=array();
         foreach ($spray1 as $key => $value) {
-       //  $userdetail = Userdetail::where('id', $value->user_id)->first();
+         $userdetail = Userdetail::where('id', $value->user_id)->first();
       
-         $FcmToken= User::select('device_token')->where('id' ,'1')->first();
+         $FcmToken= User::select('device_token')->where('id' ,$userdetail->user_id)->first();
           //print_r($FcmToken->device_token);
          $spray1_array[]=['token' => $FcmToken->device_token , 'pod_id'=>$value->pod_id , 'channel' => $value->channel_no.$value->sub_channel , 'id' => $value->id];
 
@@ -268,9 +271,9 @@ class FirebaseNotificationController extends Controller
         $spray2 = Cultivation::where('spray2' , date('Y-m-d'))->where('status', '1')->get();
        $spray2_array=array();
         foreach ($spray2 as $key => $value) {
-       //  $userdetail = Userdetail::where('id', $value->user_id)->first();
+         $userdetail = Userdetail::where('id', $value->user_id)->first();
       
-         $FcmToken= User::select('device_token')->where('id' ,'1')->first();
+         $FcmToken= User::select('device_token')->where('id' ,$userdetail->user_id)->first();
           //print_r($FcmToken->device_token);
          $spray2_array[]=['token' => $FcmToken->device_token , 'pod_id'=>$value->pod_id , 'channel' => $value->channel_no.$value->sub_channel , 'id' => $value->id];
 
@@ -323,9 +326,9 @@ class FirebaseNotificationController extends Controller
         $spray3 = Cultivation::where('spray3' , date('Y-m-d'))->where('status', '1')->get();
        $spray3_array=array();
         foreach ($spray3 as $key => $value) {
-       //  $userdetail = Userdetail::where('id', $value->user_id)->first();
+         $userdetail = Userdetail::where('id', $value->user_id)->first();
       
-         $FcmToken= User::select('device_token')->where('id' ,'1')->first();
+         $FcmToken= User::select('device_token')->where('id' ,$userdetail->user_id)->first();
           //print_r($FcmToken->device_token);
          $spray3_array[]=['token' => $FcmToken->device_token , 'pod_id'=>$value->pod_id , 'channel' => $value->channel_no.$value->sub_channel , 'id' => $value->id];
 
