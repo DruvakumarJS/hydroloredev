@@ -528,7 +528,8 @@ class CropsController extends Controller
              'spray2_steps' => $crop_detail->spray2_steps,
              'spray3' => $value->spray3,
              'is_spray3_done' => $is_spray3,
-             'spray3_steps' => $crop_detail->spray3_steps
+             'spray3_steps' => $crop_detail->spray3_steps,
+             'growth_cycle_pdf' => url('/').'/growth/pdf/hydrophonic.pdf'
          ];
 
           return response()->json([
@@ -650,4 +651,6 @@ class CropsController extends Controller
             curl_close($ch);
        }
     }
+
+   
 }

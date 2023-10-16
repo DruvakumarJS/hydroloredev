@@ -19,6 +19,10 @@
           <a data-bs-toggle="modal" data-bs-target="#mymodal" href=""><button class="btn btn-sm btn-danger">Mark as Completed</button></a>
       </div>
 
+       <div id="div2" style="margin-right: 30px">
+          <a href="{{route('view_crop_images',$cultivation->id)}}"><button class="btn btn-sm btn-outline-primary">View crop Images</button></a>
+      </div>
+
       <div class="modal" id="mymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content">

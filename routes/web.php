@@ -177,6 +177,7 @@ Route::middleware('auth:web')->group(function () {
             Route::get('remove-channel/{id}',[CultivationController::class,'destroy'])->name('remove_channel');
             Route::post('save-harvest-data',[CultivationController::class,'save_harvest_data'])->name('save_harvesting_data');
             Route::get('channel-details/{id}',[ActivityController::class,'index'])->name('channel_details');
+            Route::get('view_crop_images/{id}',[ActivityController::class,'show'])->name('view_crop_images');
 
             Route::get('reports',[CultivationController::class,'report'])->name('reports');
             Route::get('download/{id}',[CultivationController::class,'download'])->name('download');
