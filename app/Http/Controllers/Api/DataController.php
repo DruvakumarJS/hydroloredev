@@ -271,7 +271,9 @@ class DataController extends Controller
                 'pod_id'=>$threshold['pod_id'],
                 'threshold'=>$thresholdValue,
                 'current_value'=>$Inputdata['AB-T1'],
-                'key'=> 'AB_T1 Should be below '.$thresholdValue
+                'key'=> 'AB_T1 Should be below '.$thresholdValue,
+                'api_type'=> 'normal',
+                'is_critical_param' => '0'
                                             
             ]);
            $ticket_controller->alerts($content);
@@ -322,7 +324,9 @@ class DataController extends Controller
                         'pod_id'=>$Inputdata['PODUID'],
                         'threshold'=>$thresholdValue,
                         'current_value'=>$Inputdata['POD-T1'],
-                        'key'=> 'POD-T1 Should be below '.$val
+                        'key'=> 'POD-T1 Should be below '.$val,
+                        'api_type'=> 'normal',
+                        'is_critical_param' => '0'
                                                     
                     ]);
 
@@ -367,7 +371,9 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['TDS-V1'],
-                            'key'=> 'TDS-V1 value should be between '.$min.' & '.$max 
+                            'key'=> 'TDS-V1 value should be between '.$min.' & '.$max,
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '1' 
                                                         
                         ]);
 
@@ -413,7 +419,9 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['PH-V1'],
-                            'key'=> 'pH value Should be between '.$min.' & '.$max 
+                            'key'=> 'pH value Should be between '.$min.' & '.$max,
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '1' 
                                                         
                         ]);
 
@@ -463,8 +471,10 @@ class DataController extends Controller
                         'pod_id'=>$Inputdata['PODUID'],
                         'threshold'=>$thresholdValue,
                         'current_value'=>$Inputdata['NUT-T1'],
-                        'key'=> 'NUT-T1 Should be below '.$val
-                                                    
+                        'key'=> 'NUT-T1 Should be below '.$val,
+                        'api_type'=> 'normal',
+                        'is_critical_param' => '0'
+                                                            
                     ]);
 
 
@@ -512,7 +522,9 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['NP-I1'],
-                            'key'=> 'Relay 1 is ON and NP-I1 value Should be between '.$min.' & '.$max
+                            'key'=> 'Relay 1 is ON and NP-I1 value Should be between '.$min.' & '.$max,
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '1'
 
                                                         
                         ]);
@@ -611,7 +623,9 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['SV-I1'],
-                            'key'=> 'Relay 3 is ON and NP-I1 value Should be between '.$min.' & '.$max
+                            'key'=> 'Relay 3 is ON and NP-I1 value Should be between '.$min.' & '.$max,
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '1'
                                                         
                         ]);
 
@@ -705,8 +719,10 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['STS-NP1'],
-                            'key'=> 'High Level Reservoir Tank-2 is FLT for more than '.$val
-                                                        
+                            'key'=> 'High Level Reservoir Tank-2 is FLT for more than '.$val,
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '0'
+                                                                    
                         ]);
 
 
@@ -855,7 +871,9 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['STS-SV1'],
-                            'key'=> 'High Level Reservoir Tank-3 status is FLT for more than '.$val
+                            'key'=> 'High Level Reservoir Tank-3 status is FLT for more than '.$val,
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '0'
                                                         
                         ]);
 
@@ -944,8 +962,10 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['WL1L'],
-                            'key' => "Low level Source Tank-1 status is OFF for more than ".$val
-                                                        
+                            'key' => "Low level Source Tank-1 status is OFF for more than ".$val,
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '0'
+                                                                    
                         ]);
 
 
@@ -1032,7 +1052,9 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['WL2L'],
-                            'key' => "Low level Source Tank-2 status is OFF for more than ".$val
+                            'key' => "Low level Source Tank-2 status is OFF for more than ".$val,
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '0'
                                                         
                         ]);
 
@@ -1119,8 +1141,10 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['WL3L'],
-                            'key' => "Low level Source Tank-3 status is OFF for more than ".$val
-                                                        
+                            'key' => "Low level Source Tank-3 status is OFF for more than ".$val,
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '0'
+                                                                    
                         ]);
 
 
@@ -1244,8 +1268,10 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['RL1'],
-                            'key' => "Relay 1 (Nutrition pump controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-')
-                                                        
+                            'key' => "Relay 1 (Nutrition pump controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-'),
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '1'
+                                                                    
                         ]);
 
 
@@ -1488,8 +1514,10 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['RL3'],
-                            'key' => "Relay 3 (Fresh Water valve-1 controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-')
-                                                        
+                            'key' => "Relay 3 (Fresh Water valve-1 controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-'),
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '1'
+                                                                    
                         ]);
 
 
@@ -1617,7 +1645,9 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['RL4'],
-                            'key' => "Relay 4 (Fresh Water valve-2 controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-')
+                            'key' => "Relay 4 (Fresh Water valve-2 controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-'),
+                            'api_type'=> 'normal',
+                            'is_critical_param' => '1'
                                                         
                         ]);
 

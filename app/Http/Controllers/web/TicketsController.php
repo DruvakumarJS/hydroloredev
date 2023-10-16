@@ -377,7 +377,9 @@ class TicketsController extends Controller
                                      'threshold_value'=>$input->threshold,
                                      'current_value'=>$input->current_value,
                                      'inputkeys'=>$request->key,
-                                     'sr_no'=>$SR_NO]);
+                                     'sr_no'=>$SR_NO,
+                                     'api_type'=> $input->api_type,
+                                     'is_critical_param' => $input->is_critical_param]);
 
         $ticket = new Ticket();
 
