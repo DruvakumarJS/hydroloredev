@@ -255,7 +255,8 @@ class CropsController extends Controller
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
                           'message' => 'Harvesting in '.$days_remaining.' Days',
-                          'alert_type' => 'Reminder' ];
+                          'alert_type' => 'Reminder',
+                          'cultivation_id' => $value->id];
                
             }
             $crop = Crop::where('id',$value->crop_id)->first();
@@ -266,7 +267,8 @@ class CropsController extends Controller
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
                           'message' => 'Pruning Day',
-                          'alert_type' => 'Reminder' ];
+                          'alert_type' => 'Reminder',
+                          'cultivation_id' => $value->id ];
 
             }
 
@@ -276,7 +278,8 @@ class CropsController extends Controller
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
                           'message' => 'Staking Day',
-                          'alert_type' => 'Reminder' ];
+                          'alert_type' => 'Reminder',
+                          'cultivation_id' => $value->id ];
 
             }
 
@@ -286,7 +289,8 @@ class CropsController extends Controller
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
                           'message' => 'Add Nutritions to Crop today',
-                          'alert_type' => 'Reminder' ];
+                          'alert_type' => 'Reminder',
+                          'cultivation_id' => $value->id ];
 
             }
 
@@ -296,7 +300,8 @@ class CropsController extends Controller
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
                           'message' => 'Do first round of Spray on plants today',
-                          'alert_type' => 'Reminder' ];
+                          'alert_type' => 'Reminder',
+                          'cultivation_id' => $value->id ];
 
             }
 
@@ -306,7 +311,8 @@ class CropsController extends Controller
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
                           'message' => 'Do secound round of Spray on plants today',
-                          'alert_type' => 'Reminder' ];
+                          'alert_type' => 'Reminder',
+                          'cultivation_id' => $value->id ];
 
             }
 
@@ -316,7 +322,8 @@ class CropsController extends Controller
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
                           'message' => 'Do final round of Spray on plants today',
-                          'alert_type' => 'Reminder' ];
+                          'alert_type' => 'Reminder',
+                          'cultivation_id' => $value->id ];
 
             }
 
