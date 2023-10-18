@@ -120,9 +120,8 @@ class FirebaseNotificationController extends Controller
                 "notification" => [
                     "title" => 'Hydrolore - '.$value2['pod_id'] ,
                     "body" => 'Hi..Start harvesting in Channel '.$value2['channel'],
-                    "sound" => "default",
-                    "image" => url('/').'/images/logo1.png',
-                    "click_action" =>  $value2['id'] 
+                    "click_action" => '/cropdetails/'.$value2['id'] ,
+                    "icon"=>"https://login.hydrolore.in/images/logo1.png"
 
                 ]
             ];
@@ -179,7 +178,8 @@ class FirebaseNotificationController extends Controller
                 "notification" => [
                     "title" => 'Hydrolore - '.$value2['pod_id'] ,
                     "body" => 'Hi..Add Nutrients to Channel '.$value2['channel'], 
-                    "click_action" =>  $value2['id'] 
+                    "click_action" => '/cropdetails/'.$value2['id'] ,
+                    "icon"=>"https://login.hydrolore.in/images/logo1.png"
 
                 ]
             ];
@@ -234,7 +234,8 @@ class FirebaseNotificationController extends Controller
                 "notification" => [
                     "title" => 'Hydrolore - '.$value2['pod_id'] ,
                     "body" => 'Plant Protection Sprays - Channel '.$value2['channel'], 
-                    "click_action" =>  $value2['id'] 
+                    "click_action" => '/cropdetails/'.$value2['id'] ,
+                    "icon"=>"https://login.hydrolore.in/images/logo1.png"
 
                 ]
             ];
@@ -289,7 +290,8 @@ class FirebaseNotificationController extends Controller
                 "notification" => [
                     "title" => 'Hydrolore - '.$value2['pod_id'] ,
                     "body" => 'Crop Fertigation - 1 - Channel '.$value2['channel'], 
-                    "click_action" =>  $value2['id'] 
+                    "click_action" => '/cropdetails/'.$value2['id'] ,
+                    "icon"=>"https://login.hydrolore.in/images/logo1.png"
 
                 ]
             ];
@@ -344,7 +346,8 @@ class FirebaseNotificationController extends Controller
                 "notification" => [
                     "title" => 'Hydrolore - '.$value2['pod_id'] ,
                     "body" => 'Crop Fertigation - 2 - Channel '.$value2['channel'], 
-                    "click_action" =>  $value2['id'] 
+                    "click_action" => '/cropdetails/'.$value2['id'] ,
+                    "icon"=>"https://login.hydrolore.in/images/logo1.png"
 
                 ]
             ];

@@ -10,6 +10,8 @@ use App\Models\GrowthDuration;
 use App\Models\Activity;
 use App\Models\Ticket;
 use App\Models\SensorNotification;
+use App\Models\Userdetail;
+use App\Models\user;
 
 class CropsController extends Controller
 {
@@ -526,7 +528,8 @@ class CropsController extends Controller
              'spray2_steps' => $crop_detail->spray2_steps,
              'spray3' => $value->spray3,
              'is_spray3_done' => $is_spray3,
-             'spray3_steps' => $crop_detail->spray3_steps
+             'spray3_steps' => $crop_detail->spray3_steps,
+             'growth_cycle_pdf' => url('/').'/growth/pdf/hydrophonic.pdf'
          ];
 
           return response()->json([
@@ -591,4 +594,63 @@ class CropsController extends Controller
         }
 
     }
+
+    public function notification(){
+    //  print_r("lll"); die();
+      $harvest = Cultivation::where('harvesting_date' , date('Y-m-d'))->where('status', '1')->get();
+       $harvest_array=array();
+        foreach ($harvest as $key => $value) {
+         $userdetail = Userdetail::where('id', $value->user_id)->first();
+      
+         $FcmToken= User::select('device_token')->where('id' ,$userdetail->user_id)->first();
+          
+         $harvest_array[]=['token' => $FcmToken->device_token , 'pod_id'=>$value->pod_id , 'channel' => $value->channel_no.$value->sub_channel , 'id' => $value->id];
+
+        } 
+
+       // print_r($harvest_array); die();
+       foreach ($harvest_array as $key2=>$value2) {
+
+           $url = 'https://fcm.googleapis.com/fcm/send';  
+            $serverKey = env('FCM_SERVER_KEY');
+            $data = [
+                "registration_ids" => array($value2['token']),
+
+                "notification" => [
+                    "title" => 'Hydrolore - '.$value2['pod_id'] ,
+                    "body" => 'Hi..Start harvesting in Channel '.$value2['channel'],
+                    "click_action" => '/cropdetails/'.$value2['id'] ,
+                    "icon"=>"https://login.hydrolore.in/images/logo1.png"
+
+                ]
+            ];
+            $encodedData = json_encode($data);
+            print_r($value2['token']);echo'----------';
+        
+            $headers = [
+                'Authorization:key=' . $serverKey,
+                'Content-Type: application/json',
+            ];
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);        
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
+            $result = curl_exec($ch);
+            if ($result === FALSE) {  
+               die('Curl failed: ' . curl_error($ch));
+            }        
+            $err = curl_error($ch);
+
+           // print_r($result);
+            curl_close($ch);
+       }
+    }
+
+   
 }

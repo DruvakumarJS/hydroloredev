@@ -165,9 +165,22 @@ class ActivityController extends Controller
      * @param  \App\Models\Activity  $activity
      * @return \Illuminate\Http\Response
      */
-    public function show(Activity $activity)
+    public function show($id)
     {
-        //
+        $data = Activity::where('cultivation_id' , $id)->get();
+        $imagearray=array();
+
+        foreach ($data as $key => $value) {
+            $images = explode(',', $value->images);
+            foreach ($images as $img) {
+                $imagearray[]=['imagename' => $img , 'comment' => $value->feedback];
+            }
+            
+           
+        }
+
+       // print_r(json_encode($imagearray)); die();
+        return view('activity/crop_images', compact('imagearray', 'id'));
     }
 
     /**

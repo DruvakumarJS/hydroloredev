@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\InstagramAPIController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\CropsController;
 use App\Http\Controllers\Api\ActiveSensorController;
+use App\Http\Controllers\web\FirebaseNotificationController;
 
 
 /*
@@ -48,6 +49,10 @@ Route::get('/get-crop-details/{id}',[CropsController::class , 'crop_details']);
 Route::post('save-activity',[CropsController::class,'save_activity']);
 
 Route::get('/get-sensor_details/{id}',[ActiveSensorController::class , 'sensor_details']);
+
+//Route::get('/get-notifications',[FirebaseNotificationController::class , 'dynamic_notification']);
+Route::get('/notifications',[CropsController::class , 'notification']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
