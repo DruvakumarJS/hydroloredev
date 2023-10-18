@@ -525,7 +525,7 @@ $(".dropdown-menu li a").click(function() {
       
       data: {
        // labels: ['POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5' , 'POD1' , 'POD2' , 'POD3' , 'POD4' , 'POD5'],
-         labels: ['2am', '4am' , '6am' , '8am','10am' , '12am' , '2pm' , '4pm' ,'6pm', '8pm', '10pm', '12pm' ],
+         labels: ['2am', '4am' , '6am' , '8am','10am' , '12pm' , '2pm' , '4pm' ,'6pm', '8pm', '10pm', '12am' ],
 
 
         datasets: [
@@ -606,7 +606,7 @@ $(".dropdown-menu li a").click(function() {
        },
       
       data: {
-         labels: ['2am', '4am' , '6am' , '8am','10am' , '12am' , '2pm' , '4pm' ,'6pm', '8pm', '10pm', '12pm' ],
+         labels: ['2am', '4am' , '6am' , '8am','10am' , '12pm' , '2pm' , '4pm' ,'6pm', '8pm', '10pm', '12am' ],
          
 
 
@@ -664,7 +664,7 @@ $(".dropdown-menu li a").click(function() {
   type: 'bar',
   data: {
   
-    labels: ['2am', '4am' , '6am' , '8am','10am' , '12am' , '2pm' , '4pm' ,'6pm', '8pm', '10pm', '12pm' ],
+    labels: ['2am', '4am' , '6am' , '8am','10am' , '12pm' , '2pm' , '4pm' ,'6pm', '8pm', '10pm', '12am' ],
 
     datasets: [{
       label: 'PH value',
