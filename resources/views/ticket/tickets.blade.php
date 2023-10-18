@@ -117,7 +117,7 @@
          
           <td > <label>{{$value->sr_no}}</label> </td>
           <td > <label>{{$tittle}}</label> </td>
-          <td>
+          <td style="font-weight: <?php echo ($value->is_critical_param == '1')?'bold':'normal';  ?>">
             
             @foreach($array as $key => $val)
             @if($val!="") {{$val}}<br>@endif 
