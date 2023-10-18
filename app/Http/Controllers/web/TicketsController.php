@@ -5,6 +5,7 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ticket;
+use App\Models\Pod;
 use App\Models\Threshold;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Userdetail;
@@ -377,7 +378,9 @@ class TicketsController extends Controller
                                      'threshold_value'=>$input->threshold,
                                      'current_value'=>$input->current_value,
                                      'inputkeys'=>$request->key,
-                                     'sr_no'=>$SR_NO]);
+                                     'sr_no'=>$SR_NO,
+                                     'api_type'=> $input->api_type,
+                                     'is_critical_param' => $input->is_critical_param]);
 
         $ticket = new Ticket();
 

@@ -17,7 +17,9 @@ class Ticket extends Model
         'threshold_value',
         'current_value',
         'sr_no',
-        'inputkeys'];
+        'inputkeys',
+        'api_type',
+        'is_critical_param'];
 
 
          public function user()
