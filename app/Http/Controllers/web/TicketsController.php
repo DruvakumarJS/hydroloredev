@@ -15,7 +15,6 @@ use App\Mail\TriggerEmail;
 use App\Mail\CriticalEmail;
 use App\Mail\GenerateTicket;
 use DB;
-use App\Models\Pod;
 use Illuminate\Support\Facades\Auth;
 
 
