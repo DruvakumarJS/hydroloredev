@@ -419,9 +419,9 @@
                <td>Relay 3 Status – Controls Fresh Water  Valve – 1</td>
                
                <td>
-                <label>Max minute for ON</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="min_time_RL3" placeholder="Max minute for ON "></td>
+                <label>Max minute for OPEN</label> <br> <input class="form-control" style="background-color: white" value="{{$t2}}"  type="text" name="min_time_RL3" placeholder="Max minute for ON "></td>
                 <td>
-                  <label>Max minute for OFF</label> <br> <input class="form-control" style="background-color: white" value="{{$t3}}"  type="text" name="max_time_RL3" placeholder="max minutes for OFF"></td>
+                  <label>Max minute for CLOSED</label> <br> <input class="form-control" style="background-color: white" value="{{$t3}}"  type="text" name="max_time_RL3" placeholder="max minutes for OFF"></td>
                 </tr>
 
                 @php

@@ -445,11 +445,11 @@
                              <td>RL3</td>
                              <td>Relay 3 Status – Controls Fresh Water  Valve – 1</td>
                               <td>
-                              <label>Max minute for ON</label>
+                              <label>Max minute for OPEN</label>
                               <br>
                               <input class="form-control" value="30" type="number" min="0" name="min_time_RL3" placeholder="Max minute for ON "></td>
                               <td>
-                              <label>Max minute for OFF</label>
+                              <label>Max minute for CLOSED</label>
                               <br>
                               <input class="form-control" value="1080" type="number" min="0" name="max_time_RL3" placeholder="max minutes for OFF"></td>
                            </tr>
