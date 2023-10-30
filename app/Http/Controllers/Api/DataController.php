@@ -1396,10 +1396,7 @@ class DataController extends Controller
        
       
       }
- 
-
-       
-      
+  
       public function getThresholdData($podid){
           
          $threshold = Threshold::where('pod_id','=', $podid)->get();
