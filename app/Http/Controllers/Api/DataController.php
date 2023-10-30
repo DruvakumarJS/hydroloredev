@@ -648,61 +648,36 @@ class DataController extends Controller
       
       }
 
-    public function validate_STS_NP1($Inputdata ,$threshold , $date)
-      {
+      public function validate_STS_NP1($Inputdata ,$threshold , $date){
         $thresholdValue=$threshold->STS_NP1;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
        
         $threshold_time= "-".trim($outputArr[1])."minutes";
         $val = ltrim($threshold_time, '-');
-       
+
         $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
-        $trigger='true';
+        $trigger='false';
 
-        
-           /* if($Inputdata['STS-NP1']=='FLT')
-            {
-*/
-          //  $check_data=MasterSyncData::where('created_at','<',$before_hour)->get();  
-               $prev_data=MasterSyncData::where('created_at','>=',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
-            
-                if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
-                {  
-                    
-                    $timestamp = MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->first();
+        if($Inputdata['STS-NP1'] == 'FLT'){
+            $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('STS_NP1' , '!=', 'FLT')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-                    $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
+            if($row_id == $lastrow){
+                $trigger = "false";
+            }
+            else{
+                $trigger = "true";
+            }
+           
+        }
+         
+        if($trigger=='true')
+         {
+            $error_id=$row_id+1;
 
-                   // print_r($time_difference . intval($time_difference)); die();
-                    if(intval($time_difference) >= intval($outputArr[1])){ 
+            $data = MasterSyncData::where('id',$error_id)->first();
 
-                            foreach ($prev_data as $key => $value) {
-                               
-                               if(($value->WL2H)!='FLT'){
-                                       
-                                       $trigger='false';
-
-                            
-                               }
-                            }
-                    }
-                    else{
-                        $trigger='false';
-                    }
-                }
-
-                else{
-                   
-                    $trigger='false';
-                }
-
-          // print_r($trigger . $val . intval($time_difference)); die();
-
-            if($trigger=='true')
-            {
-             
-       
             $subject="NP Status is FLT";
 
             $checkalert=Ticket::where('subject',$subject)
@@ -711,164 +686,63 @@ class DataController extends Controller
                               ->where('created_at', 'like', $date.'%')
                               ->orderBy('id', 'DESC')->first();
 
-                             
+             //          
 
                     if(!$checkalert)
                     {
-                       $ticket_controller = new TicketsController; 
-                   
-                    $content = new Request
-                        ([
-                            'subject'=>$subject,
-                            'hub_id'=>$threshold['hub_id'],
-                            'pod_id'=>$threshold['pod_id'],
-                            'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['STS-NP1'],
-                            'key'=> 'NP Status is FLT since '.$timestamp->created_at,
-                            'api_type'=> 'normal',
-                            'is_critical_param' => '0'
-                                                                    
-                        ]);
-
-
-                  // $ticket_controller->alerts($content);
-                    }  
-           
-            }
-        // }
-        
-      
-      }
-      
-    public function validate_STS_NP2($Inputdata ,$threshold , $date)
-      {
-
-        $thresholdValue=$threshold->STS_NP1;
-        $outputArr= preg_split("/[-:]/", $thresholdValue);
-         $threshold_time= "-".trim($outputArr[1])."minutes";
-       
-        $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
-
-        $trigger='true';
-
-        
-            if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-            {
-
-                if(MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
-                {   
-
-                    $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
-                    
-                    foreach ($prev_data as $key => $value) {
+                          
+                        $ticket_controller = new TicketsController; 
                        
-                       if(($value->STS_NP1)!='FLT' ||  ($value->STS_NP2)!='FLT'){
-                               
-                               $trigger='false';
-                               
+                        $content = new Request
+                            ([
+                                'subject'=>$subject,
+                                'hub_id'=>$threshold['hub_id'],
+                                'pod_id'=>$threshold['pod_id'],
+                                'threshold'=>$thresholdValue,
+                                'current_value'=>$Inputdata['STS-NP1'],
+                                'key'=> 'NP Status is FLT since '.date('d M Y H:i',strtotime($data->created_at)),
+                                'api_type'=> 'normal',
+                                'is_critical_param' => '0'
+                                                                        
+                            ]);
 
-                       }
-                    }
-                }
-                else{
-                    $trigger='false';
-                }
-
-            /*print_r("req time ".$before_hour);
-            print_r($trigger);
-*/
-            if($trigger=='true')
-            {
-
-
-            $subject="Nutrient Pump Health Status – 2 issue";
-
-            $checkalert=Ticket::where('subject',$subject)
-                             ->where('pod_id',$Inputdata['PODUID'])
-                              ->where('status','1')
-                              ->where('created_at', 'like', $date.'%')
-                              ->orderBy('id', 'DESC')->first();
-
-                             
-
-                    if(!$checkalert)
-                    {
-                       $ticket_controller = new TicketsController; 
-                   
-                    $content = new Request
-                        ([
-                            'subject'=>$subject,
-                            'hub_id'=>$threshold['hub_id'],
-                            'pod_id'=>$threshold['pod_id'],
-                            'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['STS-NP2']
-                                                        
-                        ]);
-
-
-                   $ticket_controller->alerts($content);
+                        $ticket_controller->alerts($content);
+                  
                     }  
            
             }
-         }
-      
-      } 
+        
+        
+      }
 
-
-    public function validate_STS_SV1($Inputdata ,$threshold , $date)
-      {
-
+    public function validate_STS_SV1($Inputdata ,$threshold , $date){
         $thresholdValue=$threshold->STS_SV1;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
         $threshold_time= "-".trim($outputArr[1])."minutes";
         $val = ltrim($threshold_time, '-');
        
         $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
+
+        $trigger='false';
+
+        if($Inputdata['STS-SV1'] == 'FLT'){
+            $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('STS_SV1' , '!=', 'FLT')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
+
+            if($row_id == $lastrow){
+                $trigger = "false";
+            }
+            else{
+                $trigger = "true";
+            }
+           
+        }
          
-        $trigger='true';
-        //print_r($before_hour);
+        if($trigger=='true')
+         {
+            $error_id=$row_id+1;
 
-             $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
-            // print_r($prev_data->count()); die();
-
-                if($prev_data->count()>1 &&  MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
-                {
-
-                   
-                    $timestamp = MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->first();
-
-                    $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
-
-                  
-                    if(intval($time_difference) >= intval($outputArr[1]) ){ 
-
-
-                    foreach ($prev_data as $key => $value) {
-                       
-                       if(($value->WL3H)!='FLT'){
-                               
-                               $trigger='false';
-                               
-
-                       }
-                     
-                     }
-                    }
-                    else{
-                        $trigger='false';
-                               
-                    }
-                }
-                else
-                {
-                    $trigger='false';
-                }
-
-            
-
-            if($trigger=='true')
-            {
-
+            $data = MasterSyncData::where('id',$error_id)->first();
 
             $subject="SV Status is FLT";
 
@@ -878,35 +752,36 @@ class DataController extends Controller
                               ->where('created_at', 'like', $date.'%')
                               ->orderBy('id', 'DESC')->first();
 
-                             
+             //          
 
                     if(!$checkalert)
                     {
-                       $ticket_controller = new TicketsController; 
-                   
-                    $content = new Request
-                        ([
-                            'subject'=>$subject,
-                            'hub_id'=>$threshold['hub_id'],
-                            'pod_id'=>$threshold['pod_id'],
-                            'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['STS-SV1'],
-                            'key'=> 'SV Status is FLT since '.$timestamp->created_at,
-                            'api_type'=> 'normal',
-                            'is_critical_param' => '0'
-                                                        
-                        ]);
+                          
+                        $ticket_controller = new TicketsController; 
+                       
+                        $content = new Request
+                            ([
+                                'subject'=>$subject,
+                                'hub_id'=>$threshold['hub_id'],
+                                'pod_id'=>$threshold['pod_id'],
+                                'threshold'=>$thresholdValue,
+                                'current_value'=>$Inputdata['STS-NP1'],
+                                'key'=> 'NP Status is FLT since '.date('d M Y H:i',strtotime($data->created_at)),
+                                'api_type'=> 'normal',
+                                'is_critical_param' => '0'
+                                                                        
+                            ]);
 
-
-                   $ticket_controller->alerts($content);
+                        $ticket_controller->alerts($content);
+                  
                     }  
            
             }
         
-      
-      } 
+        
+      }  
 
-    public function validate_WL1L($Inputdata ,$threshold , $date)
+      public function validate_WL1L($Inputdata ,$threshold , $date)
       {
 
         $thresholdValue=$threshold->WL1L;
@@ -916,55 +791,41 @@ class DataController extends Controller
        
         $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
-        $trigger='true';
-
-        
-            if($Inputdata['WL1L']=='OFF')
-            {
-                $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
-                    
-
-                if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
-                {   
+        $trigger='false';
 
 
-                    $timestamp=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->first();
+        if($Inputdata['WL1L'] == 'OFF'){
+            $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('WL1L' ,'!=','OFF')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-                    $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
+            if($row_id == $lastrow){
+                $trigger = "false";
+            }
+            else{
+                $error_id=$row_id+1;
 
-                   // print_r($time_difference . intval($outputArr[1]) );
-                
+                $data = MasterSyncData::where('id',$error_id)->first();
 
-                    if(intval($time_difference) >= intval($outputArr[1]) )
-                    {
-                            
-                        foreach ($prev_data as $key => $value) {
-                           
-                           if(($value->WL1L)!='OFF'){
-                                   
-                                   $trigger='false';
-                                   
+                $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($data->created_at))/60; 
+               // print_r($time_difference);
+                if(intval($time_difference) > intval($outputArr[1])){
 
-                           }
-                        }
-
-                    }
-                    else{
-
-                          $trigger='false';
-
-                    }
+                    $trigger = "true";
 
                 }
-
                 else{
-                   
-                    $trigger='false';
+                    $trigger = "false";
+
                 }
 
-               // print_r($trigger); die();
 
-            
+
+                
+            }
+
+        }
+           // print_r($trigger); die();
+  
             if($trigger=='true')
             {
 
@@ -990,7 +851,7 @@ class DataController extends Controller
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
                             'current_value'=>$Inputdata['WL1L'],
-                            'key' => "Upper Tank is empty for more than ".$time_difference." minutes. The max time should be ".$val,
+                            'key' => "Upper Tank is empty for more than ".intval($time_difference)." minutes. The max time should be ".$val,
                             'api_type'=> 'normal',
                             'is_critical_param' => '0'
                                                                     
@@ -1001,72 +862,57 @@ class DataController extends Controller
                     }  
            
             }
-         }
+         
       
       } 
 
-    public function validate_WL2L($Inputdata ,$threshold , $date)
+     public function validate_WL2L($Inputdata ,$threshold , $date)
       {
-       
+
         $thresholdValue=$threshold->WL2L;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
-         $threshold_time= "-".trim($outputArr[1])."minutes";
-         $val = ltrim($threshold_time, '-');
+        $threshold_time= "-".trim($outputArr[1])."minutes";
+        $val = ltrim($threshold_time, '-');
        
         $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
-        $trigger='true';
-        
-            if($Inputdata['WL2L']=='OFF')
-            {
-                $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
+        $trigger='false';
 
 
-                if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
-                {   
+        if($Inputdata['WL2L'] == 'OFF'){
+            $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('WL2L' ,'!=','OFF')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-                    $timestamp=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->first();
+            if($row_id == $lastrow){
+                $trigger = "false";
+            }
+            else{
+                $error_id=$row_id+1;
 
-                    $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
+                $data = MasterSyncData::where('id',$error_id)->first();
 
-                   // print_r($time_difference);die();
-                
+                $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($data->created_at))/60; 
+               // print_r($time_difference);
+                if(intval($time_difference) > intval($outputArr[1])){
 
-                    if(intval($time_difference) >= intval($outputArr[1]))
-                    {
-
-                        foreach ($prev_data as $key => $value) {
-                           
-                           if(($value->WL2L)!='OFF'){
-                                   
-                                   $trigger='false';
-                                   
-                                   
-                           }
-                        }
-
-                    }
-                    else
-                    {
-                         $trigger='false';
-                    }
+                    $trigger = "true";
 
                 }
+                else{
+                    $trigger = "false";
 
-            else{
-               
-                $trigger='false';
+                }
+  
             }
 
-         
-
+        }
+           // print_r($trigger); die();
+  
             if($trigger=='true')
             {
 
-
-           // $subject="Source Tank Water Level Sensor-2 – Low Level Status issue";
-            $subject="Lower Tank LL Sensor";
-
+          //  $subject="Source Tank Water Level Sensor-1 – Low Level Status issue";
+             $subject="Lower Tank LL Sensor";
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -1086,11 +932,11 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['WL2L'],
-                            'key' => "Lower Tank is empty for more than " .$time_difference. " minutes. The max time should be ".$val,
+                            'current_value'=>$Inputdata['WL1L'],
+                            'key' => "Lower Tank is empty for more than ".intval($time_difference)." minutes. The max time should be ".$val,
                             'api_type'=> 'normal',
                             'is_critical_param' => '0'
-                                                        
+                                                                    
                         ]);
 
 
@@ -1098,7 +944,7 @@ class DataController extends Controller
                     }  
            
             }
-         }
+         
       
       } 
 
@@ -1112,59 +958,43 @@ class DataController extends Controller
        
         $before_hour=date('Y-m-d H:i:s',strtotime($threshold_time));
 
-        $trigger='true';
-        
-            if($Inputdata['WL3L']=='OFF')
-            {
-
-            $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->get();
+        $trigger='false';
 
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$before_hour)->where('pod_id',$Inputdata['PODUID'])->exists()) 
-            {   
+        if($Inputdata['WL3L'] == 'OFF'){
+            $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('WL3L' ,'!=','OFF')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-               
-                 $timestamp=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$Inputdata['PODUID'])->first();
-
-                 $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
-
-                   // print_r($time_difference);die();
-                
-
-                if(intval($time_difference) >= intval($outputArr[1]) )
-                {
-
-                    foreach ($prev_data as $key => $value) {
-                       
-                       if(($value->WL3L)!='OFF'){
-                               
-                               $trigger='false';
-                               
-                               
-                       }
-                    }
-
-                }
-                else
-                {
-                     $trigger='false';
-                }
-
+            if($row_id == $lastrow){
+                $trigger = "false";
             }
-
             else{
-               
-                $trigger='false';
+                $error_id=$row_id+1;
+
+                $data = MasterSyncData::where('id',$error_id)->first();
+
+                $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($data->created_at))/60; 
+               // print_r($time_difference);
+                if(intval($time_difference) > intval($outputArr[1])){
+
+                    $trigger = "true";
+
+                }
+                else{
+                    $trigger = "false";
+
+                }
+  
             }
 
-         
-
+        }
+           // print_r($trigger); die();
+  
             if($trigger=='true')
             {
 
-
-           // $subject="Source Tank Water Level Sensor-3 – Low Level Status issue";
-            $subject="Back Up Tank LL Sensor";
+          //  $subject="Source Tank Water Level Sensor-1 – Low Level Status issue";
+             $subject="Back Up Tank LL Sensor";
 
             $checkalert=Ticket::where('subject',$subject)
                              ->where('pod_id',$Inputdata['PODUID'])
@@ -1184,8 +1014,8 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['WL3L'],
-                            'key' => "Back up empty for more than ".$time_difference." minutes.The max time should be ".$val." mins",
+                            'current_value'=>$Inputdata['WL1L'],
+                            'key' => "Back Up Tank is empty for more than ".intval($time_difference)." minutes. The max time should be ".$val,
                             'api_type'=> 'normal',
                             'is_critical_param' => '0'
                                                                     
@@ -1196,19 +1026,20 @@ class DataController extends Controller
                     }  
            
             }
-         }
+         
       
       } 
 
-    public function validate_RL1($Inputdata ,$threshold , $date)
+
+      public function validate_RL1($Inputdata ,$threshold , $date)
       {
 
         $thresholdValue=$threshold->RL1;
         $outputArr= preg_split("/[-:]/", $thresholdValue);
         
 
-        $RL_ON='true';
-        $RL_OFF='true';
+        $RL_ON='false';
+        $RL_OFF='false';
 
       
         $on_time="-".trim($outputArr[1])."minutes";
@@ -1218,89 +1049,61 @@ class DataController extends Controller
          $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
          $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
 
-        /*if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {*/
+         if($Inputdata['RL1'] == 'ON'){
+            $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('RL1' ,'!=','ON')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-            $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
+            if($row_id == $lastrow){
+                $RL_ON = "false";
+            }
+            else{
+                $error_id=$row_id+1;
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
+                $data = MasterSyncData::where('id',$error_id)->first();
 
-            $timestamp=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->first();
+                $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($data->created_at))/60; 
+               // print_r($time_difference);
+                if(intval($time_difference) > intval($outputArr[1])){
 
-             $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
-
-                print_r($time_difference);die();
-            
-
-                if(intval($time_difference) >= intval($outputArr[1]))
-                {
-
-                foreach ($prev_data as $key => $value) {
-
-                   
-                   if(($value->RL1)!='ON'){
-                   // print_r("kk"); 
-                           
-                           $RL_ON='false';
-                           
-                           
-                   }
-                }
-                
+                    $RL_ON = "true";
 
                 }
                 else{
-                    $RL_ON='false';
+                    $RL_ON = "false";
+
                 }
-        }
-        else
-        {
-            $RL_ON='false';
-        } 
+  
+            }
 
 
+         }
+         if($Inputdata['RL1'] == 'OFF'){
+             $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('RL1' ,'!=','OFF')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-        /*if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {*/
-   
+            if($row_id == $lastrow){
+                $RL_OFF = "false";
+            }
+            else{
+                $error_id=$row_id+1;
 
-            $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
+                $data = MasterSyncData::where('id',$error_id)->first();
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
+                $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($data->created_at))/60; 
+               // print_r($time_difference);
+                if(intval($time_difference) > intval($outputArr[2])){
 
-             $timestamp=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->first();
+                    $RL_OFF = "true";
 
-             $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
-
-               // print_r($time_difference);die();
-            
-
-                if(intval($time_difference) >= intval($outputArr[2])){
-                    foreach ($prev_data as $key => $value) {
-                       
-                       if(($value->RL1)!='OFF'){
-                               
-                               $RL_OFF='false';
-                               
-                               
-                       }
-                    }
                 }
                 else{
-                    $RL_OFF='false';
+                    $RL_OFF = "false";
+
                 }
-
+  
             }
 
-            else {
-                 
-                 $RL_OFF='false';
-
-            }
-
-       
+         }
 
 
 
@@ -1308,11 +1111,11 @@ class DataController extends Controller
             {
                if($RL_ON=='true'){
                  $subject="NP Relay is ON Continously";
-                 $key = "NP relay is ON for ".$time_difference." mins. Should not be more  than ".ltrim($on_time , '-');
+                 $key = "NP relay is ON for ".intval($time_difference)." mins. Should not be more  than ".ltrim($on_time , '-');
                }
                else if($RL_OFF=='true'){
                   $subject="NP Relay is OFF Continously";
-                  $key = "NP relay is OFF for ".$time_difference." mins. Should not be more  than ".ltrim($off_time , '-');
+                  $key = "NP relay is OFF for ".intval($time_difference)." mins. Should not be more  than ".ltrim($off_time , '-');
             }
 
 
@@ -1339,125 +1142,6 @@ class DataController extends Controller
                             'api_type'=> 'normal',
                             'is_critical_param' => '1'
                                                                     
-                        ]);
-
-
-                   $ticket_controller->alerts($content);
-                    }  
-           
-            }
-       
-      
-      }
-
-      public function validate_RL2($Inputdata ,$threshold , $date)
-      {
-        
-        $thresholdValue=$threshold->RL2;
-        $outputArr= preg_split("/[-:]/", $thresholdValue);
-        
-
-        $RL_ON='true';
-        $RL_OFF='true';
-
-      
-        $on_time="-".trim($outputArr[1])."minutes";
-        $off_time="-".trim($outputArr[2])."minutes";
-
-       
-         $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
-         $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
-
-        if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {
-
-        
-            $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
-
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
-
-            foreach ($prev_data as $key => $value) {
-
-               
-               if(($value->RL2)!='ON'){
-                       
-                       $RL_ON='false';
-                       
-                       
-               }
-            }
-            }
-
-            else{
-                 $RL_ON='false';
-            }
-        }
-        else{
-             $RL_ON='false';
-
-        }   
-
-
-        if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {
- 
-
-             $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
-
-             if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
-                print_r('inside');
-
-
-            foreach ($prev_data as $key => $value) {
-               
-               if(($value->RL2)!='OFF'){
-                       
-                       $RL_OFF='false';
-                       
-                       
-               }
-            }
-
-            }
-
-            else{
-                 //print_r('No data');
-                 $RL_OFF='false';
-            }
-
-        }
-        else{
- //print_r('No faulty');
-             $RL_OFF='false';
-        }
-
-             //print_r($RL_ON);print_r('<br>');print_r($RL_OFF); die();
-            if($RL_ON=='true' || $RL_OFF=='true')
-            {
-
-            $subject="Source Tank Water Level Sensor-2 – Low Level Status issue";
-
-            $checkalert=Ticket::where('subject',$subject)
-                             ->where('pod_id',$Inputdata['PODUID'])
-                              ->where('status','1')
-                              ->where('created_at', 'like', $date.'%')
-                              ->orderBy('id', 'DESC')->first();
-
-                            
-                    if(!$checkalert)
-                    {
-                       $ticket_controller = new TicketsController; 
-                   
-                    $content = new Request
-                        ([
-                            'subject'=>$subject,
-                            'hub_id'=>$threshold['hub_id'],
-                            'pod_id'=>$threshold['pod_id'],
-                            'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['RL2']
-                                                        
                         ]);
 
 
@@ -1476,8 +1160,8 @@ class DataController extends Controller
         $outputArr= preg_split("/[-:]/", $thresholdValue);
         
 
-        $RL_ON='true';
-        $RL_OFF='true';
+        $RL_ON='false';
+        $RL_OFF='false';
 
       
         $on_time="-".trim($outputArr[1])."minutes";
@@ -1487,88 +1171,61 @@ class DataController extends Controller
          $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
          $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
 
-        /*if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {*/
+         if($Inputdata['RL3'] == 'ON'){
+            $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('RL3' ,'!=','ON')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-            $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
+            if($row_id == $lastrow){
+                $RL_ON = "false";
+            }
+            else{
+                $error_id=$row_id+1;
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
+                $data = MasterSyncData::where('id',$error_id)->first();
 
-            $timestamp=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->first();
+                $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($data->created_at))/60; 
+               // print_r($time_difference);
+                if(intval($time_difference) > intval($outputArr[1])){
 
-             $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
-
-               // print_r($time_difference);die();
-            
-
-                if(intval($time_difference) >= intval($outputArr[1]) )
-                {
-
-                foreach ($prev_data as $key => $value) {
-
-                   
-                   if(($value->RL3)!='ON'){
-                           
-                           $RL_ON='false';
-                           
-                           
-                   }
-                }
-                
+                    $RL_ON = "true";
 
                 }
                 else{
-                    $RL_ON='false';
+                    $RL_ON = "false";
+
                 }
-        }
-        else
-        {
-            $RL_ON='false';
-        } 
+  
+            }
 
 
+         }
+         if($Inputdata['RL3'] == 'OFF'){
+             $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('RL3' ,'!=','OFF')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-        /*if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {*/
-   
+            if($row_id == $lastrow){
+                $RL_OFF = "false";
+            }
+            else{
+                $error_id=$row_id+1;
 
-            $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
+                $data = MasterSyncData::where('id',$error_id)->first();
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
+                $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($data->created_at))/60; 
+               // print_r($time_difference);
+                if(intval($time_difference) > intval($outputArr[2])){
 
-             $timestamp=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->first();
+                    $RL_OFF = "true";
 
-             $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
-
-               // print_r($time_difference);die();
-            
-
-                if(intval($time_difference) >= intval($outputArr[2])){
-                    foreach ($prev_data as $key => $value) {
-                       
-                       if(($value->RL3)!='OFF'){
-                               
-                               $RL_OFF='false';
-                               
-                               
-                       }
-                    }
                 }
                 else{
-                    $RL_OFF='false';
+                    $RL_OFF = "false";
+
                 }
-
+  
             }
 
-            else {
-                 
-                 $RL_OFF='false';
-
-            }
-
-       
+         }
 
 
 
@@ -1576,11 +1233,11 @@ class DataController extends Controller
             {
                if($RL_ON=='true'){
                  $subject="SV Relay is OPEN Continously";
-                 $key = "SV relay is OPEN for ".$time_difference." mins. Should not be more than ".ltrim($on_time , '-')." mins. ";
+                 $key = "SV relay is OPEN for ".intval($time_difference)." mins. Should not be more  than ".ltrim($on_time , '-');
                }
                else if($RL_OFF=='true'){
-                  $subject="SV Relay is OPEN Continously";
-                  $key = "SV relay is CLOSED for ".$time_difference." mins. Should not be more than ".ltrim($off_time , '-')." mins. ";
+                  $subject="SV Relay is CLOSED Continously";
+                  $key = "SV relay is CLOSED for ".intval($time_difference)." mins. Should not be more  than ".ltrim($off_time , '-');
             }
 
 
@@ -1617,7 +1274,6 @@ class DataController extends Controller
        
       
       }
-
 
       public function validate_RL4($Inputdata ,$threshold , $date)
       {
@@ -1626,8 +1282,8 @@ class DataController extends Controller
         $outputArr= preg_split("/[-:]/", $thresholdValue);
         
 
-        $RL_ON='true';
-        $RL_OFF='true';
+        $RL_ON='false';
+        $RL_OFF='false';
 
       
         $on_time="-".trim($outputArr[1])."minutes";
@@ -1637,88 +1293,61 @@ class DataController extends Controller
          $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
          $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
 
-        /*if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {*/
+         if($Inputdata['RL4'] == 'ON'){
+            $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('RL4' ,'!=','ON')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-            $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
+            if($row_id == $lastrow){
+                $RL_ON = "false";
+            }
+            else{
+                $error_id=$row_id+1;
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
+                $data = MasterSyncData::where('id',$error_id)->first();
 
-            $timestamp=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->first();
+                $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($data->created_at))/60; 
+               // print_r($time_difference);
+                if(intval($time_difference) > intval($outputArr[1])){
 
-             $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
-
-               // print_r($time_difference);die();
-            
-
-                if(intval($time_difference) >= intval($outputArr[1]) )
-                {
-
-                foreach ($prev_data as $key => $value) {
-
-                   
-                   if(($value->RL4)!='ON'){
-                           
-                           $RL_ON='false';
-                           
-                           
-                   }
-                }
-                
+                    $RL_ON = "true";
 
                 }
                 else{
-                    $RL_ON='false';
+                    $RL_ON = "false";
+
                 }
-        }
-        else
-        {
-            $RL_ON='false';
-        } 
+  
+            }
 
 
+         }
+         if($Inputdata['RL4'] == 'OFF'){
+             $row_id = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->where('RL4' ,'!=','OFF')->max('id');
+            $lastrow = MasterSyncData::where('pod_id',$Inputdata['PODUID'])->max('id');
 
-        /*if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {*/
-   
+            if($row_id == $lastrow){
+                $RL_OFF = "false";
+            }
+            else{
+                $error_id=$row_id+1;
 
-            $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
+                $data = MasterSyncData::where('id',$error_id)->first();
 
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
+                $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($data->created_at))/60; 
+               // print_r($time_difference);
+                if(intval($time_difference) > intval($outputArr[2])){
 
-             $timestamp=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->first();
+                    $RL_OFF = "true";
 
-             $time_difference  = (strtotime(date('Y-m-d H:i:s'))-strtotime($timestamp->created_at))/60; 
-
-               // print_r($time_difference);die();
-            
-
-                if(intval($time_difference) >= intval($outputArr[1]) ){
-                    foreach ($prev_data as $key => $value) {
-                       
-                       if(($value->RL4)!='OFF'){
-                               
-                               $RL_OFF='false';
-                               
-                               
-                       }
-                    }
                 }
                 else{
-                    $RL_OFF='false';
+                    $RL_OFF = "false";
+
                 }
-
+  
             }
 
-            else {
-                 
-                 $RL_OFF='false';
-
-            }
-
-       
+         }
 
 
 
@@ -1726,11 +1355,11 @@ class DataController extends Controller
             {
                if($RL_ON=='true'){
                  $subject="Back UP SV Relay is ON continously";
-                 $key = "SV relay is OPEN for ".$time_difference." mins. Should not be more than ".ltrim($on_time , '-')." mins. ";
+                 $key = "Back Up Tank SV relay is ON for ".intval($time_difference)." mins. Should not be more  than ".ltrim($on_time , '-');
                }
                else if($RL_OFF=='true'){
-                  $subject="Back UP SV Relay is OFF continously";
-                  $key = "SV relay is CLOSED for ".$time_difference." mins. Should not be more than ".ltrim($off_time , '-')." mins. ";
+                  $subject="Back Up SV Relay is OFF continously";
+                  $key = "Back Up Tank SV relay is OFF for ".intval($time_difference)." mins. Should not be more  than ".ltrim($off_time , '-');
             }
 
 
@@ -1767,262 +1396,9 @@ class DataController extends Controller
        
       
       }
-
-
-      public function validate_RL5($Inputdata ,$threshold , $date)
-      {
-
-        $thresholdValue=$threshold->RL4;
-        $outputArr= preg_split("/[-:]/", $thresholdValue);
-        
-
-        $RL_ON='true';
-        $RL_OFF='true';
-
-      
-        $on_time="-".trim($outputArr[1])."minutes";
-        $off_time="-".trim($outputArr[2])."minutes";
+ 
 
        
-         $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
-         $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
-
-        
-        if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {
-
-        
-            $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
-
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
-
-
-            foreach ($prev_data as $key => $value) {
-
-               
-               if(($value->RL4)!='ON'){
-                       
-                       $RL_ON='false';
-                       
-                       
-               }
-            }
-
-            }
-            else{
-                $RL_ON='false';
-            }
-
-        }
-        else{
-             $RL_ON='false';
-        }
-
-
-        if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {
-
-
-             $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
-
-             if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
-
-
-            foreach ($prev_data as $key => $value) {
-               
-               if(($value->RL4)!='OFF'){
-                       
-                       $RL_OFF='false';
-                       
-                       
-               }
-            }
-            }
-            else{
-                $RL_OFF='false';
-            }
-        }
-
-
-        else
-            {
-                $RL_OFF='false';
-
-            }
-
-
-
-
-            if($RL_ON=='true' || $RL_OFF=='true')
-            {
-
-            if($RL_ON=='true'){
-                 $subject="Back UP SV Relay is ON continously";
-                 $key = "Back Up Tank SV relay is OPEN for (x) mins. Should not be more  than 30 mins";
-               }
-               else if($RL_OFF=='true'){
-                  $subject="Back Up SV Relay is OFF continously";
-                  $key = "Back Up  Tank SV relay is CLOSED for (X) mins. Should not more than 18 hr";
-               }
-
-            $checkalert=Ticket::where('subject',$subject)
-                             ->where('pod_id',$Inputdata['PODUID'])
-                              ->where('status','1')
-                              ->where('created_at', 'like', $date.'%')
-                              ->orderBy('id', 'DESC')->first();
-
-                             
-
-                    if(!$checkalert)
-                    {
-                       $ticket_controller = new TicketsController; 
-                   
-                    $content = new Request
-                        ([
-                            'subject'=>$subject,
-                            'hub_id'=>$threshold['hub_id'],
-                            'pod_id'=>$threshold['pod_id'],
-                            'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['RL4'],
-                            'key' => "Relay 4 (Fresh Water valve-2 controller) can be in ON status for max ".ltrim($on_time,'-')." or can be in OFF status for max ".ltrim($off_time,'-'),
-                            'api_type'=> 'normal',
-                            'is_critical_param' => '1'
-                                                        
-                        ]);
-
-
-                   $ticket_controller->alerts($content);
-                    }  
-           
-            }
-       
-      
-      }
-
-      public function validate_RL8($Inputdata ,$threshold , $date)
-      {
-
-        $thresholdValue=$threshold->RL8;
-        $outputArr= preg_split("/[-:]/", $thresholdValue);
-        
-
-        $RL_ON='true';
-        $RL_OFF='true';
-
-      
-        $on_time="-".trim($outputArr[1])."minutes";
-        $off_time="-".trim($outputArr[2])."minutes";
-
-       
-         $on_interval=date('Y-m-d H:i:s',strtotime($on_time)); 
-         $off_interval=date('Y-m-d H:i:s',strtotime($on_time));
-      
-        if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {
-
-    
-        
-            $prev_data=MasterSyncData::where('created_at','>',$on_interval)->where('pod_id',$Inputdata['PODUID'])->get();
-
-            if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$on_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
-
-
-            foreach ($prev_data as $key => $value) {
-
-               
-               if(($value->RL8)!='ON'){
-                       
-                       $RL_ON='false';
-                       
-                       
-               }
-            }
-
-            }
-            else{
-                $RL_ON='false';
-            }
-
-        }
-        else{
-            $RL_ON='false';
-        }
-
-
-        if($Inputdata['STS-NP1']=='FLT' && $Inputdata['STS-NP2']=='FLT')
-        {
-
-
-             $prev_data=MasterSyncData::where('created_at','>',$off_interval)->where('pod_id',$Inputdata['PODUID'])->get();
-
-             if($prev_data->count()>1 && MasterSyncData::where('created_at','<',$off_interval)->where('pod_id',$Inputdata['PODUID'])->exists())
-            {
-
-
-            foreach ($prev_data as $key => $value) {
-               
-               if(($value->RL8)!='OFF'){
-                       
-                       $RL_OFF='false';
-                       
-                       
-               }
-            }
-
-            }
-            else{
-                $RL_OFF='false';
-            }
-
-        }
-        else{
-            $RL_OFF='false';
-        }
-
-
-            if($RL_ON=='true' || $RL_OFF=='true')
-            {
-
-
-            $subject="Source Tank Water Level Sensor-8 – Low Level Status issue";
-
-            $checkalert=Ticket::where('subject',$subject)
-                             ->where('pod_id',$Inputdata['PODUID'])
-                              ->where('status','1')
-                              ->where('created_at', 'like', $date.'%')
-                              ->orderBy('id', 'DESC')->first();
-
-                             
-
-                    if(!$checkalert)
-                    {
-                       $ticket_controller = new TicketsController;  
-                   
-                    $content = new Request
-                        ([
-                            'subject'=>$subject,
-                            'hub_id'=>$threshold['hub_id'],
-                            'pod_id'=>$threshold['pod_id'],
-                            'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['RL8']
-                                                        
-                        ]);
-
-
-                   $ticket_controller->alerts($content);
-                    }  
-           
-            }
-       
-      
-      }
-
-      public function sendalerts(){
-
-      }    
       
       public function getThresholdData($podid){
           
