@@ -47,8 +47,6 @@ class FirebaseNotificationController extends Controller
        // $url = 'https://fcm.googleapis.com/fcm/send';
         $url = 'https://fcm.googleapis.com/fcm/send';
         $FcmToken = User::whereNotNull('device_token')->pluck('device_token')->all();
-
-       // print_r($FcmToken); die();
           
         $serverKey = env('FCM_SERVER_KEY');
   
