@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\SensorNotification;
 use Illuminate\Http\Request;
 
-
 class SensorNotificationController extends Controller
 {
     /**
@@ -17,6 +16,7 @@ class SensorNotificationController extends Controller
     {
         $data = SensorNotification::all();
         return view('sensormaster/list',compact('data'));
+        
     }
 
     /**

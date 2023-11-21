@@ -23,7 +23,7 @@ class ActiveSensorController extends Controller
          $th_ambian = $threshold->AB_T1 ;
          
     //AB_T1
-         if($sensor_data->AB_T1>$th_ambian)
+        /* if($sensor_data->AB_T1>$th_ambian)
          {
             if(SensorNotification::where('sensor_key' , 'AB_T1')->exists()){
                   $solution = SensorNotification::where('sensor_key' ,'AB_T1')->where('type', 'Alert')->first();
@@ -55,7 +55,7 @@ class ActiveSensorController extends Controller
                 'solution' => $solution
               ];
 
-         }
+         }*/
 
     //POD_T1 
          $th_pod = $threshold->POD_T1 ;
@@ -101,7 +101,7 @@ class ActiveSensorController extends Controller
          }
 
     //TDS
-         $th_tds = $threshold->TDS_V1 ;
+        /* $th_tds = $threshold->TDS_V1 ;
          $solution = array();
         
          if($sensor_data->TDS_V1>$th_tds)
@@ -286,6 +286,7 @@ class ActiveSensorController extends Controller
               ];
 
             }
+            */
       // STS_NP1
 
         $th_sts=$threshold->STS_NP1;
@@ -300,7 +301,7 @@ class ActiveSensorController extends Controller
 
         $trigger='true';
 
-        if(MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$id)->exists()) 
+        /*if(MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$id)->exists()) 
         { 
             $prev_data=MasterSyncData::where('created_at','>',$before_hour)->where('pod_id',$id)->get();
 
@@ -318,6 +319,13 @@ class ActiveSensorController extends Controller
         }
         else{
           // print_r("ttt");
+            $trigger='false';
+        }*/
+
+        if($sensor_data->STS_NP1 == 'FLT'){
+            $trigger='true';
+        }
+        else{
             $trigger='false';
         }
 
@@ -371,7 +379,7 @@ class ActiveSensorController extends Controller
 
        
        // print_r($before_hour1);die();
-        if(MasterSyncData::where('created_at','>',$before_hour1)->where('pod_id',$id)->exists()) 
+       /* if(MasterSyncData::where('created_at','>',$before_hour1)->where('pod_id',$id)->exists()) 
         { 
             $prev_data1=MasterSyncData::where('created_at','>',$before_hour1)->where('pod_id',$id)->get();
 
@@ -387,7 +395,15 @@ class ActiveSensorController extends Controller
         else{
            
             $trigger='false';
+        }*/
+
+        if($sensor_data->STS_SV1 == 'FLT'){
+            $trigger='true';
         }
+        else{
+            $trigger='false';
+        }
+
         
 
         if($trigger == 'true'){
@@ -425,7 +441,7 @@ class ActiveSensorController extends Controller
 
     // WL1L
 
-        $th_wl1l=$threshold->WL1L;
+       /* $th_wl1l=$threshold->WL1L;
         $solution = array();
         $outputArr2= preg_split("/[-:]/", $th_wl1l);
        
@@ -945,7 +961,7 @@ class ActiveSensorController extends Controller
                 'filename'=> '',
                 'solution' => $solution
               ];
-             }
+             }*/
 
 
 
