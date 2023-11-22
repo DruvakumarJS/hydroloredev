@@ -162,11 +162,16 @@ class DataController extends Controller
          $rl1 = explode('-', $threshold->RL1);
          $rl3 = explode('-', $threshold->RL3);
          $rl4 = explode('-', $threshold->RL4);
+         $tds = explode('-', $threshold->TDS_V1);
+         $ph = explode('-', $threshold->PH_V1);
+
          $threshold_val = [];
          if($threshold){
                   $threshold_val= [
-                     'TDS_V1' => $threshold->TDS_V1,
-                     'PH_V1' => $threshold->PH_V1,
+                     'TDS_V1_min' => $tds[0],
+                     'TDS_V1_max' => $tds[1],
+                     'PH_V1_min' => $ph[0],
+                     'PH_V1_max' => $ph[1],
                      'NP_I1_min' => $np_i1[0],
                      'NP_I1_max' => $np_i1[1],
                      'SV_I1_min' => $SV_I1[0],
@@ -1260,7 +1265,7 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['RL1'],
+                            'current_value'=>$Inputdata['RL3'],
                             'key' => $key,
                             'api_type'=> 'normal',
                             'is_critical_param' => '1'
@@ -1382,7 +1387,7 @@ class DataController extends Controller
                             'hub_id'=>$threshold['hub_id'],
                             'pod_id'=>$threshold['pod_id'],
                             'threshold'=>$thresholdValue,
-                            'current_value'=>$Inputdata['RL1'],
+                            'current_value'=>$Inputdata['RL4'],
                             'key' => $key,
                             'api_type'=> 'normal',
                             'is_critical_param' => '1'
