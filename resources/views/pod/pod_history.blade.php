@@ -297,6 +297,14 @@
                                        <div>
                                         <label>Pod Mode : </label> <label class="label-bold btn">{{$value->PMODE}}</label>
                                       </div>
+
+                                      <div>
+                                        <label>API Type : </label> <label class="label-bold btn">{{$value->api_type}}</label>
+                                      </div>
+
+                                      <div>
+                                        <label>Critical Data : </label> <label class="label-bold btn">{{$value->critical_data}}</label>
+                                      </div>
                                      
                                     </div>
                     </div>
