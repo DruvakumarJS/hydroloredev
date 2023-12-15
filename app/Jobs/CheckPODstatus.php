@@ -68,8 +68,8 @@ class CheckPODstatus implements ShouldQueue
 
              }
 
-            //Mail::to($emailid)->send(new PODstatusEmail($data));
-            $this->sendFCM($data);
+            Mail::to($emailid)->send(new PODstatusEmail($data));
+            //$this->sendFCM($data);
         }
     }
 

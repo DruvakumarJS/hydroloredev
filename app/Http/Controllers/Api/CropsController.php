@@ -250,11 +250,18 @@ class CropsController extends Controller
                 $days_remaining  = (strtotime($harvest_date)-strtotime(date('Y-m-d')))/(60*60*24);
                 $crop = Crop::where('id',$value->crop_id)->first();
 
+                if($days_remaining == '0'){
+                  $message = 'Today is Harvesting Day';
+                }
+                else {
+                  $message = 'Harvesting in '.$days_remaining.' Days';
+                }
+
                 $data[]= ['image' => url('/').'/crops/'.$crop->image,
                           'subject' =>$crop->name,
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
-                          'message' => 'Harvesting in '.$days_remaining.' Days',
+                          'message' => $message,
                           'alert_type' => 'Reminder',
                           'cultivation_id' => $value->id];
                
@@ -299,7 +306,7 @@ class CropsController extends Controller
                           'subject' =>$crop->name,
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
-                          'message' => 'Do first round of Spray on plants today',
+                          'message' => 'Perform first round of Spray on plants today',
                           'alert_type' => 'Reminder',
                           'cultivation_id' => $value->id ];
 
@@ -310,7 +317,7 @@ class CropsController extends Controller
                           'subject' =>$crop->name,
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
-                          'message' => 'Do secound round of Spray on plants today',
+                          'message' => 'Perform secound round of Spray on plants today',
                           'alert_type' => 'Reminder',
                           'cultivation_id' => $value->id ];
 
@@ -321,7 +328,7 @@ class CropsController extends Controller
                           'subject' =>$crop->name,
                           'Channel' => $value->channel_no,
                           'subchannel' => $value->sub_channel ,
-                          'message' => 'Do final round of Spray on plants today',
+                          'message' => 'Perform final round of Spray on plants today',
                           'alert_type' => 'Reminder',
                           'cultivation_id' => $value->id ];
 

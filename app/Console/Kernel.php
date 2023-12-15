@@ -21,10 +21,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
          //$schedule->command('inspire')->hourly();
-          $schedule->job(new SendNotifications)->dailyAt('07:00');
+          $schedule->job(new SendNotifications)->dailyAt('18:00');
           //$schedule->job(new SendEmailNotification)->everyTwoMinutes();
           $schedule->job(new CheckPODstatus)->everySixHours($minutes = 0);
-          $schedule->job(new SendPruningNotification)->dailyAt('08:00');;
+          $schedule->job(new SendPruningNotification)->dailyAt('10:30');;
          // $schedule->job(new CheckPODstatus)->everyTwoMinutes();
     }
 
