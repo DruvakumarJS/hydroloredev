@@ -226,6 +226,7 @@ class CropsController extends Controller
 
 
     public function alerts(Request $request){
+     
 
         $pod_id = $request->pod_id;
         $user_id = $request->user_id;
@@ -236,16 +237,22 @@ class CropsController extends Controller
 
         $channels = Cultivation::where('pod_id', $pod_id)->where('user_id' , $user_id)->get();
 
+         //print_r(json_encode($channels));die();
+
         foreach ($channels as $key => $value) {
             $growth = GrowthDuration::where('crop_id', $value->crop_id)->first();
             $harvest = $growth->harvesting ;
 
             $harvest_range= preg_split("/[-:]/", $harvest);
             $harvest_start = $harvest_range[0];
+            $harvest_end = $harvest_range[1];
+
 
             $harvest_date = date('Y-m-d', strtotime($value->planted_on . ' + '. $harvest_start . 'days'));
 
-            if($harvest_date >= date('Y-m-d') && $harvest_date <= $week ){
+            $harvest_completion_date = date('Y-m-d', strtotime($value->planted_on . ' + '. $harvest_end . 'days'));
+            
+            if($harvest_date >= date('Y-m-d') && $harvest_date <= $week && $harvest_completion_date <= date('Y-m-d')){
                
                 $days_remaining  = (strtotime($harvest_date)-strtotime(date('Y-m-d')))/(60*60*24);
                 $crop = Crop::where('id',$value->crop_id)->first();
@@ -266,6 +273,7 @@ class CropsController extends Controller
                           'cultivation_id' => $value->id];
                
             }
+
             $crop = Crop::where('id',$value->crop_id)->first();
 
             if($value->pruning == date('Y-m-d')){
@@ -337,24 +345,6 @@ class CropsController extends Controller
         }
 
        
-        /*$data[] = [
-            'image' => url('/').'/crops/amarnath.jpg',
-            'subject' => 'Amarnath',
-            'Channel' => '1' ,
-            'subchannel' => 'A',
-            'message' => 'harvesting in 1 day(s)' ,
-            'alert_type' => 'Reminder'
-        ];
-
-         $data[] = [
-            'image' => url('/').'/crops/amarnath.jpg',
-            'subject' => 'Amarnath',
-            'Channel' => '1' ,
-            'subchannel' => 'B',
-            'message' => 'harvesting in 11 day(s)' ,
-            'alert_type' => 'Reminder'
-        ];
-*/
 
         return response()->json([
                    'status' => '1',
@@ -364,7 +354,7 @@ class CropsController extends Controller
     }
 
     public function crop_details($id){
-       // print_r($id); die();
+       
         $value= Cultivation::where('id',$id)->first();
         $crop_detail = Crop::where('id' , $value->crop_id)->first();
         $crop_growth = GrowthDuration::where('crop_id',$value->crop_id)->where('category_id', $value->category_id)->first();

@@ -107,7 +107,7 @@ class LoginController extends Controller
         if (Userdetail::where('id', $request->user_id)->exists()) {
             $otp = rand('1111', '9999');
             $user = Userdetail::where('id', $request->user_id)->first();
-           // $otp = '1234';
+            $otp = '1111';
 
             $updateotp = Userdetail::where('id', $request->user_id)->update(['otp' => $otp]);
 
@@ -121,7 +121,7 @@ class LoginController extends Controller
            // $message1 = "Dear ".$name.", Welcome to Hydrolore.Please use OTP".$otp." to Login.";
             $message = "Dear ".$name.", Welcome to Hydrolore. Please use OTP ".$otp." to Login.";
 
-            print_r($message);
+          //  print_r($message);
          
            // $numbers = implode(',', $numbers);
          

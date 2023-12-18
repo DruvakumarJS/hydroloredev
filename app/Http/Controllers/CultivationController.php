@@ -304,7 +304,7 @@ class CultivationController extends Controller
             'title' => 'Hydrolore' ,
             'body' => 'New Crop Added to your POD ' ]);
       
-         $fcm->show($data);
+        //$fcm->show($data);
 
       return redirect()->back()->withMessage($message);
        
@@ -368,25 +368,46 @@ class CultivationController extends Controller
     public function destroy($id)
     {
         $message=array();
-        $remove_activity = Activity::where('cultivation_id' , $id)->delete();
-        if($remove_activity){
+
+        if(Activity::where('cultivation_id' , $id)->exists()){
+             $remove_activity = Activity::where('cultivation_id' , $id)->delete();
+                if($remove_activity){
+                    $remove = Cultivation::where('id', $id)->delete();
+
+                if($remove){
+                    
+                    $message[] = "Crop Removed succesfully";
+
+                    return redirect()->back()->withMessage($message);
+                }
+                else {
+                    $message[] = "Could not remove the crop";
+                     return redirect()->back()->withMessage($message);
+                }
+                }
+                else {
+                    $message[] = "Something went wrong";
+                     return redirect()->back()->withMessage($message);
+                }
+
+        }
+        else{
+           
             $remove = Cultivation::where('id', $id)->delete();
 
-        if($remove){
-            
-            $message[] = "Crop Removed succesfully";
+            if($remove){
+                    
+                    $message[] = "Crop Removed succesfully";
 
-            return redirect()->back()->withMessage($message);
+                    return redirect()->back()->withMessage($message);
+                }
+                else {
+                    $message[] = "Could not remove the crop";
+                     return redirect()->back()->withMessage($message);
+                }
+
         }
-        else {
-            $message[] = "Could not remove the crop";
-             return redirect()->back()->withMessage($message);
-        }
-        }
-        else {
-            $message[] = "Something went wrong";
-             return redirect()->back()->withMessage($message);
-        }
+       
 
         
     }
