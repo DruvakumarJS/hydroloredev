@@ -39,9 +39,9 @@ class SendNotifications extends Command
      */
     public function handle()
     {
-        \Log::info("Cron is working fine!");
-        /*$fcm = new FirebaseNotificationController;
+        //\Log::info("Cron is working fine!");
+        $fcm = new FirebaseNotificationController;
 
-        $fcm->dynamic_notification();*/
+        $fcm->dynamic_notification();
     }
 }

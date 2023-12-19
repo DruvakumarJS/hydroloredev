@@ -304,7 +304,7 @@ class CultivationController extends Controller
             'title' => 'Hydrolore' ,
             'body' => 'New Crop Added to your POD ' ]);
       
-        //$fcm->show($data);
+        $fcm->show($data);
 
       return redirect()->back()->withMessage($message);
        
