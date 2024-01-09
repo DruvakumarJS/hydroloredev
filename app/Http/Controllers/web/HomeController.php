@@ -129,6 +129,7 @@ class HomeController extends Controller
         //end   
 
         //pie chart
+        $chart=[];
         $cultivation = Cultivation::select('crop_id')->groupBy('crop_id')->get();
         foreach ($cultivation as $key => $crops) {
            $count = Cultivation::where('crop_id' , $crops->crop_id)->count();
