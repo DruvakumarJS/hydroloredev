@@ -7,6 +7,9 @@
     margin-left: 20px;
     margin-right: 20px;
 }
+.form-control{
+    background-color: #FFF;
+}
 
 .date{
     font-size: 10px;
@@ -100,7 +103,7 @@
     margin-top: 10px;
     border-radius: 20px;
     padding: 20px;
-    border: none;
+    border: red;
 }
 
 .card-text-color{
@@ -435,11 +438,366 @@ div.content {
         margin: 0 5px 0 0px
     }
 }
-
+.label-bold{
+    font-weight: bold;
+    font-size: 15px;
+}
 
 .tab-button{
     background: #ffffff;
     margin-bottom: 10px;
+}
+.div-margin{
+    margin-top: 20px;
+}
+#div1{
+    float:left;
+}
+#div2{
+    float:right;
+}
+#div3{
+    float:right;
+}
+.label-bold{
+    font-weight: bold;
+    font-size: 18px;
+}
+.column1 {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+    .progress{
+  position: relative;
+  margin: 4px;
+/*  float:left;*/
+  height: 180px;
+  width: 100%;
+  text-align: center;
+}
+.barOverflow{ /* Wraps the rotating .bar */
+  position: !important;
+  overflow: hidden; /* Comment this line to understand the trick */
+  width: 90px; height: 45px; /* Half circle (overflow) */
+  margin-bottom: -14px; /* bring the numbers up */
+  margin-left: 90px;
+
+}
+.bar{
+  position: relative;
+  top: 0; left: 0;
+  width: 90px; height: 90px; /* full circle! */
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 10px solid #eee;     /* half gray, */
+  border-bottom-color: #0cf;  /* half azure */
+  border-right-color: #0bf;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.label-bold{
+    font-weight: bold;
+    font-size: 18px;
+}
+.form-build{
+    padding: 20px;
+    h3{
+        font-weight: 600;
+        padding-bottom: 20px;
+        font-size: 18px;
+    }
+    .form-group{
+        margin-top: 20px;
+
+    }
+}
+
+ div.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+}
+
+/*div.scrollmenu a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+}
+*/
+div.scrollmenu a:hover {
+  background-color: #777;
+}
+
+
+h3 {
+  color: #262626;
+  font-size: 17px;
+  line-height: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+p {
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #666666;
+
+  &.small {
+    font-size: 14px;
+  }
+}
+
+.go-corner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  background-color: #00838d;
+  border-radius: 0 4px 0 32px;
+}
+
+.go-arrow {
+  margin-top: -4px;
+  margin-right: -4px;
+  color: white;
+  font-family: courier, sans;
+}
+
+.card1 {
+  display: block;
+  position: relative;
+  max-width: 500px;
+  background-color: #d3d3d3;
+  border-radius: 4px;
+  padding: 32px 24px;
+  margin: 12px;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: -16px;
+    background: #00cc88;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    transform: scale(1);
+    transform-origin: 50% 50%;
+    transition: transform 0.25s ease-out;
+  }
+
+  &:hover:before {
+    transform: scale(21);
+
+  }
+}
+
+.card1:hover {
+ box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+  p {
+    transition: all 0.3s ease-out;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  h3 {
+    transition: all 0.3s ease-out;
+    color: #ffffff;
+  }
+}
+
+.card2 {
+  display: block;
+  top: 0px;
+  position: relative;
+  max-width: 262px;
+  background-color: #f2f8f9;
+  border-radius: 4px;
+  padding: 32px 24px;
+  margin: 12px;
+  text-decoration: none;
+  z-index: 0;
+  overflow: hidden;
+  border: 1px solid #f2f8f9;
+
+  &:hover {
+    transition: all 0.2s ease-out;
+    box-shadow: 0px 4px 8px rgba(38, 38, 38, 0.2);
+    top: -4px;
+    border: 1px solid #cccccc;
+    background-color: white;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: -16px;
+    background: #00838d;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    transform: scale(2);
+    transform-origin: 50% 50%;
+    transition: transform 0.15s ease-out;
+  }
+
+  &:hover:before {
+    transform: scale(2.15);
+  }
+}
+
+.card3 {
+  display: block;
+  top: 0px;
+  position: relative;
+  max-width: 262px;
+  background-color: #f2f8f9;
+  border-radius: 4px;
+  padding: 32px 24px;
+  margin: 12px;
+  text-decoration: none;
+  overflow: hidden;
+  border: 1px solid #f2f8f9;
+  
+  .go-corner {
+    opacity: 0.7;
+  }
+
+  &:hover {
+    border: 1px solid #00838d;
+    box-shadow: 0px 0px 999px 999px rgba(255, 255, 255, 0.5);
+    z-index: 500;
+  }
+}
+
+.card3:hover {
+  p{color: #00838d}
+  .go-corner {
+    transition: opactiy 0.3s linear;
+    opacity: 1;
+  }
+}
+
+.card4 {
+  display: block;
+  top: 0px;
+  position: relative;
+  max-width: 262px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  overflow: hidden;
+  border: 1px solid #cccccc;
+  
+  .go-corner {
+    background-color: #00838d;
+    height: 100%;
+    width: 20px;
+    padding-right: 9px;
+    border-radius: 0;
+    transform: skew(6deg);
+    margin-right: -36px;
+    align-items: start;
+    background-image: linear-gradient(-45deg, #00cc88 1%, #00cc88 100%);
+  }
+  
+  .go-arrow {
+    transform: skew(-6deg);
+    margin-left: -2px;
+    margin-top: 9px;
+    opacity: 0;
+  }
+
+  &:hover {
+    border: 2px solid #00cc88;
+  }
+  
+  h3 {margin-top: 8px;}
+}
+
+.card4:hover {
+  .go-corner {
+    margin-right: -12px;
+  }
+  .go-arrow {
+    opacity: 1;
+  }
 }
 
 

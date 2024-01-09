@@ -12,132 +12,144 @@
 
   <div>
 
-   <h2 class="head-h1">Ticket ID : {{$id}}</h2>
-   <label class="date">{{date('d M ,Y')}} </label>
+
+  <div>
+    <label class="date">{{date('d M ,Y')}} </label>
+  </div>
+  <label>Ticket ID : {{$id}}</label>
+  
+  
+
+ </div> 
 
 
- </div>
 
+ <div class="form-build" style="margin-top: 10px">
+  <div class="row"> 
+     <div class="col-6">
+      
+      <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">HUB ID</label>
+            <div class="col-7">
+             
+                <input id="text"  type="text" class="form-control"  value="{{$tickets->hub_id}}" readonly="readonly">
+                    
+            </div>
+        </div>
+      
+      @if(($tickets->pod_id)!=0)
+        <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">POD ID</label>
+            <div class="col-7">
+             
+                <input id="text" type="text" class="form-control"  value="{{$tickets->pod_id}}" readonly="readonly">
+                    
+            </div>
+        </div>
+        @endif
 
+          <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">Subject</label>
+            <div class="col-7">
+                 @php
+                  $issue=$tickets->subject;
+                  $array=explode('$', $issue);
 
- <div class="form-body card-new">
+                  @endphp
+                  @foreach($array as $key => $val)
+                 
+                  <input id="text"  type="text" class="form-control"  value="{{$val}}" readonly="readonly">
+                  @endforeach
+                
+                    
+            </div>
+        </div>
 
+        @if(($tickets->current_value)!="")
+         <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">Threshold Condition</label>
+            <div class="col-7">
+               <!--  <input id="text" type="text" class="form-control"  value="{{$tickets->inputkeys}}" readonly="readonly"> -->
+                <textarea  class="form-control" readonly>{{$tickets->inputkeys}}</textarea>
+                
+                    
+            </div>
+        </div>
 
-   <div class="row mb-2">
+        <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">Current Value</label>
+            <div class="col-7">
+             
+                <input id="text"  type="text" class="form-control"  value="{{$tickets->current_value}}" readonly="readonly">
+                    
+            </div>
+        </div>
+        @endif
 
-     <div class="card col-md-3">
-      <label class="label-head" for="hub_id" class="label-title">Hub ID</label>
+        <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">Username</label>
+            <div class="col-7">
+             
+                <input id="text"  type="text" class="form-control"  value="{{$tickets->user->firstname}}" readonly="readonly">
+                    
+            </div>
+        </div>
 
-      <h4 class="header-lab">{{$tickets->hub_id}}</h4>
+        <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">Mobile Number</label>
+            <div class="col-7">
+             
+                <input id="text"  type="text" class="form-control"  value="{{$tickets->user->mobile}}" readonly="readonly">
+                    
+            </div>
+        </div>
 
-    </div>
+        <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">Location</label>
+            <div class="col-7">
+             
+                <input id="text" type="text" class="form-control"  value="{{$tickets->user->location}}" readonly="readonly">
+                    
+            </div>
+        </div>
 
-    @if(($tickets->pod_id)!=0)
+        <form method="post" action="{{route('update_status')}}">
+        @csrf
 
-    <div class="card col-md-3">
-      <label class="label-head" for="subject" class="label-title">pod_id</label>
-      <h4 class="header-lab">{{$tickets->pod_id}}</h4>
+        <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label">Status</label>
+            <div class="col-7">
+             
+                <select class="form-control" name="status" required>
+                  <option value="" >Select status</option>
+                  <option value="1" {{ $tickets->status == "0"  ? 'disabled' : '' }} {{ $tickets->status == "1"  ? 'selected' : '' }} >Open</option>
+                  <option value="2" {{ $tickets->status == "0"  ? 'disabled' : '' }} {{ $tickets->status == "2"  ? 'selected' : '' }} >Pending</option>
+                  <option value="0" {{ $tickets->status == "0"  ? 'disabled' : '' }} {{ $tickets->status == "0"  ? 'selected' : '' }} >Close</option>
+                </select>
+                    
+            </div>
+        </div>
+         <input type="hidden" name="id" value="{{$id}}">
 
-    </div>
+       <div class="form-group row div-margin">
+            <label for="text" class="col-3 col-form-label"></label>
+            <div class="col-7">
+             
+               <button class="btn btn-sm btn-danger" name="action" value="Update" >Update</button>
+               <button class="btn btn-sm btn-light btn-outline-primary" name="action" value="cancel" >Cancel</button>
+                    
+            </div>
+        </div>
+       
+          
+        </form>
 
-    @endif
-
-
+     </div>
+    
+    
+   
   </div>
 
-
-  <div class="row mb-8">
-
-    <div class="card col-md-6">
-      <label class="label-head" for="subject" class="label-title">Subject</label>
-      @php
-
-      $issue=$tickets->subject;
-      $array=explode('$', $issue);
-
-      @endphp
-      @foreach($array as $key => $val)
-      <h4 class="header-lab">{{$val}}</h4>
-      @endforeach
-    </div>
-
-
-  </div>
-
-  @if(($tickets->current_value)!="")
-  <div class="row mb-2">
-
-    <div class="card col-md-3">
-      <label class="label-head" for="hub_id" class="label-title">current_value</label>
-      <h4 class="header-lab">{{$tickets->current_value}}</h4>
-
-    </div>
-
-  </div>
-  @endif
-
-
-  <div class="row  mb-2">
-
-    <div class="card col-md-3">
-      <label class="lable-head" for="subject" class="label-title">User Name</label>
-      <h4 class="header-lab">{{$tickets->user->firstname}}</h4>
-    </div>
-
-    <div class="card col-md-3">
-      <label class="label-head"for="hub_id" class="label-title">Phone number</label>
-      <h4 class="header-lab">{{$tickets->user->mobile}}</h4>
-
-    </div>
-
-  </div>
-
-
-
-  <div class="row mb-2">
-    <div class="card col-md-6">
-      <label class="lable-head" for="location" class="label-title">Location</label>
-      <h4 class="header-lab">{{$tickets->user->location}}</h4>
-    </div>
-
-  </div>
-
-
-
-
-
-  @if(Auth::user()->role_id == '1')
-  <p class="header-lab">Modify Ticket Status</p>
-
-  <form method="post" action="{{route('update_status')}}">
-    @csrf
-
-    <input type="radio" id="open" name="status" {{ $tickets->status == "0"  ? 'disabled' : '' }} {{ $tickets->status == "1"  ? 'checked' : '' }} value="1">
-    <label for="open" >Open</label><br>
-
-    <input type="radio" id="pending" name="status" {{ $tickets->status == "0"  ? 'disabled' : '' }} {{ $tickets->status == "2"  ? 'checked' : '' }}  value="2">
-    <label for="pending">Pending</label><br>
-
-    <input type="radio" id="close" name="status" {{ $tickets->status == "0"  ? 'disabled' : '' }} {{ $tickets->status == "0"  ? 'checked' : '' }}  value="0">
-    <label for="close">Close</label>
-
-    <input type="hidden" name="id" value="{{$id}}">
-
-
-
-    <div>
-
-      <div class="mt-3">
-        <button class="btn btn-primary rounded-pill" type="submit" name="action" value=" Update" {{ $tickets->status == "0"  ? 'disabled' : '' }}>Update</button>
-        <button class="btn rounded-pill " type="" name="action" value=" cancel">Cancel</button>
-      </div>
-
-
-
-    </div>
-
-  </form>
-  @endif
 
 </div>
 

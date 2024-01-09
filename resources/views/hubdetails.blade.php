@@ -9,7 +9,7 @@
         <h2 class="head-h1">HUBs</h2>
         <label class="date"> {{date('d M ,Y')}} </label>
 
-     <div class="row">
+     <!-- <div class="row">
 
         <div class="col-sm-6 col-md-4 ">
              <div class="input-group">
@@ -49,16 +49,14 @@
                 
         </div>
            
-      </div>
+      </div> -->
 
    <div style="padding: 40px;">
   
 
       @foreach ($hubs_details as $key => $value) 
      
-       <button type="button" class="collapsible"><i class="fa fa-plus" aria-hidden="true"></i>  {{$value->hub_name}} </button>
-
-     
+       <button type="button" class="collapsible" style="background-color: white"><i class="fa fa-plus" aria-hidden="true"></i>  {{$value->hub_name}} </button>
 
         <div class="collapsecontent">
         <label>PODs </label>
@@ -81,7 +79,7 @@
                               <th>Device</th>
                               <th>Current Status</th>
                               <th>Status/Range</th>
-                              <th>Trigger</th>
+                              <!-- <th>Trigger</th> -->
                              
                              
                         </tr>
@@ -100,8 +98,8 @@
                           <td>{{$pods_details->$data_frame}}</td>
                           <td>{{$value->range}}</td>
                           
-                          <td><input class="btn-success rounded-pill" type="button"  id="range" value="Update"></td>
-                          
+                          <!-- <td><input class="btn-success rounded-pill" type="button"  id="range" value="Update"></td>
+                           -->
                         <!--   <td><input type="text" name="{{$value->data_frame}}" id="threshold" value="{{$value->threshold}}"></td>
                         -->
                         </tr> 

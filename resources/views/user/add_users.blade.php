@@ -26,7 +26,7 @@
 
           <div class="col-md-3">
             <label for="firstname" class="label-title">First name *</label>
-            <input type="text" id="firstname" name="firstname" class="form-input"  required="required" value="{{ old('firstname') }}" />
+            <input type="text" id="firstname" name="firstname" class="form-control"  required="required" value="{{ old('firstname') }}" />
               @error('firstname')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -34,7 +34,7 @@
 
           <div class="col-md-3">
             <label for="lastname" class="label-title">Last name </label>
-            <input type="text" id="lastname" name="lastname" class="form-input"   value="{{ old('lastname') }}" />
+            <input type="text" id="lastname" name="lastname" class="form-control"   value="{{ old('lastname') }}" />
              @error('lastname')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -47,7 +47,7 @@
 
           <div class="col-md-3">
             <label for="mobile" class="label-title">Mobile *</label>
-            <input type="text" id="mobile" name="mobile" class="form-input"  required="required" value="{{ old('mobile') }}"/>
+            <input type="text" id="mobile" name="mobile" class="form-control"  required="required" value="{{ old('mobile') }}"/>
              @error('mobile')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -55,7 +55,7 @@
 
           <div class="col-md-3">
             <label for="email" class="label-title">Email ID * </label>
-            <input type="text" id="email" name="email" class="form-input"  required="required" value="{{ old('email') }}"/>
+            <input type="text" id="email" name="email" class="form-control"  required="required" value="{{ old('email') }}"/>
              @error('email')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -68,7 +68,7 @@
           <div class="col-md-6">
 
             <label for="location" class="label-title">Location *</label>
-            <input type="text" id="location" name="location" class="form-input"  required="required"  value="{{ old('address') }}" onclick="getLocation()" />
+            <input type="text" id="location" name="location" class="form-control"  required="required"  value="{{ old('address') }}" onclick="getLocation()" />
              @error('location')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -81,7 +81,7 @@
         <div class="row mb-2">
           <div class="col-md-6">
             <label for="address" class="label-title">Address *</label>
-            <input type="text" id="address" name="address" class="form-input"  required="required" value="{{ old('address') }}"/>
+            <input type="text" id="address" name="address" class="form-control"  required="required" value="{{ old('address') }}"/>
              @error('address')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
@@ -92,7 +92,7 @@
         <div class="row mb-3">
           <div class="col-md-6">
             <label for="hub_id" class="label-title">Hub ID *</label>
-            <input type="text" id="hub_id" name="hub_id" class="form-input"  required="required" value="{{ old('hub_id') }}"/>
+            <input type="text" id="hub_id" name="hub_id" class="form-control"  required="required" value="{{ old('hub_id') }}"/>
              @error('hub_id')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror

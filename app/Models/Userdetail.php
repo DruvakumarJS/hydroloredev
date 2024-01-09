@@ -22,7 +22,12 @@ class Userdetail extends Model
         'email',
         'location',
         'address',
-        'hub_id'];
+        'hub_id',
+        'otp',
+        'otp_verified',
+        'is_loggedin',
+        'last_seen',
+        'profile_image'];
 
 
         function tickets(){
@@ -41,8 +46,8 @@ class Userdetail extends Model
             return $this->hasMany(Threshold::class,'id','user_id');
         }
 
-       /* function pods(){
-            return $this->hasMany(Pod::class,'id','user_id');
-        }*/
+        function nutrients(){
+            return $this->hasMany(NutritionMaster::class,'id','user_id');
+        }
         
 }

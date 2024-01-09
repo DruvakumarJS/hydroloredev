@@ -15,6 +15,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="noreferrer"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
     <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -25,14 +31,25 @@
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    
+    <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+<script src="@@path/vendor/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script> -->
 
-
+<link type="text/css" href="@@path/vendor/sweetalert2/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body class="body">
     <div id="app">
@@ -61,6 +78,7 @@
            || request()->routeIs('exportdata')
            || request()->routeIs('hub_serach')
            || request()->routeIs('filter_history')
+           || request()->routeIs('sensor_status')
            || request()->routeIs('search_alert')? 'active' : '' }}"
 
            >
@@ -71,7 +89,7 @@
         <a
            href="{{route('show_users')}}"
            class="list-group-item  py-2 ripple {{ request()->routeIs('show_users')||request()->routeIs('edituser') ||request()->routeIs('view_pod')||
-           request()->routeIs('show_add_user_form') ||request()->routeIs('view_user_details')? 'active' : ''
+           request()->routeIs('show_add_user_form') ||request()->routeIs('view_user_details') || request()->routeIs('add_crops') || request()->routeIs('channel_details') || request()->routeIs('view_crop_images')? 'active' : ''
             }} "
 
            >
@@ -106,6 +124,19 @@
            ||request()->routeIs('edit_question')
            ||request()->routeIs('add-locations')
            ||request()->routeIs('edit-location')
+           ||request()->routeIs('Category_master')
+           ||request()->routeIs('Crop_master')
+           ||request()->routeIs('search_crop')
+           ||request()->routeIs('sensor_master')
+           ||request()->routeIs('update_sensor_solution')
+           ||request()->routeIs('reports')
+           ||request()->routeIs('stocks')
+           ||request()->routeIs('crop_details')
+           ||request()->routeIs('stock_history')
+           ||request()->routeIs('indents')
+           ||request()->routeIs('enquiry')
+           ||request()->routeIs('convert_enquiry')
+           ||request()->routeIs('edit_enquiry')
            ? 'active' : '' }}"
 
            >
@@ -191,12 +222,12 @@
                          <img class="rounded-circle" src="{{asset('images/person.png')}}" style="width:20px;height: 20px; margin: auto; " >
                             <li class="nav-item dropdown fa-fa-user">
 
-                                <a  style="color: black;" id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <a  style="color: black;" id="navbarDropdown" class="nav-link dropdown-toggle1" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -207,7 +238,7 @@
                                         @csrf
                                     </form>
 
-                                </div>
+                                </div> -->
 
                             </li>
 
@@ -259,6 +290,67 @@ $(document).ready(function(){
     $('#modal_logout').modal('show')
   });
 });
-
   
 </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase.js"></script>
+    <script>
+      
+    var firebaseConfig = {
+          apiKey:'{{ env('API_KEY') }}' ,
+          authDomain: '{{ env('AUTH_DOMAIN') }}',
+          projectId: '{{ env('PROJECT_ID') }}',
+          storageBucket: '{{ env('STORAGE_BUCKET') }}',
+          messagingSenderId: '{{ env('SENDER_ID') }}',
+          appId: '{{ env('APP_ID') }}',
+          measurementId: '{{ env('MEASUREMENT_ID') }}'
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const messaging = firebase.messaging();
+
+    function initFirebaseMessagingRegistration() {
+        messaging
+            .requestPermission()
+            .then(function() {
+                return messaging.getToken()
+            })
+            .then(function(token) {
+                console.log(token);
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    }
+                });
+
+                $.ajax({
+                    url: '{{ route("save-token") }}',
+                    type: 'POST',
+                    data: {
+                        token: token
+                    },
+                    dataType: 'JSON',
+                    success: function(response) {
+                        alert('Token saved successfully.');
+                    },
+                    error: function(err) {
+                        console.log('User Chat Token Error' + err);
+                    },
+                });
+
+            }).catch(function(err) {
+                console.log('User Chat Token Error' + err);
+            });
+    }
+
+    messaging.onMessage(function(payload) {
+        const noteTitle = payload.notification.title;
+        const noteOptions = {
+            body: payload.notification.body,
+            icon: payload.notification.icon,
+        };
+        new Notification(noteTitle, noteOptions);
+    });
+    </script> 

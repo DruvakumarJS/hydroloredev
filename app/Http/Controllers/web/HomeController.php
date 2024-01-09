@@ -9,6 +9,11 @@ use App\Models\Hub;
 use App\Models\Pod;
 use App\Models\Alert;
 use App\Models\Userdetail;
+use App\Models\Threshold;
+use App\Models\MasterSyncData;
+use App\Models\Crop;
+use App\Models\Cultivation;
+use App\Models\Report;
 
 class HomeController extends Controller
 {
@@ -121,29 +126,49 @@ class HomeController extends Controller
             $tickets_closed_xValue = json_encode($result_closed['x'], true);
             $tickets_closed_yValue = json_encode($result_closed['y'], true);
 
-        //end    
-        
-    
+        //end   
+
+        //pie chart
+        $cultivation = Cultivation::select('crop_id')->groupBy('crop_id')->get();
+        foreach ($cultivation as $key => $crops) {
+           $count = Cultivation::where('crop_id' , $crops->crop_id)->count();
+           $crop = Crop::where('id',$crops->crop_id)->first();
+
+           $chart[]=[$crop->name , $count];
+
+         //  
+        }
+        // crop harvest chart
+        $yield = array();
+        $month_names = array("Jan","Feb","Mar","April","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+
+        foreach ($month_names as $key=> $monthname) {
+          if(strlen($key) == 1 && $key != '9'){
+            $month=$key+1;
+            $date = date('Y').'-0'.$month;
+          }
+          else if($key==9){
+            $month=$key+1;
+            $date = date('Y').'-'.$month;
+          }
+          else{
+            $month=$key+1;
+            $date = date('Y').'-'.$month;
+          }
+       
+          $formatdate = date('Y-m', strtotime($date));
+          $report  = Report::where('created_at','LIKE',$formatdate.'%')->sum('actual_quantity');
+
+          $yield[] = [$monthname , $report];
+          
+        }
+  
+
     $date = date('Y-m-d');
        $tickets=Ticket::where('status','!=','0')
                         ->where('created_at','LIKE','%'.$date.'%')->paginate(10);
 
-
-       // $tickets=Ticket::where('status','!=','0')
-       //                  ->where('created_at', 'like', $date.'%')
-       //                  ->latest()->paginate(10);
-
-                        // $tickets=Ticket::where('status','!=','0')
-                        // ->where('created_at','LIKE',"'".$date."%'")->paginate(10);
-
-
-
-
-
-
-       // print_r($data);die();
-
-         return view('home',compact('tickets', 'pods_count' ,'hub_count','alert_count','tickets_count', 'users_xValue', 'users_yValue','tickets_xValue', 'tickets_yValue' , 'tickets_closed_yValue'));
+         return view('home',compact('tickets', 'pods_count' ,'hub_count','alert_count','tickets_count', 'users_xValue', 'users_yValue','tickets_xValue', 'tickets_yValue' , 'tickets_closed_yValue' ,'chart' , 'yield'));
          
        }
 

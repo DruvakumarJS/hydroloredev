@@ -17,7 +17,9 @@ class Ticket extends Model
         'threshold_value',
         'current_value',
         'sr_no',
-        'inputkeys'];
+        'inputkeys',
+        'api_type',
+        'is_critical_param'];
 
 
          public function user()
@@ -25,5 +27,10 @@ class Ticket extends Model
              return $this->belongsTo(Userdetail::class,'user_id','id');
 
           }
+
+         public function threshold()
+         {
+          return $this->hasOne(Threshold::class,'pod_id','pod_id');
+         } 
 
 }

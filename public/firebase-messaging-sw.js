@@ -10,13 +10,13 @@ Initialize the Firebase app in the service worker by passing in the messagingSen
 * New configuration for app@pulseservice.com
 */
 firebase.initializeApp({
-          apiKey: "AIzaSyBQnwQHe97LTq0PyA-6EkEJxfhY8itQxug",
-          authDomain: "hydrolore.firebaseapp.com",
-          projectId: "hydrolore",
-          storageBucket: "hydrolore.appspot.com",
-          messagingSenderId: "245060607925",
-          appId: "1:245060607925:web:0c42822440b8e83121c3fc",
-          measurementId: "G-HHQYLZSJNB"
+          apiKey:'{{ env('API_KEY') }}' ,
+          authDomain: '{{ env('AUTH_DOMAIN') }}',
+          projectId: '{{ env('PROJECT_ID') }}',
+          storageBucket: '{{ env('STORAGE_BUCKET') }}',
+          messagingSenderId: '{{ env('SENDER_ID') }}',
+          appId: '{{ env('APP_ID') }}',
+          measurementId: '{{ env('MEASUREMENT_ID') }}'
     });
   
 /*

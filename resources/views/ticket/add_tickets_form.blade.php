@@ -2,16 +2,6 @@
 
 @section('content')
 
-@php
-
-if(isset($email))
-{
- $email=$email;
-}
-else {
- $email='';
-}
-
 
 @endphp
 
@@ -28,11 +18,12 @@ else {
 
         <div class="row card">
 
-          <div>
-<!--  value="{{!isset($email)? old('email') : $email}}" -->
-        	<label  class="radio_btn_padding">User's Email ID :</label>
-        	<input  type="text" name="email" id="email" placeholder="Enter Email ID " required="required" value="{{$email!=''? $email :old('email') }}">
-  	         @error('email')
+          <div class="row form-fluid">
+           
+            <div class="col-3">
+              <label>Email ID</label>  
+              <input class="form-control" type="text" name="email_id"  placeholder="Enter Email ID " required="required" value="{{old('email_id')}}">
+               @error('email')
                <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
              @enderror
               @if(session()->has('message'))
@@ -40,6 +31,8 @@ else {
                    {{ session()->get('message') }}
                 </div>
              @endif
+            </div>
+            
           </div>
 
        <div class="checkbox">

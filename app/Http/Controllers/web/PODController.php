@@ -10,8 +10,11 @@ use App\Models\Threshold;
 use App\Models\MasterSyncData;
 use App\Exports\ExportPodHistory;
 use App\Models\Ticket;
+use App\Models\Userdetail;
 use Illuminate\Support\Facades\Validator;
 use Excel;
+use App\Mail\PODstatusEmail;
+use Mail;
 
 class PODController extends Controller
 {
@@ -22,7 +25,6 @@ class PODController extends Controller
      */
     public function index()
     {
-
         $pods=Pod::paginate(50);
 
         return view('pod/pods',compact('pods'));
@@ -83,7 +85,7 @@ class PODController extends Controller
     public function store(Request $request)
     {
        
-     
+     // print_r($request->Input()); die();
        $validator = Validator::make($request->all(), [
             'pod_id' => 'required|unique:pods',
         ]);
@@ -114,34 +116,34 @@ class PODController extends Controller
         $Threshold->date=date('Y-m-d');
         $Threshold->date=date('H:i');
         $Threshold->AB_T1=$request->AB_T1;
-        $Threshold->AB_H1=$request->AB_H1;
+       //$Threshold->AB_H1=$request->AB_H1;
         $Threshold->POD_T1=$request->POD_T1;
-        $Threshold->POD_H1=$request->POD_H1;
-        $Threshold->TDS_V1=$request->TDS_V1;
-        $Threshold->PH_V1=$request->PH_V1;
+       // $Threshold->POD_H1=$request->POD_H1;
+        $Threshold->TDS_V1=$request->min_TDS_V1."-".$request->max_TDS_V1;
+        $Threshold->PH_V1=$request->min_PH_V1."-".$request->max_PH_V1;
         $Threshold->NUT_T1=$request->NUT_T1;
         $Threshold->NP_I1=$request->min_NP_I1."-".$request->max_NP_I1;
       //  $Threshold->NP_I2=$request->min_NP_I2."-".$request->max_NP_I2;
         $Threshold->SV_I1=$request->min_SV_I1."-".$request->max_SV_I1;
-        $Threshold->BAT_V1=$request->email;
-        $Threshold->FLO_V1=$request->FLO_UT;;
-        $Threshold->FLO_V2=$request->FLO_BT;
+        //$Threshold->BAT_V1=$request->email;
+        //$Threshold->FLO_V1=$request->FLO_UT;;
+        //$Threshold->FLO_V2=$request->FLO_BT;
        // $Threshold->STS_PSU=$request->email;
         $Threshold->STS_NP1="OK"."-".$request->max_time_STS_NP1;
-        $Threshold->STS_NP2="OK"."-".$request->max_time_STS_NP2;
+       // $Threshold->STS_NP2="OK"."-".$request->max_time_STS_NP2;
         $Threshold->STS_SV1="OK"."-".$request->max_time_STS_SV1;
-        $Threshold->STS_SV2="OK"."-".$request->max_time_STS_SV2;
-        $Threshold->WL1H=$request->WL1H;
+       // $Threshold->STS_SV2="OK"."-".$request->max_time_STS_SV2;
+       // $Threshold->WL1H=$request->WL1H;
         $Threshold->WL1L="ON"."-".$request->max_time_WL1L;
-        $Threshold->WL2H=$request->WL2H;
+        //$Threshold->WL2H=$request->WL2H;
         $Threshold->WL2L="ON"."-".$request->max_time_WL2L;
-        $Threshold->WL3H=$request->WL3H;
+       // $Threshold->WL3H=$request->WL3H;
         $Threshold->WL3L="ON"."-".$request->max_time_WL3L;
         $Threshold->RL1="OFF"."-".$request->min_time_RL1."-".$request->max_time_RL1;
-        $Threshold->RL2="OFF"."-".$request->min_time_RL2."-".$request->max_time_RL2;
+        //$Threshold->RL2="OFF"."-".$request->min_time_RL2."-".$request->max_time_RL2;
         $Threshold->RL3="OFF"."-".$request->min_time_RL3."-".$request->max_time_RL3;
         $Threshold->RL4="OFF"."-".$request->min_time_RL4."-".$request->max_time_RL4;
-        $Threshold->RL5="OFF"."-".$request->min_time_RL8."-".$request->max_time_RL8;
+       // $Threshold->RL5="OFF"."-".$request->min_time_RL8."-".$request->max_time_RL8;
         $Threshold->CUR=$request->CUR;
         $Threshold->PMODE=$request->PMODE;
 
@@ -176,10 +178,129 @@ class PODController extends Controller
     {
        $startdate="";
        $enddate=""; 
+       $api_type=""; 
+       $timearray=array();
 
-         $pods=MasterSyncData::where('pod_id',$id)->latest()->paginate(50);
+       for ($i=00 ;$i<=22; $i++ ){
+          if($i%2 == 0){
+              if(strlen($i) == 1){
+                $timearray[]='0'.$i;
+              }
+              else{
+                 $timearray[]=$i;
+              }
+           
+          }
+       }
+
+     //  print_r($timearray); die();
+
+         $pods=MasterSyncData::where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->latest()->paginate(150);
+
+         //temaparature data 
+            $sensorsArray = array();
+            $time_array = array();
+            $ab_array = array();
+            $pod_array = array();
+            $nut_array = array();
+            $tds_array = array();
+            $phArray = array();
+
+           
+            /*$data = MasterSyncData::select('created_at','AB_T1','POD_T1','NUT_T1')->where('pod_id',$id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->skip(0)->take(12)->get();*/
+
+            foreach ($timearray as $key=>$value) {
+              $start_hour = $value.':00:01' ;
+
+              $even_hour = intval(($value)+intval(1));
+
+              if(strlen($even_hour) == 1){
+                $even_hour= '0'.$even_hour;
+              }
+              $end_hour = $even_hour.':59:59' ;
+
+               $ambian_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('AB_T1');
+
+                $pod_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('POD_T1');
+
+                $nut_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('NUT_T1');
+
+                $tds_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('TDS_V1');
+
+                $ph_avg = MasterSyncData::where('pod_id',$id)->whereBetween('created_at',[date('Y-m-d').' '.$start_hour , date('Y-m-d').' '.$end_hour])->orderBy('id', 'DESC')->avg('PH_V1');
+
+              // print_r($start_hour);print_r(" "); print_r($Ambiam);print_r('<br>');
+                $ab_array[]=$ambian_avg;
+                $pod_array[]=$pod_avg;
+                $nut_array[]=$nut_avg;
+                $tds_array[]=$tds_avg;
+                $ph_array[]=$ph_avg;
+               
+              }
+
+            $sensorsArray = array('time' => json_encode($timearray) , 'ambian' => json_encode($ab_array) ,
+                'pod' => json_encode($pod_array) , 'nut'=>json_encode($nut_array) , 'tds'=>json_encode($tds_array) ,'ph'=>json_encode(($ph_array)));
+
+
+          //  print_r($sensorsArray); die();
+
+       //Mean 
+            $time= date('H:i');
+            $olddate = date('Y-m-d',strtotime("-1 days")); 
+
+           if($time >= '06:00' && $time < '17:59'){
+           // print($olddate);
+                $day_start = date('Y-m-d').' 06:00:00';
+                $day_end =  date('Y-m-d').' 17:59:59';
+
+                $night_start = $olddate.' 18:00:00';
+                $night_end = date('Y-m-d').' 05:59:59';
+               }
+           else if($time >= '17:59' && $time < '23:59' ){
+            // print("lll22222");
+                $day_start = date('Y-m-d').' 06:00:00';
+                $day_end =  date('Y-m-d').' 17:59:59';
+
+                $night_start = date('Y-m-d').' 18:00:00';
+                $night_end = date('Y-m-d').' 23:59:59';
+
+           }
+           else{
+                $day_start = $olddate.' 06:00:00';
+                $day_end =  $olddate.' 17:59:59';
+
+                $night_start = $olddate.' 18:00:00';
+                $night_end = date('Y-m-d').' 05:59:59';
+
+           }
+           
+            $ab_day = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$day_start, $day_end])->avg('AB_T1');
+
+            $ab_night = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$night_start, $night_end])->avg('AB_T1');
+
+            $pod_day = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$day_start, $day_end])->avg('POD_T1');
+
+            $pod_night = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$night_start, $night_end])->avg('POD_T1');
+
+            $nut_day = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$day_start, $day_end])->avg('NUT_T1');
+
+            $nut_night = MasterSyncData::where('pod_id',$id)->whereBetween('created_at' , [$night_start, $night_end])->avg('NUT_T1');
+            
+
+          $ambian_mean_values= array('mean_day'=>($ab_day) , 'mean_night' =>($ab_night) );
+          $pod_mean_values= array('mean_day'=>($pod_day) , 'mean_night' =>($pod_night) );
+          $nutri_mean_values= array('mean_day'=>($nut_day) , 'mean_night' =>($nut_night) );
+            
+       // Mean 
+      // print_r($pod_mean_values);die(); 
+
+        // switchs
+
+          $tanks = MasterSyncData::select('WL1H' , 'WL1L' , 'WL2H' ,'WL2L')->where('pod_id', $id)->where('created_at','LIKE',date('Y-m-d').'%')->orderBy('id', 'DESC')->first();
+
+         //  print_r(($sensorsArray));die();
         
-         return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate'));
+         return view('pod/pod_sensors',compact('pods', 'id', 'startdate','enddate','api_type' , 'sensorsArray' , 'ambian_mean_values' , 'pod_mean_values' , 'nutri_mean_values' , 'tanks'));
     }
 
     /**
@@ -236,20 +357,20 @@ class PODController extends Controller
         //'AB_H1'=>$request->AB_H1,
         'POD_T1'=>$request->POD_T1,
        // 'POD_H1'=>$request->POD_H1,
-        'TDS_V1'=>$request->TDS_V1,
-        'PH_V1'=>$request->PH_V1,
+        'TDS_V1'=>$request->min_TDS_V1."-".$request->max_TDS_V1,
+        'PH_V1'=>$request->min_PH_V1."-".$request->max_PH_V1,
         'NUT_T1'=>$request->NUT_T1,
         'NP_I1'=>$request->min_NP_I1."-".$request->max_NP_I1,
        // 'NP_I2'=>$request->min_NP_I2."-".$request->max_NP_I2,
         'SV_I1'=>$request->min_SV_I1."-".$request->max_SV_I1,
-        'BAT_V1'=>$request->email,
-        'FLO_V1'=>$request->FLO_UT,
-        'FLO_V2'=>$request->FLO_BT,
+        //'BAT_V1'=>$request->email,
+        //'FLO_V1'=>$request->FLO_UT,
+        //'FLO_V2'=>$request->FLO_BT,
        // 'STS_PSU'=>$request->email,
         'STS_NP1'=>"OK"."-".$request->max_time_STS_NP1,
-        'STS_NP2'=>"OK"."-".$request->max_time_STS_NP2,
+        //'STS_NP2'=>"OK"."-".$request->max_time_STS_NP2,
         'STS_SV1'=>"OK"."-".$request->max_time_STS_SV1,
-        'STS_SV2'=>"OK"."-".$request->max_time_STS_SV2,
+        //'STS_SV2'=>"OK"."-".$request->max_time_STS_SV2,
        // 'WL1H'=>$request->WL1H,
         'WL1L'=>"ON"."-".$request->max_time_WL1L,
         //'WL2H'=>$request->WL2H,
@@ -260,7 +381,7 @@ class PODController extends Controller
         //'RL2'=>"OFF"."-".$request->min_time_RL2."-".$request->max_time_RL2,
         'RL3'=>"OFF"."-".$request->min_time_RL3."-".$request->max_time_RL3,
         'RL4'=>"OFF"."-".$request->min_time_RL4."-".$request->max_time_RL4,
-        'RL5'=>"OFF"."-".$request->min_time_RL8."-".$request->max_time_RL8,
+        //'RL5'=>"OFF"."-".$request->min_time_RL8."-".$request->max_time_RL8,
        // 'PMODE'=>$request->PMODE,
         'CUR'=>$request->CUR]);
         
@@ -307,6 +428,7 @@ class PODController extends Controller
 
     public function export(Request $request)
     {
+      //  print_r($request->Input());die();
        
       
        $startdate="";
@@ -339,9 +461,6 @@ class PODController extends Controller
 
     public function filter(Request $request){
 
-
-
-      
        $startdate="";
        $enddate=""; 
        $id=$request->pod_id;
@@ -371,7 +490,7 @@ class PODController extends Controller
             $pods=MasterSyncData::where('pod_id',$id)
                  ->where('api_type',$api_type)
                  ->latest();
-            $pods=$pods->paginate(sizeof($pods->get()));        
+            $pods=$pods->paginate(50);        
 
         }
         else
@@ -382,7 +501,7 @@ class PODController extends Controller
                  ->where('created_at','>=',$startdate.' 00:00:01')
                  ->where('created_at','<=',$enddate.' 23:59:59')
                  ->latest();
-                 $pods=$pods->paginate(sizeof($pods->get())); 
+                 $pods=$pods->paginate(50); 
             }
 
             else
@@ -392,16 +511,28 @@ class PODController extends Controller
                  ->where('created_at','<=',$enddate.' 23:59:59')
                  ->where('api_type',$api_type)
                  ->latest();
-                 $pods=$pods->paginate(sizeof($pods->get())); 
+                 $pods=$pods->paginate(50); 
             }
              
                   
         } 
 
-        return view('pod/pod_history',compact('pods', 'id' , 'startdate','enddate'));
-        /* return redirect()->route('pod_history/{id}')
+        return view('pod/pod_history',compact('pods', 'id' , 'startdate','enddate' , 'api_type'));
+        /* return redirect()->route('view_history/{id}')
                         ->withErrors($validator)
-                        ->withInput();
-*/
+                        ->withInput();*/
+
+    }
+
+
+    public function history($id){
+       $startdate="";
+       $enddate=""; 
+       $api_type=""; 
+
+      $pods=MasterSyncData::where('pod_id',$id)->latest()->paginate(100);
+
+      return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type'));
+
     }
 }

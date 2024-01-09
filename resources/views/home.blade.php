@@ -1,6 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
+<style type="text/css">
+  .card {
+   
+    border-radius: 20px;
+    background-color: #FFFFFF;
+
+    &:hover {
+        box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+        .glyphicon {
+            color: #48B0F7;
+            background-color: #d4d7da;
+        }
+    }
+}
+</style>
 
     <div class="container-body">
         <div class="row justify-content-center">
@@ -8,7 +23,7 @@
                 <h2 class="head-h1">Dashboard</h2>
                 <label class="date"> {{date('d M ,Y')}} </label>
 
-                <form method="get" action="{{route('hub_serach')}}" style="float:right; ">
+                <!-- <form method="get" action="{{route('hub_serach')}}" style="float:right; ">
                     <div class="input-group">
 
                         <input class="form-control" type="text" placeholder="Search Hub ID" name="search">
@@ -19,12 +34,11 @@
                             {{ Session::get('message') }}
                         </div>
                     @endif
-                </form>
+                </form> -->
             </div>
 
-
             <div class="row">
-                <div class="col-sm-6 col-md-4 ">
+                <div class="col-sm-6 col-md-4">
                     <div class="card border-white">
                         <div class="card-body">
                             <img src="{{ asset('images/hub1.png') }}" alt="hub" style="width:20px;height: 20px;">
@@ -32,13 +46,13 @@
                         </div>
                         <div>
                             <h4 class="card-text-black" style="float:left;">HUB</h4>
-                            <a style="float:right;" class="btn btn-primary" href="{{route('hub_detail')}}">Explore</a>
+                            <a style="float:right;" class="btn btn-primary" href="">Explore</a>
                         </div>
                         <label class="card-text-label">Total number of hub</label>
                     </div>
                     <!--</div>-->
                 </div>
-                <div class="col-sm-6 col-md-4">
+                <div class="col-sm-6 col-md-4" >
                     <div class="card border-white">
 
                         <div class="card-body">
@@ -72,12 +86,32 @@
                     <!--</div>-->
                 </div>
             </div>
+
+            <div class="row no-gutters">
+               
+                <div class="col-md-5">
+                  <div  class="card" style="box-shadow: none;">
+                    <label class="label-bold">Comparison of Crops Cultivated</label>
+                     <div id="piechart_3d"></div>
+                  </div>     
+                </div>
+
+                 <div class="col-md-7">
+                  <div  class="card" style="box-shadow: none;">
+                    <label class="label-bold">Crop Yield information - {{ date('Y')}}</label>
+                     <div id="yield"></div>
+                  </div>     
+                </div>
+
+                
+            </div>
+  
             <div class="row">
 
             <label>Current Month </label> 
                
                     <div class="col-md-6">
-                        <div class="card">
+                        <div class="card" style="box-shadow: none">
                             <canvas id="users_chart"></canvas>
                         </div>
                     </div>
@@ -85,7 +119,7 @@
                 
                 
                     <div class="col-md-6">
-                        <div class="card">
+                        <div class="card"  style="box-shadow: none">
                             <canvas id="tickets_chart" ></canvas>
                         </div>
                     </div>
@@ -102,10 +136,10 @@
                         <label class="header-lab p-10">Tickets</label>
                         <label style="float: right;margin-top: 10px;margin-right: 10px;"></label>
                         <div>
-                            <div class="card table-responsive">
+                            <div class="card table-responsive" style="box-shadow: none">
                                 <table class="table table-hover">
                                     <tr>
-                                        <th>Sl.No</th>
+                                        <th>Date</th>
                                         <th>Ticket ID</th>
                                         <th>Issue</th>
                                         <th>Current Value</th>
@@ -114,7 +148,7 @@
                                         <!--  <th>Threshold Value</th> -->
 
                                         <th>Status</th>
-                                        <th>Date</th>
+                                        
 
                                         <th></th>
                                     </tr>
@@ -159,7 +193,7 @@
                                         @endphp
 
                                         <tr>
-                                            <td>{{$key + $tickets->firstItem()}}</td>
+                                            <td>{{$value->created_at}}</td>
                                             <td>{{$value->sr_no}}</td>
                                             <td>
                                                 <table>
@@ -190,9 +224,8 @@
 
                                             <td><label class="curved-text"
                                                        style="background-color: {{$colourcode}}">{{$data}}</label></td>
-                                            <td>{{$value->updated_at}}</td>
-                                            <td><a href="{{route('view_ticket',$value->sr_no)}}">View</a></td>
-
+                                           
+                                           
                                         </tr>
 
                                     @endforeach
@@ -316,7 +349,8 @@
                             fontColor: '#000', }
                         }],
                   xAxes: [{
-                    ticks: {min: 0, max:31} ,
+                    ticks: {min: 0, max:31 , skip:false} ,
+
                     scaleLabel: {
                             display: true,
                             labelString: '----- Date ----- ',
@@ -344,9 +378,17 @@
                   label: 'Tickets raised',  
                   fill: false,
                   lineTension: 0,
-                  backgroundColor: "rgba(0,0,255,1.0)",
-                  borderColor: "rgba(0,0,255,0.1)",
+                  backgroundColor: "#1D267D",
+                  borderColor: "#1D267D",
                   data: yValues
+                },
+                {
+                  label: 'Tickets Closed',  
+                  fill: false,
+                  lineTension: 0,
+                  backgroundColor: "#FF0000",
+                  borderColor: "#FF0000",
+                  data: tickets_closed_yValue
                 },
                
                 ]
@@ -372,16 +414,61 @@
               }
             });
         </script>
-
-
         
-       
-        <script type="text/javascript">
-            setTimeout(function () {
-                $("#mydiv").fadeOut().empty();
-            }, 3000);
-        </script>
 
+        <!-- Tickets -->
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        var crop = <?php echo json_encode($chart) ?>;
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+      
+        var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Pizza');
+      data.addColumn('number', 'Populartiy');
+      data.addRows(crop);
+
+        var options = {
+          'legend':'bottom',
+          'title':'',
+          'is3D':true,
+          'height':300
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+    </script>
+
+     <script type="text/javascript">
+        var yields = <?php echo json_encode($yield) ?>;
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+      
+        var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Month');
+      data.addColumn('number', 'Yield in kgs');
+      data.addRows(yields);
+
+        var options = {
+          'legend':'top',
+          'title':'',
+          'is3D':true,
+          'height':300,
+           hAxis: {
+            title: data.getColumnLabel(0)
+          },
+          
+
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('yield'));
+        chart.draw(data, options);
+      }
+    </script>
    
 
 @endsection

@@ -21,7 +21,7 @@
                                     <tr>
                                     <th>Sl.No</th>
                                     <th>Questoins</th>
-                                    <th>Actin</th>
+                                    <th>Action</th>
                                     </tr>
                                     @php
                                        $index = $questions->firstItem()
@@ -31,10 +31,9 @@
                                         <td>{{ $index++ }}</td>
                                         <td>{{ $question->question }}</td>
                                         <td>
-                                            <a href="{{ route('edit_question', $question->id)}}">Edit</a>
-                                        </td>
-                                        <td >
-                                            <a id="MybtnModal_{{$question->id}}"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+                                            <a href="{{ route('edit_question', $question->id)}}"><button class="btn btn-sm btn-outline-success">Edit</button></a>
+                                       
+                                            <a id="MybtnModal_{{$question->id}}"> <button class="btn btn-sm btn-outline-danger">Delete</button></a>
                                         </td>
                                     </tr>
 

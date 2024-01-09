@@ -17,6 +17,15 @@ use App\Http\Controllers\web\QuestionsController;
 use App\Http\Controllers\web\LocationController;
 use App\Http\Controllers\Api\AlertController;
 
+use App\Http\Controllers\CropController;
+use App\Http\Controllers\CultivationController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SensorNotificationController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\NutritionMasterController;
+use App\Http\Controllers\StockController;
+use App\Http\Controllers\IndentController;
+use App\Http\Controllers\EnquiryController;
 
 
 /*
@@ -85,6 +94,8 @@ Route::middleware('auth:web')->group(function () {
             Route::get('deleteuser/{id}',[UsersController::class,'destroy'])->name('deleteuser');
             Route::post('updateuser/{id}',[UsersController::class,'update'])->name('updateuser');
             Route::get('user_details/{id}',[UsersController::class,'view'])->name('view_user_details');
+            Route::get('autocomplete_user',[UsersController::class,'autocomplete_user'])->name('autocomplete_user');
+            Route::get('getuser',[UsersController::class,'getuser'])->name('getuser');
           //Route::get('search', [UsersController::class,'search']);
 
 
@@ -98,6 +109,7 @@ Route::middleware('auth:web')->group(function () {
 
             Route::get('view_ticket/{id}',[TicketsController::class,'edit'])->name('view_ticket');
             Route::post('update_status',[TicketsController::class,'modify'])->name('update_status');
+            Route::get('delete_ticket/{id}',[TicketsController::class,'destroy'])->name('delete_ticket');
 
             Route::get('ticket_generate_form',[TicketsController::class,'show'])->name('add_tickets');
             Route::get('ticket_generate_form/{email}',[TicketsController::class,'show'])->name('raise_tickets');
@@ -114,7 +126,8 @@ Route::middleware('auth:web')->group(function () {
             Route::get('view_pod/{id}',[PODController::class,'edit'])->name('view_pod');
             Route::post('update_pods/{id}',[PODController::class,'update'])->name('update_pods');
             Route::get('pods',[PODController::class,'index'])->name('pods');
-            Route::get('POD_History/{id}',[PODController::class,'show'])->name('pod_history');
+            Route::get('sensor_status/{id}',[PODController::class,'show'])->name('sensor_status');
+            Route::get('pod_history/{id}',[PODController::class,'history'])->name('pod_history');
             Route::get('searchpod', [PODController::class,'searchpod']);
             Route::post('filter', [PODController::class,'filter'])->name('filter_history');
             Route::post('export',[PODController::class,'export'])->name('exportdata');
@@ -155,8 +168,59 @@ Route::middleware('auth:web')->group(function () {
             Route::get('delete/{id}',[AdminController::class, 'destroy'])->name('delete_admin');
             Route::get('resetpassword',[AdminController::class, 'resetPassword'])->name('resetpassword');
             Route::post('update_admin_password',[AdminController::class, 'update'])->name('update_admin_password');
-           
-        });
+
+            //crops
+            Route::get('add_crops/{id}',[CultivationController::class,'create'])->name('add_crops');
+            Route::get('getcrops',[CultivationController::class,'getcrops'])->name('getcrops');
+            Route::post('save_channel',[CultivationController::class,'store'])->name('save_channel');
+            Route::put('update-channel/{id}',[CultivationController::class,'update'])->name('update_channel');
+            Route::get('remove-channel/{id}',[CultivationController::class,'destroy'])->name('remove_channel');
+            Route::post('save-harvest-data',[CultivationController::class,'save_harvest_data'])->name('save_harvesting_data');
+            Route::get('channel-details/{id}',[ActivityController::class,'index'])->name('channel_details');
+            Route::get('view_crop_images/{id}',[ActivityController::class,'show'])->name('view_crop_images');
+
+            Route::get('reports',[CultivationController::class,'report'])->name('reports');
+            Route::get('download/{id}',[CultivationController::class,'download'])->name('download');
+
+            Route::get('Category-master',[CategoryController::class,'index'])->name('Category_master');
+            Route::post('save-category',[CategoryController::class,'store'])->name('save_category');
+            Route::put('update-category/{id}',[CategoryController::class,'update'])->name('update_category');
+            Route::get('delete-category/{id}',[CategoryController::class,'destroy'])->name('delete_category');
+
+            Route::get('Crop-master',[CropController::class,'index'])->name('Crop_master');
+            Route::post('save-crop',[CropController::class,'store'])->name('save_crop');
+            Route::post('search-crop',[CropController::class,'search'])->name('search_crop');
+            Route::put('update-crop/{id}',[CropController::class,'update'])->name('update_crop');
+            Route::get('delete-crop/{id}',[CropController::class,'destroy'])->name('delete_crop');
+            Route::get('crop-details/{id}',[CropController::class,'show'])->name('crop_details');
+
+            Route::get('sensor-notification_master',[SensorNotificationController::class,'index'])->name('sensor_master');
+            Route::post('save_sensor_solution',[SensorNotificationController::class,'store'])->name('save_sensor_solution');
+            Route::get('delete-solution/{id}',[SensorNotificationController::class,'destroy'])->name('delete_solution');
+            Route::put('update-solution/{id}',[SensorNotificationController::class,'update'])->name('update_sensor_solution');
+
+            Route::get('stocks',[StockController::class,'index'])->name('stocks');
+            Route::post('save-stock',[StockController::class,'store'])->name('save_stock');
+            Route::put('update-stock/{id}',[StockController::class,'update'])->name('update_stock');
+            Route::put('update-stock-quantity/{id}',[StockController::class,'update_quantity'])->name('update_stock_quantity');
+            Route::get('stock-details',[StockController::class,'history'])->name('stock_history');
+            Route::get('getstocks',[StockController::class,'get_products'])->name('getstocks');
+            Route::get('check-stocks',[StockController::class,'check_stocks'])->name('check_stocks');
+
+            Route::get('indents',[IndentController::class,'index'])->name('indents');
+            Route::post('save-indents',[IndentController::class,'store'])->name('save_indent');
+
+            Route::get('enquiry',[EnquiryController::class,'index'])->name('enquiry');
+            Route::get('edit-enquiry/{id}',[EnquiryController::class,'edit'])->name('edit_enquiry');
+            Route::post('save-enquiry',[EnquiryController::class,'store'])->name('save_enquiry');
+            Route::put('update-enquiry/{id}',[EnquiryController::class,'update'])->name('update_enquiry');
+            Route::get('convert-enquiry/{id}',[EnquiryController::class,'show'])->name('convert_enquiry');
+            Route::post('convert-enquiry-to-user',[EnquiryController::class,'convert'])->name('enquiry_to_user');
+        
+           // Route::post('save-nutritions-data',[NutritionMasterController::class,'store'])->name('save_nutritions_data');
+
+            
+        }); 
         Route::middleware(['auth','isCustomer'])->group(function () {
                 
                 Route::get('/customer-dashboard', [CustomerController::class, 'index'])->name('customer-dashboard');

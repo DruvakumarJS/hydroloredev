@@ -15,12 +15,16 @@ use App\Models\Locations;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WelcomeMail;
 use Illuminate\Support\Facades\Hash;
+use App\Models\NutritionMaster;
+use App\Models\StockMaster;
+use App\Models\Stock;
+use DB;
 
 
 class UsersController extends Controller
 {
 
-     public function search(Request $request){
+     public function searchuser(Request $request){
 
       $output="";
       $searchdata=Userdetail::where('firstname','LIKE','%'.$request->search.'%')
@@ -71,12 +75,13 @@ class UsersController extends Controller
 
        
         $pods_list=Pod::where('user_id',$id)->get();
-        $user_detail=Userdetail::where('id',$id)->get();
+        $value=Userdetail::where('id',$id)->first();
         $podMaster=PodMaster::all();
-
+        $nutrition =NutritionMaster::where('user_id' , $id)->get(); 
+        
         $locations=Locations::all();
         
-        return view('user/user_details',compact('pods_list' , 'user_detail' ,'podMaster', 'locations'));
+        return view('user/user_details',compact('pods_list' , 'value' ,'podMaster', 'locations' , 'id' , 'nutrition'));
 
 
     }
@@ -116,7 +121,7 @@ class UsersController extends Controller
        $password='SYS'.substr(str_shuffle($hint), 0, 9);
        $encrypted_password=Hash::make($password);
 
-       $user=new  User();
+       $user=new User();
          $user->name=$request->firstname." ".$request->lastname;
          $user->email=$request->email;
          $user->role_id="3";
@@ -133,12 +138,13 @@ class UsersController extends Controller
        {
         $user_login_details=User::where('email',$request->email)->first();
         $user_id=$user_login_details->id;
-
+       // $otp = rand('0000','9999');
+         $otp = '1234';
         $request->request->add(['user_id'=>$user_id]);
+        $request->request->add(['otp'=>$otp]);
+
  
         $data = $request->all();
-
-        
     
         $insert=Userdetail::create($data);
 
@@ -146,7 +152,6 @@ class UsersController extends Controller
 
         $user=Userdetail::where('mobile',$request->mobile)->first();
 
-      
 
         $hubdata=Hub::create([
               'hub_id'=>$user->hub_id,
@@ -311,7 +316,7 @@ class UsersController extends Controller
          $deleteUserlogindata=User::where('id',$user_id)
          ->delete();
 
-         $deleteHub=Hub::where('user_id',$user_id)
+         $deleteHub=Hub::where('user_id',$id)
          ->delete();
 
         
@@ -322,6 +327,39 @@ class UsersController extends Controller
 
        
 
+
+    }
+
+    public function autocomplete_user(Request $request){
+
+      //  $data = User::select('name' , 'id')->where('name', 'LIKE',$request->get('search'))->get();
+        $data = DB::table('userdetails')
+            ->select(
+                    DB::raw("CONCAT(firstname) AS value"),
+                    'user_id',
+                    'id'
+                )
+                    ->where('firstname', 'LIKE', '%'. $request->get('search'). '%')
+                   
+                    ->get(); 
+
+        return response()->json($data);
+
+
+    }
+
+    public function getuser(Request $request){
+      $data = '';
+       if(Userdetail::where('mobile',$request->get('search'))->exists()){
+        $data = DB::table('userdetails')
+            ->select(
+                    '*'
+                )
+                    ->where('mobile',$request->get('search'))
+                    ->first(); 
+       }
+        
+        return response()->json($data);
 
     }
 }

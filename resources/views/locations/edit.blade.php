@@ -21,14 +21,14 @@
 
                         <div class="form-body">
                                 <label>Location :</label><br>
-                                <input type="text" name="location" id="" value="{{$location->location}}" />
+                                <input class="form-control" type="text" name="location" id="" value="{{$location->location}}" />
                                 @error('question')
                                 <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                                 @enderror
                                 <div>
                                     <button class=" btn-primary mt-4" type="submit" name="action" value=" Update">update</button>
                                 </div>
-
+                        </div>
                         </form>
 
                 </div>

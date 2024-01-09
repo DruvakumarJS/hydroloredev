@@ -26,7 +26,7 @@
 
                        <input  class="form-control w-auto mr-2" id="myInput" type="text" placeholder="Search..">
 
-                        <a class="btn btn-primary" href="{{route('show_add_user_form')}}">Add User</a>
+                        <a class="btn btn-primary" href="{{route('show_add_user_form')}}" style="margin-left: 20px">Add User</a>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
         <table class="table table-hover ">
 
          <tr>
-           <th>Sl.No</th>
+          <th>Date</th>
           <th>Name</th>
           <th>Email Address</th>
           <th>Phone Number</th>
@@ -53,23 +53,24 @@
 
 
         <tr>
-          <td>{{$key + $userData->firstItem()}}</td>
+          <td>{{date('d-m-Y', strtotime($value->created_at))}}</td>
           <td>{{$value->firstname}} {{$value->lastname}}</td>
           <td>{{$value->email}}</td>
           <td>{{$value->mobile}}</td>
-          <td>{{$value->address}}</td>
+          <td width="250px">{{$value->address}}</td>
           <td>{{$value->hub_id}}</td>
-          <td>
-             <a href="{{route('view_user_details',$value->id)}}">View details</a>
+           <td>
+             <a href="{{route('raise_tickets',$value->email)}}"><button class="btn btn-light btn-outline-dark btn-sm ">Raise Ticket</button></a>
           </td>
           <td>
-             <a href="{{route('raise_tickets',$value->email)}}">Raise ticket</a>
+             <a href="{{route('view_user_details',$value->id)}}"><button class="btn btn-light btn-outline-primary btn-sm">PODs </button></a>
           </td>
+         
           <td>
-             <a href="{{route('edituser',$value->id)}}"  ><i class='fa fa-edit' style='font-size:24px;'></i></a>
+             <a href="{{route('edituser',$value->id)}}"><button class="btn  btn-outline-success btn-sm">Edit </button></a>
           </td>
           <td >
-              <a id="MybtnModal_{{$key}}"> <i class='fa fa-trash' style='font-size:24px;color:red;'></i></a>
+              <a id="MybtnModal_{{$key}}"><button class="btn  btn-outline-danger btn-sm">Delete </button></a>
             
           </td>
         </tr>
