@@ -63,6 +63,8 @@ class CropController extends Controller
      */
     public function store(Request $request)
     {
+        //print_r($request->Input()); die();
+        
         $crop_image="";
         $seedling_image="";
         $young_image="";
@@ -146,8 +148,24 @@ class CropController extends Controller
             $harvesting_image= $fileName;
         }
 
-    
+        $seedling_range = $request->seedings_start.'-'.$request->seedings_end;
+        $young_plant_range = $request->young_plant_start.'-'.$request->young_plant_end;
+        $matured_range = $request->matured_start.'-'.$request->matured_end;
+        $vegetative_range = $request->vegetative_start.'-'.$request->vegetative_end;
+        $flowering_range = $request->flowering_start.'-'.$request->flowering_end;
+        $fruiting_range = $request->fruit_start.'-'.$request->fruit_end;
+        $harvesting_range = $request->harvesting_start.'-'.$request->harvesting_end;
+        $re_harvesting_day = $request->re_harvesting_day;
 
+
+        if($re_harvesting_day == '0'){
+            $re_harvestable_crop = 'No';
+        }
+        else{
+            $re_harvestable_crop = 'Yes';
+        }
+
+    
       if($request->category == '5'){
 
         $crop = new Crop();
@@ -175,18 +193,20 @@ class CropController extends Controller
             $duration = GrowthDuration::create([
                 'category_id' => $request->category ,
                 'crop_id' => $id ,
-                'seedling' => $request->seedings ,
+                'seedling' => $seedling_range ,
                 'seeding_image'=> $seedling_image ,
-                'young_plants' => $request->young_plant ,
+                'young_plants' => $young_plant_range ,
                 'young_image' => $young_image ,
-                'vegetative_phase' => $request->vegetative ,
+                'vegetative_phase' => $vegetative_range ,
                 'vegetative_image' => $vegetative_image ,
-                'flowering_stage' => $request->flowering ,
+                'flowering_stage' => $flowering_range ,
                 'flowering_image' => $flowering_image ,
-                'fruiting_stage' => $request->fruit ,
+                'fruiting_stage' => $fruiting_range ,
                 'fruiting_image' => $fruiting_image ,
-                'harvesting' => $request->harvesting ,
-                'harvesting_image' => $harvesting_image ]);
+                'harvesting' => $harvesting_range ,
+                'harvesting_image' => $harvesting_image,
+                're_harvestable_crop' => $re_harvestable_crop ,
+                're_harvesting_day' =>  $re_harvesting_day]);
 
             if($duration){
                 return redirect()->route('Crop_master');
@@ -220,14 +240,16 @@ class CropController extends Controller
             $duration = GrowthDuration::create([
                 'category_id' => $request->category ,
                 'crop_id' => $id ,
-                'seedling' => $request->seedings ,
+                'seedling' => $seedling_range ,
                 'seeding_image'=> $seedling_image ,
-                'young_plants' => $request->young_plant ,
+                'young_plants' => $young_plant_range ,
                 'young_image' => $young_image ,
-                'matured' => $request->matured ,
+                'matured' => $matured_range ,
                 'matured_image' => $matured_image ,
-                'harvesting' =>$request->harvesting ,
-                'harvesting_image' => $harvesting_image ]);
+                'harvesting' =>$harvesting_range ,
+                'harvesting_image' => $harvesting_image,
+                're_harvestable_crop' => $re_harvestable_crop ,
+                're_harvesting_day' =>  $re_harvesting_day ]);
 
             if($duration){
                 return redirect()->route('Crop_master');

@@ -237,7 +237,7 @@ class CropsController extends Controller
 
         $channels = Cultivation::where('pod_id', $pod_id)->where('user_id' , $user_id)->get();
 
-         //print_r(json_encode($channels));die();
+        // print_r(json_encode($channels));die();
 
         foreach ($channels as $key => $value) {
             $growth = GrowthDuration::where('crop_id', $value->crop_id)->first();
@@ -247,12 +247,36 @@ class CropsController extends Controller
             $harvest_start = $harvest_range[0];
             $harvest_end = $harvest_range[1];
 
+            if($harvest_end == 'onwards'){
+              $re_harvest_day = $growth->re_harvesting_day;
+              $harvest_end = intval($harvest_start) + intval($re_harvest_day);
 
-            $harvest_date = date('Y-m-d', strtotime($value->planted_on . ' + '. $harvest_start . 'days'));
 
-            $harvest_completion_date = date('Y-m-d', strtotime($value->planted_on . ' + '. $harvest_end . 'days'));
+              $harvest_date = date('Y-m-d', strtotime($value->planted_on . ' + '. $harvest_start . 'days'));
+              
+
+               if($harvest_date < date('Y-m-d')){
+
+                   $harvest_date = date('Y-m-d', strtotime($harvest_date . ' + '. $re_harvest_day . 'days'));
+                   $harvest_completion_date = $harvest_date ;
+               }
+
+            }
+            else{
+               $harvest_date = date('Y-m-d', strtotime($value->planted_on . ' + '. $harvest_start . 'days'));
+
+               $harvest_completion_date = date('Y-m-d', strtotime($value->planted_on . ' + '. $harvest_end . 'days'));
             
-            if($harvest_date >= date('Y-m-d') && $harvest_date <= $week && $harvest_completion_date <= date('Y-m-d')){
+            }
+
+           
+            if($value->id == '82'){
+              print_r($value->planted_on);print_r("</br>");
+              print_r($harvest_date);print_r("</br>");print_r($week);print_r("</br>");print_r($harvest_completion_date); 
+            }
+            
+             //if($harvest_date >= date('Y-m-d') && $harvest_date <= $week && $harvest_completion_date >= date('Y-m-d')){
+            if($harvest_date >= date('Y-m-d') && $harvest_date <= $week && $harvest_completion_date >= date('Y-m-d')){
                
                 $days_remaining  = (strtotime($harvest_date)-strtotime(date('Y-m-d')))/(60*60*24);
                 $crop = Crop::where('id',$value->crop_id)->first();
@@ -345,7 +369,7 @@ class CropsController extends Controller
         }
 
        
-
+        // die();
         return response()->json([
                    'status' => '1',
                    'data'=>$data ]);

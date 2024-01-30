@@ -530,7 +530,7 @@ $(".dropdown-menu li a").click(function() {
 
         datasets: [
         {
-          label: 'Ambian Temperature',  
+          label: 'Ambient Temperature',  
           fill: false,
          
           backgroundColor: "<?php echo 'red' ;  ?>",
@@ -539,7 +539,7 @@ $(".dropdown-menu li a").click(function() {
 
         },
         {
-          label: 'POD Temaperature',  
+          label: 'POD Temperature',  
           fill: false,
          
           backgroundColor: "<?php echo '#FF90BB';  ?>",
@@ -547,7 +547,7 @@ $(".dropdown-menu li a").click(function() {
           data: <?php echo $sensorsArray['pod'] ;  ?>,
         },
        {
-          label: 'Nutrition Temaperature',  
+          label: 'Nutrition Temperature',  
           fill: false,
           
           backgroundColor: "<?php echo '#FFE4A7';  ?>",

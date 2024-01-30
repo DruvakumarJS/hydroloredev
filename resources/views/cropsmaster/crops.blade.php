@@ -75,7 +75,7 @@
                   <div class="col-md-4">
                   <div class="mb-3">
                     <label for="message-text" class="col-form-label">Crop Duration *</label>
-                     <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter Crop Duration in days" onkeypress="return isNumberKey(event)" required>
+                     <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter Crop Duration in days" required>
                   </div>
 
                   </div>
@@ -146,71 +146,83 @@
                  
                </div> -->
 
-               <label for="message-text" class="col-form-label label-bold ">Crop Cycle</label>
-
+               <label for="message-text" class="col-form-label label-bold ">Crop Cycle</label><br/>
+              
+               <label>Seedling days range *</label>
                <div class="row">
-                  <div class="col-md-4">
-                        <label>Seedling</label>
-                        <input class="form-control" type="text" name="seedings" placeholder="approx. days range" onkeypress="return isNumberKey(event)" required>
+                  <div class="col-md-2"> 
+                        <input class="form-control" type="text" name="seedings_start" placeholder="Start day" onkeypress="return isNumberKey(event)" required>
+                  </div>
+
+                   <div class="col-md-2">                        
+                        <input class="form-control" type="text" name="seedings_end" placeholder="End day"  required>
                   </div>
 
                   <div class="col-md-4">
-                  <div class="mb-3">
-                    <label></label>
-                   <input class="form-control" type="file" name="seedings_img"  accept="image/*" onchange="previewcropimage1(event);">
+                    <div class="mb-3">
+                      <input class="form-control" type="file" name="seedings_img"  accept="image/*" onchange="previewcropimage1(event);">
+                    </div>
                   </div>
 
-                  </div>
                   <img src="" id="image1" style="width: 100px;height: 70px;">
                  
                </div>
 
+               <label>Young Plants days range *</label>
                <div class="row">
-                  <div class="col-md-4">
-                        <label>Young Plants</label>
-                        <input class="form-control" type="text" name="young_plant" placeholder="approx. days range" onkeypress="return isNumberKey(event)"required>
+                  <div class="col-md-2"> 
+                        <input class="form-control" type="text" name="young_plant_start" placeholder="Start day" onkeypress="return isNumberKey(event)"  required>
+                  </div>
+
+                   <div class="col-md-2">                        
+                        <input class="form-control" type="text" name="young_plant_end" placeholder="End day"  required>
                   </div>
 
                   <div class="col-md-4">
-                  <div class="mb-3">
-                    <label></label>
-                   <input class="form-control" type="file" name="young_plant_img" accept="image/*" onchange="previewcropimage2(event);">
-                  </div>
-                    
-                  </div>
-                  <img src="" id="image2"  style="width: 100px;height: 70px;">
-               </div>
-              
-              <div id="matured">
-                 <div class="row" >
-                  <div class="col-md-4">
-                        <label>Matured</label>
-                        <input class="form-control" type="text"  id="mature" name="matured" placeholder="approx. days range" onkeypress="return isNumberKey(event)">
+                    <div class="mb-3">
+                      <input class="form-control" type="file" name="seedings_img"  accept="image/*" onchange="previewcropimage1(event);">
+                    </div>
                   </div>
 
-                  <div class="col-md-4">
-                  <div class="mb-3">
-                    <label></label>
-                   <input class="form-control" type="file" name="matured_img" accept="image/*" onchange="previewcropimage3(event);" >
-                  </div>
-
-                  </div>
-                 <img src="" id="image3"  style="width: 100px;height: 70px;">
+                  <img src="" id="image1" style="width: 100px;height: 70px;">
+                 
                </div>
 
-              </div>
-              
+               <label>Matured Plants days range *</label>
+               <div class="row">
+                  <div class="col-md-2"> 
+                        <input class="form-control" type="text" name="matured_start" placeholder="Start day" onkeypress="return isNumberKey(event)" required>
+                  </div>
+
+                   <div class="col-md-2">                        
+                        <input class="form-control" type="text" name="matured_end" placeholder="End day"  required>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="mb-3">
+                      <input class="form-control" type="file" name="seedings_img"  accept="image/*" onchange="previewcropimage1(event);">
+                    </div>
+                  </div>
+
+                  <img src="" id="image1" style="width: 100px;height: 70px;">
+                 
+               </div>
+
                <!-- vegetable -->
                <div id="vegetables" style="display: none">
+                 <label>Vegetative Phase days range *</label>
                <div class="row" id="vegetative" >
-                  <div class="col-md-4">
-                        <label>Vegetative Phase</label>
-                        <input class="form-control" type="text" name="vegetative" id="veget" placeholder="approx. days range" onkeypress="return isNumberKey(event)" >
+                 
+                  <div class="col-md-2"> 
+                        <input class="form-control" type="text" name="vegetative_start" placeholder="Start day" onkeypress="return isNumberKey(event)" >
+                  </div>
+
+                   <div class="col-md-2">                        
+                        <input class="form-control" type="text" name="vegetative_end" placeholder="End day"  >
                   </div>
 
                   <div class="col-md-4">
                   <div class="mb-3">
-                    <label></label>
                    <input class="form-control" type="file" name="vegetative_img" accept="image/*" onchange="previewcropimage4(event);" >
                   </div>
 
@@ -219,14 +231,20 @@
                </div>
 
                <div class="row" id="flowering" >
-                  <div class="col-md-4">
-                        <label>Flowering Stage</label>
-                        <input class="form-control" type="text"  id="flower" name="flowering" placeholder="approx. days range"  onkeypress="return isNumberKey(event)">
+                 <label>Flowering Stage days range *</label>
+                  
+                   <div class="col-md-2"> 
+                        <input class="form-control" type="text" name="flowering_start" placeholder="Start day" onkeypress="return isNumberKey(event)"  >
                   </div>
+
+                   <div class="col-md-2">                        
+                        <input class="form-control" type="text" name="flowering_end" placeholder="End day"  >
+                  </div>
+
+
 
                   <div class="col-md-4">
                   <div class="mb-3">
-                    <label></label>
                    <input class="form-control" type="file" name="flowering_img" accept="image/*" onchange="previewcropimage5(event);">
                   </div>
 
@@ -235,14 +253,18 @@
                </div>
 
                <div class="row" id="fruit">
-                  <div class="col-md-4">          
-                        <label>Fruiting Stage</label>
-                        <input class="form-control" type="text" id="fru" name="fruit" placeholder="approx. days range" onkeypress="return isNumberKey(event)">     
+                <label>Fruiting Stage days range *</label>
+                 <div class="col-md-2"> 
+                        <input class="form-control" type="text" name="fruit_start" placeholder="Start day" onkeypress="return isNumberKey(event)"  >
                   </div>
+
+                   <div class="col-md-2">                        
+                        <input class="form-control" type="text" name="fruit_end" placeholder="End day"  >
+                  </div>
+
 
                   <div class="col-md-4">
                   <div class="mb-3">
-                    <label></label>
                    <input class="form-control" type="file" name="fruit_img" accept="image/*" onchange="previewcropimage6(event);">
                   </div>
 
@@ -254,19 +276,33 @@
 
 
                <div class="row">
-                  <div class="col-md-4">
-                        <label>Harvesting</label>
-                        <input class="form-control" type="text" name="harvesting" placeholder="approx. days range" onkeypress="return isNumberKey(event)" required>   
+                <label>First Harvesting days range *</label>
+                 
+                   <div class="col-md-2"> 
+                        <input class="form-control" type="text" name="harvesting_start" placeholder="Start day" onkeypress="return isNumberKey(event)" required>
+                  </div>
+
+                   <div class="col-md-2">                        
+                        <input class="form-control" type="text" name="harvesting_end" placeholder="End day"  required>
                   </div>
 
                   <div class="col-md-4">
                   <div class="mb-3">
-                    <label></label>
                    <input class="form-control" type="file" name="harvesting_img" accept="image/*" onchange="previewcropimage7(event);">
                   </div>
 
                   </div >
                  <img src="" id="image7"  style="width: 100px;height: 70px;">
+               </div>
+
+               <div class="row">
+                <label>Re-Harvesting day (day after first harvest)</label>
+                 
+                   <div class="col-md-2"> 
+                        <input class="form-control" type="number" name="re_harvesting_day" placeholder="Re-harvesting day" value="0">
+                  </div>
+                 
+                
                </div>
 
                <label for="message-text" class="col-form-label label-bold ">Nutrition & Spray</label>
@@ -288,42 +324,42 @@
                   <div class="row" style="margin-top: 20px">
                     <div class="col-md-8">
                           <label>Pruning Steps *</label>
-                          <textarea class="form-control" name="steps_pruning" placeholder="Enter Steps to be followed while Pruning" required ></textarea> 
+                          <textarea class="form-control" name="steps_pruning" placeholder="Enter Steps to be followed while Pruning" required >Pruning to be done</textarea> 
                     </div>
                   </div>
 
                   <div class="row" style="margin-top: 20px">
                     <div class="col-md-8">
                           <label>Staking Steps *</label>
-                          <textarea class="form-control" name="steps_staking" placeholder="Enter Steps to be followed while Staking" required ></textarea> 
+                          <textarea class="form-control" name="steps_staking" placeholder="Enter Steps to be followed while Staking" required >Staking to be done</textarea> 
                     </div>
                   </div>
 
                   <div class="row" style="margin-top: 20px">
                     <div class="col-md-8">
                           <label>Nutrition Addition Steps *</label>
-                          <textarea class="form-control" name="steps_nutrients" placeholder="Enter Steps to be followed while adding Nutrients" required ></textarea> 
+                          <textarea class="form-control" name="steps_nutrients" placeholder="Enter Steps to be followed while adding Nutrients" required >Add Nutrition A , B and C in 100ml</textarea> 
                     </div>
                   </div>
 
                   <div class="row" style="margin-top: 20px">
                     <div class="col-md-8">
                           <label>Plant Protection Spray Steps</label>
-                          <textarea class="form-control" name="steps_spray1" placeholder="Enter Steps to be followed while Spray 1" required ></textarea> 
+                          <textarea class="form-control" name="steps_spray1" placeholder="Enter Steps to be followed while Spray 1" required >Add 100ML solution to 10 Liters of water and then spray on plants</textarea> 
                     </div>
                   </div>
 
                   <div class="row" style="margin-top: 20px">
                     <div class="col-md-8">
                           <label>Crop Fertigation -1 Steps</label>
-                          <textarea class="form-control" name="steps_spray2" placeholder="Enter Steps to be followed while Spray 2" required ></textarea> 
+                          <textarea class="form-control" name="steps_spray2" placeholder="Enter Steps to be followed while Spray 2" required >Add 70ML solution to 10 Liters of water and then spray on plants</textarea> 
                     </div>
                   </div>
 
                   <div class="row" style="margin-top: 20px">
                     <div class="col-md-8">
                           <label>Crop Fertigation -2 Steps</label>
-                          <textarea class="form-control" name="steps_spray3" placeholder="Enter Steps to be followed while Spray 3" required ></textarea> 
+                          <textarea class="form-control" name="steps_spray3" placeholder="Enter Steps to be followed while Spray 3" required >Add 50ML solution to 10 Liters of water and then spray on plants</textarea> 
                     </div>
                   </div>
 
