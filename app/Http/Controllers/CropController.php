@@ -65,7 +65,7 @@ class CropController extends Controller
     {
         //print_r($request->Input()); die();
         
-        $crop_image="";
+        $crop_image="crop_default.png";
         $seedling_image="";
         $young_image="";
         $matured_image="";
