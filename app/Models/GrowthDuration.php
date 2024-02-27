@@ -25,7 +25,9 @@ class GrowthDuration extends Model
           'fruiting_stage',
           'fruiting_image',
           'harvesting',
-          'harvesting_image'];  
+          'harvesting_image',
+          're_harvestable_crop',
+          're_harvesting_day'];  
 
     public function crop(){
       return $this->belongsTo(Crop::class);

@@ -231,7 +231,7 @@ class CultivationController extends Controller
      */
     public function store(Request $request)
     {
-       //  print_r($request->Input()); 
+        // print_r($request->Input()); die();
         
         if(isset($request->sub_channel_a))$sub_chanel_array[] ='A';
         if(isset($request->sub_channel_b))$sub_chanel_array[] ='B'; 
@@ -255,8 +255,11 @@ class CultivationController extends Controller
                 
                 $crop_growth = GrowthDuration::where('crop_id',$request->crop)->first();
                 $harvest = $crop_growth->harvesting;
+                
                 $harvest_range= preg_split("/[-:]/", $harvest);
                 $harvest_start = $harvest_range[0];
+               // print_r($harvest); die();
+               // print_r($harvest_start); die();
                 $harvest_date = date('Y-m-d', strtotime($request->planted_on . ' + '. $harvest_start . 'days'));
 
 

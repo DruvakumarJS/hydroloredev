@@ -49,7 +49,7 @@ class ActiveSensorController extends Controller
          	$sesors_status[]=[
              	'sensor' => 'Ambian Temparature' ,
              	'detail' => 'This sensor will check the Ambian Temparature',
-             	'status' => 'Okey',
+             	'status' => 'Okay',
              	'file_directory'=> url('/').'/sensors/',
              	'filename'=> '',
                 'solution' => $solution
@@ -91,7 +91,7 @@ class ActiveSensorController extends Controller
          	$sesors_status[]=[
              	'sensor' => 'POD Temparature' ,
              	'detail' => 'This sensor will check the POD/BB Temparature',
-             	'status' => 'Okey',
+             	'status' => 'Okay',
              	'file_directory'=> url('/').'/sensors/',
              	'filename'=> 'temperature.svg',
                 'param'=>'POD_T1',
@@ -130,7 +130,7 @@ class ActiveSensorController extends Controller
          	$sesors_status[]=[
              	'sensor' => 'TDS value' ,
              	'detail' => 'This shows total Dissolved Salt Sensor value',
-             	'status' => 'Okey',
+             	'status' => 'Okay',
              	'file_directory'=> url('/').'/sensors/',
              	'filename'=> 'temperature.svg',
                 'solution' => $solution
@@ -167,7 +167,7 @@ class ActiveSensorController extends Controller
          	$sesors_status[]=[
              	'sensor' => 'PH value' ,
              	'detail' => 'This measurs the pH value',
-             	'status' => 'Okey',
+             	'status' => 'Okay',
              	'file_directory'=> url('/').'/sensors/',
              	'filename'=> '',
                 'solution' => $solution
@@ -211,7 +211,7 @@ class ActiveSensorController extends Controller
                 $sesors_status[]=[
                 'sensor' => 'Current (Consumed) - Nutrition Pump' ,
                 'detail' => 'This Captures the Nutrition pump current in mA',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> 'nutrition.svg',
                 'solution' => $solution
@@ -223,7 +223,7 @@ class ActiveSensorController extends Controller
                 $sesors_status[]=[
                 'sensor' => 'Current (Consumed) - Nutrition Pump' ,
                 'detail' => 'This Captures the Nutrition pump current in mA',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> 'nutrition.svg',
                 'solution' => $solution
@@ -267,7 +267,7 @@ class ActiveSensorController extends Controller
                 $sesors_status[]=[
                 'sensor' => 'Current (Consumed) - Solenoid ' ,
                 'detail' => 'This Captures the Nutrition pump current in mA',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> 'solenoid.svg',
                 'solution' => $solution
@@ -279,7 +279,7 @@ class ActiveSensorController extends Controller
                 $sesors_status[]=[
                 'sensor' => 'Current (Consumed) - Solenoid ' ,
                 'detail' => 'This Captures the Nutrition pump current in mA',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> 'solenoid.svg',
                 'solution' => $solution
@@ -356,7 +356,7 @@ class ActiveSensorController extends Controller
              $sesors_status[]=[
                 'sensor' => 'Nutrient Pump Health' ,
                 'detail' => 'This will check the health of the pump. OK or Faulty',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> 'nutrition.svg',
                 'solution' => $solution
@@ -431,7 +431,7 @@ class ActiveSensorController extends Controller
              $sesors_status[]=[
                 'sensor' => 'Fresh Water Solenoid Valve ' ,
                 'detail' => 'This will check if the fresh water outlet is working  as needed.',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> 'solenoid.svg',
                 'solution' => $solution
@@ -506,7 +506,7 @@ class ActiveSensorController extends Controller
              $sesors_status[]=[
                 'sensor' => 'Low Level Source Tank -1' ,
                 'detail' => 'This is the status of Source Tank Water Level Sensor-1 - Low Level ',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> '',
                 'solution' => $solution
@@ -521,7 +521,7 @@ class ActiveSensorController extends Controller
              $sesors_status[]=[
                 'sensor' => 'Low Level Source Tank -1' ,
                 'detail' => 'This is the status of Source Tank Water Level Sensor-1 - Low Level ',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> '',
                 'solution' => $solution
@@ -594,7 +594,7 @@ class ActiveSensorController extends Controller
              $sesors_status[]=[
                 'sensor' => 'Low Level Reservoir Tank -2' ,
                 'detail' => 'This is the status of Reservoir Tank Water Level Sensor-2 - Low Level ',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> '',
                 'solution' => $solution
@@ -608,7 +608,7 @@ class ActiveSensorController extends Controller
              $sesors_status[]=[
                 'sensor' => 'Low Level Reservoir Tank -2' ,
                 'detail' => 'This is the status of Reservoir Tank Water Level Sensor-2 - Low Level ',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> '',
                 'solution' => $solution
@@ -681,7 +681,7 @@ class ActiveSensorController extends Controller
              $sesors_status[]=[
                 'sensor' => 'Low Level BackUP Tank -3' ,
                 'detail' => 'This is the status of BackUP Tank Water Level Sensor-3 - Low Level ',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> '',
                 'solution' => $solution
@@ -695,7 +695,7 @@ class ActiveSensorController extends Controller
              $sesors_status[]=[
                 'sensor' => 'Low Level BackUP Tank -3' ,
                 'detail' => 'This is the status of BackUP Tank Water Level Sensor-3 - Low Level ',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> '',
                 'solution' => $solution
@@ -783,7 +783,7 @@ class ActiveSensorController extends Controller
                 $sesors_status[]=[
                 'sensor' => 'Relay - 1' ,
                 'detail' => 'This Controls the Nutription Pump - 1',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> '',
                 'solution' => $solution
@@ -870,7 +870,7 @@ class ActiveSensorController extends Controller
                 $sesors_status[]=[
                 'sensor' => 'Relay - 3' ,
                 'detail' => 'This Controls Fresh water Valve - 1',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> '',
                 'solution' => $solution
@@ -956,7 +956,7 @@ class ActiveSensorController extends Controller
                 $sesors_status[]=[
                 'sensor' => 'Relay - 4' ,
                 'detail' => 'This Controls Fresh Water Valve – 2',
-                'status' => 'Okey',
+                'status' => 'Okay',
                 'file_directory'=> url('/').'/sensors/',
                 'filename'=> '',
                 'solution' => $solution
