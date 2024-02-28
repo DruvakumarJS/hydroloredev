@@ -42,22 +42,25 @@ class ActivityController extends Controller
                 'documents' => ''];
         }
 
-        if(Activity::where('cultivation_id' , $id)->where('activity', 'staking')->exists()){
-            $detail2 = Activity::where('cultivation_id' , $id)->where('activity', 'staking')->first();
-            $data[]=[
-                'activity' => 'Staking',
-                'expected_date' =>$cultivation->staking, 
-                'date' => $detail2->created_at,
-                'feedback' => $detail2->feedback,
-                'documents' => $detail2->images];
-        } 
-        else{
-            $data[]=[
-                'activity' => 'Staking',
-                'expected_date' =>$cultivation->staking,
-                'date' => '',
-                'feedback' => '',
-                'documents' => ''];
+        if($cultivation->staking != $cultivation->planted_on){
+
+            if(Activity::where('cultivation_id' , $id)->where('activity', 'staking')->exists()){
+                $detail2 = Activity::where('cultivation_id' , $id)->where('activity', 'staking')->first();
+                $data[]=[
+                    'activity' => 'Staking',
+                    'expected_date' =>$cultivation->staking, 
+                    'date' => $detail2->created_at,
+                    'feedback' => $detail2->feedback,
+                    'documents' => $detail2->images];
+            } 
+            else{
+                $data[]=[
+                    'activity' => 'Staking',
+                    'expected_date' =>$cultivation->staking,
+                    'date' => '',
+                    'feedback' => '',
+                    'documents' => ''];
+            }
         }
 
         if(Activity::where('cultivation_id' , $id)->where('activity', 'nutrients')->exists()){
