@@ -76,6 +76,25 @@
                         Sub Channel C
                       </label>
                     </div>
+
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="D" name="sub_channel_d" >
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Sub Channel D
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="E" name="sub_channel_e" >
+                      <label class="form-check-label" for="flexCheckChecked">
+                        Sub Channel E
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="F" name="sub_channel_f">
+                      <label class="form-check-label" for="flexCheckChecked">
+                        Sub Channel F
+                      </label>
+                    </div>
                     
                   </div>
               </div>

@@ -50,10 +50,13 @@ class CultivationController extends Controller
                  $channel_array['channel_no']=$count;
                  $channel_array['sub_chanel']=array();
 
-                 for ($i=1; $i < 4; $i++) { 
+                 for ($i=1; $i < 7; $i++) { 
                     if($i == 1){$k = 'A';}
                     if($i == 2){$k = 'B';}
                     if($i == 3){$k = 'C';}
+                    if($i == 4){$k = 'D';}
+                    if($i == 5){$k = 'E';}
+                    if($i == 6){$k = 'F';}
                      if(Cultivation::where('pod_id',$id)->where('channel_no',$count)->where('sub_channel',$k)->exists()){
                         //$data=Cultivation::where('pod_id',$id)->where('channel_no',$count)->where('sub_channel',$k)->first();
 
@@ -236,6 +239,9 @@ class CultivationController extends Controller
         if(isset($request->sub_channel_a))$sub_chanel_array[] ='A';
         if(isset($request->sub_channel_b))$sub_chanel_array[] ='B'; 
         if(isset($request->sub_channel_c))$sub_chanel_array[] ='C';
+        if(isset($request->sub_channel_d))$sub_chanel_array[] ='D';
+        if(isset($request->sub_channel_e))$sub_chanel_array[] ='E'; 
+        if(isset($request->sub_channel_f))$sub_chanel_array[] ='F';
         $message=array();
 
        
@@ -252,6 +258,10 @@ class CultivationController extends Controller
                 $pruning = $crop_details->pruning;
                 $staking  = $crop_details->staking;
                 $plantation_date = $request->planted_on;
+
+                if($staking == 'NA'){
+                    $staking = "0";
+                }
                 
                 $crop_growth = GrowthDuration::where('crop_id',$request->crop)->first();
                 $harvest = $crop_growth->harvesting;

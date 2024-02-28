@@ -311,7 +311,7 @@ class CropsController extends Controller
 
             }
 
-            if($value->staking == date('Y-m-d')){
+            if($value->staking == date('Y-m-d') && ( $value->planted_on != $value->staking )){
                 $data[]= ['image' => url('/').'/crops/'.$crop->image,
                           'subject' =>$crop->name,
                           'Channel' => $value->channel_no,

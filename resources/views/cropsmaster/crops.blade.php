@@ -310,12 +310,12 @@
                  <div class="row">
                     <div class="col-md-4">
                           <label>Pruning (Day after planting)*</label>
-                          <input class="form-control" type="number" min="1" name="pruning" placeholder="nth day after plantation" required>   
+                          <input class="form-control" type="text" name="pruning" placeholder="nth day after plantation" required>   
                     </div>
 
                     <div class="col-md-4">
                      <label>Staking (Day after planting)*</label>
-                          <input class="form-control" type="number" min="1" name="staking" placeholder="nth day after plantation" required>
+                          <input class="form-control" type="text" name="staking" placeholder="nth day after plantation" required>
 
                     </div>
                  
