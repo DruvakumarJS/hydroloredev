@@ -32,7 +32,7 @@ class CropsController extends Controller
                  $channel_array['channel_no']=$count;
                  $channel_array['sub_chanel']=array();
 
-                 for ($i=1; $i < 4; $i++) { 
+                 for ($i=1; $i < 7; $i++) { 
                     if($i == 1){$k = 'A';}
                     if($i == 2){$k = 'B';}
                     if($i == 3){$k = 'C';}
