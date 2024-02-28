@@ -32,10 +32,13 @@ class CropsController extends Controller
                  $channel_array['channel_no']=$count;
                  $channel_array['sub_chanel']=array();
 
-                 for ($i=1; $i < 4; $i++) { 
+                 for ($i=1; $i < 7; $i++) { 
                     if($i == 1){$k = 'A';}
                     if($i == 2){$k = 'B';}
                     if($i == 3){$k = 'C';}
+                    if($i == 4){$k = 'D';}
+                    if($i == 5){$k = 'E';}
+                    if($i == 6){$k = 'F';}
                      if(Cultivation::where('pod_id',$request->pod_id)->where('channel_no',$count)->where('sub_channel',$k)->exists()){
                        
                         $value= Cultivation::where('pod_id',$request->pod_id)->where('channel_no',$count)->where('sub_channel',$k)->first();
