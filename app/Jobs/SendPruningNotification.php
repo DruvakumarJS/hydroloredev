@@ -50,7 +50,7 @@ class SendPruningNotification implements ShouldQueue
             if($pod_age > 25){
                 $pruningage = intval($pod_age) - (25) ;
 
-                if($pruningage % 3 == 0){
+                if($pruningage % 7 == 0){
 
                     if(in_array($value->user_id, $userarray)){
 

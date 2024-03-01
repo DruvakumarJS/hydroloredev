@@ -273,10 +273,10 @@ class CropsController extends Controller
             }
 
            
-            if($value->id == '82'){
+           /* if($value->id == '82'){
               print_r($value->planted_on);print_r("</br>");
               print_r($harvest_date);print_r("</br>");print_r($week);print_r("</br>");print_r($harvest_completion_date); 
-            }
+            }*/
             
              //if($harvest_date >= date('Y-m-d') && $harvest_date <= $week && $harvest_completion_date >= date('Y-m-d')){
             if($harvest_date >= date('Y-m-d') && $harvest_date <= $week && $harvest_completion_date >= date('Y-m-d')){
