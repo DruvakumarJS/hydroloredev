@@ -43,6 +43,7 @@ class CheckPodStatus extends Command
      */
     public function handle()
     {
+        \Log::info('Executing pod:status command');
        $pods  = Pod::get();
        $data = array();
 

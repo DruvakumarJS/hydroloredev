@@ -35,9 +35,12 @@ class Kernel extends ConsoleKernel
           //$schedule->job(new CheckPODstatus)->everySixHours($minutes = 0);
           //$schedule->job(new SendPruningNotification)->dailyAt('10:30');
 
-          $schedule->command('daily:notification')->dailyAt('10:00');
-          $schedule->command('pod:status')->everySixHours($minutes = 0);
-          $schedule->command('pruning:notification')->dailyAt('10:00');
+          $schedule->command('daily:notification')->dailyAt('13:00');
+          $schedule->command('pod:status')->hourly();
+          $schedule->command('pruning:notification')->dailyAt('13:00');
+
+
+
          
     }
 
