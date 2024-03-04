@@ -37,6 +37,7 @@ class CultivationController extends Controller
     public function create($id)
     {
          $category = Category::get();
+        // print_r(json_encode($category->crops)); die();
        // $crops = Cultivation::where('pod_id' , $id)->orderBy('channel_no','ASC')->get();
         
             $count = 1;
@@ -178,6 +179,8 @@ class CultivationController extends Controller
 
                         $days_remaining  = (strtotime($harvest_date)-strtotime(date('Y-m-d')))/(60*60*24);
 
+                        $cropslist = Crop::where('category_id',$value->category_id)->get();
+
                         $sub_channel_array=[
                          'sub_channel'=> $k,   
                          'id'=> $value->id,
@@ -190,7 +193,8 @@ class CultivationController extends Controller
                          'current_stage' => $current_stage,
                          'image' => $crop_detail->image,
                          'planted_date' => $value->planted_on,
-                         'harvesting_date'=> $days_remaining
+                         'harvesting_date'=> $days_remaining,
+                         'cropslist' => $cropslist
                      ];
 
                      }
@@ -207,7 +211,8 @@ class CultivationController extends Controller
                          'current_stage' => '',
                          'image' => '',
                          'planted_date' => '',
-                         'harvesting_date'=> ''
+                         'harvesting_date'=> '',
+                         'cropslist' => []
                      ];
                          
                      }
@@ -221,7 +226,7 @@ class CultivationController extends Controller
            }
            
             
-          // print_r(json_encode($final_array)); die();
+          // print_r(json_encode($crops)); die();
 
         return view('crops/add',compact('category','crops','id','channel'));
     }

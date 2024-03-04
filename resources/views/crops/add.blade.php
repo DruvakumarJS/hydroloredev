@@ -168,7 +168,7 @@
                <div class="card-header text-center">Channel - {{$value['channel_no']}}</div>
                
                 @foreach($value['sub_chanel'] as $key2=>$value2)
-                 
+                
                
             <label style="font-size: 15px;font-weight: bold;">Channel - {{$value['channel_no']}}{{$value2['sub_channel']}}</label>
             @if($value2['name']!='')
@@ -298,17 +298,21 @@
                                     @foreach($category as $key3=> $value3)
 
                                      <option <?php echo ($value3->id == $value2['category_id'])?'selected':''  ?> value="{{$value3->id}}">{{$value3->category_name}}</option>
-                                    
+
                                     @endforeach
                                   </select>
                               </div>
                           </div>
-
+                          
                           <div class="form-group row">
                               <label for="" class="col-4 col-form-label">Crop Name *</label>
                               <div class="col-7" id="crop_{{$key}}_{{$key2}}">
-                                  <select class="form-control" name="crop">
-                                    <option  value="{{$value2['crop_id']}}" >{{$value2['name']}}</option> 
+                                  <select class="form-control form-select" name="crop">
+                                    
+                                    @foreach($value2['cropslist'] as $keyd=> $valued)
+                                      <option <?php echo ($valued->id == $value2['crop_id'])?'selected':''  ?>
+                                      value="{{$valued->id}}">{{ $valued->name}}</option>
+                                    @endforeach
                                   </select>
                                   
                               </div>
