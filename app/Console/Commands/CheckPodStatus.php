@@ -43,6 +43,7 @@ class CheckPodStatus extends Command
      */
     public function handle()
     {
+       
        $pods  = Pod::get();
        $data = array();
 
