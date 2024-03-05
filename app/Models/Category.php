@@ -13,4 +13,9 @@ class Category extends Model
     	'category_name',
     	'season',
     	'description'];
+
+    public function crops(){
+      return $this->hasMany(Crop::class, 'id' , 'category_id');
+    } 
+ 	
 }
