@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Userdetail;
 use App\Models\Pod;
 use App\Models\User;
+use App\Models\Test;
 use GuzzleHttp\Exception\GuzzleException;
 use http\Client;
 use Illuminate\Support\Facades\Http;
@@ -422,5 +423,15 @@ class LoginController extends Controller
                      ]);
 
         }
+    }
+
+    public function cron_test(Request $request){
+
+        $data = Test::create(['task'=>'Cron']);
+
+         return response()->json([
+                    'status' => '1' ,
+                    'message' => 'Success']);
+
     }
 }

@@ -53,6 +53,9 @@ Route::get('/get-sensor_details/{id}',[ActiveSensorController::class , 'sensor_d
 //Route::get('/get-notifications',[FirebaseNotificationController::class , 'dynamic_notification']);
 Route::get('/notifications',[CropsController::class , 'notification']);
 
+Route::post('/test-cron',[LoginController::class , 'cron_test']);
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
