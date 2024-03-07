@@ -96,6 +96,65 @@ class FirebaseNotificationController extends Controller
         
     }
 
+    public function unique_notification(){
+
+      $data = Cultivation::select('user_id')
+                         ->where('harvesting_date' , date('Y-m-d'))
+                         ->orWhere('nutrition_addition' , date('Y-m-d'))
+                         ->orWhere('spray1' , date('Y-m-d'))
+                         ->orWhere('spray2' , date('Y-m-d'))
+                         ->orWhere('spray3' , date('Y-m-d'))
+                         ->groupBy('user_id')
+                         ->get();
+      //print_r(json_encode($data)); die();                   
+
+      foreach($data as $key => $value){
+         $userdetail = Userdetail::where('id', $value->user_id)->first();
+        
+         $FcmToken= User::select('device_token')->where('id' ,$userdetail->user_id)->first();
+       
+         $url = 'https://fcm.googleapis.com/fcm/send';  
+            $serverKey = env('FCM_SERVER_KEY');
+            $data = [
+                "registration_ids" => array($FcmToken->device_token),
+
+                "notification" => [
+                    "title" => 'Hydrolore ' ,
+                    "body" => 'Your plants need you.',
+                    "click_action" => 'https://customer.hydrolore.in/home' ,
+                    "icon"=>"https://login.hydrolore.in/images/logo1.png"
+
+                ]
+            ];
+            $encodedData = json_encode($data);
+        
+            $headers = [
+                'Authorization:key=' . $serverKey,
+                'Content-Type: application/json',
+            ];
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);        
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
+            $result = curl_exec($ch);
+            if ($result === FALSE) {  
+               die('Curl failed: ' . curl_error($ch));
+            }        
+            $err = curl_error($ch);
+
+            print_r($result);
+            curl_close($ch);
+
+      } 
+
+    }
+
     public function dynamic_notification(){
       
 
