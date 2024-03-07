@@ -103,6 +103,8 @@ Route::middleware('auth:web')->group(function () {
             Route::post('/save-token', [FirebaseNotificationController::class, 'store'])->name('save-token');
             Route::post('/send-notification', [FirebaseNotificationController::class, 'show'])->name('send.notification');
 
+            Route::get('/send-one-notification', [FirebaseNotificationController::class, 'unique_notification'])->name('send.one_notification');
+
             //ticket
             // Route::get('tickets',[TicketsController::class,'index'])->name('show_tickets');
             // Route::get('tickets/{id}',[TicketsController::class,'search'])->name('search_ticket');
