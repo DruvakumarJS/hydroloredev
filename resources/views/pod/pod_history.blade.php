@@ -2,6 +2,11 @@
 
 @section('content')
 
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
  <style>
     table th {
       background-color:gray;
@@ -67,8 +72,16 @@
                       <button class="btn btn-success" type="submit" name="action" value="filter">Filter</button>
                     </div>
 
-                    <div id="div2" style="margin-right: 5px;background-color: white">
+                    <!-- <div id="div2" style="margin-right: 5px;background-color: white">
                        <input class="form-control" type="text" name="datetimes" id="datetimes" value="{{$datepicker}}" placeholder="Select Date Range" style="background-color: white" readonly/>
+                    </div> -->
+
+                    <div id="div2" style="margin-right: 30px">
+                      <div style="width: 200px">
+                       
+                           <input class="form-control" type="text" name="datetimes"  id="datetimes" placeholder="Select Range" autocomplete="off" value="{{$range}}" />
+
+                      </div>
                     </div>
 
                     <div id="div2" style="margin-right: 5px">
@@ -345,31 +358,6 @@ $(document).ready(function(){
    </div> 
 </div> 
 
-<script>
-$(function() {
-  $('input[name="datetimes"]').daterangepicker({
-
-     autoUpdateInput: false,
-
-    timePicker: true,
-    startDate: moment().startOf('hour'),
-    endDate: moment().startOf('hour').add(32, 'hour'),
-    locale: {
-        
-      format: 'YYYY-MM-DD'
-    }
-  });
-
-  $('input[name="datetimes"]').on('apply.daterangepicker', function(ev, picker) {
-      $(this).val(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD'));
-  });
-
-  $('input[name="datetimes"]').on('cancel.daterangepicker', function(ev, picker) {
-      $(this).val('');
-  });
-});
-
-</script>
 
 <script>
 
@@ -377,11 +365,38 @@ $(document).on("click", ".open-AddBookDialog", function () {
 
     var mydate=$('#datetimes').val();
     var myType=$('#api_type').val();
+   // alert(mydate);
      
      $(".modal-body #dateselected").val(mydate);
      $(".modal-body #api_type").val(myType);
      $('#modal_export1').modal('show')
      
+});
+
+</script>
+
+<script type="text/javascript">
+ 
+$('input[name="datetimes"]').daterangepicker({
+    locale: {
+        format: 'YYYY/MM/DD'
+    },
+    autoUpdateInput: false,
+}).on('apply.daterangepicker', function(ev, picker) {
+    // This function will be executed when a new date range is applied
+
+    var startDate = picker.startDate.format('YYYY/MM/DD');
+    var endDate = picker.endDate.format('YYYY/MM/DD');
+     var datess = startDate+" - "+endDate;
+    
+   // alert(datess)
+    console.log('Start Date: ' + startDate);
+    console.log('End Date: ' + endDate);
+    // Perform any other actions you want here
+     $(this).val(startDate + ' - ' + endDate);
+    
+    // Re-enable autoUpdateInput after date selection
+    $(this).daterangepicker('autoUpdateInput', true);
 });
 
 </script>
