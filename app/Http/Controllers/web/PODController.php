@@ -428,7 +428,7 @@ class PODController extends Controller
 
     public function export(Request $request)
     {
-      //  print_r($request->Input());die();
+       // print_r($request->Input());die();
        
       
        $startdate="";
@@ -442,11 +442,14 @@ class PODController extends Controller
        if(!empty($datetimes))
           {
 
-            $range=preg_split("/[to:]/", $datetimes);
+            $range=preg_split("/[-:]/", $datetimes);
 
         
-            $startdate=$range[0];
-            $enddate=$range[2];
+           $startdate= date('Y-m-d',strtotime($range[0]));
+           $enddate= date('Y-m-d',strtotime($range[1]));
+
+          // print_r($startdate); 
+           //print_r($enddate); die();
             
           }
          
@@ -456,25 +459,29 @@ class PODController extends Controller
 
       
      
-    
+      
     }
 
     public function filter(Request $request){
+     // print_r($request->input()); 
 
        $startdate="";
        $enddate=""; 
        $id=$request->pod_id;
        $api_type=$request->api_type;
+       $range = $request->datetimes;
 
 
 
        if(!empty($request->datetimes))
         {
 
-        $range=preg_split("/[to:]/", $request->datetimes);
+        $ranges=preg_split("/[-:]/", $request->datetimes);
+        
 
-        $startdate=$range[0];
-        $enddate=$range[2];
+        $startdate= date('Y-m-d',strtotime($ranges[0]));
+        $enddate= date('Y-m-d',strtotime($ranges[1]));
+      // print_r($startdate); die();
 
          
         }
@@ -517,7 +524,7 @@ class PODController extends Controller
                   
         } 
 
-        return view('pod/pod_history',compact('pods', 'id' , 'startdate','enddate' , 'api_type'));
+        return view('pod/pod_history',compact('pods', 'id' , 'startdate','enddate' , 'api_type','range'));
         /* return redirect()->route('view_history/{id}')
                         ->withErrors($validator)
                         ->withInput();*/
@@ -529,10 +536,11 @@ class PODController extends Controller
        $startdate="";
        $enddate=""; 
        $api_type=""; 
+       $range = date('Y/m/d').' - '.date('Y/m/d');
 
       $pods=MasterSyncData::where('pod_id',$id)->latest()->paginate(100);
 
-      return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type'));
+      return view('pod/pod_history',compact('pods', 'id', 'startdate','enddate','api_type','range'));
 
     }
 }
